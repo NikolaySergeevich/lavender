@@ -30,7 +30,7 @@
             <a href="#reviews" class="hover:text-brand-black transition-colors">Отзывы</a>
             <a href="#faq" class="hover:text-brand-black transition-colors">FAQ</a>
             <button onclick="openModal()"
-                class="px-6 py-2.5 bg-brand-black text-brand-ivory hover:bg-brand-gold hover:text-brand-black transition-all duration-300 rounded-full font-medium">Обсудить
+                class="filter-btn filter-btn--silver filter-btn--lavender-cta px-6 py-2.5 rounded-full font-medium">Обсудить
                 проект</button>
         </div>
         <button id="mobile-menu-btn" class="md:hidden text-brand-black focus:outline-none">
@@ -51,7 +51,7 @@
         <a href="#reviews" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Отзывы</a>
         <a href="#faq" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">FAQ</a>
         <button onclick="openModal(); closeMobileMenu();"
-            class="mt-4 px-8 py-3 bg-brand-black text-brand-ivory rounded-full font-bold">Обсудить проект</button>
+            class="filter-btn filter-btn--silver filter-btn--lavender-cta mt-4 px-8 py-3 rounded-full font-bold">Обсудить проект</button>
         <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-brand-muted hover:text-brand-black">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -113,7 +113,7 @@
                 <p class="text-brand-muted mt-2 text-sm">Реализованных проектов</p>
             </div>
             <div class="text-center reveal">
-                <p class="font-serif text-4xl md:text-5xl font-bold text-brand-gold" data-count="7">0</p>
+                <p class="font-serif text-4xl md:text-5xl font-bold text-brand-gold" data-count="5">0</p>
                 <p class="text-brand-muted mt-2 text-sm">Лет на рынке</p>
             </div>
             <div class="text-center reveal">
@@ -151,7 +151,7 @@
                 data-filter="exhibition">Выставки</button>
             <button
                 class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
-                data-filter="launch">Запуски продуктов</button>
+                data-filter="birthday">Дни рождения</button>
             <button
                 class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="kids">Детские праздники</button>
@@ -193,41 +193,23 @@
                 </div>
             </div>
 
-            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(2)">
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(2)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/164767430-b022-4bb1-9382-b0faf90fcefa.png"
-                        alt="Терракотовая фотозона" class="w-full h-full object-cover">
-                    <div
-                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
-                        Свадьба</div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div>
-                            <p class="text-white font-serif text-xl font-bold">Терракота и пампас</p>
-                            <p class="text-white/70 text-sm mt-1">8 м² · Бархат, сухоцветы · 1 день</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(3)">
-                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/1b7d67226-5ced-472b-9976-b2ce6e7bb661.png"
-                        alt="Детская фотозона" class="w-full h-full object-cover">
+                    <img src="picture/children-parties/IMG_CH1.webp" alt="Детская фотозона" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Детский праздник</div>
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
-                            <p class="text-white font-serif text-xl font-bold">Радужный день рождения</p>
-                            <p class="text-white/70 text-sm mt-1">6 м² · Шары, инсталляции · 1 день</p>
+                            <p class="text-white font-serif text-xl font-bold">Kids Party</p>
+                            <p class="text-white/70 text-sm mt-1">Детская фотозона, шары и праздничный декор</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="reveal portfolio-item" data-category="exhibition" onclick="openLightbox(4)">
+            <div class="reveal portfolio-item" data-category="exhibition" onclick="openLightbox(3)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
                     <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/15681c6d9-9a9b-48e8-abab-8e311160f9cc.png"
                         alt="Выставочная фотозона" class="w-full h-full object-cover">
@@ -244,7 +226,7 @@
                 </div>
             </div>
 
-            <div class="reveal portfolio-item" data-category="corporate" onclick="openLightbox(5)">
+            <div class="reveal portfolio-item" data-category="corporate" onclick="openLightbox(4)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
                     <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/16b9bc221-ddec-4640-b6b8-ac51c59a9ea8.png"
                         alt="Корпоративная фотозона" class="w-full h-full object-cover">
@@ -261,7 +243,7 @@
                 </div>
             </div>
 
-            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(6)">
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(5)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
                     <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/106f3c4d8-1ab5-4de5-969b-8a34c6ffcdfb.png"
                         alt="Свадебная фотозона LOVE" class="w-full h-full object-cover">
@@ -278,24 +260,71 @@
                 </div>
             </div>
 
-            <div class="reveal portfolio-item" data-category="launch" onclick="openLightbox(7)">
+            <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(6)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/1e8231763-1386-43d9-a2bd-1a363606bb90.png"
-                        alt="Фотозона для запуска продукта" class="w-full h-full object-cover">
+                    <img src="picture/birthday/IMG_HB1.webp" alt="Фотозона для дня рождения" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
-                        Запуск продукта</div>
+                        День рождения</div>
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
-                            <p class="text-white font-serif text-xl font-bold">Кривая золотая стена</p>
-                            <p class="text-white/70 text-sm mt-1">25 м² · Интерактивные панели · 4 дня</p>
+                            <p class="text-white font-serif text-xl font-bold">Happy Birthday</p>
+                            <p class="text-white/70 text-sm mt-1">Праздничная фотозона, стиль и гармония</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(8)">
+            <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(7)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/birthday/IMG_HB2.webp" alt="Фотозона для дня рождения" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        День рождения</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Birthday Glow</p>
+                            <p class="text-white/70 text-sm mt-1">Праздничная фотозона, шары и декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(8)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/birthday/IMG_HB3.webp" alt="Фотозона для дня рождения" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        День рождения</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Birthday Style</p>
+                            <p class="text-white/70 text-sm mt-1">Декор для дня рождения и праздничная зона</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(9)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/birthday/IMG_HB4.webp" alt="Фотозона для дня рождения" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        День рождения</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Birthday Decor</p>
+                            <p class="text-white/70 text-sm mt-1">Фотозона для дня рождения и праздничный декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(10)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
                     <img src="https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/165e0b6bd-4715-4c7e-b9a2-144924a50385.png"
                         alt="Детская фотозона единорог" class="w-full h-full object-cover">
@@ -311,12 +340,76 @@
                     </div>
                 </div>
             </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(11)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/IMG_CH3.webp" alt="Детская фотозона с шарами" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Balloon Party</p>
+                            <p class="text-white/70 text-sm mt-1">Шары, декор, праздничная зона</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(12)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/IMG_CH2.webp" alt="Детская фотозона" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Kids Celebration</p>
+                            <p class="text-white/70 text-sm mt-1">Детская фотозона, шары и праздничный декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(13)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/IMG_W1.webp" alt="Свадебная фотозона" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Wedding Decor</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, цветы и декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(14)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/IMG_W2.webp" alt="Свадебная фотозона" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Wedding Bloom</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, цветы и декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- PDF Download -->
         <div class="text-center mt-16 reveal">
             <button onclick="showDownloadModal()"
-                class="inline-flex items-center gap-3 px-8 py-4 border-2 border-brand-black/10 hover:border-brand-gold hover:bg-brand-gold/5 rounded-full transition-all duration-300 font-medium text-brand-graphite">
+                class="filter-btn filter-btn--silver inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
@@ -494,7 +587,7 @@
                         </svg>Демонтаж включён</li>
                 </ul>
                 <button onclick="openModal('Essential')"
-                    class="w-full py-3 border-2 border-brand-black/20 rounded-full hover:bg-brand-black hover:text-brand-ivory transition-all duration-300 font-medium">Подобрать
+                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Подобрать
                     решение</button>
             </div>
 
@@ -544,7 +637,7 @@
                         </svg>Персональный менеджер</li>
                 </ul>
                 <button onclick="openModal('Signature')"
-                    class="w-full py-3 bg-brand-gold text-brand-black rounded-full hover:bg-brand-goldLight transition-all duration-300 font-bold">Подобрать
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-3 rounded-full font-bold">Подобрать
                     решение</button>
             </div>
 
@@ -590,7 +683,7 @@
                         </svg>Работа в 14 городах</li>
                 </ul>
                 <button onclick="openModal('Bespoke')"
-                    class="w-full py-3 border-2 border-brand-black/20 rounded-full hover:bg-brand-black hover:text-brand-ivory transition-all duration-300 font-medium">Подобрать
+                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Подобрать
                     решение</button>
             </div>
         </div>
@@ -922,7 +1015,7 @@
                         <a href="viber://chat?number=+375291357999"
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
                             <div
-                                class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white">
+                                class="viber-icon-shell w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center text-white">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                                     <path
                                         d="M11.467 0C7.036 0 2.755 1.018 1.206 1.618c-.633.245-1.032.867-.86 1.523l.754 2.887c.117.447.516.745.97.697 1.112-.118 2.615-.118 2.615-.118s.123 2.137-1.37 4.272c0 0-.266.352.085.599.29.206.683.183.95-.084l.073-.075s.566-.576.787-.755c.22-.178.433-.12.433-.12.45 1.425 2.616 3.673 4.087 4.937.027.023.053.047.078.07.137.125.196.295.12.516-.16.465-.576.86-.96 1.243-.086.085-.132.192-.09.326.125.403.456 1.478.773 2.485.103.327.422.528.765.483 1.175-.153 2.26-.415 3.38-.907.412-.182.56-.708.323-1.088-.236-.38-.655-.64-1.02-.67-.027-.002-.054-.002-.08-.001-1.19-.047-2.436-.458-3.68-1.197-.067-.04-.108-.095-.142-.163-.034-.068-.052-.143-.045-.217l.01-.1c.05-.1.12-.18.198-.247.754-.644 1.685-1.464 2.39-2.29.025-.029.048-.058.068-.088.278-.41.344-.953.118-1.428-.227-.475-.668-.775-1.177-.807-.21-.013-.42.017-.606.117-1.076.58-2.29 1.437-3.38 2.39-.028.025-.055.05-.08.076-.228.232-.35.54-.31.855.038.293.21.546.45.71.46.314 1.07.756 1.62 1.183.04.03.077.063.11.098.156.163.22.397.16.613-.06.215-.234.375-.448.43-.06.015-.123.023-.184.023-.237 0-.466-.095-.64-.26-.05-.047-.096-.097-.137-.149-.634-.804-1.228-1.686-1.73-2.61-.023-.042-.044-.085-.064-.128-.12-.26-.114-.564.016-.82.02-.04.04-.08.06-.119.227-.445.415-.896.57-1.36.034-.102.084-.196.15-.277.066-.08.147-.145.237-.187.09-.043.187-.065.285-.065.232 0 .45.104.59.29.06.08.105.17.133.265.135.45.315.88.535 1.29.03.055.06.11.088.166.16.318.172.687.034 1.015-.02.048-.043.095-.066.14-.17.34-.38.66-.62.95-.03.036-.058.073-.085.11-.245.34-.35.76-.28 1.175.008.05.018.1.028.148.12.56.34 1.09.64 1.57.03.048.06.096.088.144.26.43.59.81.98 1.12.05.04.1.08.148.12.26.21.56.37.88.46.05.014.1.028.148.042.45.12.92.17 1.39.15.06-.003.118-.007.176-.012.38-.03.75-.11 1.1-.24.05-.019.1-.038.148-.058.34-.14.65-.33.92-.57.04-.035.078-.07.114-.106.38-.38.66-.82.84-1.3.02-.054.038-.11.054-.166.09-.32.13-.66.12-1 0-.05-.003-.1-.006-.15-.02-.38-.09-.75-.21-1.1-.016-.048-.034-.095-.052-.142-.18-.47-.44-.9-.78-1.27-.035-.038-.068-.077-.1-.116-.26-.32-.58-.59-.94-.8-.044-.025-.088-.05-.13-.077-.34-.22-.72-.38-1.12-.47-.046-.01-.093-.02-.138-.03-.53-.12-1.08-.15-1.63-.1-.05.004-.1.008-.15.014-.42.05-.82.16-1.19.33-.04.019-.079.038-.118.058-.32.16-.61.37-.86.62-.034.035-.067.07-.098.105-.33.37-.58.8-.74 1.27-.016.048-.03.096-.044.143-.09.32-.13.65-.12.98.002.05.005.1.008.15.02.42.1.83.24 1.22.014.04.028.08.043.12.16.43.39.83.68 1.19.03.036.06.072.09.108.28.34.62.63 1.01.86.04.024.08.048.12.072.38.22.8.38 1.24.48.05.012.1.023.148.034.5.12 1.02.17 1.54.15.06-.002.118-.006.176-.01.34-.025.67-.09.98-.2.045-.016.09-.033.134-.05.28-.11.54-.26.78-.44.038-.03.074-.06.11-.092.33-.29.6-.63.81-1.01.02-.036.04-.073.058-.11.17-.35.29-.73.36-1.13.01-.06.018-.12.024-.18.05-.4.04-.81-.03-1.22-.01-.06-.022-.12-.034-.178-.07-.35-.2-.68-.37-.98-.022-.04-.045-.08-.067-.12-.18-.32-.42-.6-.71-.83-.03-.024-.06-.048-.088-.074-.26-.23-.56-.42-.89-.56-.042-.018-.084-.036-.124-.055-.33-.16-.69-.26-1.07-.31-.046-.007-.092-.013-.136-.02-.38-.06-.77-.07-1.15-.04-.05.004-.1.008-.148.013-.4.04-.78.14-1.14.29-.044.018-.088.037-.13.056-.32.14-.61.33-.87.55-.034.03-.068.06-.1.09-.3.3-.55.64-.74 1.02-.02.04-.04.08-.06.118-.16.32-.27.67-.33 1.03-.012.068-.022.136-.03.203-.03.32-.01.65.06.97.01.05.022.1.034.148.09.34.24.66.44.95.028.04.058.08.087.12.22.3.48.56.78.77.036.025.073.05.108.076.28.2.59.36.92.47.04.014.08.027.12.04.32.12.66.18 1.01.19.05.002.1.003.148.005.42.02.84-.02 1.25-.12.05-.012.098-.024.146-.037.4-.1.77-.25 1.11-.45.042-.025.084-.05.124-.076.32-.2.6-.45.85-.73.034-.04.068-.08.1-.12.28-.32.5-.68.67-1.06.02-.045.038-.09.056-.135.16-.38.26-.78.31-1.19.008-.07.016-.14.022-.21.02-.36-.02-.73-.12-1.08-.014-.05-.028-.1-.043-.148-.12-.38-.31-.73-.56-1.04-.028-.036-.056-.072-.083-.108-.2-.27-.45-.5-.73-.69-.034-.023-.068-.046-.101-.07-.25-.18-.53-.32-.83-.43-.042-.016-.084-.03-.124-.046-.32-.12-.66-.18-1.01-.2-.05-.003-.1-.006-.148-.008-.34-.02-.68.02-1.01.1-.048.012-.096.024-.144.038-.38.1-.73.26-1.05.47-.042.028-.084.056-.124.084-.3.22-.56.48-.77.78-.03.042-.06.084-.088.126-.24.34-.42.72-.54 1.12-.014.046-.026.092-.038.138-.08.32-.1.66-.07 1 .004.05.008.1.013.148.04.36.14.7.3 1.01.018.036.036.072.054.108.16.32.38.6.64.84.032.03.064.06.096.09.24.24.52.43.83.57.038.017.076.034.114.05.32.14.66.22 1.01.24.05.003.1.006.148.008.42.02.84-.02 1.25-.12.05-.012.098-.024.146-.037.4-.1.77-.25 1.11-.45.042-.025.084-.05.124-.076.32-.2.6-.45.85-.73.034-.04.068-.08.1-.12.28-.32.5-.68.67-1.06.02-.045.038-.09.056-.135.16-.38.26-.78.31-1.19.008-.07.016-.14.022-.21.02-.36-.02-.73-.12-1.08-.014-.05-.028-.1-.043-.148-.12-.38-.31-.73-.56-1.04-.028-.036-.056-.072-.083-.108-.2-.27-.45-.5-.73-.69-.034-.023-.068-.046-.101-.07-.25-.18-.53-.32-.83-.43-.042-.016-.084-.03-.124-.046-.32-.12-.66-.18-1.01-.2-.05-.003-.1-.006-.148-.008z">
@@ -1001,7 +1094,7 @@
                                 предложений</span>
                         </label>
                         <button type="submit"
-                            class="w-full py-4 bg-brand-black text-brand-ivory font-bold rounded-xl hover:bg-brand-gold hover:text-brand-black transition-all duration-300">Отправить
+                            class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Отправить
                             → Перейти в мессенджер</button>
                     </form>
                     <div id="contact-success" class="hidden text-center py-8">
@@ -1130,7 +1223,7 @@
                     <p class="text-brand-text/80 leading-relaxed mb-8">Подберём похожую концепцию под вашу площадку,
                         бренд и бюджет. Подготовим визуализацию, смету и сроки после короткого брифа.</p>
                     <button onclick="openModal('Проект из портфолио')"
-                        class="w-full py-4 bg-brand-gold text-brand-black font-bold rounded-xl hover:bg-brand-goldLight transition-all">Хочу
+                        class="filter-btn filter-btn--silver filter-btn--lavender-cta filter-btn--no-shine px-6 py-2 rounded-full text-sm font-bold">Хочу
                         похожую фотозону</button>
                 </div>
             </div>
@@ -1173,7 +1266,7 @@
                 <textarea name="comment" rows="3" placeholder="Пожелания, бюджет..."
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-none"></textarea>
                 <button type="submit"
-                    class="w-full py-4 bg-brand-black text-brand-ivory font-bold rounded-xl hover:bg-brand-gold hover:text-brand-black transition-all duration-300">Отправить
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Отправить
                     заявку</button>
             </form>
             <div id="modal-success" class="hidden text-center py-8">
@@ -1310,7 +1403,7 @@
                             class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                     </div>
                     <button type="submit"
-                        class="w-full py-4 bg-brand-black text-brand-ivory font-bold rounded-xl hover:bg-brand-gold hover:text-brand-black transition-all duration-300 mt-4">Получить
+                        class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl mt-4">Получить
                         точный расчёт</button>
                     <p class="text-xs text-brand-muted text-center mt-2">Отправим персональное предложение в мессенджер
                         за 15 минут</p>
@@ -1318,9 +1411,9 @@
 
                 <div class="flex justify-between mt-8">
                     <button type="button" onclick="quizPrev()" id="quiz-prev-btn"
-                        class="px-6 py-2 border border-brand-black/20 rounded-full hover:bg-brand-black/5 transition-colors text-sm font-medium">Назад</button>
+                        class="filter-btn filter-btn--silver filter-btn--no-shine px-6 py-2 rounded-full text-sm font-medium">Назад</button>
                     <button type="button" onclick="quizNext()" id="quiz-next-btn"
-                        class="px-6 py-2 bg-brand-black text-brand-ivory rounded-full hover:bg-brand-gold hover:text-brand-black transition-all text-sm font-bold">Далее</button>
+                        class="filter-btn filter-btn--silver filter-btn--lavender-cta filter-btn--no-shine px-6 py-2 rounded-full text-sm font-bold">Далее</button>
                 </div>
             </form>
         </div>
@@ -1354,7 +1447,7 @@
                 <input name="phone" type="tel" required placeholder="Телефон или Telegram"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <button type="submit"
-                    class="w-full py-4 bg-brand-gold text-brand-black font-bold rounded-xl hover:bg-brand-goldLight transition-all">Получить
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
                     чек-лист</button>
             </form>
         </div>

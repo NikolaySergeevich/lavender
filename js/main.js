@@ -51,22 +51,24 @@
         if (statsSection) counterObserver.observe(statsSection);
 
         // Portfolio filters
-        const filterBtns = document.querySelectorAll('.filter-btn');
+        const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
+        const homePortfolioLimit = 9;
+        function applyPortfolioFilter(filter) {
+            portfolioItems.forEach((item, index) => {
+                const isHomeVisible = filter === 'all' && index < homePortfolioLimit;
+                const isCategoryVisible = filter !== 'all' && item.dataset.category === filter;
+                item.style.display = isHomeVisible || isCategoryVisible ? 'block' : 'none';
+            });
+        }
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.dataset.category === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
+                applyPortfolioFilter(btn.dataset.filter);
             });
         });
+        applyPortfolioFilter('all');
 
         // FAQ
         function toggleFaq(item) {
@@ -324,7 +326,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const portfolioSection = document.getElementById('portfolio');
             const quizBtn = document.createElement('button');
-            quizBtn.className = 'inline-flex items-center gap-3 px-8 py-4 bg-brand-gold text-brand-black font-bold rounded-full hover:bg-brand-goldLight transition-all duration-300 shadow-lg shadow-brand-gold/20 mt-6 reveal';
+            quizBtn.className = 'filter-btn filter-btn--silver filter-btn--lavender-cta inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold mt-6 reveal';
             quizBtn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> Рассчитать стоимость за 4 шага`;
             quizBtn.onclick = openQuiz;
             portfolioSection.querySelector('.text-center.mt-16').prepend(quizBtn);
