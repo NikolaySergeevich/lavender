@@ -20,7 +20,7 @@
         .hero-parallax { background-attachment: fixed; background-position: center; background-size: cover; }
         .hero-premium { background: #08090D; color: #F4F5F7; }
         .hero-premium__image {
-            background-image: url('https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/15b0a352b-c925-408c-890a-12b4953d8c30.png');
+            background-image: url('https://image.qwenlm.ai/public_source/f52fee29-9ae0-4fed-b3b8-59b420a59646/16f25dcea-7b51-4206-a112-93dd71bf099c.png');
             background-position: 62% center;
             background-size: cover;
             filter: saturate(0.78) contrast(1.08) brightness(0.74);
@@ -77,7 +77,7 @@
         }
         .hero-btn:hover { transform: translateY(-2px); }
         .hero-btn--primary { background: #C9CED6; color: #08090D; }
-        .hero-btn--primary:hover { background: #301B28; color: #F4F5F7; }
+        .hero-btn--primary:hover { background: #C9CED6; color: #08090D; }
         .hero-btn--ghost { border: 1px solid rgba(244, 245, 247, 0.45); color: #F4F5F7; }
         .hero-btn--ghost:hover { border-color: #C9CED6; color: #C9CED6; }
         .hero-proof { color: rgba(244, 245, 247, 0.7); }
@@ -156,6 +156,63 @@
             opacity: 1;
             transform: translateX(55%);
         }
+        .filter-btn--no-shine:hover::before {
+            opacity: 0;
+            transform: translateX(-55%);
+        }
+        .filter-btn--silver.active:not(.filter-btn--lavender-cta) {
+            color: #08090D;
+            border-color: rgba(185,167,216,0.62);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08)),
+                rgba(185,167,216,0.46);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.72),
+                inset 0 -1px 0 rgba(8,9,13,0.08),
+                0 10px 18px rgba(8,9,13,0.08),
+                0 0 14px rgba(185,167,216,0.18);
+        }
+        .filter-btn--silver.active:not(.filter-btn--lavender-cta)::before {
+            background: linear-gradient(115deg, transparent 0%, rgba(201,206,214,0.34) 42%, rgba(244,245,247,0.82) 50%, transparent 68%);
+        }
+        .filter-btn--silver.active:not(.filter-btn--lavender-cta):hover {
+            border-color: rgba(185,167,216,0.95);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08)),
+                rgba(185,167,216,0.76);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.84),
+                inset 0 -1px 0 rgba(8,9,13,0.1),
+                0 14px 24px rgba(8,9,13,0.12),
+                0 0 22px rgba(201,206,214,0.42);
+        }
+        .filter-btn--lavender-cta,
+        .filter-btn--lavender-cta.active {
+            color: #08090D;
+            border-color: rgba(185,167,216,0.62);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08)),
+                #D9D1E8;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.72),
+                inset 0 -1px 0 rgba(8,9,13,0.08),
+                0 10px 18px rgba(8,9,13,0.08),
+                0 0 14px rgba(185,167,216,0.18);
+        }
+        .filter-btn--lavender-cta::before {
+            background: linear-gradient(115deg, transparent 0%, rgba(201,206,214,0.34) 42%, rgba(244,245,247,0.82) 50%, transparent 68%);
+        }
+        .filter-btn--lavender-cta:hover {
+            border-color: rgba(185,167,216,0.95);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.34), rgba(255,255,255,0.08)),
+                #B9A7D8;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.84),
+                inset 0 -1px 0 rgba(8,9,13,0.1),
+                0 14px 24px rgba(8,9,13,0.12),
+                0 0 22px rgba(201,206,214,0.42);
+        }
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0; }
         .faq-answer.open { max-height: 300px; opacity: 1; }
         .faq-arrow { transition: transform 0.3s ease; }
@@ -169,6 +226,15 @@
         .scroll-indicator { animation: bounce 2s ease-in-out infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
         .gradient-text { background: linear-gradient(135deg, #C9CED6, #301B28); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .viber-icon-shell svg { display: none; }
+        .viber-icon-shell::before {
+            content: '';
+            width: 26px;
+            height: 26px;
+            background: currentColor;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C6.48 2 2 5.93 2 10.78c0 2.75 1.45 5.2 3.72 6.81L5 22l4.23-2.16c.88.2 1.8.31 2.77.31 5.52 0 10-3.93 10-8.78S17.52 2 12 2Zm5.3 13.05c-.31.88-1.8 1.69-2.51 1.78-.67.08-1.51.12-4.38-1.07-3.67-1.52-5.98-5.24-6.16-5.48-.18-.24-1.47-1.96-1.47-3.74 0-1.78.93-2.66 1.26-3.02.33-.36.72-.45.96-.45h.69c.22.01.52-.08.82.63.31.74 1.04 2.55 1.13 2.74.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.37.38-.16.74.21.36.94 1.55 2.02 2.51 1.39 1.24 2.56 1.62 2.92 1.8.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.41.24-.36.48-.3.81-.18.33.12 2.1.99 2.46 1.17.36.18.6.27.69.42.09.15.09.87-.15 1.56Z'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C6.48 2 2 5.93 2 10.78c0 2.75 1.45 5.2 3.72 6.81L5 22l4.23-2.16c.88.2 1.8.31 2.77.31 5.52 0 10-3.93 10-8.78S17.52 2 12 2Zm5.3 13.05c-.31.88-1.8 1.69-2.51 1.78-.67.08-1.51.12-4.38-1.07-3.67-1.52-5.98-5.24-6.16-5.48-.18-.24-1.47-1.96-1.47-3.74 0-1.78.93-2.66 1.26-3.02.33-.36.72-.45.96-.45h.69c.22.01.52-.08.82.63.31.74 1.04 2.55 1.13 2.74.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.37.38-.16.74.21.36.94 1.55 2.02 2.51 1.39 1.24 2.56 1.62 2.92 1.8.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.41.24-.36.48-.3.81-.18.33.12 2.1.99 2.46 1.17.36.18.6.27.69.42.09.15.09.87-.15 1.56Z'/%3E%3C/svg%3E") center / contain no-repeat;
+        }
         .chat-bubble { position: fixed; bottom: 90px; right: 20px; z-index: 45; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); cursor: pointer; animation: pulse 2s infinite; }
         .chat-bubble::before { content: ''; position: absolute; width: 12px; height: 12px; background: #25D366; border-radius: 50%; top: -4px; right: -4px; }
 
