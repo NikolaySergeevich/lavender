@@ -226,6 +226,25 @@
         .scroll-indicator { animation: bounce 2s ease-in-out infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
         .gradient-text { background: linear-gradient(135deg, #C9CED6, #301B28); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .event-select {
+            padding-right: 2.75rem;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%2308090D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.1rem;
+        }
+        .event-select.is-selected {
+            color: #08090D;
+            font-weight: 500;
+        }
+        .event-date.is-selected {
+            color: #08090D;
+            font-weight: 500;
+        }
+        .event-select option {
+            color: #08090D;
+            font-weight: 400;
+        }
         .viber-icon-shell svg { display: none; }
         .viber-icon-shell::before {
             content: '';
