@@ -312,6 +312,36 @@
             });
         });
 
+        // Event type selects
+        const eventSelects = document.querySelectorAll('.event-select');
+        function updateEventSelectState(select) {
+            select.classList.toggle('is-selected', select.selectedIndex > 0);
+        }
+        eventSelects.forEach(select => {
+            updateEventSelectState(select);
+            select.addEventListener('change', () => updateEventSelectState(select));
+            select.form?.addEventListener('reset', () => setTimeout(() => updateEventSelectState(select), 0));
+        });
+
+        // Event date fields
+        const eventDateFields = document.querySelectorAll('.event-date');
+        const today = new Date();
+        const todayValue = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+        function updateEventDateState(field) {
+            field.min = todayValue;
+            if (field.value && field.value < todayValue) {
+                field.value = '';
+                localStorage.removeItem(`contact-form-${field.name || field.type}`);
+            }
+            field.classList.toggle('is-selected', Boolean(field.value));
+        }
+        eventDateFields.forEach(field => {
+            updateEventDateState(field);
+            field.addEventListener('input', () => updateEventDateState(field));
+            field.addEventListener('change', () => updateEventDateState(field));
+            field.form?.addEventListener('reset', () => setTimeout(() => updateEventDateState(field), 0));
+        });
+
         const sentStatus = new URLSearchParams(window.location.search).get('sent');
         if (sentStatus === '1') {
             alert('Заявка отправлена! Мы свяжемся с вами в течение 15 минут.');
