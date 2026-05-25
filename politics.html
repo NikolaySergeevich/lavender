@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности | LAVDRAGON</title>
+    <meta name="description" content="Политика конфиденциальности сайта LAVDRAGON: обработка персональных данных, cookie, права пользователя и контакты.">
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.1/index.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.1.1/index.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --black: #08090D;
+            --graphite: #2D2D2D;
+            --muted: #6F7178;
+            --ivory: #F4F5F7;
+            --silver: #C9CED6;
+            --lavender: #D9D1E8;
+            --line: rgba(8, 9, 13, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--ivory);
+            color: var(--graphite);
+            font-family: Inter, Arial, sans-serif;
+            line-height: 1.65;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .topbar {
+            border-bottom: 1px solid var(--line);
+            background: rgba(244, 245, 247, 0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        .topbar__inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 28px;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 18px;
+            border: 1px solid rgba(201, 206, 214, 0.95);
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--black);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08)), var(--lavender);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 10px 18px rgba(8, 9, 13, 0.08);
+        }
+
+        .hero {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 64px 24px 34px;
+        }
+
+        .kicker {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 860px;
+            margin: 0;
+            color: var(--black);
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(38px, 6vw, 76px);
+            line-height: 0.98;
+        }
+
+        .lead {
+            max-width: 760px;
+            margin: 24px 0 0;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        .layout {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 32px;
+            align-items: start;
+        }
+
+        .toc {
+            position: sticky;
+            top: 24px;
+            padding: 22px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.58);
+        }
+
+        .toc h2 {
+            margin: 0 0 14px;
+            color: var(--black);
+            font-size: 15px;
+        }
+
+        .toc a {
+            display: block;
+            padding: 9px 0;
+            color: var(--muted);
+            font-size: 14px;
+            text-decoration: none;
+            border-top: 1px solid rgba(8, 9, 13, 0.06);
+        }
+
+        .toc a:hover {
+            color: var(--black);
+        }
+
+        .document {
+            padding: 34px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: #fff;
+        }
+
+        section {
+            padding: 28px 0;
+            border-top: 1px solid rgba(8, 9, 13, 0.08);
+        }
+
+        section:first-child {
+            padding-top: 0;
+            border-top: 0;
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            color: var(--black);
+            font-size: 24px;
+            line-height: 1.25;
+        }
+
+        p {
+            margin: 0 0 14px;
+            color: var(--graphite);
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--graphite);
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .note {
+            padding: 18px 20px;
+            border: 1px solid rgba(185, 167, 216, 0.5);
+            border-radius: 14px;
+            background: rgba(217, 209, 232, 0.38);
+            color: var(--black);
+        }
+
+        .contacts {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .contact-card {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: var(--ivory);
+        }
+
+        .contact-card strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--black);
+        }
+
+        .footer {
+            max-width: 1180px;
+            margin: 34px auto 0;
+            padding: 28px 24px 44px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .topbar__inner,
+            .hero,
+            .layout,
+            .footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: static;
+            }
+
+            .document {
+                padding: 22px;
+            }
+
+            .contacts {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="topbar__inner">
+            <a class="brand" href="index.html">LAVDRAGON</a>
+            <a class="back-link" href="index.html">Вернуться на сайт</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <p class="kicker">Персональные данные</p>
+            <h1>Политика конфиденциальности</h1>
+            <p class="lead">Этот документ объясняет, какие данные мы собираем через сайт LAVDRAGON, зачем они нужны и как пользователь может управлять своими данными.</p>
+        </div>
+
+        <div class="layout">
+            <nav class="toc" aria-label="Навигация по политике">
+                <h2>Разделы</h2>
+                <a href="#general">1. Общие положения</a>
+                <a href="#data">2. Какие данные собираем</a>
+                <a href="#purpose">3. Цели обработки</a>
+                <a href="#storage">4. Хранение и защита</a>
+                <a href="#cookies">5. Cookie</a>
+                <a href="#rights">6. Права пользователя</a>
+                <a href="#contacts">7. Контакты</a>
+            </nav>
+
+            <article class="document">
+                <section id="general">
+                    <h2>1. Общие положения</h2>
+                    <p>Настоящая Политика конфиденциальности действует в отношении информации, которую пользователь передает на сайте LAVDRAGON при заполнении форм, отправке заявки, обращении через мессенджеры или использовании иных интерактивных элементов сайта.</p>
+                    <p>Используя сайт и отправляя формы, пользователь подтверждает, что ознакомился с этой Политикой и согласен с обработкой данных в описанных ниже целях.</p>
+                </section>
+
+                <section id="data">
+                    <h2>2. Какие данные собираем</h2>
+                    <p>Мы можем получать следующие данные:</p>
+                    <ul>
+                        <li>имя пользователя;</li>
+                        <li>номер телефона или контакт в мессенджере;</li>
+                        <li>тип мероприятия, дату мероприятия и комментарий к заявке;</li>
+                        <li>данные, которые пользователь самостоятельно указывает в формах сайта;</li>
+                        <li>технические сведения о посещении сайта, включая cookie и обезличенную статистику.</li>
+                    </ul>
+                </section>
+
+                <section id="purpose">
+                    <h2>3. Цели обработки данных</h2>
+                    <p>Данные используются для обработки заявок, подготовки предложения по фотозоне, связи с пользователем, согласования деталей проекта и улучшения качества сайта.</p>
+                    <p>Мы не используем переданные данные для целей, не связанных с коммуникацией по заявке или оказанием услуг LAVDRAGON.</p>
+                </section>
+
+                <section id="storage">
+                    <h2>4. Хранение и защита данных</h2>
+                    <p>Мы принимаем разумные организационные и технические меры, чтобы защитить персональные данные от несанкционированного доступа, изменения, раскрытия или уничтожения.</p>
+                    <p>Доступ к данным предоставляется только тем лицам, которым такая информация необходима для обработки обращения пользователя и подготовки ответа.</p>
+                    <div class="note">Мы не продаем персональные данные пользователей третьим лицам.</div>
+                </section>
+
+                <section id="cookies">
+                    <h2>5. Использование cookie</h2>
+                    <p>Сайт может использовать cookie для корректной работы отдельных функций, сохранения пользовательских настроек и сбора обезличенной статистики посещений.</p>
+                    <p>Пользователь может отключить cookie в настройках браузера. В этом случае некоторые элементы сайта могут работать ограниченно.</p>
+                </section>
+
+                <section id="rights">
+                    <h2>6. Права пользователя</h2>
+                    <p>Пользователь может запросить уточнение, обновление или удаление своих персональных данных, а также отозвать согласие на их обработку, направив обращение по контактам, указанным ниже.</p>
+                    <p>Мы можем обновлять эту Политику. Актуальная версия всегда доступна на этой странице.</p>
+                </section>
+
+                <section id="contacts">
+                    <h2>7. Контакты</h2>
+                    <div class="contacts">
+                        <div class="contact-card">
+                            <strong>Телефон</strong>
+                            <span>+375 (29) 135-79-99</span>
+                        </div>
+                        <div class="contact-card">
+                            <strong>Email</strong>
+                            <span>lavEnderDragon@mail.ry</span>
+                        </div>
+                        <div class="contact-card">
+                            <strong>Адрес</strong>
+                            <span>Минск, ул. Захарова, 32</span>
+                        </div>
+                        <div class="contact-card">
+                            <strong>Время работы</strong>
+                            <span>Пн-Вс 10:00-20:00</span>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <span>&copy; 2026 LAVDRAGON Studio. Все права защищены.</span>
+        <a href="index.html">На главную</a>
+    </footer>
+</body>
+
+</html>
