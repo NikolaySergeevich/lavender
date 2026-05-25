@@ -79,7 +79,7 @@ if (empty($lines) || !$token || !$chat_id) {
     exit;
 }
 
-$text = "Новая заявка с сайта LUMIERE\n\n" . implode("\n", $lines);
+$text = "Новая заявка с сайта LADRAGON\n\n" . implode("\n", $lines);
 $url = "https://api.telegram.org/bot{$token}/sendMessage";
 $payload = array(
     'chat_id' => $chat_id,
