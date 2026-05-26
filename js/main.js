@@ -13,8 +13,21 @@
         // Mobile menu
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileBtn = document.getElementById('mobile-menu-btn');
-        function closeMobileMenu() { mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex'); }
-        mobileBtn.addEventListener('click', () => { mobileMenu.classList.remove('hidden'); mobileMenu.classList.add('flex'); });
+        function openMobileMenu() {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            mobileBtn.setAttribute('aria-expanded', 'true');
+        }
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.classList.remove('flex');
+            mobileBtn.setAttribute('aria-expanded', 'false');
+        }
+        function toggleMobileMenu() {
+            if (mobileMenu.classList.contains('hidden')) openMobileMenu();
+            else closeMobileMenu();
+        }
+        mobileBtn.addEventListener('click', toggleMobileMenu);
 
         // Reveal animations
         const observer = new IntersectionObserver((entries) => {
