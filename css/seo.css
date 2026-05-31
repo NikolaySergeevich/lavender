@@ -1,0 +1,61 @@
+body {
+    background: #F4F5F7;
+}
+
+.seo-nav {
+    background: rgba(244, 245, 247, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(8, 9, 13, 0.08);
+}
+
+.seo-hero {
+    padding-top: 9rem;
+    padding-bottom: 4rem;
+}
+
+.seo-section {
+    padding: 4.5rem 1.5rem;
+}
+
+.seo-prose p {
+    margin-top: 1rem;
+    color: #4B4B4B;
+    line-height: 1.8;
+}
+
+.seo-prose h2,
+.seo-prose h3 {
+    color: #08090D;
+}
+
+.seo-card {
+    border: 1px solid rgba(8, 9, 13, 0.08);
+    background: rgba(255, 255, 255, 0.74);
+    border-radius: 8px;
+}
+
+.seo-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.seo-table th,
+.seo-table td {
+    border-bottom: 1px solid rgba(8, 9, 13, 0.08);
+    padding: 1rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.seo-table th {
+    color: #08090D;
+    font-weight: 800;
+}
+
+.seo-gallery img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px;
+}

@@ -280,7 +280,9 @@
             const title = item.querySelector('.font-serif')?.textContent.trim() || 'Проект LAVDRAGON';
             const meta = item.querySelector('.text-white\\/70')?.textContent.trim() || '';
             const category = item.querySelector('.absolute.top-4')?.textContent.trim() || '';
-            return { image: image.src, alt: image.alt, title, meta, category };
+            const fit = item.dataset.lightboxFit || 'cover';
+            const position = item.dataset.lightboxPosition || 'center center';
+            return { image: image.src, alt: image.alt, title, meta, category, fit, position };
         });
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         let lightboxIndex = 0;
@@ -304,8 +306,11 @@
         }
         function renderLightbox() {
             const project = portfolioProjects[lightboxIndex];
-            document.getElementById('lightbox-image').src = project.image;
-            document.getElementById('lightbox-image').alt = project.alt;
+            const lightboxImage = document.getElementById('lightbox-image');
+            lightboxImage.src = project.image;
+            lightboxImage.alt = project.alt;
+            lightboxImage.style.objectFit = project.fit;
+            lightboxImage.style.objectPosition = project.position;
             document.getElementById('lightbox-title').textContent = project.title;
             document.getElementById('lightbox-meta').textContent = project.meta;
             document.getElementById('lightbox-category').textContent = project.category;
