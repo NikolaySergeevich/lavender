@@ -16,11 +16,13 @@
         function openMobileMenu() {
             mobileMenu.classList.remove('hidden');
             mobileMenu.classList.add('flex');
+            navbar.classList.add('mobile-menu-open');
             mobileBtn.setAttribute('aria-expanded', 'true');
         }
         function closeMobileMenu() {
             mobileMenu.classList.add('hidden');
             mobileMenu.classList.remove('flex');
+            navbar.classList.remove('mobile-menu-open');
             mobileBtn.setAttribute('aria-expanded', 'false');
         }
         function toggleMobileMenu() {
@@ -114,6 +116,25 @@
         const modalSuccess = document.getElementById('modal-success');
         const modalForm = document.getElementById('modal-form');
         const modalSource = document.getElementById('modal-source');
+        const today = new Date();
+        const todayValue = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
+        function validateEventDate(form) {
+            const dateField = form.querySelector('.event-date');
+            if (!dateField) return true;
+
+            dateField.setAttribute('min', todayValue);
+            if (dateField.value && dateField.value < todayValue) {
+                dateField.value = '';
+                dateField.classList.remove('is-selected');
+                dateField.setCustomValidity('Выберите сегодняшнюю или будущую дату');
+                dateField.reportValidity();
+                return false;
+            }
+
+            dateField.setCustomValidity('');
+            return true;
+        }
 
         function openModal(packageName) {
             if (typeof closeLightbox === 'function') closeLightbox(false);
@@ -137,6 +158,7 @@
         }
         function handleModalSubmit(e) {
             e.preventDefault();
+            if (!validateEventDate(e.target)) return;
             const btn = e.target.querySelector('button');
             btn.textContent = 'Отправка...';
             btn.disabled = true;
@@ -154,6 +176,7 @@
         const contactForm = document.getElementById('contact-form');
         function handleContactForm(e) {
             e.preventDefault();
+            if (!validateEventDate(e.target)) return;
             const btn = e.target.querySelector('button');
             btn.textContent = 'Отправка...';
             btn.disabled = true;
@@ -338,21 +361,138 @@
 
         // Event date fields
         const eventDateFields = document.querySelectorAll('.event-date');
-        const today = new Date();
-        const todayValue = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+        const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        const weekdayNames = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+        const eventCalendar = document.createElement('div');
+        let activeDateField = null;
+        let activeCalendarMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+        eventCalendar.className = 'event-calendar hidden';
+        eventCalendar.setAttribute('role', 'dialog');
+        eventCalendar.setAttribute('aria-label', 'Выбор даты мероприятия');
+        document.body.appendChild(eventCalendar);
+
+        function formatDateValue(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function parseDateValue(value) {
+            const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+            if (!match) return null;
+            return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+        }
+
+        function closeEventCalendar() {
+            eventCalendar.classList.add('hidden');
+            if (activeDateField) activeDateField.setAttribute('aria-expanded', 'false');
+            activeDateField = null;
+        }
+
+        function positionEventCalendar(field) {
+            const rect = field.getBoundingClientRect();
+            const width = Math.min(340, window.innerWidth - 24);
+            const left = Math.min(Math.max(12, rect.left), window.innerWidth - width - 12);
+            const top = rect.bottom + 8;
+            eventCalendar.style.left = `${left}px`;
+            eventCalendar.style.top = `${top}px`;
+        }
+
+        function renderEventCalendar() {
+            if (!activeDateField) return;
+
+            const year = activeCalendarMonth.getFullYear();
+            const month = activeCalendarMonth.getMonth();
+            const firstDayOffset = (new Date(year, month, 1).getDay() + 6) % 7;
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            eventCalendar.innerHTML = `
+                <div class="event-calendar__header">
+                    <button type="button" class="event-calendar__nav" data-calendar-prev aria-label="Предыдущий месяц">‹</button>
+                    <span>${monthNames[month]} ${year}</span>
+                    <button type="button" class="event-calendar__nav" data-calendar-next aria-label="Следующий месяц">›</button>
+                </div>
+                <div class="event-calendar__grid">
+                    ${weekdayNames.map(day => `<div class="event-calendar__weekday">${day}</div>`).join('')}
+                    ${Array.from({ length: firstDayOffset }, () => '<div></div>').join('')}
+                    ${Array.from({ length: daysInMonth }, (_, index) => {
+                        const day = index + 1;
+                        const date = new Date(year, month, day);
+                        const value = formatDateValue(date);
+                        const isPast = value < todayValue;
+                        const isSelected = value === activeDateField.value;
+                        return `<button type="button" class="event-calendar__day${isPast ? ' is-past' : ''}${isSelected ? ' is-selected' : ''}" data-date="${value}" ${isPast ? 'disabled aria-disabled="true"' : ''}>${day}</button>`;
+                    }).join('')}
+                </div>
+            `;
+
+            eventCalendar.querySelector('[data-calendar-prev]').addEventListener('click', () => {
+                activeCalendarMonth = new Date(year, month - 1, 1);
+                renderEventCalendar();
+            });
+            eventCalendar.querySelector('[data-calendar-next]').addEventListener('click', () => {
+                activeCalendarMonth = new Date(year, month + 1, 1);
+                renderEventCalendar();
+            });
+            eventCalendar.querySelectorAll('[data-date]').forEach(button => {
+                button.addEventListener('click', () => {
+                    activeDateField.value = button.dataset.date;
+                    activeDateField.dispatchEvent(new Event('input', { bubbles: true }));
+                    activeDateField.dispatchEvent(new Event('change', { bubbles: true }));
+                    closeEventCalendar();
+                });
+            });
+        }
+
+        function openEventCalendar(field) {
+            activeDateField = field;
+            const selectedDate = parseDateValue(field.value);
+            activeCalendarMonth = selectedDate || new Date(today.getFullYear(), today.getMonth(), 1);
+            field.setAttribute('aria-expanded', 'true');
+            renderEventCalendar();
+            positionEventCalendar(field);
+            eventCalendar.classList.remove('hidden');
+        }
+
         function updateEventDateState(field) {
-            field.min = todayValue;
+            field.setAttribute('min', todayValue);
             if (field.value && field.value < todayValue) {
                 field.value = '';
                 localStorage.removeItem(`contact-form-${field.name || field.type}`);
             }
+            field.setCustomValidity('');
             field.classList.toggle('is-selected', Boolean(field.value));
         }
         eventDateFields.forEach(field => {
+            field.type = 'text';
+            field.readOnly = true;
+            field.inputMode = 'none';
+            field.placeholder = 'Дата мероприятия';
+            field.setAttribute('aria-haspopup', 'dialog');
+            field.setAttribute('aria-expanded', 'false');
             updateEventDateState(field);
             field.addEventListener('input', () => updateEventDateState(field));
             field.addEventListener('change', () => updateEventDateState(field));
+            field.addEventListener('click', () => openEventCalendar(field));
+            field.addEventListener('focus', () => openEventCalendar(field));
+            field.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeEventCalendar();
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openEventCalendar(field);
+                }
+            });
             field.form?.addEventListener('reset', () => setTimeout(() => updateEventDateState(field), 0));
+        });
+        document.addEventListener('click', (event) => {
+            if (!activeDateField) return;
+            if (event.target === activeDateField || eventCalendar.contains(event.target)) return;
+            closeEventCalendar();
+        });
+        window.addEventListener('resize', () => {
+            if (activeDateField) positionEventCalendar(activeDateField);
         });
 
         const sentStatus = new URLSearchParams(window.location.search).get('sent');
