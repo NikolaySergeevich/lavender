@@ -2,6 +2,40 @@
 <html lang="ru" class="scroll-smooth">
 
 <head>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=109623826', 'ym');
+
+        ym(109623826, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/109623826" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1520119579482308');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1520119579482308&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фотозоны и декор мероприятий в Минске | LavDragon</title>
@@ -16,6 +50,9 @@
 </head>
 
 <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+    <script>
+        fbq('track', 'Lead');
+    </script>
 
     <!-- Navigation -->
     <nav id="navbar"
@@ -34,7 +71,8 @@
                 class="filter-btn filter-btn--silver filter-btn--lavender-cta px-6 py-2.5 rounded-full font-medium">Обсудить
                 проект</button>
         </div>
-        <button id="mobile-menu-btn" class="md:hidden text-brand-black focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+        <button id="mobile-menu-btn" class="md:hidden text-brand-black focus:outline-none" aria-controls="mobile-menu"
+            aria-expanded="false">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                 </path>
@@ -45,9 +83,12 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu"
         class="fixed inset-0 z-40 bg-brand-ivory/95 backdrop-blur-xl hidden flex-col justify-center items-center gap-8 text-xl font-serif">
-        <a href="fotazony-na-svadbu-minsk/" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Свадьбы</a>
-        <a href="ceny-na-fotazony-minsk/" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Цены</a>
-        <a href="arenda-cifr-na-prazdnik-minsk/" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Цифры</a>
+        <a href="fotazony-na-svadbu-minsk/" onclick="closeMobileMenu()"
+            class="hover:text-brand-black transition-colors">Свадьбы</a>
+        <a href="ceny-na-fotazony-minsk/" onclick="closeMobileMenu()"
+            class="hover:text-brand-black transition-colors">Цены</a>
+        <a href="arenda-cifr-na-prazdnik-minsk/" onclick="closeMobileMenu()"
+            class="hover:text-brand-black transition-colors">Цифры</a>
         <a href="#portfolio" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Портфолио</a>
         <a href="#process" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Как мы
             работаем</a>
@@ -55,7 +96,8 @@
         <a href="#reviews" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Отзывы</a>
         <a href="#faq" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">FAQ</a>
         <button onclick="openModal(); closeMobileMenu();"
-            class="filter-btn filter-btn--silver filter-btn--lavender-cta mt-4 px-8 py-3 rounded-full font-bold">Обсудить проект</button>
+            class="filter-btn filter-btn--silver filter-btn--lavender-cta mt-4 px-8 py-3 rounded-full font-bold">Обсудить
+            проект</button>
         <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-brand-muted hover:text-brand-black">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -136,36 +178,57 @@
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-10 reveal">
                 <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Услуги в Минске</p>
-                <h2 class="font-serif text-3xl md:text-4xl font-bold text-brand-black">Фотозоны и декор под ваш формат</h2>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-brand-black">Фотозоны и декор под ваш формат
+                </h2>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <a href="fotazony-na-svadbu-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="fotazony-na-svadbu-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на свадьбу</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Свадебные фотозоны, цветы, свет и монтаж под ключ.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Свадебные фотозоны, цветы, свет и монтаж
+                        под ключ.</p>
                 </a>
-                <a href="fotazony-na-den-rozhdeniya-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="fotazony-na-den-rozhdeniya-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на день рождения</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Шары, надписи, цифры и праздничный декор для взрослых и детей.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Шары, надписи, цифры и праздничный декор
+                        для взрослых и детей.</p>
                 </a>
-                <a href="dekor-svadby-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="fotazony-dlya-detskih-prazdnikov-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Детские праздники</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозоны для годика, тематических
+                        вечеринок, космоса, бабочек и нежных детских декоров.</p>
+                </a>
+                <a href="dekor-svadby-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Декор свадьбы</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Президиум, церемония, столы гостей и единая визуальная концепция.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Президиум, церемония, столы гостей и единая
+                        визуальная концепция.</p>
                 </a>
-                <a href="oformlenie-zala-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="oformlenie-zala-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Оформление зала</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декор ресторана, лофта, банкетного зала или корпоративной площадки.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декор ресторана, лофта, банкетного зала или
+                        корпоративной площадки.</p>
                 </a>
-                <a href="gender-party-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="gender-party-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Gender party</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозона, reveal-зона, шары и нежная палитра для гендер пати.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозона, reveal-зона, шары и нежная
+                        палитра для гендер пати.</p>
                 </a>
-                <a href="fotazona-na-yubiley-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="fotazona-na-yubiley-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Фотозона на юбилей</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Элегантные фотозоны для семейных и банкетных фото.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Элегантные фотозоны для семейных и
+                        банкетных фото.</p>
                 </a>
-                <a href="arenda-cifr-na-prazdnik-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                <a href="arenda-cifr-na-prazdnik-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Аренда цифр</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декоративные цифры 1-90 лет для юбилеев, дней рождения и фотозон.</p>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декоративные цифры 1-90 лет для юбилеев,
+                        дней рождения и фотозон.</p>
                 </a>
             </div>
         </div>
@@ -182,19 +245,16 @@
 
         <!-- Filters -->
         <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
-            <button class="filter-btn filter-btn--silver active px-5 py-2 rounded-full text-sm font-medium border border-brand-black/10"
+            <button
+                class="filter-btn filter-btn--silver active px-5 py-2 rounded-full text-sm font-medium border border-brand-black/10"
                 data-filter="all">Все работы</button>
-            <button
-                class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
+            <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="wedding">Свадьбы</button>
-            <button
-                class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
+            <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="gender-party">Gender party</button>
-            <button
-                class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
+            <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="birthday">Дни рождения</button>
-            <button
-                class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
+            <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="kids">Детские праздники</button>
         </div>
 
@@ -236,7 +296,8 @@
 
             <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(2)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/children-parties/detskaya-fotozona-minsk-prazdnik.webp" alt="Детская фотозона в Минске для праздника" class="w-full h-full object-cover">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-prazdnik.webp"
+                        alt="Детская фотозона в Минске для праздника" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Детский праздник</div>
@@ -269,7 +330,9 @@
 
             <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(4)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp" alt="Фотозона для дня рождения в Минске с надписью Happy Birthday" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp"
+                        alt="Фотозона для дня рождения в Минске с надписью Happy Birthday"
+                        class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -285,7 +348,9 @@
 
             <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(5)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-shary.webp" alt="Фотозона на день рождения в Минске с шарами и праздничным декором" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-shary.webp"
+                        alt="Фотозона на день рождения в Минске с шарами и праздничным декором"
+                        class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -301,7 +366,8 @@
 
             <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(6)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-stil.webp" alt="Стильная фотозона для дня рождения в Минске" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-stil.webp"
+                        alt="Стильная фотозона для дня рождения в Минске" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -317,7 +383,8 @@
 
             <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(7)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-dekor.webp" alt="Праздничный декор и фотозона для дня рождения в Минске" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-dekor.webp"
+                        alt="Праздничный декор и фотозона для дня рождения в Минске" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -333,7 +400,8 @@
 
             <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(8)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp" alt="Фотозона сцена для дня рождения в Минске с шарами" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp"
+                        alt="Фотозона сцена для дня рождения в Минске с шарами" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -349,7 +417,9 @@
 
             <div class="reveal portfolio-item" data-category="birthday" onclick="openLightbox(9)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-atmosfera.webp" alt="Фотозона для дня рождения в Минске с праздничной атмосферой" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-atmosfera.webp"
+                        alt="Фотозона для дня рождения в Минске с праздничной атмосферой"
+                        class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -366,7 +436,8 @@
             <div class="reveal portfolio-item" data-category="birthday" data-lightbox-fit="contain"
                 data-lightbox-position="center center" onclick="openLightbox(10)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-prazdnik.webp" alt="Фотозона для празднования дня рождения в Минске" class="w-full h-full object-cover">
+                    <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-prazdnik.webp"
+                        alt="Фотозона для празднования дня рождения в Минске" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         День рождения</div>
@@ -374,7 +445,8 @@
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <p class="text-white font-serif text-xl font-bold">Birthday Celebration</p>
-                            <p class="text-white/70 text-sm mt-1">Фотозона для дня рождения, шары и праздничный декор</p>
+                            <p class="text-white/70 text-sm mt-1">Фотозона для дня рождения, шары и праздничный декор
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -399,7 +471,8 @@
 
             <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(12)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/children-parties/detskaya-fotozona-minsk-dekor.webp" alt="Детская фотозона в Минске с шарами и декором" class="w-full h-full object-cover">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-dekor.webp"
+                        alt="Детская фотозона в Минске с шарами и декором" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Детский праздник</div>
@@ -415,23 +488,25 @@
 
             <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(13)">
                 <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/wedding/svadebnaya-fotozona-minsk-cvety.webp" alt="Свадебная фотозона в Минске с цветами и декором" class="w-full h-full object-cover">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp"
+                        alt="Свадебная фотозона в Минске с декоративной композицией" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Свадьба</div>
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
-                            <p class="text-white font-serif text-xl font-bold">Wedding Decor</p>
-                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, цветы и декор</p>
+                            <p class="text-white font-serif text-xl font-bold">Wedding Mood</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, композиция и декор</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(14)">
-                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/wedding/svadebnaya-fotozona-minsk-bloom.webp" alt="Свадебная фотозона в Минске в цветочной стилистике" class="w-full h-full object-cover">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[3/5] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-bloom.webp"
+                        alt="Свадебная фотозона в Минске в цветочной стилистике" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Свадьба</div>
@@ -446,8 +521,9 @@
             </div>
 
             <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(15)">
-                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/wedding/svadebnaya-fotozona-minsk-svet.webp" alt="Свадебная фотозона в Минске со световым оформлением" class="w-full h-full object-cover">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[3/5] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-svet.webp"
+                        alt="Свадебная фотозона в Минске со световым оформлением" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Свадьба</div>
@@ -462,24 +538,9 @@
             </div>
 
             <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(16)">
-                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp" alt="Свадебная фотозона в Минске с декоративной композицией" class="w-full h-full object-cover">
-                    <div
-                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
-                        Свадьба</div>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                        <div>
-                            <p class="text-white font-serif text-xl font-bold">Wedding Mood</p>
-                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, композиция и декор</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(17)">
-                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
-                    <img src="picture/wedding/svadebnaya-fotozona-minsk-sad.webp" alt="Свадебная фотозона сад в Минске с цветами" class="w-full h-full object-cover">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[3/5] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-sad.webp"
+                        alt="Свадебная фотозона сад в Минске с цветами" class="w-full h-full object-cover">
                     <div
                         class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
                         Свадьба</div>
@@ -488,6 +549,262 @@
                         <div>
                             <p class="text-white font-serif text-xl font-bold">Wedding Garden</p>
                             <p class="text-white/70 text-sm mt-1">Свадебная фотозона, цветы и декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(17)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[3/5] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-green-foto.webp"
+                        alt="Свадебная фотозона в Минске в зеленой гамме" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Green Wedding</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, зелень и цветочный декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(18)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[3/5] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-vuesd.webp"
+                        alt="Свадебная фотозона на выездную регистрацию в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Wedding Welcome</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебное оформление входной зоны и фотозоны</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(19)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[3/5] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-cvety.webp"
+                        alt="Свадебная фотозона в Минске с цветами и декором" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Wedding Decor</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная фотозона, цветы и декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(20)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-green-stol.webp"
+                        alt="Свадебный декор стола в Минске в зеленой гамме" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Green Table</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебный декор стола, зелень и композиции</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(21)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-suhoy.webp"
+                        alt="Свадебный декор в Минске с сухоцветами" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Dry Flowers</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебный декор с сухоцветами и натуральными фактурами
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(22)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-dofamin.webp"
+                        alt="Свадебный декор в Минске в дофаминовой палитре" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Dopamine Decor</p>
+                            <p class="text-white/70 text-sm mt-1">Яркий свадебный декор и акцентная палитра</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(23)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-menu.webp"
+                        alt="Свадебное меню и декор стола в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Wedding Menu</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная полиграфия, меню и сервировка</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(24)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-orange-rose.webp"
+                        alt="Свадебный декор в Минске с оранжевыми розами" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Orange Roses</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебный декор с оранжевыми розами</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="wedding" onclick="openLightbox(25)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/wedding/svadebnaya-fotozona-minsk-service-rose.webp"
+                        alt="Свадебная сервировка с розами в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Свадьба</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Rose Service</p>
+                            <p class="text-white/70 text-sm mt-1">Свадебная сервировка, розы и детали декора</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(26)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-green.webp"
+                        alt="Детская фотозона в Минске в зеленой гамме" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Green Kids Party</p>
+                            <p class="text-white/70 text-sm mt-1">Детская фотозона, зелень и праздничный декор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(27)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-space-white.webp"
+                        alt="Белая космическая детская фотозона в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">White Space</p>
+                            <p class="text-white/70 text-sm mt-1">Космическая фотозона для детского праздника</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(28)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-space.webp"
+                        alt="Космическая детская фотозона в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Space Party</p>
+                            <p class="text-white/70 text-sm mt-1">Детская фотозона в космической стилистике</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(29)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-boy-one-year.webp"
+                        alt="Детская фотозона на годик мальчику в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">One Year</p>
+                            <p class="text-white/70 text-sm mt-1">Фотозона на первый день рождения мальчика</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(30)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-butterflies.webp"
+                        alt="Детская фотозона с бабочками в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Butterflies</p>
+                            <p class="text-white/70 text-sm mt-1">Нежная детская фотозона с бабочками</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(31)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-pink.webp"
+                        alt="Розовая детская фотозона в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Pink Party</p>
+                            <p class="text-white/70 text-sm mt-1">Розовая фотозона для детского праздника</p>
                         </div>
                     </div>
                 </div>
@@ -1061,7 +1378,8 @@
                             target="_blank"
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
                             <div class="w-12 h-12 flex items-center justify-center">
-                                <img src="picture/icon/free-icon-telegram.webp" alt="Telegram" class="w-10 h-10 object-contain">
+                                <img src="picture/icon/free-icon-telegram.webp" alt="Telegram"
+                                    class="w-10 h-10 object-contain">
                             </div>
                             <div class="flex-1">
                                 <p class="font-medium text-brand-black group-hover:text-brand-black transition-colors">
@@ -1077,9 +1395,9 @@
                         <a href="https://wa.me/79990000000?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
                             target="_blank"
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
-                            <div
-                                class="w-12 h-12 flex items-center justify-center">
-                                <img src="picture/icon/free-icon-whatsapp.webp" alt="WhatsApp" class="w-10 h-10 object-contain">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <img src="picture/icon/free-icon-whatsapp.webp" alt="WhatsApp"
+                                    class="w-10 h-10 object-contain">
                             </div>
                             <div class="flex-1">
                                 <p class="font-medium text-brand-black group-hover:text-brand-black transition-colors">
@@ -1094,9 +1412,9 @@
                         </a>
                         <a href="viber://chat?number=+375291357999"
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
-                            <div
-                                class="w-12 h-12 flex items-center justify-center">
-                                <img src="picture/icon/free-icon-viber.webp" alt="Viber" class="w-10 h-10 object-contain">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <img src="picture/icon/free-icon-viber.webp" alt="Viber"
+                                    class="w-10 h-10 object-contain">
                             </div>
                             <div class="flex-1">
                                 <p class="font-medium text-brand-black group-hover:text-brand-black transition-colors">
@@ -1112,7 +1430,8 @@
                         <div
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
                             <div class="w-12 h-12 flex items-center justify-center">
-                                <img src="picture/icon/free-icon-phone.webp" alt="Телефон" class="w-10 h-10 object-contain">
+                                <img src="picture/icon/free-icon-phone.webp" alt="Телефон"
+                                    class="w-10 h-10 object-contain">
                             </div>
                             <div class="flex-1">
                                 <p class="font-medium text-brand-black group-hover:text-brand-black transition-colors">
@@ -1165,8 +1484,7 @@
                                 предложений</span>
                         </label>
                         <button type="submit"
-                            class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Отправить
-                            → Перейти в мессенджер</button>
+                            class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Отправить</button>
                     </form>
                     <div id="contact-success" class="hidden text-center py-8">
                         <div
@@ -1203,11 +1521,18 @@
                 <h4 class="font-bold text-lg mb-4 text-brand-black">Навигация</h4>
                 <ul class="space-y-3 text-brand-muted">
                     <li><a href="#portfolio" class="hover:text-brand-black transition-colors">Портфолио</a></li>
-                    <li><a href="fotazony-na-svadbu-minsk/" class="hover:text-brand-black transition-colors">Фотозоны на свадьбу</a></li>
-                    <li><a href="fotazony-na-den-rozhdeniya-minsk/" class="hover:text-brand-black transition-colors">Дни рождения</a></li>
-                    <li><a href="dekor-svadby-minsk/" class="hover:text-brand-black transition-colors">Декор свадьбы</a></li>
-                    <li><a href="oformlenie-zala-minsk/" class="hover:text-brand-black transition-colors">Оформление зала</a></li>
-                    <li><a href="arenda-cifr-na-prazdnik-minsk/" class="hover:text-brand-black transition-colors">Аренда цифр</a></li>
+                    <li><a href="fotazony-na-svadbu-minsk/" class="hover:text-brand-black transition-colors">Фотозоны на
+                            свадьбу</a></li>
+                    <li><a href="fotazony-na-den-rozhdeniya-minsk/" class="hover:text-brand-black transition-colors">Дни
+                            рождения</a></li>
+                    <li><a href="fotazony-dlya-detskih-prazdnikov-minsk/"
+                            class="hover:text-brand-black transition-colors">Детские праздники</a></li>
+                    <li><a href="dekor-svadby-minsk/" class="hover:text-brand-black transition-colors">Декор свадьбы</a>
+                    </li>
+                    <li><a href="oformlenie-zala-minsk/" class="hover:text-brand-black transition-colors">Оформление
+                            зала</a></li>
+                    <li><a href="arenda-cifr-na-prazdnik-minsk/" class="hover:text-brand-black transition-colors">Аренда
+                            цифр</a></li>
                     <li><a href="ceny-na-fotazony-minsk/" class="hover:text-brand-black transition-colors">Цены</a></li>
                     <li><a href="blog/" class="hover:text-brand-black transition-colors">Блог</a></li>
                     <li><a href="#reviews" class="hover:text-brand-black transition-colors">Отзывы</a></li>
@@ -1260,7 +1585,8 @@
     <div id="lightbox-overlay"
         class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         onclick="if(event.target===this)closeLightbox()">
-        <div class="relative w-full max-w-6xl bg-brand-black rounded-3xl overflow-hidden shadow-2xl modal-enter max-h-[90vh]">
+        <div
+            class="relative w-full max-w-6xl bg-brand-black rounded-3xl overflow-hidden shadow-2xl modal-enter max-h-[90vh]">
             <button onclick="closeLightbox()"
                 class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
                 aria-label="Закрыть галерею">
@@ -1416,7 +1742,8 @@
                             м²</label>
                         <label
                             class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-area" value="более 30 м²" class="w-4 h-4 text-brand-black"> более
+                                type="radio" name="quiz-area" value="более 30 м²" class="w-4 h-4 text-brand-black">
+                            более
                             30 м²</label>
                     </div>
                 </div>
@@ -1452,11 +1779,13 @@
                             Более месяца</label>
                         <label
                             class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-urgency" value="2-3 недели" class="w-4 h-4 text-brand-black"> 2–3
+                                type="radio" name="quiz-urgency" value="2-3 недели" class="w-4 h-4 text-brand-black">
+                            2–3
                             недели</label>
                         <label
                             class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-urgency" value="Менее 2 недель" class="w-4 h-4 text-brand-black">
+                                type="radio" name="quiz-urgency" value="Менее 2 недель"
+                                class="w-4 h-4 text-brand-black">
                             Менее 2 недель</label>
                     </div>
                 </div>
@@ -1528,4 +1857,3 @@
 </body>
 
 </html>
-
