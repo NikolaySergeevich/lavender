@@ -111,7 +111,7 @@
         <div class="hero-premium__veil absolute inset-0 z-0"></div>
 
         <div
-            class="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-12 pt-32 md:px-12 lg:pb-16">
+            class="hero-premium__content relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-12 pt-32 md:px-12 lg:pb-16">
             <div class="max-w-4xl">
                 <p class="hero-kicker animate-fade-up" style="animation-delay: 0.2s;">LAVDRAGON / EVENT DESIGN</p>
                 <h1 class="hero-title animate-fade-up" style="animation-delay: 0.35s;">
@@ -811,10 +811,36 @@
             </div>
         </div>
 
+        <div id="portfolio-desktop-controls" class="hidden justify-center gap-2 mt-10 reveal">
+            <button id="portfolio-prev-page"
+                class="portfolio-nav-btn filter-btn filter-btn--silver filter-btn--no-shine w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-35 disabled:pointer-events-none"
+                aria-label="Предыдущие фото портфолио">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                    </path>
+                </svg>
+            </button>
+            <button id="portfolio-next-page"
+                class="portfolio-nav-btn filter-btn filter-btn--silver filter-btn--no-shine w-10 h-10 rounded-full flex items-center justify-center disabled:opacity-35 disabled:pointer-events-none"
+                aria-label="Следующие фото портфолио">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="text-center mt-10 reveal">
+            <button id="portfolio-load-more"
+                class="filter-btn filter-btn--silver hidden md:hidden inline-flex items-center justify-center w-full px-8 py-4 rounded-full font-medium">
+                Показать ещё
+            </button>
+        </div>
+
         <!-- PDF Download -->
         <div class="text-center mt-16 reveal">
             <button onclick="showDownloadModal()"
-                class="filter-btn filter-btn--silver inline-flex items-center gap-3 px-8 py-4 rounded-full font-medium">
+                class="filter-btn filter-btn--silver inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full font-medium">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
@@ -1245,15 +1271,17 @@
                     </div>
                 </div>
                 <div class="flex justify-center gap-2 mt-8">
-                    <button onclick="scrollReviews(-1)"
-                        class="w-10 h-10 rounded-full border border-brand-black/20 flex items-center justify-center hover:bg-brand-black hover:text-brand-ivory transition-all">
+                    <button onclick="scrollReviews(-1, this)"
+                        class="review-nav-btn filter-btn filter-btn--silver filter-btn--no-shine w-10 h-10 rounded-full flex items-center justify-center"
+                        aria-label="Предыдущий отзыв">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
                             </path>
                         </svg>
                     </button>
-                    <button onclick="scrollReviews(1)"
-                        class="w-10 h-10 rounded-full border border-brand-black/20 flex items-center justify-center hover:bg-brand-black hover:text-brand-ivory transition-all">
+                    <button onclick="scrollReviews(1, this)"
+                        class="review-nav-btn filter-btn filter-btn--silver filter-btn--no-shine w-10 h-10 rounded-full flex items-center justify-center"
+                        aria-label="Следующий отзыв">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
                             </path>
@@ -1427,6 +1455,24 @@
                                 </path>
                             </svg>
                         </a>
+                        <a href="https://www.instagram.com/lav.ender.dragon?igsh=MWJ2azYxc2tzaHM0aw%3D%3D&utm_source=qr"
+                            target="_blank"
+                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
+                            <div class="w-12 h-12 flex items-center justify-center">
+                                <img src="picture/icon/free-icon-instagram.webp" alt="Instagram"
+                                    class="w-10 h-10 object-contain">
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-brand-black group-hover:text-brand-black transition-colors">
+                                    Instagram</p>
+                                <p class="text-sm text-brand-muted">Портфолио и идеи</p>
+                            </div>
+                            <svg class="w-5 h-5 text-brand-muted group-hover:text-brand-black transition-colors"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
                         <div
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
                             <div class="w-12 h-12 flex items-center justify-center">
@@ -1564,8 +1610,8 @@
         <div class="flex gap-2 max-w-lg mx-auto">
             <a href="https://t.me/kidseventa1" target="_blank"
                 class="flex-1 py-3 bg-blue-500 text-white rounded-full font-medium text-sm text-center">Telegram</a>
-            <a href="https://wa.me/79990000000" target="_blank"
-                class="flex-1 py-3 bg-green-500 text-white rounded-full font-medium text-sm text-center">WhatsApp</a>
+            <a href="https://www.instagram.com/lav.ender.dragon?igsh=MWJ2azYxc2tzaHM0aw%3D%3D&utm_source=qr" target="_blank"
+                class="flex-1 py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white rounded-full font-medium text-sm text-center">Instagram</a>
             <a href="tel:+375291357999"
                 class="flex-1 py-3 bg-brand-gold text-brand-black rounded-full font-medium text-sm text-center">Позвонить</a>
         </div>
@@ -1595,23 +1641,23 @@
                     </path>
                 </svg>
             </button>
-            <button onclick="changeLightbox(-1)"
-                class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
-                aria-label="Предыдущий проект">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            <button onclick="changeLightbox(1)"
-                class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
-                aria-label="Следующий проект">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
             <div class="grid lg:grid-cols-[1.35fr_0.65fr]">
-                <div class="bg-black aspect-[4/3] lg:aspect-auto lg:min-h-[640px]">
+                <div class="relative bg-black aspect-[4/3] lg:aspect-auto lg:min-h-[640px]">
                     <img id="lightbox-image" src="" alt="" class="w-full h-full object-cover">
+                    <button onclick="changeLightbox(-1, this)"
+                        class="lightbox-nav lightbox-nav--prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-colors"
+                        aria-label="Предыдущий проект">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button onclick="changeLightbox(1, this)"
+                        class="lightbox-nav lightbox-nav--next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-colors"
+                        aria-label="Следующий проект">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
                 <div class="p-8 md:p-10 text-brand-ivory flex flex-col justify-end overflow-y-auto max-h-[90vh]">
                     <p id="lightbox-category" class="text-brand-black tracking-widest uppercase text-xs mb-3"></p>
@@ -1854,6 +1900,7 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/back-to-top.js"></script>
 </body>
 
 </html>

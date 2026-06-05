@@ -67,14 +67,140 @@
 
         // Portfolio filters
         const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        const portfolioItems = Array.from(document.querySelectorAll('.portfolio-item'));
+        const portfolioLoadMoreBtn = document.getElementById('portfolio-load-more');
+        const portfolioDesktopControls = document.getElementById('portfolio-desktop-controls');
+        const portfolioPrevPageBtn = document.getElementById('portfolio-prev-page');
+        const portfolioNextPageBtn = document.getElementById('portfolio-next-page');
         const homePortfolioLimit = 9;
-        function applyPortfolioFilter(filter) {
-            portfolioItems.forEach((item, index) => {
-                const isHomeVisible = filter === 'all' && index < homePortfolioLimit;
-                const isCategoryVisible = filter !== 'all' && item.dataset.category === filter;
-                item.style.display = isHomeVisible || isCategoryVisible ? 'block' : 'none';
+        function isDesktopPortfolio() {
+            return window.matchMedia('(min-width: 768px)').matches;
+        }
+        function getPortfolioBatchSize() {
+            return isDesktopPortfolio() ? 6 : 3;
+        }
+        const portfolioDescriptions = [
+            'Свадебная фотозона с зеркальной поверхностью, розами и мягким светом для камерных портретов пары.',
+            'Нежная зона gender reveal с воздушными шарами, пастельной палитрой и акцентом для момента раскрытия.',
+            'Яркая детская фотозона с шарами, тумбами и праздничной композицией для семейных снимков.',
+            'Свадебная фотозона LOVE с неоном, розами и пампасом для вечерней программы и фото гостей.',
+            'Лаконичная фотозона Happy Birthday с чистым фоном и праздничной надписью для взрослых дней рождения.',
+            'Объемная birthday-зона с шарами, декоративными стойками и акцентной палитрой для главного фото вечера.',
+            'Стильная фотозона для дня рождения с выверенными деталями, мягкими оттенками и праздничным настроением.',
+            'Праздничный декор с шарами и декоративными элементами, который собирает пространство в единую композицию.',
+            'Сценическая фотозона для дня рождения с шарами и выразительным фоном для поздравлений и семейных кадров.',
+            'Атмосферная зона для дня рождения с теплым декором, подходящая для портретов и общих фото гостей.',
+            'Праздничная фотозона с шарами и ярким декором для активного дня рождения или семейного торжества.',
+            'Сказочная детская фотозона с единорогом, гирляндами и мягкой палитрой для нежного праздника.',
+            'Детская зона с воздушными шарами и декором, рассчитанная на динамичные фото и игры рядом с композицией.',
+            'Свадебная композиция с декоративными формами и цветочными акцентами для зоны фото или президиума.',
+            'Цветочная свадебная фотозона в нежной гамме с объемной флористикой и мягкой романтичной подачей.',
+            'Свадебная фотозона со световым акцентом, которая хорошо работает на вечерней площадке и в приглушенном зале.',
+            'Садовая свадебная фотозона с цветами и естественной зеленью для спокойных, воздушных кадров.',
+            'Зеленая свадебная фотозона с натуральной палитрой и флористикой для элегантного банкетного пространства.',
+            'Оформление welcome-зоны и выездной регистрации с цельной свадебной стилистикой и фотогеничным входом.',
+            'Свадебная фотозона с цветами и декоративными панелями для портретов пары и гостей.',
+            'Оформление свадебного стола в зеленой гамме с композицией, сервировкой и аккуратными деталями.',
+            'Свадебный декор с сухоцветами и натуральными фактурами для теплой, спокойной концепции.',
+            'Яркий свадебный декор в дофаминовой палитре для смелого праздника и выразительных фото.',
+            'Свадебная полиграфия, меню и сервировка, поддерживающие общую палитру и стиль оформления.',
+            'Свадебный декор с оранжевыми розами, теплой флористикой и насыщенным цветовым акцентом.',
+            'Сервировка с розами и деталями декора для камерного свадебного стола или президиума.',
+            'Зеленая детская фотозона с природными оттенками и спокойным праздничным декором.',
+            'Белая космическая фотозона для детского праздника с чистым фоном и тематическими деталями.',
+            'Космическая детская фотозона с насыщенным фоном и декором для яркой тематической вечеринки.',
+            'Фотозона на первый день рождения мальчика с мягкими оттенками и безопасным детским декором.',
+            'Нежная детская фотозона с бабочками, легкими деталями и воздушной праздничной атмосферой.',
+            'Розовая детская фотозона с шарами и мягкой палитрой для дня рождения девочки.'
+        ];
+        let currentPortfolioFilter = 'all';
+        let visiblePortfolioIndexes = [];
+        let visiblePortfolioCount = getPortfolioBatchSize();
+        let currentPortfolioPage = 0;
+
+        portfolioItems.forEach((item, index) => {
+            item.dataset.portfolioIndex = index;
+            const description = portfolioDescriptions[index];
+            if (description) {
+                const descriptionNode = item.querySelector('.text-white\\/70');
+                if (descriptionNode) descriptionNode.textContent = description;
+            }
+        });
+
+        function shufflePortfolioItems(items) {
+            const shuffled = [...items];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function getPortfolioIndexesForFilter(filter) {
+            if (filter === 'all') {
+                const landscapeItems = portfolioItems.filter(item => item.querySelector('.aspect-\\[4\\/3\\]'));
+                return shufflePortfolioItems(landscapeItems)
+                    .slice(0, homePortfolioLimit)
+                    .map(item => Number(item.dataset.portfolioIndex));
+            }
+
+            return portfolioItems
+                .filter(item => item.dataset.category === filter)
+                .map(item => Number(item.dataset.portfolioIndex));
+        }
+
+        function updatePortfolioControls(totalCount) {
+            const isDesktop = isDesktopPortfolio();
+            const batchSize = getPortfolioBatchSize();
+            const maxPage = Math.max(0, Math.ceil(totalCount / batchSize) - 1);
+
+            if (portfolioLoadMoreBtn) {
+                const shouldShowLoadMore = currentPortfolioFilter !== 'all' && !isDesktop && totalCount > batchSize;
+                portfolioLoadMoreBtn.classList.toggle('hidden', !shouldShowLoadMore);
+            }
+
+            if (portfolioDesktopControls) {
+                const shouldShowDesktopControls = currentPortfolioFilter !== 'all' && isDesktop && totalCount > batchSize;
+                portfolioDesktopControls.classList.toggle('hidden', !shouldShowDesktopControls);
+                portfolioDesktopControls.classList.toggle('md:flex', shouldShowDesktopControls);
+            }
+
+            if (portfolioPrevPageBtn) portfolioPrevPageBtn.disabled = currentPortfolioPage <= 0;
+            if (portfolioNextPageBtn) portfolioNextPageBtn.disabled = currentPortfolioPage >= maxPage;
+        }
+
+        function applyPortfolioFilter(filter, resetBatch = true) {
+            currentPortfolioFilter = filter;
+            if (resetBatch) {
+                visiblePortfolioCount = getPortfolioBatchSize();
+                currentPortfolioPage = 0;
+            }
+
+            const filterIndexes = getPortfolioIndexesForFilter(filter);
+            if (filter === 'all') {
+                visiblePortfolioIndexes = filterIndexes;
+            } else if (isDesktopPortfolio()) {
+                const batchSize = getPortfolioBatchSize();
+                const maxPage = Math.max(0, Math.ceil(filterIndexes.length / batchSize) - 1);
+                currentPortfolioPage = Math.min(currentPortfolioPage, maxPage);
+                const start = currentPortfolioPage * batchSize;
+                visiblePortfolioIndexes = filterIndexes.slice(start, start + batchSize);
+            } else {
+                const batchSize = getPortfolioBatchSize();
+                const maxPage = Math.max(0, Math.ceil(filterIndexes.length / batchSize) - 1);
+                currentPortfolioPage = Math.min(currentPortfolioPage, maxPage);
+                const start = currentPortfolioPage * batchSize;
+                visiblePortfolioIndexes = filterIndexes.slice(start, start + batchSize);
+            }
+
+            portfolioItems.forEach((item) => {
+                const itemIndex = Number(item.dataset.portfolioIndex);
+                const visibleIndex = visiblePortfolioIndexes.indexOf(itemIndex);
+                item.style.display = visibleIndex >= 0 ? 'block' : 'none';
+                item.style.order = visibleIndex >= 0 ? String(visibleIndex) : '';
             });
+
+            updatePortfolioControls(filterIndexes.length);
         }
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -82,6 +208,39 @@
                 btn.classList.add('active');
                 applyPortfolioFilter(btn.dataset.filter);
             });
+        });
+        function scrollToFirstVisiblePortfolioItem() {
+            const firstVisibleIndex = visiblePortfolioIndexes[0];
+            const firstVisibleItem = Number.isInteger(firstVisibleIndex) ? portfolioItems[firstVisibleIndex] : null;
+            if (!firstVisibleItem) return;
+            firstVisibleItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        portfolioLoadMoreBtn?.addEventListener('click', () => {
+            const filterIndexes = getPortfolioIndexesForFilter(currentPortfolioFilter);
+            const maxPage = Math.max(0, Math.ceil(filterIndexes.length / getPortfolioBatchSize()) - 1);
+            currentPortfolioPage = currentPortfolioPage >= maxPage ? 0 : currentPortfolioPage + 1;
+            applyPortfolioFilter(currentPortfolioFilter, false);
+            window.setTimeout(scrollToFirstVisiblePortfolioItem, 0);
+        });
+        function flashPortfolioNav(button) {
+            if (!button) return;
+            button.classList.add('is-pressed');
+            window.setTimeout(() => button.classList.remove('is-pressed'), 220);
+        }
+        portfolioPrevPageBtn?.addEventListener('click', () => {
+            if (!isDesktopPortfolio()) return;
+            flashPortfolioNav(portfolioPrevPageBtn);
+            currentPortfolioPage = Math.max(0, currentPortfolioPage - 1);
+            applyPortfolioFilter(currentPortfolioFilter, false);
+        });
+        portfolioNextPageBtn?.addEventListener('click', () => {
+            if (!isDesktopPortfolio()) return;
+            flashPortfolioNav(portfolioNextPageBtn);
+            currentPortfolioPage += 1;
+            applyPortfolioFilter(currentPortfolioFilter, false);
+        });
+        window.addEventListener('resize', () => {
+            if (currentPortfolioFilter !== 'all') applyPortfolioFilter(currentPortfolioFilter, false);
         });
         applyPortfolioFilter('all');
 
@@ -100,10 +259,52 @@
 
         // Reviews slider
         let reviewPosition = 0;
-        function scrollReviews(direction) {
+        function createReviewCard({ initials, name, meta, text }) {
+            const stars = Array.from({ length: 5 }, () => `
+                <svg class="w-5 h-5 text-brand-black" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                </svg>
+            `).join('');
+
+            return `
+                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-4">
+                    <div class="bg-white rounded-2xl p-8 border border-brand-black/5 h-full">
+                        <div class="flex gap-1 mb-4">${stars}</div>
+                        <p class="text-brand-graphite mb-6 leading-relaxed italic">"${text}"</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-black">${initials}</div>
+                            <div>
+                                <p class="font-medium text-brand-black">${name}</p>
+                                <p class="text-xs text-brand-muted">${meta}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        const reviewsTrack = document.getElementById('reviews-track');
+        const additionalReviews = [
+            { initials: 'ОМ', name: 'Ольга М.', meta: 'Юбилей, март 2026', text: 'Очень понравилось, что команда сама подсказала, как лучше поставить фотозону в зале. На фото всё выглядит аккуратно и дорого.' },
+            { initials: 'ИС', name: 'Ирина С.', meta: 'День рождения, февраль 2026', text: 'Заказывали оформление для дня рождения. Приехали вовремя, быстро смонтировали, после праздника всё спокойно разобрали.' },
+            { initials: 'НК', name: 'Наталья К.', meta: 'Детский праздник, январь 2026', text: 'Детская фотозона получилась нежной и безопасной. Дети постоянно возле неё фотографировались, а родители просили контакты.' },
+            { initials: 'АР', name: 'Алексей Р.', meta: 'Свадьба, август 2025', text: 'Смета была понятной, без неожиданностей. В день свадьбы мы вообще не отвлекались на монтаж, всё уже стояло готовым.' },
+            { initials: 'ВП', name: 'Виктория П.', meta: 'Gender party, май 2026', text: 'Получилась очень красивая зона reveal, цвета подобрали идеально. Фото вышли светлые, праздничные и без лишней перегрузки.' }
+        ];
+        if (reviewsTrack) {
+            reviewsTrack.insertAdjacentHTML('beforeend', additionalReviews.map(createReviewCard).join(''));
+        }
+
+        function scrollReviews(direction, trigger) {
+            if (trigger) {
+                trigger.classList.add('is-pressed');
+                window.setTimeout(() => trigger.classList.remove('is-pressed'), 220);
+            }
             const track = document.getElementById('reviews-track');
+            const slider = document.getElementById('reviews-slider');
             const itemWidth = track.children[0].offsetWidth;
-            const maxPosition = -(track.children.length - 1) * itemWidth;
+            const visibleItems = Math.max(1, Math.floor(slider.offsetWidth / itemWidth));
+            const maxPosition = -Math.max(0, track.children.length - visibleItems) * itemWidth;
             reviewPosition -= direction * itemWidth;
             if (reviewPosition > 0) reviewPosition = maxPosition;
             if (reviewPosition < maxPosition) reviewPosition = 0;
@@ -275,20 +476,37 @@
         }
 
         // Lightbox
-        const portfolioProjects = Array.from(document.querySelectorAll('.portfolio-item')).map((item) => {
+        const portfolioProjects = portfolioItems.map((item) => {
             const image = item.querySelector('img');
             const title = item.querySelector('.font-serif')?.textContent.trim() || 'Проект LAVDRAGON';
             const meta = item.querySelector('.text-white\\/70')?.textContent.trim() || '';
             const category = item.querySelector('.absolute.top-4')?.textContent.trim() || '';
             const fit = item.dataset.lightboxFit || 'cover';
             const position = item.dataset.lightboxPosition || 'center center';
-            return { image: image.src, alt: image.alt, title, meta, category, fit, position };
+            const categorySlug = item.dataset.category || '';
+            return { image: image.src, alt: image.alt, title, meta, category, categorySlug, fit, position };
         });
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         let lightboxIndex = 0;
+        let lightboxProjects = portfolioProjects;
 
         function openLightbox(idx) {
-            lightboxIndex = idx;
+            const item = portfolioItems[idx];
+            const visibleIndexes = visiblePortfolioIndexes.length ? visiblePortfolioIndexes : getPortfolioIndexesForFilter(currentPortfolioFilter);
+
+            if (currentPortfolioFilter === 'all') {
+                lightboxProjects = visibleIndexes.map(index => portfolioProjects[index]);
+                lightboxIndex = visibleIndexes.indexOf(idx);
+            } else {
+                lightboxProjects = portfolioProjects.filter(project => project.categorySlug === item?.dataset.category);
+                lightboxIndex = lightboxProjects.findIndex(project => project === portfolioProjects[idx]);
+            }
+
+            if (lightboxIndex < 0) {
+                lightboxProjects = [portfolioProjects[idx]];
+                lightboxIndex = 0;
+            }
+
             renderLightbox();
             lightboxOverlay.classList.remove('hidden');
             lightboxOverlay.classList.add('flex');
@@ -300,12 +518,18 @@
             lightboxOverlay.classList.remove('flex');
             if (restoreScroll) document.body.style.overflow = '';
         }
-        function changeLightbox(direction) {
-            lightboxIndex = (lightboxIndex + direction + portfolioProjects.length) % portfolioProjects.length;
+        function changeLightbox(direction, trigger) {
+            if (trigger) {
+                trigger.classList.add('is-pressed');
+                window.setTimeout(() => trigger.classList.remove('is-pressed'), 220);
+            }
+            if (!lightboxProjects.length) return;
+            lightboxIndex = (lightboxIndex + direction + lightboxProjects.length) % lightboxProjects.length;
             renderLightbox();
         }
         function renderLightbox() {
-            const project = portfolioProjects[lightboxIndex];
+            const project = lightboxProjects[lightboxIndex];
+            if (!project) return;
             const lightboxImage = document.getElementById('lightbox-image');
             lightboxImage.src = project.image;
             lightboxImage.alt = project.alt;
@@ -514,7 +738,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const portfolioSection = document.getElementById('portfolio');
             const quizBtn = document.createElement('button');
-            quizBtn.className = 'filter-btn filter-btn--silver filter-btn--lavender-cta inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold mt-6 reveal';
+            quizBtn.className = 'filter-btn filter-btn--silver filter-btn--lavender-cta inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full font-bold mt-6 reveal';
             quizBtn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> Рассчитать стоимость за 4 шага`;
             quizBtn.onclick = openQuiz;
             portfolioSection.querySelector('.text-center.mt-16').prepend(quizBtn);
