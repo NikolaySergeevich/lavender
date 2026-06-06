@@ -72,6 +72,9 @@
         const portfolioDesktopControls = document.getElementById('portfolio-desktop-controls');
         const portfolioPrevPageBtn = document.getElementById('portfolio-prev-page');
         const portfolioNextPageBtn = document.getElementById('portfolio-next-page');
+        const portfolioMobileControls = document.getElementById('portfolio-mobile-controls');
+        const portfolioMobilePrevBtn = document.getElementById('portfolio-mobile-prev');
+        const portfolioMobileNextBtn = document.getElementById('portfolio-mobile-next');
         const homePortfolioLimit = 9;
         function isDesktopPortfolio() {
             return window.matchMedia('(min-width: 768px)').matches;
@@ -155,8 +158,13 @@
             const maxPage = Math.max(0, Math.ceil(totalCount / batchSize) - 1);
 
             if (portfolioLoadMoreBtn) {
-                const shouldShowLoadMore = currentPortfolioFilter !== 'all' && !isDesktop && totalCount > batchSize;
-                portfolioLoadMoreBtn.classList.toggle('hidden', !shouldShowLoadMore);
+                portfolioLoadMoreBtn.classList.add('hidden');
+            }
+
+            if (portfolioMobileControls) {
+                const shouldShowMobileControls = currentPortfolioFilter !== 'all' && !isDesktop && totalCount > batchSize;
+                portfolioMobileControls.classList.toggle('hidden', !shouldShowMobileControls);
+                portfolioMobileControls.classList.toggle('flex', shouldShowMobileControls);
             }
 
             if (portfolioDesktopControls) {
@@ -215,12 +223,27 @@
             if (!firstVisibleItem) return;
             firstVisibleItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        portfolioLoadMoreBtn?.addEventListener('click', () => {
+        function changeMobilePortfolioPage(direction, trigger) {
+            if (isDesktopPortfolio() || currentPortfolioFilter === 'all') return;
             const filterIndexes = getPortfolioIndexesForFilter(currentPortfolioFilter);
             const maxPage = Math.max(0, Math.ceil(filterIndexes.length / getPortfolioBatchSize()) - 1);
-            currentPortfolioPage = currentPortfolioPage >= maxPage ? 0 : currentPortfolioPage + 1;
+            if (direction > 0) {
+                currentPortfolioPage = currentPortfolioPage >= maxPage ? 0 : currentPortfolioPage + 1;
+            } else {
+                currentPortfolioPage = currentPortfolioPage <= 0 ? maxPage : currentPortfolioPage - 1;
+            }
+            flashPortfolioNav(trigger);
             applyPortfolioFilter(currentPortfolioFilter, false);
             window.setTimeout(scrollToFirstVisiblePortfolioItem, 0);
+        }
+        portfolioLoadMoreBtn?.addEventListener('click', () => {
+            changeMobilePortfolioPage(1, portfolioLoadMoreBtn);
+        });
+        portfolioMobilePrevBtn?.addEventListener('click', () => {
+            changeMobilePortfolioPage(-1, portfolioMobilePrevBtn);
+        });
+        portfolioMobileNextBtn?.addEventListener('click', () => {
+            changeMobilePortfolioPage(1, portfolioMobileNextBtn);
         });
         function flashPortfolioNav(button) {
             if (!button) return;

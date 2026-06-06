@@ -41,6 +41,29 @@
     <title>Фотозоны и декор мероприятий в Минске | LavDragon</title>
     <meta name="description"
         content="Создаем стильные фотозоны, свадебный декор и оформление мероприятий в Минске. Индивидуальный дизайн, монтаж, доставка и сопровождение под ключ.">
+    <link rel="canonical" href="https://lavdragon.by/">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "LavDragon",
+            "url": "https://lavdragon.by/",
+            "image": "https://lavdragon.by/picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp",
+            "description": "Фотозоны, свадебный декор и оформление мероприятий в Минске под ключ.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Минск",
+                "streetAddress": "ул. Захарова, 32",
+                "addressCountry": "BY"
+            },
+            "telephone": "+375291357999",
+            "areaServed": "Минск",
+            "priceRange": "$$",
+            "sameAs": [
+                "https://www.instagram.com/lav.ender.dragon"
+            ]
+        }
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.1/index.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.1.1/index.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -831,10 +854,24 @@
         </div>
 
         <div class="text-center mt-10 reveal">
-            <button id="portfolio-load-more"
-                class="filter-btn filter-btn--silver hidden md:hidden inline-flex items-center justify-center w-full px-8 py-4 rounded-full font-medium">
-                Показать ещё
-            </button>
+            <div id="portfolio-mobile-controls" class="hidden md:hidden justify-center gap-2">
+                <button id="portfolio-mobile-prev"
+                    class="portfolio-nav-btn filter-btn filter-btn--silver filter-btn--no-shine w-10 h-10 rounded-full flex items-center justify-center"
+                    aria-label="Предыдущие фото портфолио">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
+                </button>
+                <button id="portfolio-mobile-next"
+                    class="portfolio-nav-btn filter-btn filter-btn--silver filter-btn--no-shine w-10 h-10 rounded-full flex items-center justify-center"
+                    aria-label="Следующие фото портфолио">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!-- PDF Download -->
