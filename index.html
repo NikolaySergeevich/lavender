@@ -928,16 +928,17 @@
 
         <!-- PDF Download -->
         <div class="text-center mt-16 reveal">
-            <a href="che.pdf" download="katalog-trendov-fotozon-2026-lavdragon.pdf"
-                onclick="trackGoal('pdf_download', { file: 'katalog-trendov-fotozon-2026-lavdragon.pdf' })"
+            <button type="button" onclick="openPdfCatalog()"
                 class="filter-btn filter-btn--silver inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full font-medium">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                     </path>
                 </svg>
-                Скачать PDF-каталог трендов 2026
-            </a>
+                Скачать каталог трендов 2026
+            </button>
+            <p class="mt-3 text-sm text-brand-muted">Бесплатный PDF-каталог с актуальными идеями оформления
+                мероприятий.</p>
         </div>
     </section>
 
@@ -1818,6 +1819,59 @@
                 <button onclick="window.open('https://t.me/kidseventa1', '_blank'); closeModal();"
                     class="mt-6 px-6 py-2 bg-brand-gold text-brand-black rounded-full hover:bg-brand-goldLight transition-colors font-medium">Написать
                     в Telegram</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Catalog Modal -->
+    <div id="pdf-catalog-overlay"
+        class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+        onclick="if(event.target===this)closePdfCatalog()">
+        <div
+            class="bg-brand-ivory rounded-3xl p-8 md:p-10 max-w-xl w-full relative modal-enter shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button type="button" onclick="closePdfCatalog()"
+                class="absolute top-6 right-6 text-brand-muted hover:text-brand-black transition-colors"
+                aria-label="Закрыть">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <div id="pdf-catalog-form-view">
+                <h3 class="lead-form__title">Получите бесплатный каталог трендов фотозон 2026</h3>
+                <p class="lead-form__subtitle">Внутри вы найдёте актуальные идеи оформления свадеб, юбилеев и детских
+                    праздников, которые чаще всего выбирают клиенты в 2026 году.</p>
+                <div class="pdf-catalog-benefits">
+                    <p>✓ Свадебные тренды 2026</p>
+                    <p>✓ Идеи для юбилеев и дней рождения</p>
+                    <p>✓ Детские фотозоны в стиле Pinterest</p>
+                    <p>✓ Трендовые цвета и подсветка</p>
+                    <p>✓ Персонализация и современные решения</p>
+                </div>
+                <form id="pdf-catalog-form" action="send.php" method="POST" class="mt-6 space-y-4">
+                    <input type="hidden" name="source" value="PDF Каталог трендов 2026">
+                    <input name="name" type="text" required placeholder="Имя"
+                        class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                    <input name="phone" type="tel" required placeholder="Телефон"
+                        class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                    <button type="submit"
+                        class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
+                        каталог бесплатно</button>
+                </form>
+            </div>
+
+            <div id="pdf-catalog-success" class="hidden text-center py-8">
+                <div
+                    class="w-16 h-16 mx-auto mb-5 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="font-serif text-3xl font-bold text-brand-black">Спасибо!</h3>
+                <p class="mt-4 text-brand-muted leading-relaxed">Каталог уже скачивается.<br>Наш специалист свяжется с
+                    вами и поможет подобрать фотозону под ваш праздник.</p>
             </div>
         </div>
     </div>
