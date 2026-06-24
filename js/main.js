@@ -114,7 +114,8 @@
             'Космическая детская фотозона с насыщенным фоном и декором для яркой тематической вечеринки.',
             'Фотозона на первый день рождения мальчика с мягкими оттенками и безопасным детским декором.',
             'Нежная детская фотозона с бабочками, легкими деталями и воздушной праздничной атмосферой.',
-            'Розовая детская фотозона с шарами и мягкой палитрой для дня рождения девочки.'
+            'Розовая детская фотозона с шарами и мягкой палитрой для дня рождения девочки.',
+            'Фотозона на первый день рождения с нежной палитрой, шарами и аккуратной композицией для семейных фото.'
         ];
         let currentPortfolioFilter = 'all';
         let visiblePortfolioIndexes = [];
@@ -482,10 +483,10 @@
             const area = document.querySelector('input[name="quiz-area"]:checked')?.value;
             const style = document.querySelector('input[name="quiz-style"]:checked')?.value;
             const urgency = document.querySelector('input[name="quiz-urgency"]:checked')?.value;
-            let price = 750;
-            if (area === '8-15 м²') price = 1600;
-            if (area === '15-30 м²') price = 2800;
-            if (area === 'более 30 м²') price = 4150;
+            let price = 450;
+            if (area === '8-15 м²') price = 600;
+            if (area === '15-30 м²') price = 800;
+            if (area === 'более 30 м²') price = 2150;
             if (style === 'Неон' || style === 'Брендированная') price += 300;
             if (urgency === '2-3 недели') price += 200;
             if (urgency === 'Менее 2 недель') price += 450;

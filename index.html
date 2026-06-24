@@ -135,34 +135,18 @@
 
         <div
             class="hero-premium__content relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-12 pt-32 md:px-12 lg:pb-16">
-            <div class="max-w-4xl">
-                <p class="hero-kicker animate-fade-up" style="animation-delay: 0.2s;">LAVDRAGON / EVENT DESIGN</p>
+            <div class="max-w-5xl">
+                <p class="hero-kicker animate-fade-up" style="animation-delay: 0.2s;">ФОТОЗОНЫ ПОД КЛЮЧ В МИНСКЕ</p>
                 <h1 class="hero-title animate-fade-up" style="animation-delay: 0.35s;">
-                    Фотозона как главный визуальный акцент события
+                    Премиальные фотозоны в Минске от <span class="whitespace-nowrap">550 BYN</span>
                 </h1>
                 <p class="hero-lead animate-fade-up" style="animation-delay: 0.5s;">
-                    Создаём премиальные инсталляции под бренд, площадку и сценарий мероприятия: от камерной свадьбы до
-                    крупного бизнес-ивента.
+                    Создаем фотозоны под ключ для свадеб, юбилеев, детских праздников и корпоративов. Доставка, монтаж
+                    и демонтаж включены.
                 </p>
                 <div class="mt-10 flex flex-col gap-3 sm:flex-row animate-fade-up" style="animation-delay: 0.65s;">
-                    <a href="#portfolio" class="hero-btn hero-btn--primary">Смотреть проекты</a>
-                    <button onclick="openModal()" class="hero-btn hero-btn--ghost">Получить концепцию</button>
-                </div>
-            </div>
-
-            <div class="hero-proof mt-14 grid max-w-3xl grid-cols-3 border-y border-white/15 animate-fade-up"
-                style="animation-delay: 0.8s;">
-                <div>
-                    <span>24 часа</span>
-                    <p>первый визуал</p>
-                </div>
-                <div>
-                    <span>2–3 часа</span>
-                    <p>монтаж</p>
-                </div>
-                <div>
-                    <span>под ключ</span>
-                    <p>дизайн, производство, свет</p>
+                    <a href="#portfolio" class="hero-btn hero-btn--primary">Смотреть каталог</a>
+                    <button onclick="openModal()" class="hero-btn hero-btn--ghost">Получить расчет за 15 минут</button>
                 </div>
             </div>
         </div>
@@ -174,25 +158,45 @@
         </div>
     </header>
 
-    <!-- Stats Section -->
-    <section id="stats" class="py-16 px-6 md:px-12 border-y border-brand-black/5">
-        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center reveal">
-                <p class="font-serif text-4xl md:text-5xl font-bold text-brand-gold" data-count="480">0</p>
-                <p class="text-brand-muted mt-2 text-sm">Реализованных проектов</p>
-            </div>
-            <div class="text-center reveal">
-                <p class="font-serif text-4xl md:text-5xl font-bold text-brand-gold" data-count="5">0</p>
-                <p class="text-brand-muted mt-2 text-sm">Лет на рынке</p>
-            </div>
-            <div class="text-center reveal">
-                <p class="font-serif text-4xl md:text-5xl font-bold text-brand-gold" data-count="14">0</p>
-                <p class="text-brand-muted mt-2 text-sm">Городов присутствия</p>
-            </div>
-            <div class="text-center reveal">
-                <p class="font-serif text-4xl md:text-5xl font-bold text-brand-gold" data-count="98">0</p>
-                <p class="text-brand-muted mt-2 text-sm">% клиентов рекомендуют</p>
-            </div>
+    <!-- Trust Section -->
+    <section class="trust-section px-6 py-10 md:px-12 md:py-14" aria-label="Почему нам доверяют">
+        <div class="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M4 19V9m5 10V5m5 14v-7m5 7V3M3 19h18" />
+                    </svg>
+                </div>
+                <h2>Более 100 реализованных проектов</h2>
+            </article>
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M7 3h7l4 4v14H7V3Zm7 0v5h4M10 13h5m-5 4h5" />
+                    </svg>
+                </div>
+                <h2>Работаем по договору</h2>
+            </article>
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M4 18h16M6 18V9l6-4 6 4v9M9 18v-5h6v5" />
+                    </svg>
+                </div>
+                <h2>Монтаж и демонтаж под ключ</h2>
+            </article>
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M4 7h4l1.5-2h5L16 7h4v12H4V7Zm4 8 2.5-2.5 2 2L15 12l3 3M8 10h.01" />
+                    </svg>
+                </div>
+                <h2>Реальные фотографии работ</h2>
+            </article>
         </div>
     </section>
 
@@ -832,6 +836,23 @@
                     </div>
                 </div>
             </div>
+
+            <div class="reveal portfolio-item" data-category="kids" onclick="openLightbox(32)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/children-parties/detskaya-fotozona-minsk-odin-god.webp"
+                        alt="Детская фотозона на один год в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Детский праздник</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">One Year Party</p>
+                            <p class="text-white/70 text-sm mt-1">Фотозона на первый день рождения с нежным декором</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="portfolio-desktop-controls" class="hidden justify-center gap-2 mt-10 reveal">
@@ -1025,7 +1046,7 @@
                     <p class="text-brand-muted text-sm mt-1">Типовые решения, быстрая установка</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 750 Br</p>
+                    <p class="text-4xl font-bold text-brand-black">от 450 Br</p>
                     <p class="text-brand-muted text-sm mt-1">за фотозону до 8 м²</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1069,7 +1090,7 @@
                     <p class="text-brand-muted text-sm mt-1">Кастомный дизайн, премиальные материалы</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold">от 1 600 Br</p>
+                    <p class="text-4xl font-bold">от 600 Br</p>
                     <p class="text-brand-muted text-sm mt-1">за фотозону до 15 м²</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1115,7 +1136,7 @@
                     <p class="text-brand-muted text-sm mt-1">Полный цикл, инженерные конструкции</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 4 150 Br</p>
+                    <p class="text-4xl font-bold text-brand-black">от 2 150 Br</p>
                     <p class="text-brand-muted text-sm mt-1">индивидуальный расчёт</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1784,7 +1805,7 @@
             </div>
             <form id="quiz-form" action="send.php" method="POST">
                 <input type="hidden" name="source" value="Квиз расчёта стоимости">
-                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 750 Br">
+                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 450 Br">
 
                 <div class="quiz-step active" id="quiz-step-1">
                     <p class="font-medium text-brand-black text-lg mb-4">1. Тип мероприятия</p>
@@ -1876,7 +1897,7 @@
                 <div class="quiz-step" id="quiz-result">
                     <div class="text-center mb-6">
                         <p class="font-serif text-2xl font-bold text-brand-black mb-2">Предварительная оценка</p>
-                        <p class="text-3xl font-bold text-brand-black mb-2" id="quiz-price">от 750 Br</p>
+                        <p class="text-3xl font-bold text-brand-black mb-2" id="quiz-price">от 450 Br</p>
                         <p class="text-brand-muted text-sm">Точная стоимость после утверждения дизайна</p>
                     </div>
                     <div class="space-y-3">

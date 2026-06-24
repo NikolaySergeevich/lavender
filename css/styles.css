@@ -59,10 +59,10 @@
             margin-top: 22px;
             color: #F4F5F7;
             font-family: Inter, system-ui, sans-serif;
-            font-size: clamp(3rem, 7.4vw, 7.6rem);
+            font-size: clamp(3rem, 6.2vw, 6.4rem);
             font-weight: 800;
-            line-height: 0.92;
-            letter-spacing: 0;
+            line-height: 0.96;
+            letter-spacing: -0.035em;
         }
         .hero-lead {
             max-width: 680px;
@@ -86,22 +86,44 @@
         .hero-btn--primary:hover { background: #C9CED6; color: #08090D; }
         .hero-btn--ghost { border: 1px solid rgba(244, 245, 247, 0.45); color: #F4F5F7; }
         .hero-btn--ghost:hover { border-color: #C9CED6; color: #C9CED6; }
-        .hero-proof { color: rgba(244, 245, 247, 0.7); }
-        .hero-proof > div { padding: 18px 22px; border-left: 1px solid rgba(255,255,255,0.15); }
-        .hero-proof > div:first-child { border-left: 0; padding-left: 0; }
-        .hero-proof span {
-            display: block;
-            color: #F4F5F7;
-            font-size: clamp(1.2rem, 2vw, 1.8rem);
-            font-weight: 800;
-            line-height: 1.1;
+        .trust-section {
+            position: relative;
+            z-index: 2;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(185, 167, 216, 0.14), transparent 38%),
+                #F4F5F7;
+            border-bottom: 1px solid rgba(8, 9, 13, 0.06);
         }
-        .hero-proof p {
-            margin-top: 8px;
-            font-size: 0.78rem;
-            line-height: 1.45;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
+        .trust-card {
+            display: flex;
+            min-height: 156px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px;
+            border: 1px solid rgba(8, 9, 13, 0.08);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 14px 36px rgba(8, 9, 13, 0.05);
+        }
+        .trust-card__icon {
+            display: flex;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #08090D;
+            background: rgba(185, 167, 216, 0.26);
+        }
+        .trust-card__icon svg { width: 21px; height: 21px; }
+        .trust-card h2 {
+            max-width: 220px;
+            margin-top: 24px;
+            color: #08090D;
+            font-family: Inter, system-ui, sans-serif;
+            font-size: 1rem;
+            font-weight: 750;
+            line-height: 1.35;
         }
         @media (max-width: 768px) {
             .hero-parallax { background-attachment: scroll; }
@@ -124,8 +146,9 @@
             }
             .hero-title {
                 margin-top: 18px;
-                font-size: clamp(2.35rem, 11vw, 3.45rem);
-                line-height: 0.98;
+                font-size: clamp(2.25rem, 10.5vw, 3.35rem);
+                line-height: 1;
+                letter-spacing: -0.03em;
             }
             .hero-lead {
                 margin-top: 20px;
@@ -138,19 +161,8 @@
                 min-height: 48px;
                 padding: 0 20px;
             }
-            .hero-proof {
-                margin-top: 2rem;
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                border-bottom: 1px solid rgba(255,255,255,0.15);
-            }
-            .hero-proof > div {
-                padding: 12px 8px;
-                border-left: 1px solid rgba(255,255,255,0.15);
-                border-bottom: 0;
-            }
-            .hero-proof > div:first-child { border-left: 0; padding-left: 0; }
-            .hero-proof span { font-size: 1rem; }
-            .hero-proof p { font-size: 0.6rem; letter-spacing: 0.06em; }
+            .trust-card { min-height: 138px; padding: 20px; }
+            .trust-card h2 { margin-top: 18px; }
         }
         .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
         .portfolio-item { scroll-margin-top: 6rem; }
