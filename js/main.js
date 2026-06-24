@@ -117,6 +117,11 @@
             'Розовая детская фотозона с шарами и мягкой палитрой для дня рождения девочки.',
             'Фотозона на первый день рождения с нежной палитрой, шарами и аккуратной композицией для семейных фото.'
         ];
+        const portfolioStartingPrices = [
+            740, 620, 600, 750, 550, 590, 570, 580, 650, 560, 610,
+            630, 590, 680, 730, 720, 750, 710, 700, 730, 660, 690,
+            740, 620, 720, 650, 580, 640, 670, 600, 620, 590, 610
+        ];
         let currentPortfolioFilter = 'all';
         let visiblePortfolioIndexes = [];
         let visiblePortfolioCount = getPortfolioBatchSize();
@@ -129,6 +134,52 @@
                 const descriptionNode = item.querySelector('.text-white\\/70');
                 if (descriptionNode) descriptionNode.textContent = description;
             }
+
+            const media = item.querySelector('.img-zoom');
+            const title = item.querySelector('.font-serif')?.textContent.trim() || `Проект ${index + 1}`;
+            const startingPrice = portfolioStartingPrices[index] || 550;
+            const priceText = `от ${startingPrice} BYN`;
+            if (!media || item.querySelector('.portfolio-card__details')) return;
+
+            item.classList.add('portfolio-card');
+            item.dataset.startingPrice = priceText;
+            media.classList.add('portfolio-card__media');
+
+            const priceBadge = document.createElement('span');
+            priceBadge.className = 'portfolio-card__price-badge';
+            priceBadge.textContent = `От ${startingPrice} BYN`;
+            media.appendChild(priceBadge);
+
+            const details = document.createElement('div');
+            details.className = 'portfolio-card__details';
+            details.innerHTML = `
+                <div class="portfolio-card__heading">
+                    <h3 class="portfolio-card__title">${title}</h3>
+                    <div class="portfolio-card__pricing">
+                        <p class="portfolio-card__price">Цена: ${priceText}</p>
+                        <p class="portfolio-card__price-note">Точная стоимость зависит от размеров, состава декора и места проведения мероприятия.</p>
+                    </div>
+                </div>
+                <dl class="portfolio-card__specs">
+                    <div>
+                        <dt>Размер</dt>
+                        <dd>Индивидуальный размер</dd>
+                    </div>
+                    <div>
+                        <dt>В стоимость входит</dt>
+                        <dd>Монтаж, демонтаж, доставка по Минску</dd>
+                    </div>
+                </dl>
+                <button type="button" class="portfolio-card__cta">Рассчитать такую фотозону</button>
+            `;
+
+            const cta = details.querySelector('.portfolio-card__cta');
+            cta.addEventListener('click', (event) => {
+                event.stopPropagation();
+                openModal(title, `Портфолио — ${title}`, priceText);
+            });
+
+            item.appendChild(details);
         });
 
         function shufflePortfolioItems(items) {
@@ -341,6 +392,7 @@
         const modalSuccess = document.getElementById('modal-success');
         const modalForm = document.getElementById('modal-form');
         const modalSource = document.getElementById('modal-source');
+        const modalEstimatedPrice = document.getElementById('modal-estimated-price');
         const today = new Date();
         const todayValue = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
@@ -361,19 +413,19 @@
             return true;
         }
 
-        function openModal(packageName) {
+        function openModal(packageName, sourceName, estimatedPrice) {
             if (typeof closeLightbox === 'function') closeLightbox(false);
             modalOverlay.classList.remove('hidden');
             modalOverlay.classList.add('flex');
             modalSuccess.classList.add('hidden');
             modalForm.classList.remove('hidden');
             if (packageName) {
-                modalText.textContent = `Пакет: ${packageName} — обсуждаем детали`;
-                modalSource.value = `Модальная форма: ${packageName}`;
+                modalSource.value = sourceName || `Модальная форма: ${packageName}`;
             } else {
-                modalText.textContent = 'Расскажите о вашем мероприятии';
-                modalSource.value = 'Модальная форма';
+                modalSource.value = sourceName || 'Модальная форма';
             }
+            modalText.textContent = 'Подберём оформление под ваш праздник, площадку и бюджет.';
+            modalEstimatedPrice.value = estimatedPrice || '';
             document.body.style.overflow = 'hidden';
         }
         function closeModal() {
@@ -390,7 +442,7 @@
             setTimeout(() => {
                 modalForm.classList.add('hidden');
                 modalSuccess.classList.remove('hidden');
-                btn.textContent = 'Отправить заявку';
+                btn.textContent = 'Получить расчёт стоимости';
                 btn.disabled = false;
                 e.target.reset();
             }, 1200);
@@ -408,7 +460,7 @@
             setTimeout(() => {
                 contactForm.classList.add('hidden');
                 contactSuccess.classList.remove('hidden');
-                btn.textContent = 'Отправить → Перейти в мессенджер';
+                btn.textContent = 'Получить расчёт стоимости';
                 btn.disabled = false;
                 e.target.reset();
             }, 1200);
@@ -440,15 +492,11 @@
             alert('Чек-лист отправлен! Проверьте Telegram.');
         }
 
-        // Quiz
-        let quizStep = 1;
+        // Calculation form
         const quizOverlay = document.getElementById('quiz-overlay');
         function openQuiz() {
             quizOverlay.classList.remove('hidden');
             quizOverlay.classList.add('flex');
-            quizStep = 1;
-            document.getElementById('quiz-next-btn').style.display = '';
-            updateQuiz();
             document.body.style.overflow = 'hidden';
         }
         function closeQuiz() {
@@ -456,49 +504,6 @@
             quizOverlay.classList.remove('flex');
             document.body.style.overflow = '';
         }
-        function quizNext() {
-            if (quizStep < 5) { quizStep++; updateQuiz(); }
-        }
-        function quizPrev() {
-            if (quizStep > 1) { quizStep--; updateQuiz(); }
-        }
-        function updateQuiz() {
-            document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
-            const nextBtn = document.getElementById('quiz-next-btn');
-            nextBtn.style.display = '';
-            if (quizStep <= 4) {
-                document.getElementById(`quiz-step-${quizStep}`).classList.add('active');
-                document.getElementById('quiz-progress').style.width = `${quizStep * 25}%`;
-                document.getElementById('quiz-prev-btn').style.visibility = quizStep === 1 ? 'hidden' : 'visible';
-                nextBtn.textContent = quizStep === 4 ? 'Рассчитать' : 'Далее';
-            } else {
-                document.getElementById('quiz-result').classList.add('active');
-                document.getElementById('quiz-progress').style.width = '100%';
-                document.getElementById('quiz-prev-btn').style.visibility = 'visible';
-                nextBtn.style.display = 'none';
-                calculatePrice();
-            }
-        }
-        function calculatePrice() {
-            const area = document.querySelector('input[name="quiz-area"]:checked')?.value;
-            const style = document.querySelector('input[name="quiz-style"]:checked')?.value;
-            const urgency = document.querySelector('input[name="quiz-urgency"]:checked')?.value;
-            let price = 450;
-            if (area === '8-15 м²') price = 600;
-            if (area === '15-30 м²') price = 800;
-            if (area === 'более 30 м²') price = 2150;
-            if (style === 'Неон' || style === 'Брендированная') price += 300;
-            if (urgency === '2-3 недели') price += 200;
-            if (urgency === 'Менее 2 недель') price += 450;
-            const priceText = `от ${price.toLocaleString('ru-RU')} Br`;
-            document.getElementById('quiz-price').textContent = priceText;
-            document.getElementById('quiz-estimated-price').value = priceText;
-        }
-        function sendQuiz() {
-            alert('Заявка отправлена! Персональный расчёт придёт в Telegram за 15 минут.');
-            closeQuiz();
-        }
-
         // Lightbox
         const portfolioProjects = portfolioItems.map((item) => {
             const image = item.querySelector('img');
@@ -567,7 +572,6 @@
         // Download modal
         function showDownloadModal() {
             openModal('PDF-каталог трендов 2026');
-            modalText.textContent = 'Оставьте контакт, и мы отправим каталог трендов 2026 в Telegram или WhatsApp.';
         }
 
         // Smooth scroll
@@ -750,7 +754,13 @@
 
         const sentStatus = new URLSearchParams(window.location.search).get('sent');
         if (sentStatus === '1') {
-            alert('Заявка отправлена! Мы свяжемся с вами в течение 15 минут.');
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead');
+            }
+            if (typeof ym === 'function') {
+                ym(109623826, 'reachGoal', 'lead_submit');
+            }
+            alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
             history.replaceState(null, '', window.location.pathname);
         }
         if (sentStatus === '0') {

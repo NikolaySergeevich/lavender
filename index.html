@@ -73,9 +73,6 @@
 </head>
 
 <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
-    <script>
-        fbq('track', 'Lead');
-    </script>
 
     <!-- Navigation -->
     <nav id="navbar"
@@ -197,6 +194,30 @@
                 </div>
                 <h2>Реальные фотографии работ</h2>
             </article>
+        </div>
+    </section>
+
+    <!-- Promotion Section -->
+    <section class="promotion-section px-6 py-12 md:px-12 md:py-16">
+        <div class="promotion-card reveal mx-auto max-w-7xl">
+            <div class="promotion-card__glow" aria-hidden="true"></div>
+            <div class="promotion-card__content">
+                <div class="max-w-2xl">
+                    <p class="promotion-card__eyebrow">Специальное предложение</p>
+                    <h2 class="promotion-card__title">Популярная фотозона по акции</h2>
+                    <p class="promotion-card__text">До конца месяца можно забронировать фотозону под ключ со скидкой.</p>
+                </div>
+                <div class="promotion-card__offer">
+                    <div>
+                        <p class="promotion-card__old-price">950 BYN</p>
+                        <p class="promotion-card__price">550 BYN</p>
+                        <p class="promotion-card__note">Доставка, монтаж и демонтаж включены</p>
+                    </div>
+                    <button type="button"
+                        onclick="openModal('Фотозона по акции — 550 BYN', 'Акционный блок 550 BYN')"
+                        class="hero-btn hero-btn--primary promotion-card__button">Забронировать по акции</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -910,122 +931,73 @@
     </section>
 
     <!-- Process Section -->
-    <section id="process" class="py-24 px-6 md:px-12 bg-brand-ivory/50">
+    <section id="process" class="process-section py-24 px-6 md:px-12">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16 reveal">
-                <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Процесс</p>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Как мы работаем</h2>
-                <p class="text-brand-muted mt-4 max-w-2xl mx-auto">От идеи до установки — прозрачный процесс с
-                    фиксированной ценой и сроками.</p>
+                <p class="process-section__eyebrow">Процесс</p>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Как проходит работа с LavDragon</h2>
+                <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Берём всё оформление на себя — от идеи до демонтажа
+                    после праздника.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="reveal p-8 rounded-2xl bg-white border border-brand-black/5 hover-lift group relative">
-                    <div
-                        class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-brand-gold text-brand-black font-bold flex items-center justify-center shadow-lg">
-                        1</div>
-                    <div
-                        class="w-14 h-14 mb-6 flex items-center justify-center rounded-full bg-brand-gold/10 text-brand-black group-hover:bg-brand-gold group-hover:text-brand-black transition-all duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-                            </path>
+            <div class="process-timeline">
+                <article class="process-step reveal">
+                    <div class="process-step__marker">
+                        <span>1</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                                d="M7 8h10M7 12h6m-8 8 2.2-3.3A8 8 0 1 1 20 12a8 8 0 0 1-12.8 6.4L5 20Z" />
                         </svg>
                     </div>
-                    <h3 class="font-serif text-xl font-bold mb-3 text-brand-black">Бриф и концепция</h3>
-                    <p class="text-brand-muted text-sm leading-relaxed">Созвон или чат, обсуждаем стиль мероприятия,
-                        площадку, пожелания. Утверждаем мудборд.</p>
-                </div>
-                <div class="reveal p-8 rounded-2xl bg-white border border-brand-black/5 hover-lift group relative">
-                    <div
-                        class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-brand-gold text-brand-black font-bold flex items-center justify-center shadow-lg">
-                        2</div>
-                    <div
-                        class="w-14 h-14 mb-6 flex items-center justify-center rounded-full bg-brand-gold/10 text-brand-black group-hover:bg-brand-gold group-hover:text-brand-black transition-all duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                            </path>
+                    <p class="process-step__number">Шаг 1</p>
+                    <h3>Оставляете заявку</h3>
+                    <p>Расскажите о мероприятии или отправьте пример понравившейся фотозоны.</p>
+                </article>
+
+                <article class="process-step reveal">
+                    <div class="process-step__marker">
+                        <span>2</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                                d="m4 16 4.5-4.5 3 3L18 8m0 0h-4m4 0v4M5 20h14" />
                         </svg>
                     </div>
-                    <h3 class="font-serif text-xl font-bold mb-3 text-brand-black">3D-визуализация</h3>
-                    <p class="text-brand-muted text-sm leading-relaxed">Создаём реалистичный рендер вашей фотозоны.
-                        Вносим правки до полного утверждения.</p>
-                </div>
-                <div class="reveal p-8 rounded-2xl bg-white border border-brand-black/5 hover-lift group relative">
-                    <div
-                        class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-brand-gold text-brand-black font-bold flex items-center justify-center shadow-lg">
-                        3</div>
-                    <div
-                        class="w-14 h-14 mb-6 flex items-center justify-center rounded-full bg-brand-gold/10 text-brand-black group-hover:bg-brand-gold group-hover:text-brand-black transition-all duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
-                            </path>
+                    <p class="process-step__number">Шаг 2</p>
+                    <h3>Согласовываем дизайн</h3>
+                    <p>Подбираем оформление под площадку, стиль и бюджет.</p>
+                </article>
+
+                <article class="process-step reveal">
+                    <div class="process-step__marker">
+                        <span>3</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                                d="M3 7h11v10H3V7Zm11 3h3l4 4v3h-7v-7ZM7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
                         </svg>
                     </div>
-                    <h3 class="font-serif text-xl font-bold mb-3 text-brand-black">Производство</h3>
-                    <p class="text-brand-muted text-sm leading-relaxed">Изготавливаем в мастерской из экологичных
-                        материалов. Фотоотчёт со склада на каждом этапе.</p>
-                </div>
-                <div class="reveal p-8 rounded-2xl bg-white border border-brand-black/5 hover-lift group relative">
-                    <div
-                        class="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-brand-gold text-brand-black font-bold flex items-center justify-center shadow-lg">
-                        4</div>
-                    <div
-                        class="w-14 h-14 mb-6 flex items-center justify-center rounded-full bg-brand-gold/10 text-brand-black group-hover:bg-brand-gold group-hover:text-brand-black transition-all duration-300">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    <p class="process-step__number">Шаг 3</p>
+                    <h3>Доставляем и монтируем</h3>
+                    <p>Привозим декор и полностью собираем фотозону на месте.</p>
+                </article>
+
+                <article class="process-step reveal">
+                    <div class="process-step__marker">
+                        <span>4</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                                d="M5 7h14M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5" />
                         </svg>
                     </div>
-                    <h3 class="font-serif text-xl font-bold mb-3 text-brand-black">Монтаж и сопровождение</h3>
-                    <p class="text-brand-muted text-sm leading-relaxed">Устанавливаем за 2–3 часа до старта.
-                        Техподдержка на площадке. Демонтаж после мероприятия.</p>
-                </div>
+                    <p class="process-step__number">Шаг 4</p>
+                    <h3>Демонтаж после мероприятия</h3>
+                    <p>После праздника самостоятельно разбираем и вывозим декор.</p>
+                </article>
             </div>
 
-            <!-- What's included -->
-            <div class="mt-16 reveal bg-white rounded-2xl p-8 md:p-12 border border-brand-black/5">
-                <h3 class="font-serif text-2xl font-bold text-brand-black mb-6 text-center">Что входит в стоимость</h3>
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-black shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="text-brand-graphite">Дизайн-проект и 3D-рендер</span></div>
-                    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-black shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="text-brand-graphite">Производство и материалы</span></div>
-                    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-black shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="text-brand-graphite">Доставка и логистика</span></div>
-                    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-black shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="text-brand-graphite">Монтаж и демонтаж</span></div>
-                    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-black shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="text-brand-graphite">Страховка конструкции</span></div>
-                    <div class="flex items-center gap-3"><svg class="w-5 h-5 text-brand-black shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="text-brand-graphite">Замена при повреждении</span></div>
-                </div>
+            <div class="process-assurances reveal">
+                <p>✓ Работаем по договору</p>
+                <p>✓ Соблюдаем сроки монтажа</p>
+                <p>✓ Доставка по Минску и области</p>
             </div>
         </div>
     </section>
@@ -1046,7 +1018,7 @@
                     <p class="text-brand-muted text-sm mt-1">Типовые решения, быстрая установка</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 450 Br</p>
+                    <p class="text-4xl font-bold text-brand-black">от 550 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">за фотозону до 8 м²</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1090,7 +1062,7 @@
                     <p class="text-brand-muted text-sm mt-1">Кастомный дизайн, премиальные материалы</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold">от 600 Br</p>
+                    <p class="text-4xl font-bold">от 600 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">за фотозону до 15 м²</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1136,7 +1108,7 @@
                     <p class="text-brand-muted text-sm mt-1">Полный цикл, инженерные конструкции</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 2 150 Br</p>
+                    <p class="text-4xl font-bold text-brand-black">от 2 150 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">индивидуальный расчёт</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1478,7 +1450,7 @@
                                 </path>
                             </svg>
                         </a>
-                        <a href="https://wa.me/79990000000?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
+                        <a href="https://wa.me/375291357999?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
                             target="_blank"
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
                             <div class="w-12 h-12 flex items-center justify-center">
@@ -1560,35 +1532,31 @@
 
                 <!-- Form -->
                 <div class="bg-white rounded-2xl p-8 border border-brand-black/5">
-                    <h3 class="font-serif text-xl font-bold text-brand-black mb-6">Оставить заявку</h3>
+                    <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
+                    <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
                     <form id="contact-form" class="space-y-4" action="send.php" method="POST">
                         <input type="hidden" name="source" value="Форма в разделе контактов">
-                        <input name="name" type="text" required placeholder="Ваше имя"
+                        <input name="name" type="text" required placeholder="Имя"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                        <input name="phone" type="tel" required placeholder="+375 (__) ___-__-__"
+                        <input name="phone" type="tel" required placeholder="Телефон"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                        <select name="eventType"
+                        <select name="eventType" required
                             class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                            <option>Тип мероприятия</option>
+                            <option value="" selected disabled>Тип мероприятия</option>
                             <option>Свадьба</option>
-                            <option>Корпоратив</option>
                             <option>День рождения</option>
-                            <option>Бизнес-ивент</option>
-                            <option>Выставка</option>
+                            <option>Юбилей</option>
+                            <option>Детский праздник</option>
+                            <option>Корпоратив</option>
                             <option>Другое</option>
                         </select>
-                        <input name="date" type="date"
-                            class="event-date w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors cursor-pointer">
-                        <textarea name="comment" rows="3" placeholder="Комментарий..."
-                            class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-none"></textarea>
-                        <label class="flex items-start gap-2 cursor-pointer">
-                            <input name="consent" value="Да" type="checkbox" required
-                                class="mt-1 w-4 h-4 rounded border-brand-black/20 text-brand-black focus:ring-brand-gold">
-                            <span class="text-xs text-brand-muted">Согласен на обработку данных и получение
-                                предложений</span>
-                        </label>
                         <button type="submit"
-                            class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Отправить</button>
+                            class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
+                        <div class="lead-form__benefits">
+                            <p>✓ Ответим в течение 15 минут</p>
+                            <p>✓ Монтаж и демонтаж включены</p>
+                            <p>✓ Работаем по договору</p>
+                        </div>
                     </form>
                     <div id="contact-success" class="hidden text-center py-8">
                         <div
@@ -1598,9 +1566,9 @@
                                     d="M5 13l4 4L19 7"></path>
                             </svg>
                         </div>
-                        <h4 class="font-serif text-xl font-bold mb-2 text-brand-black">Заявка отправлена!</h4>
-                        <p class="text-brand-muted mb-4">Мы свяжемся с вами в течение 15 минут.</p>
-                        <button onclick="window.open('https://t.me/lumiere_photo', '_blank')"
+                        <h4 class="font-serif text-xl font-bold mb-2 text-brand-black">Спасибо!</h4>
+                        <p class="text-brand-muted mb-4">Мы уже получили заявку и скоро свяжемся с вами.</p>
+                        <button onclick="window.open('https://t.me/kidseventa1', '_blank')"
                             class="px-6 py-2 border border-brand-gold text-brand-black rounded-full hover:bg-brand-gold hover:text-brand-black transition-all">Перейти
                             в Telegram</button>
                     </div>
@@ -1744,31 +1712,32 @@
                     </path>
                 </svg>
             </button>
-            <h3 class="font-serif text-3xl font-bold text-brand-black mb-2">Обсудить проект</h3>
-            <p class="text-brand-muted mb-8" id="modal-text">Расскажите о вашем мероприятии</p>
+            <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
+            <p class="lead-form__subtitle" id="modal-text">Подберём оформление под ваш праздник, площадку и бюджет.</p>
             <form id="modal-form" class="space-y-4" action="send.php" method="POST">
                 <input type="hidden" name="source" id="modal-source" value="Модальная форма">
-                <input name="name" type="text" required placeholder="Ваше имя"
+                <input type="hidden" name="estimatedPrice" id="modal-estimated-price" value="">
+                <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                <input name="phone" type="tel" required placeholder="+375 (__) ___-__-__"
+                <input name="phone" type="tel" required placeholder="Телефон"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                <select name="eventType"
+                <select name="eventType" required
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option>Тип мероприятия</option>
+                    <option value="" selected disabled>Тип мероприятия</option>
                     <option>Свадьба</option>
-                    <option>Корпоратив</option>
                     <option>День рождения</option>
-                    <option>Бизнес-ивент</option>
-                    <option>Выставка</option>
+                    <option>Юбилей</option>
+                    <option>Детский праздник</option>
+                    <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <input name="date" type="date"
-                    class="event-date w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors cursor-pointer">
-                <textarea name="comment" rows="3" placeholder="Пожелания, бюджет..."
-                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-none"></textarea>
                 <button type="submit"
-                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Отправить
-                    заявку</button>
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
+                <div class="lead-form__benefits">
+                    <p>✓ Ответим в течение 15 минут</p>
+                    <p>✓ Монтаж и демонтаж включены</p>
+                    <p>✓ Работаем по договору</p>
+                </div>
             </form>
             <div id="modal-success" class="hidden text-center py-8">
                 <div
@@ -1777,9 +1746,9 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h4 class="font-serif text-2xl font-bold mb-2 text-brand-black">Заявка отправлена!</h4>
-                <p class="text-brand-muted">Ответим в течение 15 минут.</p>
-                <button onclick="window.open('https://t.me/lumiere_photo', '_blank'); closeModal();"
+                <h4 class="font-serif text-2xl font-bold mb-2 text-brand-black">Спасибо!</h4>
+                <p class="text-brand-muted">Мы уже получили заявку и скоро свяжемся с вами.</p>
+                <button onclick="window.open('https://t.me/kidseventa1', '_blank'); closeModal();"
                     class="mt-6 px-6 py-2 bg-brand-gold text-brand-black rounded-full hover:bg-brand-goldLight transition-colors font-medium">Написать
                     в Telegram</button>
             </div>
@@ -1798,126 +1767,31 @@
                     </path>
                 </svg>
             </button>
-            <h3 class="font-serif text-2xl font-bold text-brand-black mb-2">Рассчитайте стоимость за 4 шага</h3>
-            <div class="w-full bg-brand-black/10 rounded-full h-2 mb-8">
-                <div id="quiz-progress" class="bg-brand-gold h-2 rounded-full transition-all duration-300"
-                    style="width: 25%"></div>
-            </div>
-            <form id="quiz-form" action="send.php" method="POST">
+            <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
+            <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
+            <form id="quiz-form" action="send.php" method="POST" class="space-y-4">
                 <input type="hidden" name="source" value="Квиз расчёта стоимости">
-                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 450 Br">
-
-                <div class="quiz-step active" id="quiz-step-1">
-                    <p class="font-medium text-brand-black text-lg mb-4">1. Тип мероприятия</p>
-                    <div class="space-y-3">
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-type" value="Свадьба" class="w-4 h-4 text-brand-black">
-                            Свадьба</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-type" value="Корпоратив" class="w-4 h-4 text-brand-black">
-                            Корпоратив</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-type" value="День рождения" class="w-4 h-4 text-brand-black">
-                            День рождения</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-type" value="Бизнес-ивент" class="w-4 h-4 text-brand-black">
-                            Бизнес-ивент / Выставка</label>
-                    </div>
-                </div>
-
-                <div class="quiz-step" id="quiz-step-2">
-                    <p class="font-medium text-brand-black text-lg mb-4">2. Желаемая площадь</p>
-                    <div class="space-y-3">
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-area" value="до 8 м²" class="w-4 h-4 text-brand-black"> до 8
-                            м²</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-area" value="8-15 м²" class="w-4 h-4 text-brand-black"> 8–15
-                            м²</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-area" value="15-30 м²" class="w-4 h-4 text-brand-black"> 15–30
-                            м²</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-area" value="более 30 м²" class="w-4 h-4 text-brand-black">
-                            более
-                            30 м²</label>
-                    </div>
-                </div>
-
-                <div class="quiz-step" id="quiz-step-3">
-                    <p class="font-medium text-brand-black text-lg mb-4">3. Стиль фотозоны</p>
-                    <div class="space-y-3">
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-style" value="Минимализм" class="w-4 h-4 text-brand-black">
-                            Минимализм</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-style" value="Цветочная" class="w-4 h-4 text-brand-black">
-                            Цветочная / Флористика</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-style" value="Неон" class="w-4 h-4 text-brand-black"> Неон /
-                            LED</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-style" value="Брендированная" class="w-4 h-4 text-brand-black">
-                            Брендированная</label>
-                    </div>
-                </div>
-
-                <div class="quiz-step" id="quiz-step-4">
-                    <p class="font-medium text-brand-black text-lg mb-4">4. Срочность</p>
-                    <div class="space-y-3">
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-urgency" value="Более месяца" class="w-4 h-4 text-brand-black">
-                            Более месяца</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-urgency" value="2-3 недели" class="w-4 h-4 text-brand-black">
-                            2–3
-                            недели</label>
-                        <label
-                            class="flex items-center gap-3 p-4 border border-brand-black/10 rounded-xl cursor-pointer hover:border-brand-gold transition-colors"><input
-                                type="radio" name="quiz-urgency" value="Менее 2 недель"
-                                class="w-4 h-4 text-brand-black">
-                            Менее 2 недель</label>
-                    </div>
-                </div>
-
-                <div class="quiz-step" id="quiz-result">
-                    <div class="text-center mb-6">
-                        <p class="font-serif text-2xl font-bold text-brand-black mb-2">Предварительная оценка</p>
-                        <p class="text-3xl font-bold text-brand-black mb-2" id="quiz-price">от 450 Br</p>
-                        <p class="text-brand-muted text-sm">Точная стоимость после утверждения дизайна</p>
-                    </div>
-                    <div class="space-y-3">
-                        <input name="name" type="text" required placeholder="Ваше имя"
-                            class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                        <input name="phone" type="tel" required placeholder="Телефон или Telegram"
-                            class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                    </div>
-                    <button type="submit"
-                        class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl mt-4">Получить
-                        точный расчёт</button>
-                    <p class="text-xs text-brand-muted text-center mt-2">Отправим персональное предложение в мессенджер
-                        за 15 минут</p>
-                </div>
-
-                <div class="flex justify-between mt-8">
-                    <button type="button" onclick="quizPrev()" id="quiz-prev-btn"
-                        class="filter-btn filter-btn--silver filter-btn--no-shine px-6 py-2 rounded-full text-sm font-medium">Назад</button>
-                    <button type="button" onclick="quizNext()" id="quiz-next-btn"
-                        class="filter-btn filter-btn--silver filter-btn--lavender-cta filter-btn--no-shine px-6 py-2 rounded-full text-sm font-bold">Далее</button>
+                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 550 BYN">
+                <input name="name" type="text" required placeholder="Имя"
+                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                <input name="phone" type="tel" required placeholder="Телефон"
+                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                <select name="eventType" required
+                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
+                    <option value="" selected disabled>Тип мероприятия</option>
+                    <option>Свадьба</option>
+                    <option>День рождения</option>
+                    <option>Юбилей</option>
+                    <option>Детский праздник</option>
+                    <option>Корпоратив</option>
+                    <option>Другое</option>
+                </select>
+                <button type="submit"
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
+                <div class="lead-form__benefits">
+                    <p>✓ Ответим в течение 15 минут</p>
+                    <p>✓ Монтаж и демонтаж включены</p>
+                    <p>✓ Работаем по договору</p>
                 </div>
             </form>
         </div>
@@ -1941,18 +1815,31 @@
                     </path>
                 </svg>
             </div>
-            <h3 class="font-serif text-2xl font-bold text-brand-black mb-3">Забрать чек-лист бесплатно</h3>
-            <p class="text-brand-muted mb-6">«10 ошибок при выборе фотозоны» + персональная консультация от
-                арт-директора</p>
+            <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
+            <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
             <form action="send.php" method="POST" class="space-y-3">
-                <input type="hidden" name="source" value="Попап чек-листа">
-                <input name="name" type="text" required placeholder="Ваше имя"
+                <input type="hidden" name="source" value="Exit popup — расчёт стоимости">
+                <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                <input name="phone" type="tel" required placeholder="Телефон или Telegram"
+                <input name="phone" type="tel" required placeholder="Телефон"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                <select name="eventType" required
+                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
+                    <option value="" selected disabled>Тип мероприятия</option>
+                    <option>Свадьба</option>
+                    <option>День рождения</option>
+                    <option>Юбилей</option>
+                    <option>Детский праздник</option>
+                    <option>Корпоратив</option>
+                    <option>Другое</option>
+                </select>
                 <button type="submit"
-                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
-                    чек-лист</button>
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
+                <div class="lead-form__benefits text-left">
+                    <p>✓ Ответим в течение 15 минут</p>
+                    <p>✓ Монтаж и демонтаж включены</p>
+                    <p>✓ Работаем по договору</p>
+                </div>
             </form>
         </div>
     </div>
