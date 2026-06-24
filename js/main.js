@@ -129,6 +129,11 @@
 
         portfolioItems.forEach((item, index) => {
             item.dataset.portfolioIndex = index;
+            const portfolioImage = item.querySelector('img');
+            if (portfolioImage) {
+                portfolioImage.loading = 'lazy';
+                portfolioImage.decoding = 'async';
+            }
             const description = portfolioDescriptions[index];
             if (description) {
                 const descriptionNode = item.querySelector('.text-white\\/70');
@@ -176,6 +181,7 @@
             const cta = details.querySelector('.portfolio-card__cta');
             cta.addEventListener('click', (event) => {
                 event.stopPropagation();
+                trackGoal('portfolio_click', { project: title, action: 'calculate' });
                 openModal(title, `Портфолио — ${title}`, priceText);
             });
 
@@ -334,37 +340,69 @@
 
         // Reviews slider
         let reviewPosition = 0;
-        function createReviewCard({ initials, name, meta, text }) {
+        function createReviewCard({ image, imageAlt, name, meta, text }) {
             const stars = Array.from({ length: 5 }, () => `
-                <svg class="w-5 h-5 text-brand-black" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                 </svg>
             `).join('');
 
             return `
-                <div class="w-full md:w-1/2 lg:w-1/3 shrink-0 px-4">
-                    <div class="bg-white rounded-2xl p-8 border border-brand-black/5 h-full">
-                        <div class="flex gap-1 mb-4">${stars}</div>
-                        <p class="text-brand-graphite mb-6 leading-relaxed italic">"${text}"</p>
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-black">${initials}</div>
-                            <div>
-                                <p class="font-medium text-brand-black">${name}</p>
-                                <p class="text-xs text-brand-muted">${meta}</p>
+                <div class="review-slide w-full md:w-1/2 lg:w-1/3 shrink-0 px-4">
+                    <article class="review-card">
+                        <img src="${image}" alt="${imageAlt}" class="review-card__image" loading="lazy">
+                        <div class="review-card__body">
+                            <div class="review-card__stars">${stars}</div>
+                            <p class="review-card__text">"${text}"</p>
+                            <div class="review-card__person">
+                                <p class="review-card__name">${name}</p>
+                                <p class="review-card__meta">${meta}</p>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
             `;
         }
 
         const reviewsTrack = document.getElementById('reviews-track');
+        const initialReviewImages = [
+            { image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp', imageAlt: 'Свадебная фотозона для отзыва Анны' },
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp', imageAlt: 'Фотозона для корпоративного мероприятия' },
+            { image: 'picture/wedding/svadebnaya-fotozona-minsk-svet.webp', imageAlt: 'Световая фотозона для event-агентства' }
+        ];
+        reviewsTrack?.querySelectorAll(':scope > div').forEach((slide, index) => {
+            const card = slide.firstElementChild;
+            const imageData = initialReviewImages[index];
+            if (!card || !imageData) return;
+            slide.classList.add('review-slide');
+            card.classList.add('review-card');
+            card.className = 'review-card';
+            card.insertAdjacentHTML('afterbegin', `<img src="${imageData.image}" alt="${imageData.imageAlt}" class="review-card__image" loading="lazy">`);
+            const existingContent = Array.from(card.children).slice(1);
+            const body = document.createElement('div');
+            body.className = 'review-card__body';
+            existingContent.forEach(element => body.appendChild(element));
+            card.appendChild(body);
+            body.querySelector('.flex.gap-1')?.classList.add('review-card__stars');
+            body.querySelector('.italic')?.classList.add('review-card__text');
+            const person = body.querySelector('.flex.items-center.gap-3');
+            person?.classList.add('review-card__person');
+            person?.querySelector('.rounded-full')?.remove();
+            const personContent = person?.querySelector(':scope > div');
+            if (person && personContent) {
+                while (personContent.firstChild) person.appendChild(personContent.firstChild);
+                personContent.remove();
+            }
+            const personTexts = person?.querySelectorAll('p');
+            personTexts?.[0]?.classList.add('review-card__name');
+            personTexts?.[1]?.classList.add('review-card__meta');
+        });
         const additionalReviews = [
-            { initials: 'ОМ', name: 'Ольга М.', meta: 'Юбилей, март 2026', text: 'Очень понравилось, что команда сама подсказала, как лучше поставить фотозону в зале. На фото всё выглядит аккуратно и дорого.' },
-            { initials: 'ИС', name: 'Ирина С.', meta: 'День рождения, февраль 2026', text: 'Заказывали оформление для дня рождения. Приехали вовремя, быстро смонтировали, после праздника всё спокойно разобрали.' },
-            { initials: 'НК', name: 'Наталья К.', meta: 'Детский праздник, январь 2026', text: 'Детская фотозона получилась нежной и безопасной. Дети постоянно возле неё фотографировались, а родители просили контакты.' },
-            { initials: 'АР', name: 'Алексей Р.', meta: 'Свадьба, август 2025', text: 'Смета была понятной, без неожиданностей. В день свадьбы мы вообще не отвлекались на монтаж, всё уже стояло готовым.' },
-            { initials: 'ВП', name: 'Виктория П.', meta: 'Gender party, май 2026', text: 'Получилась очень красивая зона reveal, цвета подобрали идеально. Фото вышли светлые, праздничные и без лишней перегрузки.' }
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-dekor.webp', imageAlt: 'Фотозона на юбилей', name: 'Ольга М.', meta: 'Юбилей', text: 'Команда сама подсказала, как лучше поставить фотозону в зале. На фотографиях всё выглядит аккуратно и дорого.' },
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp', imageAlt: 'Фотозона на день рождения', name: 'Ирина С.', meta: 'День рождения', text: 'Приехали вовремя, быстро всё смонтировали, а после праздника спокойно разобрали. Мы ни о чём не переживали.' },
+            { image: 'picture/children-parties/detskaya-fotozona-minsk-butterflies.webp', imageAlt: 'Детская фотозона с бабочками', name: 'Наталья К.', meta: 'Детский праздник', text: 'Фотозона получилась нежной и безопасной. Дети постоянно возле неё фотографировались, а родители просили контакты.' },
+            { image: 'picture/wedding/svadebnaya-fotozona-minsk-sad.webp', imageAlt: 'Свадебная фотозона сад', name: 'Алексей Р.', meta: 'Свадьба', text: 'Смета была понятной, без неожиданностей. В день свадьбы мы вообще не отвлекались на монтаж — всё уже было готово.' },
+            { image: 'picture/gender-party/detskaya-fotozona-minsk-shary.webp', imageAlt: 'Фотозона для gender party', name: 'Виктория П.', meta: 'Gender party', text: 'Цвета подобрали идеально. Фото вышли светлые, праздничные и без лишней перегрузки.' }
         ];
         if (reviewsTrack) {
             reviewsTrack.insertAdjacentHTML('beforeend', additionalReviews.map(createReviewCard).join(''));
@@ -426,6 +464,10 @@
             }
             modalText.textContent = 'Подберём оформление под ваш праздник, площадку и бюджет.';
             modalEstimatedPrice.value = estimatedPrice || '';
+            if (sourceName === 'Акционный блок 550 BYN') {
+                trackGoal('promo_click', { offer: '550 BYN' });
+            }
+            trackGoal('form_open', { source: modalSource.value });
             document.body.style.overflow = 'hidden';
         }
         function closeModal() {
@@ -466,19 +508,13 @@
             }, 1200);
         }
 
-        // Sticky CTA
-        const stickyCta = document.getElementById('sticky-cta');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 600) stickyCta.classList.add('visible');
-            else stickyCta.classList.remove('visible');
-        });
-
         // Exit Intent
         let exitShown = false;
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 5 && !exitShown) {
                 document.getElementById('exit-popup').classList.remove('hidden');
                 document.getElementById('exit-popup').classList.add('visible', 'flex');
+                trackGoal('form_open', { source: 'Exit popup — расчёт стоимости' });
                 exitShown = true;
             }
         });
@@ -497,6 +533,7 @@
         function openQuiz() {
             quizOverlay.classList.remove('hidden');
             quizOverlay.classList.add('flex');
+            trackGoal('form_open', { source: 'Квиз расчёта стоимости' });
             document.body.style.overflow = 'hidden';
         }
         function closeQuiz() {
@@ -513,13 +550,16 @@
             const fit = item.dataset.lightboxFit || 'cover';
             const position = item.dataset.lightboxPosition || 'center center';
             const categorySlug = item.dataset.category || '';
-            return { image: image.src, alt: image.alt, title, meta, category, categorySlug, fit, position };
+            const startingPrice = item.dataset.startingPrice || '';
+            return { image: image.src, alt: image.alt, title, meta, category, categorySlug, fit, position, startingPrice };
         });
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         let lightboxIndex = 0;
         let lightboxProjects = portfolioProjects;
 
         function openLightbox(idx) {
+            const portfolioTitle = portfolioProjects[idx]?.title || 'Проект';
+            trackGoal('portfolio_click', { project: portfolioTitle });
             const item = portfolioItems[idx];
             const visibleIndexes = visiblePortfolioIndexes.length ? visiblePortfolioIndexes : getPortfolioIndexesForFilter(currentPortfolioFilter);
 
@@ -568,11 +608,12 @@
             document.getElementById('lightbox-meta').textContent = project.meta;
             document.getElementById('lightbox-category').textContent = project.category;
         }
-
-        // Download modal
-        function showDownloadModal() {
-            openModal('PDF-каталог трендов 2026');
-        }
+        document.getElementById('lightbox-cta')?.addEventListener('click', () => {
+            const project = lightboxProjects[lightboxIndex];
+            if (!project) return;
+            trackGoal('portfolio_click', { project: project.title, action: 'lightbox_calculate' });
+            openModal(project.title, `Портфолио — ${project.title}`, project.startingPrice);
+        });
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -763,6 +804,37 @@
             alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
             history.replaceState(null, '', window.location.pathname);
         }
+
+        function trackGoal(goal, params = {}) {
+            if (typeof ym === 'function') {
+                ym(109623826, 'reachGoal', goal, params);
+            }
+        }
+
+        document.querySelectorAll('form[action="send.php"]').forEach(form => {
+            form.addEventListener('submit', () => {
+                trackGoal('form_submit', {
+                    source: form.querySelector('[name="source"]')?.value || 'Форма сайта'
+                });
+            });
+        });
+
+        const contactFormObserver = new IntersectionObserver(entries => {
+            if (!entries.some(entry => entry.isIntersecting)) return;
+            trackGoal('form_open', { source: 'Форма в разделе контактов' });
+            contactFormObserver.disconnect();
+        }, { threshold: 0.45 });
+        if (contactForm) contactFormObserver.observe(contactForm);
+
+        document.addEventListener('click', event => {
+            const telegramLink = event.target.closest('a[href*="t.me/"]');
+            const telegramButton = event.target.closest('button[onclick*="t.me/"]');
+            const phoneLink = event.target.closest('a[href^="tel:"]');
+            if (telegramLink || telegramButton) {
+                trackGoal('telegram_click', { href: telegramLink?.href || 'success_button' });
+            }
+            if (phoneLink) trackGoal('phone_click', { href: phoneLink.href });
+        });
         if (sentStatus === '0') {
             alert('Не удалось отправить заявку. Проверьте настройки send.php или попробуйте позже.');
             history.replaceState(null, '', window.location.pathname);
@@ -773,7 +845,7 @@
             const portfolioSection = document.getElementById('portfolio');
             const quizBtn = document.createElement('button');
             quizBtn.className = 'filter-btn filter-btn--silver filter-btn--lavender-cta inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full font-bold mt-6 reveal';
-            quizBtn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> Рассчитать стоимость за 4 шага`;
+            quizBtn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> Получить расчёт стоимости`;
             quizBtn.onclick = openQuiz;
             portfolioSection.querySelector('.text-center.mt-16').prepend(quizBtn);
             observer.observe(quizBtn);

@@ -86,6 +86,23 @@
         .hero-btn--primary:hover { background: #C9CED6; color: #08090D; }
         .hero-btn--ghost { border: 1px solid rgba(244, 245, 247, 0.45); color: #F4F5F7; }
         .hero-btn--ghost:hover { border-color: #C9CED6; color: #C9CED6; }
+        .cta-microproof {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            font-size: 0.74rem;
+            font-weight: 650;
+            line-height: 1.4;
+        }
+        .cta-microproof--hero {
+            margin-top: 18px;
+            color: rgba(244, 245, 247, 0.68);
+        }
+        .cta-microproof--promotion {
+            padding-top: 20px;
+            border-top: 1px solid rgba(244, 245, 247, 0.1);
+            color: rgba(244, 245, 247, 0.7);
+        }
         .trust-section {
             position: relative;
             z-index: 2;
@@ -256,6 +273,7 @@
                 padding-top: 24px;
             }
             .promotion-card__button { width: 100%; }
+            .cta-microproof { flex-direction: column; gap: 6px; }
         }
         .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
         .portfolio-item { scroll-margin-top: 6rem; }
@@ -511,6 +529,108 @@
             font-weight: 700;
             text-align: center;
         }
+        .advantages-section {
+            background: linear-gradient(180deg, rgba(255,255,255,0.76), rgba(244,245,247,0.94));
+            border-bottom: 1px solid rgba(8, 9, 13, 0.05);
+        }
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .advantage-card {
+            display: flex;
+            min-height: 150px;
+            align-items: center;
+            gap: 20px;
+            padding: 26px;
+            border: 1px solid rgba(8, 9, 13, 0.07);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.88);
+            box-shadow: 0 14px 34px rgba(8,9,13,0.045);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .advantage-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(185,167,216,0.45);
+            box-shadow: 0 22px 42px rgba(8,9,13,0.085);
+        }
+        .advantage-card__icon {
+            display: flex;
+            width: 52px;
+            height: 52px;
+            flex: 0 0 52px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: #08090D;
+            background: rgba(185,167,216,0.24);
+            font-size: 0.82rem;
+            font-weight: 850;
+        }
+        .advantage-card__icon svg { width: 24px; height: 24px; }
+        .advantage-card h3 {
+            color: #08090D;
+            font-family: "Playfair Display", serif;
+            font-size: 1.12rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+        .review-slide { display: flex; }
+        .review-card {
+            display: flex;
+            width: 100%;
+            min-height: 520px;
+            overflow: hidden;
+            flex-direction: column;
+            border: 1px solid rgba(8,9,13,0.07);
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 18px 42px rgba(8,9,13,0.07);
+        }
+        .review-card__image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .review-card__body {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 24px;
+        }
+        .review-card__stars,
+        .review-card__body .flex.gap-1 {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 4px;
+            margin-bottom: 16px;
+            color: #71618F;
+        }
+        .review-card__stars svg,
+        .review-card__body .flex.gap-1 svg {
+            display: block;
+            width: 16px;
+            height: 16px;
+            flex: 0 0 16px;
+        }
+        .review-card__text,
+        .review-card__body .italic {
+            flex: 1;
+            font-family: "Playfair Display", serif;
+            font-size: 1.02rem;
+            line-height: 1.62;
+        }
+        .review-card__person {
+            display: block;
+            margin-top: auto;
+            padding-top: 18px;
+            border-top: 1px solid rgba(8, 9, 13, 0.08);
+        }
+        .review-card__name { color: #08090D; font-weight: 750; }
+        .review-card__meta { margin-top: 2px; color: #777B84; font-size: 0.75rem; }
         @media (max-width: 768px) { .masonry-grid { grid-template-columns: 1fr; } }
         @media (max-width: 768px) {
             .portfolio-card:hover { transform: none; }
@@ -565,6 +685,11 @@
                 gap: 10px;
                 text-align: left;
             }
+            .advantages-grid { grid-template-columns: 1fr; }
+            .advantage-card { min-height: 0; padding: 20px; }
+            .advantage-card:hover { transform: none; }
+            .review-card { min-height: 500px; }
+            .review-card__image { height: 210px; }
         }
         .filter-btn { transition: all 0.3s ease; }
         .filter-btn.active { background-color: #08090D; color: #F4F5F7; }
@@ -680,8 +805,50 @@
         .faq-answer.open { max-height: 300px; opacity: 1; }
         .faq-arrow { transition: transform 0.3s ease; }
         .faq-arrow.rotate { transform: rotate(180deg); }
-        .sticky-cta { transform: translateY(100%); transition: transform 0.4s ease; }
-        .sticky-cta.visible { transform: translateY(0); }
+        .mobile-contact-bar {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 50;
+            padding: 9px 10px max(9px, env(safe-area-inset-bottom));
+            border-top: 1px solid rgba(8,9,13,0.09);
+            background: rgba(244,245,247,0.94);
+            box-shadow: 0 -12px 30px rgba(8,9,13,0.1);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .mobile-contact-bar__inner {
+            display: grid;
+            max-width: 34rem;
+            margin: 0 auto;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 7px;
+        }
+        .mobile-contact-bar__button {
+            display: flex;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border: 1px solid rgba(8,9,13,0.1);
+            border-radius: 10px;
+            color: #08090D;
+            background: rgba(255,255,255,0.82);
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+        .mobile-contact-bar__button--telegram { border-color: rgba(113,97,143,0.35); }
+        .mobile-contact-bar__button--primary {
+            border-color: #B9A7D8;
+            background: #B9A7D8;
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .advantages-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 768px) {
+            body { padding-bottom: 70px; }
+        }
         .exit-popup { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .exit-popup.visible { opacity: 1; pointer-events: auto; }
         .scroll-indicator { animation: bounce 2s ease-in-out infinite; }

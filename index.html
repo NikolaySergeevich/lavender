@@ -145,6 +145,11 @@
                     <a href="#portfolio" class="hero-btn hero-btn--primary">Смотреть каталог</a>
                     <button onclick="openModal()" class="hero-btn hero-btn--ghost">Получить расчет за 15 минут</button>
                 </div>
+                <div class="cta-microproof cta-microproof--hero animate-fade-up" style="animation-delay: 0.75s;">
+                    <span>✓ Ответим в течение 15 минут</span>
+                    <span>✓ Более 100 реализованных проектов</span>
+                    <span>✓ Работаем по Минску и области</span>
+                </div>
             </div>
         </div>
 
@@ -216,6 +221,11 @@
                     <button type="button"
                         onclick="openModal('Фотозона по акции — 550 BYN', 'Акционный блок 550 BYN')"
                         class="hero-btn hero-btn--primary promotion-card__button">Забронировать по акции</button>
+                </div>
+                <div class="cta-microproof cta-microproof--promotion">
+                    <span>✓ Монтаж включён</span>
+                    <span>✓ Работаем по договору</span>
+                    <span>✓ Без скрытых платежей</span>
                 </div>
             </div>
         </div>
@@ -918,7 +928,8 @@
 
         <!-- PDF Download -->
         <div class="text-center mt-16 reveal">
-            <button onclick="showDownloadModal()"
+            <a href="che.pdf" download="katalog-trendov-fotozon-2026-lavdragon.pdf"
+                onclick="trackGoal('pdf_download', { file: 'katalog-trendov-fotozon-2026-lavdragon.pdf' })"
                 class="filter-btn filter-btn--silver inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full font-medium">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -926,7 +937,7 @@
                     </path>
                 </svg>
                 Скачать PDF-каталог трендов 2026
-            </button>
+            </a>
         </div>
     </section>
 
@@ -998,6 +1009,54 @@
                 <p>✓ Работаем по договору</p>
                 <p>✓ Соблюдаем сроки монтажа</p>
                 <p>✓ Доставка по Минску и области</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why LavDragon Section -->
+    <section class="advantages-section px-6 py-24 md:px-12">
+        <div class="mx-auto max-w-7xl">
+            <div class="text-center mb-14 reveal">
+                <p class="process-section__eyebrow">Преимущества</p>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Почему клиенты выбирают LavDragon</h2>
+                <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Создаём фотозоны под ключ и берём на себя все
+                    организационные вопросы.</p>
+            </div>
+            <div class="advantages-grid">
+                <article class="advantage-card reveal">
+                    <div class="advantage-card__icon">100+</div>
+                    <h3>Более 100 реализованных проектов</h3>
+                </article>
+                <article class="advantage-card reveal">
+                    <div class="advantage-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M4 20V9l8-5 8 5v11M8 20v-6h8v6M8 10h.01M12 10h.01M16 10h.01"/></svg>
+                    </div>
+                    <h3>Собственное производство конструкций</h3>
+                </article>
+                <article class="advantage-card reveal">
+                    <div class="advantage-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="m4 16 8-8 4 4-8 8H4v-4Zm10-10 2-2 4 4-2 2"/></svg>
+                    </div>
+                    <h3>Индивидуальный дизайн под каждое мероприятие</h3>
+                </article>
+                <article class="advantage-card reveal">
+                    <div class="advantage-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M4 18h16M6 18V9l6-4 6 4v9M9 18v-5h6v5"/></svg>
+                    </div>
+                    <h3>Монтаж и демонтаж включены</h3>
+                </article>
+                <article class="advantage-card reveal">
+                    <div class="advantage-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M7 3h7l4 4v14H7V3Zm7 0v5h4M10 13h5m-5 4h5"/></svg>
+                    </div>
+                    <h3>Работаем по договору</h3>
+                </article>
+                <article class="advantage-card reveal">
+                    <div class="advantage-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="m21 4-3 16-6-4-4 3 1-5 8-7-10 6-4-2 18-7Z"/></svg>
+                    </div>
+                    <h3>Быстрая связь через Telegram</h3>
+                </article>
             </div>
         </div>
     </section>
@@ -1202,12 +1261,9 @@
                                     нашей свадьбы! Гости выстроились в очередь. Качество исполнения превзошло все
                                     ожидания."</p>
                                 <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-black">
-                                        АМ</div>
                                     <div>
                                         <p class="font-medium text-brand-black">Анна М.</p>
-                                        <p class="text-xs text-brand-muted">Свадьба, июнь 2025</p>
+                                        <p class="text-xs text-brand-muted">Свадьба</p>
                                     </div>
                                 </div>
                             </div>
@@ -1242,15 +1298,12 @@
                                     </svg>
                                 </div>
                                 <p class="text-brand-graphite mb-6 leading-relaxed italic">"Заказывали фотозону для
-                                    корпоратива. Всё сделали в срок, монтаж прошёл незаметно для гостей. Брендирование
-                                    было идеальным."</p>
+                                    дня рождения. Всё сделали в срок, монтаж прошёл незаметно для гостей. Всё было
+                                    просто идеально."</p>
                                 <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-black">
-                                        ДК</div>
                                     <div>
                                         <p class="font-medium text-brand-black">Дмитрий К.</p>
-                                        <p class="text-xs text-brand-muted">Корпоратив, декабрь 2025</p>
+                                        <p class="text-xs text-brand-muted">День рождения</p>
                                     </div>
                                 </div>
                             </div>
@@ -1288,12 +1341,9 @@
                                     для наших ивентов. Ребята понимают с полуслова, всегда в срок. Рекомендую всем
                                     event-агентствам."</p>
                                 <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-black">
-                                        ЕС</div>
                                     <div>
                                         <p class="font-medium text-brand-black">Елена С.</p>
-                                        <p class="text-xs text-brand-muted">Event-агентство «EventPro»</p>
+                                        <p class="text-xs text-brand-muted">Корпоратив</p>
                                     </div>
                                 </div>
                             </div>
@@ -1550,6 +1600,15 @@
                             <option>Корпоратив</option>
                             <option>Другое</option>
                         </select>
+                        <select name="budget" required
+                            class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
+                            <option value="" selected disabled>Бюджет мероприятия</option>
+                            <option>До 600 BYN</option>
+                            <option>600–700 BYN</option>
+                            <option>700–800 BYN</option>
+                            <option>800–1000 BYN</option>
+                            <option>Более 1000 BYN</option>
+                        </select>
                         <button type="submit"
                             class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
                         <div class="lead-form__benefits">
@@ -1631,15 +1690,14 @@
     </footer>
 
     <!-- Sticky CTA -->
-    <div id="sticky-cta"
-        class="fixed bottom-0 left-0 right-0 z-40 bg-brand-ivory border-t border-brand-black/10 p-4 md:hidden sticky-cta">
-        <div class="flex gap-2 max-w-lg mx-auto">
+    <div id="sticky-cta" class="mobile-contact-bar md:hidden">
+        <div class="mobile-contact-bar__inner">
             <a href="https://t.me/kidseventa1" target="_blank"
-                class="flex-1 py-3 bg-blue-500 text-white rounded-full font-medium text-sm text-center">Telegram</a>
-            <a href="https://www.instagram.com/lav.ender.dragon?igsh=MWJ2azYxc2tzaHM0aw%3D%3D&utm_source=qr" target="_blank"
-                class="flex-1 py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white rounded-full font-medium text-sm text-center">Instagram</a>
+                class="mobile-contact-bar__button mobile-contact-bar__button--telegram">Telegram</a>
             <a href="tel:+375291357999"
-                class="flex-1 py-3 bg-brand-gold text-brand-black rounded-full font-medium text-sm text-center">Позвонить</a>
+                class="mobile-contact-bar__button">Позвонить</a>
+            <button type="button" onclick="openModal('Мобильная панель', 'Мобильная панель — заявка')"
+                class="mobile-contact-bar__button mobile-contact-bar__button--primary">Заявка</button>
         </div>
     </div>
 
@@ -1691,7 +1749,7 @@
                     <p id="lightbox-meta" class="text-brand-muted mb-6"></p>
                     <p class="text-brand-text/80 leading-relaxed mb-8">Подберём похожую концепцию под вашу площадку,
                         бренд и бюджет. Подготовим визуализацию, смету и сроки после короткого брифа.</p>
-                    <button onclick="openModal('Проект из портфолио')"
+                    <button id="lightbox-cta" type="button"
                         class="filter-btn filter-btn--silver filter-btn--lavender-cta filter-btn--no-shine px-6 py-2 rounded-full text-sm font-bold">Хочу
                         похожую фотозону</button>
                 </div>
@@ -1730,6 +1788,15 @@
                     <option>Детский праздник</option>
                     <option>Корпоратив</option>
                     <option>Другое</option>
+                </select>
+                <select name="budget" required
+                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
+                    <option value="" selected disabled>Бюджет мероприятия</option>
+                    <option>До 600 BYN</option>
+                    <option>600–700 BYN</option>
+                    <option>700–800 BYN</option>
+                    <option>800–1000 BYN</option>
+                    <option>Более 1000 BYN</option>
                 </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
@@ -1786,6 +1853,15 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
+                <select name="budget" required
+                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
+                    <option value="" selected disabled>Бюджет мероприятия</option>
+                    <option>До 600 BYN</option>
+                    <option>600–700 BYN</option>
+                    <option>700–800 BYN</option>
+                    <option>800–1000 BYN</option>
+                    <option>Более 1000 BYN</option>
+                </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>
                 <div class="lead-form__benefits">
@@ -1832,6 +1908,15 @@
                     <option>Детский праздник</option>
                     <option>Корпоратив</option>
                     <option>Другое</option>
+                </select>
+                <select name="budget" required
+                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
+                    <option value="" selected disabled>Бюджет мероприятия</option>
+                    <option>До 600 BYN</option>
+                    <option>600–700 BYN</option>
+                    <option>700–800 BYN</option>
+                    <option>800–1000 BYN</option>
+                    <option>Более 1000 BYN</option>
                 </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить расчёт стоимости</button>

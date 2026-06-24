@@ -65,6 +65,7 @@ add_line($lines, 'Источник', post_value('source'));
 add_line($lines, 'Имя', post_value('name'));
 add_line($lines, 'Телефон / Telegram', post_value('phone'));
 add_line($lines, 'Тип мероприятия', post_value('eventType'));
+add_line($lines, 'Бюджет мероприятия', post_value('budget'));
 add_line($lines, 'Дата', post_value('date'));
 add_line($lines, 'Комментарий', post_value('comment'));
 add_line($lines, 'Предварительная стоимость', post_value('estimatedPrice'));
