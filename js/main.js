@@ -129,6 +129,46 @@
                 const descriptionNode = item.querySelector('.text-white\\/70');
                 if (descriptionNode) descriptionNode.textContent = description;
             }
+
+            const media = item.querySelector('.img-zoom');
+            const title = item.querySelector('.font-serif')?.textContent.trim() || `Проект ${index + 1}`;
+            if (!media || item.querySelector('.portfolio-card__details')) return;
+
+            item.classList.add('portfolio-card');
+            media.classList.add('portfolio-card__media');
+
+            const priceBadge = document.createElement('span');
+            priceBadge.className = 'portfolio-card__price-badge';
+            priceBadge.textContent = 'от 550 BYN';
+            media.appendChild(priceBadge);
+
+            const details = document.createElement('div');
+            details.className = 'portfolio-card__details';
+            details.innerHTML = `
+                <div class="portfolio-card__heading">
+                    <h3 class="portfolio-card__title">${title}</h3>
+                    <p class="portfolio-card__price">от 550 BYN</p>
+                </div>
+                <dl class="portfolio-card__specs">
+                    <div>
+                        <dt>Размер</dt>
+                        <dd>Индивидуальный размер</dd>
+                    </div>
+                    <div>
+                        <dt>В стоимость входит</dt>
+                        <dd>Монтаж, демонтаж, доставка по Минску</dd>
+                    </div>
+                </dl>
+                <button type="button" class="portfolio-card__cta">Рассчитать такую фотозону</button>
+            `;
+
+            const cta = details.querySelector('.portfolio-card__cta');
+            cta.addEventListener('click', (event) => {
+                event.stopPropagation();
+                openModal(title, `Портфолио — ${title}`);
+            });
+
+            item.appendChild(details);
         });
 
         function shufflePortfolioItems(items) {
@@ -361,18 +401,20 @@
             return true;
         }
 
-        function openModal(packageName) {
+        function openModal(packageName, sourceName) {
             if (typeof closeLightbox === 'function') closeLightbox(false);
             modalOverlay.classList.remove('hidden');
             modalOverlay.classList.add('flex');
             modalSuccess.classList.add('hidden');
             modalForm.classList.remove('hidden');
             if (packageName) {
-                modalText.textContent = `Пакет: ${packageName} — обсуждаем детали`;
-                modalSource.value = `Модальная форма: ${packageName}`;
+                modalText.textContent = sourceName
+                    ? `${packageName} — обсудим детали и рассчитаем стоимость`
+                    : `Пакет: ${packageName} — обсуждаем детали`;
+                modalSource.value = sourceName || `Модальная форма: ${packageName}`;
             } else {
                 modalText.textContent = 'Расскажите о вашем мероприятии';
-                modalSource.value = 'Модальная форма';
+                modalSource.value = sourceName || 'Модальная форма';
             }
             document.body.style.overflow = 'hidden';
         }
@@ -483,14 +525,14 @@
             const area = document.querySelector('input[name="quiz-area"]:checked')?.value;
             const style = document.querySelector('input[name="quiz-style"]:checked')?.value;
             const urgency = document.querySelector('input[name="quiz-urgency"]:checked')?.value;
-            let price = 450;
+            let price = 550;
             if (area === '8-15 м²') price = 600;
             if (area === '15-30 м²') price = 800;
             if (area === 'более 30 м²') price = 2150;
             if (style === 'Неон' || style === 'Брендированная') price += 300;
             if (urgency === '2-3 недели') price += 200;
             if (urgency === 'Менее 2 недель') price += 450;
-            const priceText = `от ${price.toLocaleString('ru-RU')} Br`;
+            const priceText = `от ${price.toLocaleString('ru-RU')} BYN`;
             document.getElementById('quiz-price').textContent = priceText;
             document.getElementById('quiz-estimated-price').value = priceText;
         }
@@ -750,6 +792,12 @@
 
         const sentStatus = new URLSearchParams(window.location.search).get('sent');
         if (sentStatus === '1') {
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead');
+            }
+            if (typeof ym === 'function') {
+                ym(109623826, 'reachGoal', 'lead_submit');
+            }
             alert('Заявка отправлена! Мы свяжемся с вами в течение 15 минут.');
             history.replaceState(null, '', window.location.pathname);
         }

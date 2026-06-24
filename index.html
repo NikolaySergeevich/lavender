@@ -73,9 +73,6 @@
 </head>
 
 <body class="antialiased selection:bg-brand-gold selection:text-brand-black">
-    <script>
-        fbq('track', 'Lead');
-    </script>
 
     <!-- Navigation -->
     <nav id="navbar"
@@ -197,6 +194,30 @@
                 </div>
                 <h2>Реальные фотографии работ</h2>
             </article>
+        </div>
+    </section>
+
+    <!-- Promotion Section -->
+    <section class="promotion-section px-6 py-12 md:px-12 md:py-16">
+        <div class="promotion-card reveal mx-auto max-w-7xl">
+            <div class="promotion-card__glow" aria-hidden="true"></div>
+            <div class="promotion-card__content">
+                <div class="max-w-2xl">
+                    <p class="promotion-card__eyebrow">Специальное предложение</p>
+                    <h2 class="promotion-card__title">Популярная фотозона по акции</h2>
+                    <p class="promotion-card__text">До конца месяца можно забронировать фотозону под ключ со скидкой.</p>
+                </div>
+                <div class="promotion-card__offer">
+                    <div>
+                        <p class="promotion-card__old-price">950 BYN</p>
+                        <p class="promotion-card__price">550 BYN</p>
+                        <p class="promotion-card__note">Доставка, монтаж и демонтаж включены</p>
+                    </div>
+                    <button type="button"
+                        onclick="openModal('Фотозона по акции — 550 BYN', 'Акционный блок 550 BYN')"
+                        class="hero-btn hero-btn--primary promotion-card__button">Забронировать по акции</button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1046,7 +1067,7 @@
                     <p class="text-brand-muted text-sm mt-1">Типовые решения, быстрая установка</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 450 Br</p>
+                    <p class="text-4xl font-bold text-brand-black">от 550 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">за фотозону до 8 м²</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1090,7 +1111,7 @@
                     <p class="text-brand-muted text-sm mt-1">Кастомный дизайн, премиальные материалы</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold">от 600 Br</p>
+                    <p class="text-4xl font-bold">от 600 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">за фотозону до 15 м²</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1136,7 +1157,7 @@
                     <p class="text-brand-muted text-sm mt-1">Полный цикл, инженерные конструкции</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 2 150 Br</p>
+                    <p class="text-4xl font-bold text-brand-black">от 2 150 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">индивидуальный расчёт</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1478,7 +1499,7 @@
                                 </path>
                             </svg>
                         </a>
-                        <a href="https://wa.me/79990000000?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
+                        <a href="https://wa.me/375291357999?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
                             target="_blank"
                             class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
                             <div class="w-12 h-12 flex items-center justify-center">
@@ -1600,7 +1621,7 @@
                         </div>
                         <h4 class="font-serif text-xl font-bold mb-2 text-brand-black">Заявка отправлена!</h4>
                         <p class="text-brand-muted mb-4">Мы свяжемся с вами в течение 15 минут.</p>
-                        <button onclick="window.open('https://t.me/lumiere_photo', '_blank')"
+                        <button onclick="window.open('https://t.me/kidseventa1', '_blank')"
                             class="px-6 py-2 border border-brand-gold text-brand-black rounded-full hover:bg-brand-gold hover:text-brand-black transition-all">Перейти
                             в Telegram</button>
                     </div>
@@ -1779,7 +1800,7 @@
                 </div>
                 <h4 class="font-serif text-2xl font-bold mb-2 text-brand-black">Заявка отправлена!</h4>
                 <p class="text-brand-muted">Ответим в течение 15 минут.</p>
-                <button onclick="window.open('https://t.me/lumiere_photo', '_blank'); closeModal();"
+                <button onclick="window.open('https://t.me/kidseventa1', '_blank'); closeModal();"
                     class="mt-6 px-6 py-2 bg-brand-gold text-brand-black rounded-full hover:bg-brand-goldLight transition-colors font-medium">Написать
                     в Telegram</button>
             </div>
@@ -1805,7 +1826,7 @@
             </div>
             <form id="quiz-form" action="send.php" method="POST">
                 <input type="hidden" name="source" value="Квиз расчёта стоимости">
-                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 450 Br">
+                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 550 BYN">
 
                 <div class="quiz-step active" id="quiz-step-1">
                     <p class="font-medium text-brand-black text-lg mb-4">1. Тип мероприятия</p>
@@ -1897,7 +1918,7 @@
                 <div class="quiz-step" id="quiz-result">
                     <div class="text-center mb-6">
                         <p class="font-serif text-2xl font-bold text-brand-black mb-2">Предварительная оценка</p>
-                        <p class="text-3xl font-bold text-brand-black mb-2" id="quiz-price">от 450 Br</p>
+                        <p class="text-3xl font-bold text-brand-black mb-2" id="quiz-price">от 550 BYN</p>
                         <p class="text-brand-muted text-sm">Точная стоимость после утверждения дизайна</p>
                     </div>
                     <div class="space-y-3">
