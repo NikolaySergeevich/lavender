@@ -475,6 +475,61 @@
             modalOverlay.classList.remove('flex');
             document.body.style.overflow = '';
         }
+
+        // PDF catalog lead magnet
+        const pdfCatalogOverlay = document.getElementById('pdf-catalog-overlay');
+        const pdfCatalogFormView = document.getElementById('pdf-catalog-form-view');
+        const pdfCatalogSuccess = document.getElementById('pdf-catalog-success');
+        const pdfCatalogSessionKey = 'pdf_catalog_downloaded';
+        const pdfCatalogFile = 'LavDragon_Trendy_2026.pdf';
+        const pdfCatalogDownloadName = 'katalog-trendov-fotozon-2026-lavdragon.pdf';
+
+        function trackPdfDownload() {
+            if (typeof gtag === 'function') {
+                gtag('event', 'pdf_download');
+            }
+            trackGoal('pdf_download', { file: pdfCatalogDownloadName });
+        }
+
+        function downloadPdfCatalog() {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = pdfCatalogFile;
+            downloadLink.download = pdfCatalogDownloadName;
+            downloadLink.hidden = true;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            downloadLink.remove();
+            trackPdfDownload();
+        }
+
+        function openPdfCatalog() {
+            if (sessionStorage.getItem(pdfCatalogSessionKey) === 'true') {
+                downloadPdfCatalog();
+                return;
+            }
+
+            pdfCatalogFormView.classList.remove('hidden');
+            pdfCatalogSuccess.classList.add('hidden');
+            pdfCatalogOverlay.classList.remove('hidden');
+            pdfCatalogOverlay.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            trackGoal('form_open', { source: 'PDF Каталог трендов 2026' });
+        }
+
+        function closePdfCatalog() {
+            pdfCatalogOverlay.classList.add('hidden');
+            pdfCatalogOverlay.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function showPdfCatalogSuccess() {
+            pdfCatalogFormView.classList.add('hidden');
+            pdfCatalogSuccess.classList.remove('hidden');
+            pdfCatalogOverlay.classList.remove('hidden');
+            pdfCatalogOverlay.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
         function handleModalSubmit(e) {
             e.preventDefault();
             if (!validateEventDate(e.target)) return;
@@ -793,7 +848,9 @@
             if (activeDateField) positionEventCalendar(activeDateField);
         });
 
-        const sentStatus = new URLSearchParams(window.location.search).get('sent');
+        const urlParams = new URLSearchParams(window.location.search);
+        const sentStatus = urlParams.get('sent');
+        const pdfCatalogStatus = urlParams.get('pdf_catalog') === '1';
         if (sentStatus === '1') {
             if (typeof fbq === 'function') {
                 fbq('track', 'Lead');
@@ -801,7 +858,13 @@
             if (typeof ym === 'function') {
                 ym(109623826, 'reachGoal', 'lead_submit');
             }
-            alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
+            if (pdfCatalogStatus) {
+                sessionStorage.setItem(pdfCatalogSessionKey, 'true');
+                showPdfCatalogSuccess();
+                downloadPdfCatalog();
+            } else {
+                alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
+            }
             history.replaceState(null, '', window.location.pathname);
         }
 
@@ -837,6 +900,7 @@
         });
         if (sentStatus === '0') {
             alert('Не удалось отправить заявку. Проверьте настройки send.php или попробуйте позже.');
+            if (pdfCatalogStatus) openPdfCatalog();
             history.replaceState(null, '', window.location.pathname);
         }
 

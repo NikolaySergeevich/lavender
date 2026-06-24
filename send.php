@@ -116,19 +116,8 @@ if (function_exists('curl_init')) {
     $success = $response !== false;
 }
 
-if ($success && post_value('source') === 'Попап чек-листа') {
-    $file_path = __DIR__ . '/che.pdf';
-
-    if (!is_readable($file_path)) {
-        header('Location: index.html?sent=0');
-        exit;
-    }
-
-    header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename="che.pdf"');
-    header('Content-Length: ' . filesize($file_path));
-    header('Cache-Control: private, max-age=0, must-revalidate');
-    readfile($file_path);
+if (post_value('source') === 'PDF Каталог трендов 2026') {
+    header('Location: index.html?sent=' . ($success ? '1' : '0') . '&pdf_catalog=1');
     exit;
 }
 
