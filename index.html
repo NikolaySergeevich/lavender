@@ -1618,6 +1618,7 @@
                     <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
                     <form id="contact-form" class="space-y-4" action="send.php" method="POST">
                         <input type="hidden" name="source" value="Форма в разделе контактов">
+                        <input type="hidden" name="form_name" value="main_contact_form">
                         <input name="name" type="text" required placeholder="Имя"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                         <input name="phone" type="tel" required placeholder="Телефон"
@@ -1808,6 +1809,7 @@
             <p class="lead-form__subtitle" id="modal-text">Подберём оформление под ваш праздник, площадку и бюджет.</p>
             <form id="modal-form" class="space-y-4" action="send.php" method="POST">
                 <input type="hidden" name="source" id="modal-source" value="Модальная форма">
+                <input type="hidden" name="form_name" value="consultation_form">
                 <input type="hidden" name="estimatedPrice" id="modal-estimated-price" value="">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
@@ -1885,6 +1887,7 @@
                 </div>
                 <form id="pdf-catalog-form" action="send.php" method="POST" class="mt-6 space-y-4">
                     <input type="hidden" name="source" value="PDF Каталог трендов 2026">
+                    <input type="hidden" name="form_name" value="pdf_download_form">
                     <input name="name" type="text" required placeholder="Имя"
                         class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                     <input name="phone" type="tel" required placeholder="Телефон"
@@ -1925,6 +1928,7 @@
             <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
             <form id="quiz-form" action="send.php" method="POST" class="space-y-4">
                 <input type="hidden" name="source" value="Квиз расчёта стоимости">
+                <input type="hidden" name="form_name" value="callback_form">
                 <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 550 BYN">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
@@ -1983,6 +1987,7 @@
             <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
             <form action="send.php" method="POST" class="space-y-3">
                 <input type="hidden" name="source" value="Exit popup — расчёт стоимости">
+                <input type="hidden" name="form_name" value="exit_popup_form">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <input name="phone" type="tel" required placeholder="Телефон"
