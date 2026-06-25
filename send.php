@@ -52,6 +52,27 @@ function post_value($key) {
     return isset($_POST[$key]) ? trim((string) $_POST[$key]) : '';
 }
 
+function expects_json_response() {
+    $requested_with = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+        ? strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH'])
+        : '';
+    $accept = isset($_SERVER['HTTP_ACCEPT']) ? (string) $_SERVER['HTTP_ACCEPT'] : '';
+
+    return $requested_with === 'xmlhttprequest' || strpos($accept, 'application/json') !== false;
+}
+
+function send_json_response($success, $data = array(), $status_code = 200) {
+    http_response_code($status_code);
+    header('Content-Type: application/json; charset=UTF-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+
+    echo json_encode(
+        array_merge(array('success' => (bool) $success), $data),
+        JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+    );
+    exit;
+}
+
 function add_line(&$lines, $label, $value) {
     if ($value === '') {
         return;
@@ -145,6 +166,7 @@ function render_success_redirect($redirect_url, $form_name, $page_path) {
 }
 
 $form_name = form_name_value();
+$expects_json = expects_json_response();
 
 $required_fields_missing = post_value('name') === '' || post_value('phone') === '';
 
@@ -156,6 +178,10 @@ if (
 }
 
 if ($required_fields_missing) {
+    if ($expects_json) {
+        send_json_response(false, array('message' => 'Заполните обязательные поля формы.'), 422);
+    }
+
     header('Location: index.html?sent=0');
     exit;
 }
@@ -176,6 +202,10 @@ add_line($lines, 'Квиз: срочность', post_value('quiz-urgency'));
 add_line($lines, 'Согласие', post_value('consent'));
 
 if (empty($lines) || !$token || !$chat_id) {
+    if ($expects_json) {
+        send_json_response(false, array('message' => 'Сервис отправки заявок временно недоступен.'), 500);
+    }
+
     header('Location: index.html?sent=0');
     exit;
 }
@@ -220,6 +250,20 @@ $is_pdf_catalog = post_value('source') === 'PDF Каталог трендов 20
 $redirect_url = 'index.html?sent=' . ($success ? '1' : '0')
     . ($is_pdf_catalog ? '&pdf_catalog=1' : '')
     . '&form_name=' . rawurlencode($form_name);
+
+if ($expects_json) {
+    send_json_response(
+        $success,
+        array(
+            'form_name' => $form_name,
+            'pdf_catalog' => $is_pdf_catalog,
+            'message' => $success
+                ? 'Заявка успешно отправлена.'
+                : 'Не удалось отправить заявку. Попробуйте ещё раз.',
+        ),
+        $success ? 200 : 502
+    );
+}
 
 if ($success) {
     render_success_redirect($redirect_url, $form_name, source_page_path());

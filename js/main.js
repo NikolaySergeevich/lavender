@@ -530,38 +530,9 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function handleModalSubmit(e) {
-            e.preventDefault();
-            if (!validateEventDate(e.target)) return;
-            const btn = e.target.querySelector('button');
-            btn.textContent = 'Отправка...';
-            btn.disabled = true;
-            setTimeout(() => {
-                modalForm.classList.add('hidden');
-                modalSuccess.classList.remove('hidden');
-                btn.textContent = 'Получить расчёт стоимости';
-                btn.disabled = false;
-                e.target.reset();
-            }, 1200);
-        }
-
         // Contact form
         const contactSuccess = document.getElementById('contact-success');
         const contactForm = document.getElementById('contact-form');
-        function handleContactForm(e) {
-            e.preventDefault();
-            if (!validateEventDate(e.target)) return;
-            const btn = e.target.querySelector('button');
-            btn.textContent = 'Отправка...';
-            btn.disabled = true;
-            setTimeout(() => {
-                contactForm.classList.add('hidden');
-                contactSuccess.classList.remove('hidden');
-                btn.textContent = 'Получить расчёт стоимости';
-                btn.disabled = false;
-                e.target.reset();
-            }, 1200);
-        }
 
         // Exit Intent
         let exitShown = false;
@@ -577,12 +548,6 @@
             document.getElementById('exit-popup').classList.add('hidden');
             document.getElementById('exit-popup').classList.remove('visible', 'flex');
         }
-        function handleExitForm(e) {
-            e.preventDefault();
-            closeExitPopup();
-            alert('Чек-лист отправлен! Проверьте Telegram.');
-        }
-
         // Calculation form
         const quizOverlay = document.getElementById('quiz-overlay');
         function openQuiz() {
@@ -874,11 +839,111 @@
             }
         }
 
+        function pushGenerateLeadEvent(form) {
+            window.dataLayer = window.dataLayer || [];
+
+            const generateLeadEvent = {
+                event: 'generate_lead',
+                lead_source: 'website_form',
+                form_name: form?.querySelector('[name="source"]')?.value
+                    || form?.getAttribute('data-form-name')
+                    || form?.id
+                    || 'website_form',
+                page_path: window.location.pathname
+            };
+
+            window.dataLayer.push(generateLeadEvent);
+            console.info('dataLayer generate_lead:', generateLeadEvent);
+        }
+
+        window.pushGenerateLeadEvent = pushGenerateLeadEvent;
+
+        function handleSuccessfulFormSubmission(form) {
+            pushGenerateLeadEvent(form);
+
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead');
+            }
+            trackGoal('lead_submit', {
+                source: form.querySelector('[name="source"]')?.value || 'Форма сайта'
+            });
+
+            if (form.id === 'pdf-catalog-form') {
+                sessionStorage.setItem(pdfCatalogSessionKey, 'true');
+                showPdfCatalogSuccess();
+                downloadPdfCatalog();
+                return;
+            }
+
+            if (form.id === 'modal-form') {
+                modalForm.classList.add('hidden');
+                modalSuccess.classList.remove('hidden');
+                return;
+            }
+
+            if (form.id === 'contact-form') {
+                contactForm.classList.add('hidden');
+                contactSuccess.classList.remove('hidden');
+                return;
+            }
+
+            if (form.id === 'quiz-form') {
+                closeQuiz();
+            } else if (form.closest('#exit-popup')) {
+                closeExitPopup();
+            }
+
+            alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
+        }
+
         document.querySelectorAll('form[action="send.php"]').forEach(form => {
-            form.addEventListener('submit', () => {
+            form.addEventListener('submit', async event => {
+                event.preventDefault();
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+                if (!validateEventDate(form)) return;
+
                 trackGoal('form_submit', {
                     source: form.querySelector('[name="source"]')?.value || 'Форма сайта'
                 });
+
+                const submitButton = event.submitter || form.querySelector('[type="submit"]');
+                const originalButtonText = submitButton?.textContent;
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Отправка...';
+                }
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: {
+                            Accept: 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+                    const result = await response.json();
+
+                    if (!response.ok || result.success !== true) {
+                        throw new Error(result.message || 'Не удалось отправить заявку.');
+                    }
+
+                    handleSuccessfulFormSubmission(form);
+                    form.reset();
+                } catch (error) {
+                    console.error('Ошибка отправки формы:', error);
+                    alert(error.message || 'Не удалось отправить заявку. Попробуйте ещё раз.');
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                }
             });
         });
 
