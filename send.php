@@ -60,6 +60,106 @@ function add_line(&$lines, $label, $value) {
     $lines[] = '<b>' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . ':</b> ' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
+function form_name_value() {
+    $allowed = array(
+        'main_contact_form',
+        'consultation_form',
+        'pdf_download_form',
+        'callback_form',
+        'exit_popup_form',
+    );
+    $value = post_value('form_name');
+
+    return in_array($value, $allowed, true) ? $value : 'website_form';
+}
+
+function source_page_path() {
+    $referrer = isset($_SERVER['HTTP_REFERER']) ? (string) $_SERVER['HTTP_REFERER'] : '';
+    $path = $referrer !== '' ? parse_url($referrer, PHP_URL_PATH) : '/';
+
+    return is_string($path) && $path !== '' ? $path : '/';
+}
+
+function render_success_redirect($redirect_url, $form_name, $page_path) {
+    $redirect_json = json_encode($redirect_url, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $form_name_json = json_encode($form_name ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $page_path_json = json_encode($page_path ?: '/', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+    header('Content-Type: text/html; charset=UTF-8');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    ?>
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Заявка отправлена</title>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'gtm.start': new Date().getTime(),
+            event: 'gtm.js'
+        });
+        (function(w, d, s, l, i) {
+            var firstScript = d.getElementsByTagName(s)[0];
+            var gtmScript = d.createElement(s);
+            var dataLayerParam = l !== 'dataLayer' ? '&l=' + l : '';
+            gtmScript.async = true;
+            gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dataLayerParam;
+            firstScript.parentNode.insertBefore(gtmScript, firstScript);
+        })(window, document, 'script', 'dataLayer', 'GTM-MMKLD7DN');
+    </script>
+</head>
+<body>
+    <p>Заявка успешно отправлена. Возвращаем вас на сайт…</p>
+    <script>
+        (function() {
+            var redirectUrl = <?php echo $redirect_json; ?>;
+            var redirected = false;
+
+            function redirectToSite() {
+                if (redirected) return;
+                redirected = true;
+                window.location.replace(redirectUrl);
+            }
+
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'generate_lead',
+                lead_source: 'website_form',
+                form_name: <?php echo $form_name_json; ?>,
+                page_path: <?php echo $page_path_json; ?>,
+                eventCallback: redirectToSite,
+                eventTimeout: 1500
+            });
+
+            console.info('dataLayer generate_lead');
+            window.setTimeout(redirectToSite, 1800);
+        })();
+    </script>
+</body>
+</html>
+    <?php
+    exit;
+}
+
+$form_name = form_name_value();
+
+$required_fields_missing = post_value('name') === '' || post_value('phone') === '';
+
+if (
+    $form_name !== 'pdf_download_form'
+    && (post_value('eventType') === '' || post_value('budget') === '')
+) {
+    $required_fields_missing = true;
+}
+
+if ($required_fields_missing) {
+    header('Location: index.html?sent=0');
+    exit;
+}
+
 $lines = array();
 add_line($lines, 'Источник', post_value('source'));
 add_line($lines, 'Имя', post_value('name'));
@@ -116,12 +216,16 @@ if (function_exists('curl_init')) {
     $success = $response !== false;
 }
 
-if (post_value('source') === 'PDF Каталог трендов 2026') {
-    header('Location: index.html?sent=' . ($success ? '1' : '0') . '&pdf_catalog=1');
-    exit;
+$is_pdf_catalog = post_value('source') === 'PDF Каталог трендов 2026';
+$redirect_url = 'index.html?sent=' . ($success ? '1' : '0')
+    . ($is_pdf_catalog ? '&pdf_catalog=1' : '')
+    . '&form_name=' . rawurlencode($form_name);
+
+if ($success) {
+    render_success_redirect($redirect_url, $form_name, source_page_path());
 }
 
-header('Location: index.html?sent=' . ($success ? '1' : '0'));
+header('Location: ' . $redirect_url);
 exit;
 
 ?>
