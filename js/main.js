@@ -31,6 +31,85 @@
         }
         mobileBtn.addEventListener('click', toggleMobileMenu);
 
+        // Mobile event picker carousel hint
+        const eventPickerList = document.querySelector('.event-picker-list');
+        const eventPickerChips = eventPickerList ? Array.from(eventPickerList.querySelectorAll('.event-picker-chip')) : [];
+        const eventPickerMedia = window.matchMedia('(max-width: 768px)');
+        let eventPickerFrame = null;
+        let eventPickerStartPositioned = false;
+
+        function resetEventPickerChips() {
+            eventPickerChips.forEach(chip => {
+                chip.style.removeProperty('--event-chip-scale');
+                chip.style.removeProperty('--event-chip-opacity');
+                chip.style.removeProperty('--event-chip-bg-alpha');
+                chip.style.removeProperty('--event-chip-border-alpha');
+                chip.style.removeProperty('--event-chip-shadow-alpha');
+            });
+        }
+
+        function updateEventPickerChips() {
+            eventPickerFrame = null;
+
+            if (!eventPickerList || !eventPickerMedia.matches) {
+                resetEventPickerChips();
+                return;
+            }
+
+            const listRect = eventPickerList.getBoundingClientRect();
+            const listCenter = listRect.left + listRect.width / 2;
+            const activeDistance = listRect.width * 0.42;
+
+            eventPickerChips.forEach(chip => {
+                const chipRect = chip.getBoundingClientRect();
+                const chipCenter = chipRect.left + chipRect.width / 2;
+                const distance = Math.abs(listCenter - chipCenter);
+                const progress = Math.max(0, 1 - distance / activeDistance);
+                const scale = 0.76 + progress * 0.24;
+                const opacity = 0.38 + progress * 0.62;
+                const bgAlpha = 0.42 + progress * 0.5;
+                const borderAlpha = 0.05 + progress * 0.06;
+                const shadowAlpha = 0.025 + progress * 0.06;
+
+                chip.style.setProperty('--event-chip-scale', scale.toFixed(3));
+                chip.style.setProperty('--event-chip-opacity', opacity.toFixed(3));
+                chip.style.setProperty('--event-chip-bg-alpha', bgAlpha.toFixed(3));
+                chip.style.setProperty('--event-chip-border-alpha', borderAlpha.toFixed(3));
+                chip.style.setProperty('--event-chip-shadow-alpha', shadowAlpha.toFixed(3));
+            });
+        }
+
+        function requestEventPickerUpdate() {
+            if (eventPickerFrame !== null) return;
+            eventPickerFrame = requestAnimationFrame(updateEventPickerChips);
+        }
+
+        function positionEventPickerStart() {
+            if (!eventPickerList || !eventPickerMedia.matches || eventPickerStartPositioned || eventPickerChips.length < 3) {
+                return;
+            }
+
+            eventPickerStartPositioned = true;
+            const target = eventPickerChips[1];
+            const listRect = eventPickerList.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const offset = targetRect.left - listRect.left - (listRect.width - targetRect.width) / 2;
+            eventPickerList.scrollLeft += offset;
+            requestEventPickerUpdate();
+        }
+
+        if (eventPickerList && eventPickerChips.length) {
+            eventPickerList.addEventListener('scroll', requestEventPickerUpdate, { passive: true });
+            window.addEventListener('resize', requestEventPickerUpdate);
+            if (typeof eventPickerMedia.addEventListener === 'function') {
+                eventPickerMedia.addEventListener('change', requestEventPickerUpdate);
+            }
+            requestAnimationFrame(() => {
+                positionEventPickerStart();
+                requestEventPickerUpdate();
+            });
+        }
+
         // Reveal animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -116,12 +195,13 @@
             'Фотозона на первый день рождения мальчика с мягкими оттенками и безопасным детским декором.',
             'Нежная детская фотозона с бабочками, легкими деталями и воздушной праздничной атмосферой.',
             'Розовая детская фотозона с шарами и мягкой палитрой для дня рождения девочки.',
-            'Фотозона на первый день рождения с нежной палитрой, шарами и аккуратной композицией для семейных фото.'
+            'Фотозона на первый день рождения с нежной палитрой, шарами и аккуратной композицией для семейных фото.',
+            'Корпоративная фотозона с бренд-зоной, декором и аккуратной визуальной подачей для делового события.'
         ];
         const portfolioStartingPrices = [
             740, 620, 600, 750, 550, 590, 570, 580, 650, 560, 610,
             590, 630, 590, 680, 730, 720, 750, 710, 700, 730, 660, 690,
-            740, 620, 720, 650, 580, 640, 670, 600, 620, 590, 610
+            740, 620, 720, 650, 580, 640, 670, 600, 620, 590, 610, 700
         ];
         let currentPortfolioFilter = 'all';
         let visiblePortfolioIndexes = [];
