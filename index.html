@@ -93,7 +93,7 @@
         class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-5 px-6 md:px-12 flex justify-between items-center">
         <a href="#" class="font-serif text-2xl font-bold tracking-tight text-brand-black">LAVDRAGON</a>
         <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-            <a href="fotazony-na-svadbu-minsk/" class="hover:text-brand-black transition-colors">Свадьбы</a>
+            <a href="#event-picker" class="hover:text-brand-black transition-colors">Форматы</a>
             <a href="ceny-na-fotazony-minsk/" class="hover:text-brand-black transition-colors">Цены</a>
             <a href="arenda-cifr-na-prazdnik-minsk/" class="hover:text-brand-black transition-colors">Цифры</a>
             <a href="#portfolio" class="hover:text-brand-black transition-colors">Портфолио</a>
@@ -117,8 +117,7 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu"
         class="fixed inset-0 z-40 bg-brand-ivory/95 backdrop-blur-xl hidden flex-col justify-center items-center gap-8 text-xl font-serif">
-        <a href="fotazony-na-svadbu-minsk/" onclick="closeMobileMenu()"
-            class="hover:text-brand-black transition-colors">Свадьбы</a>
+        <a href="#event-picker" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Форматы</a>
         <a href="ceny-na-fotazony-minsk/" onclick="closeMobileMenu()"
             class="hover:text-brand-black transition-colors">Цены</a>
         <a href="arenda-cifr-na-prazdnik-minsk/" onclick="closeMobileMenu()"
@@ -147,17 +146,17 @@
         <div
             class="hero-premium__content relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-12 pt-32 md:px-12 lg:pb-16">
             <div class="max-w-5xl">
-                <p class="hero-kicker animate-fade-up" style="animation-delay: 0.2s;">ФОТОЗОНЫ ПОД КЛЮЧ В МИНСКЕ</p>
+                <p class="hero-kicker animate-fade-up" style="animation-delay: 0.2s;">ФОТОЗОНЫ И ДЕКОР В МИНСКЕ</p>
                 <h1 class="hero-title animate-fade-up" style="animation-delay: 0.35s;">
-                    Премиальные фотозоны в Минске от <span class="whitespace-nowrap">550 BYN</span>
+                    Создаём фотозоны для особенных событий
                 </h1>
                 <p class="hero-lead animate-fade-up" style="animation-delay: 0.5s;">
-                    Создаем фотозоны под ключ для свадеб, юбилеев, детских праздников и корпоративов. Доставка, монтаж
-                    и демонтаж включены.
+                    Фотозоны под ключ для дней рождения, юбилеев, детских праздников, свадеб, gender party и
+                    корпоративов. Доставка, монтаж и демонтаж включены.
                 </p>
                 <div class="mt-10 flex flex-col gap-3 sm:flex-row animate-fade-up" style="animation-delay: 0.65s;">
-                    <a href="#portfolio" class="hero-btn hero-btn--primary">Смотреть каталог</a>
-                    <button onclick="openModal()" class="hero-btn hero-btn--ghost">Получить расчет за 15 минут</button>
+                    <a href="#event-picker" class="hero-btn hero-btn--primary">Выбрать фотозону</a>
+                    <button onclick="openModal()" class="hero-btn hero-btn--ghost">Рассчитать стоимость</button>
                 </div>
                 <div class="cta-microproof cta-microproof--hero animate-fade-up" style="animation-delay: 0.75s;">
                     <span>✓ Ответим в течение 15 минут</span>
@@ -174,133 +173,118 @@
         </div>
     </header>
 
-    <!-- Trust Section -->
-    <section class="trust-section px-6 py-10 md:px-12 md:py-14" aria-label="Почему нам доверяют">
-        <div class="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <article class="trust-card reveal">
-                <div class="trust-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
-                            d="M4 19V9m5 10V5m5 14v-7m5 7V3M3 19h18" />
-                    </svg>
-                </div>
-                <h2>Более 100 реализованных проектов</h2>
-            </article>
-            <article class="trust-card reveal">
-                <div class="trust-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
-                            d="M7 3h7l4 4v14H7V3Zm7 0v5h4M10 13h5m-5 4h5" />
-                    </svg>
-                </div>
-                <h2>Работаем по договору</h2>
-            </article>
-            <article class="trust-card reveal">
-                <div class="trust-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
-                            d="M4 18h16M6 18V9l6-4 6 4v9M9 18v-5h6v5" />
-                    </svg>
-                </div>
-                <h2>Монтаж и демонтаж под ключ</h2>
-            </article>
-            <article class="trust-card reveal">
-                <div class="trust-card__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
-                            d="M4 7h4l1.5-2h5L16 7h4v12H4V7Zm4 8 2.5-2.5 2 2L15 12l3 3M8 10h.01" />
-                    </svg>
-                </div>
-                <h2>Реальные фотографии работ</h2>
-            </article>
-        </div>
-    </section>
-
-    <!-- Promotion Section -->
-    <section class="promotion-section px-6 py-12 md:px-12 md:py-16">
-        <div class="promotion-card reveal mx-auto max-w-7xl">
-            <div class="promotion-card__glow" aria-hidden="true"></div>
-            <div class="promotion-card__content">
-                <div class="max-w-2xl">
-                    <p class="promotion-card__eyebrow">Специальное предложение</p>
-                    <h2 class="promotion-card__title">Популярная фотозона по акции</h2>
-                    <p class="promotion-card__text">До конца месяца можно забронировать фотозону под ключ со скидкой.
-                    </p>
-                </div>
-                <div class="promotion-card__offer">
-                    <div>
-                        <p class="promotion-card__old-price">950 BYN</p>
-                        <p class="promotion-card__price">550 BYN</p>
-                        <p class="promotion-card__note">Доставка, монтаж и демонтаж включены</p>
-                    </div>
-                    <button type="button" onclick="openModal('Фотозона по акции — 550 BYN', 'Акционный блок 550 BYN')"
-                        class="hero-btn hero-btn--primary promotion-card__button">Забронировать по акции</button>
-                </div>
-                <div class="cta-microproof cta-microproof--promotion">
-                    <span>✓ Монтаж включён</span>
-                    <span>✓ Работаем по договору</span>
-                    <span>✓ Без скрытых платежей</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEO Services Links -->
-    <section class="py-16 px-6 md:px-12 bg-white/60">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-10 reveal">
-                <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Услуги в Минске</p>
-                <h2 class="font-serif text-3xl md:text-4xl font-bold text-brand-black">Фотозоны и декор под ваш формат
+    <!-- Event Picker Section -->
+    <section id="event-picker" class="event-picker-section px-6 py-16 md:px-12 md:py-20">
+        <div class="mx-auto max-w-7xl">
+            <div class="event-picker-heading reveal">
+                <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Быстрый выбор</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-brand-black">Какое событие вы планируете?
                 </h2>
+                <p class="text-brand-muted mt-4 max-w-2xl">Выберите формат праздника — покажем подходящие решения,
+                    стили и примеры работ.</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <a href="fotazony-na-svadbu-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на свадьбу</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Свадебные фотозоны, цветы, свет и монтаж
-                        под ключ.</p>
-                </a>
+            <div class="event-picker-list reveal" aria-label="Выбор типа события">
                 <a href="fotazony-na-den-rozhdeniya-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на день рождения</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Шары, надписи, цифры и праздничный декор
-                        для взрослых и детей.</p>
-                </a>
+                    class="event-picker-chip filter-btn filter-btn--silver">День рождения</a>
+                <a href="fotazona-na-yubiley-minsk/" class="event-picker-chip filter-btn filter-btn--silver">Юбилей</a>
                 <a href="fotazony-dlya-detskih-prazdnikov-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Детские праздники</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозоны для годика, тематических
-                        вечеринок, космоса, бабочек и нежных детских декоров.</p>
-                </a>
-                <a href="dekor-svadby-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Декор свадьбы</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Президиум, церемония, столы гостей и единая
-                        визуальная концепция.</p>
-                </a>
-                <a href="oformlenie-zala-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Оформление зала</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декор ресторана, лофта, банкетного зала или
-                        корпоративной площадки.</p>
-                </a>
-                <a href="gender-party-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Gender party</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозона, reveal-зона, шары и нежная
-                        палитра для гендер пати.</p>
-                </a>
-                <a href="fotazona-na-yubiley-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Фотозона на юбилей</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Элегантные фотозоны для семейных и
-                        банкетных фото.</p>
-                </a>
+                    class="event-picker-chip filter-btn filter-btn--silver">Детский праздник</a>
+                <a href="fotazony-na-svadbu-minsk/"
+                    class="event-picker-chip filter-btn filter-btn--silver">Свадьба</a>
+                <a href="gender-party-minsk/" class="event-picker-chip filter-btn filter-btn--silver">Gender party</a>
+                <a href="fotazona-na-korporativ-minsk/" class="event-picker-chip filter-btn filter-btn--silver">Корпоратив</a>
                 <a href="arenda-cifr-na-prazdnik-minsk/"
-                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
-                    <h3 class="font-serif text-xl font-bold text-brand-black">Аренда цифр</h3>
-                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декоративные цифры 1-90 лет для юбилеев,
-                        дней рождения и фотозон.</p>
+                    class="event-picker-chip filter-btn filter-btn--silver">Аренда цифр</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Categories Section -->
+    <section class="event-categories-section px-6 py-20 md:px-12 md:py-24 bg-white/60">
+        <div class="mx-auto max-w-7xl">
+            <div class="text-center mb-12 reveal">
+                <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Форматы</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-brand-black">Фотозоны под разные события</h2>
+                <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Подбираем декор под возраст, площадку, стиль
+                    праздника и бюджет.</p>
+            </div>
+            <div class="event-categories-grid">
+                <a href="fotazony-na-den-rozhdeniya-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp"
+                            alt="Фотозона на день рождения в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">День рождения</span>
+                        <span class="event-category-card__text">Яркие, нежные или премиальные фотозоны для взрослых и
+                            детей.</span>
+                    </span>
+                </a>
+                <a href="fotazona-na-yubiley-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-shary.webp"
+                            alt="Фотозона на юбилей со светящимися цифрами в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">Юбилей</span>
+                        <span class="event-category-card__text">Стильные решения с цифрами, светом, цветами и
+                            индивидуальной надписью.</span>
+                    </span>
+                </a>
+                <a href="fotazony-dlya-detskih-prazdnikov-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/children-parties/detskaya-fotozona-minsk-boy-one-year.webp"
+                            alt="Детская фотозона на праздник в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">Детский праздник</span>
+                        <span class="event-category-card__text">Фотозоны для годика, тематических вечеринок и семейных
+                            праздников.</span>
+                    </span>
+                </a>
+                <a href="fotazony-na-svadbu-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp"
+                            alt="Свадебная фотозона и декор в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">Свадьба</span>
+                        <span class="event-category-card__text">Церемонии, президиум, welcome-зоны и нежный свадебный
+                            декор.</span>
+                    </span>
+                </a>
+                <a href="gender-party-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/gender-party/detskaya-fotozona-minsk-shary.webp"
+                            alt="Фотозона для gender party в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">Gender party</span>
+                        <span class="event-category-card__text">Нежные reveal-зоны, шары, цвет и оформление для
+                            красивого момента.</span>
+                    </span>
+                </a>
+                <a href="fotazona-na-korporativ-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/korporativ/fotozona-na-korporativ-minsk.webp"
+                            alt="Фотозона на корпоратив в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">Корпоративы</span>
+                        <span class="event-category-card__text">Фотозоны, бренд-зоны и декор для корпоративных
+                            мероприятий, презентаций и вечеринок.</span>
+                    </span>
+                </a>
+                <a href="arenda-cifr-na-prazdnik-minsk/" class="event-category-card reveal">
+                    <span class="event-category-card__media">
+                        <img src="picture/numbers/arenda-cifr-30-let-minsk.webp"
+                            alt="Аренда светящихся цифр для праздника в Минске">
+                    </span>
+                    <span class="event-category-card__body">
+                        <span class="event-category-card__title">Аренда цифр</span>
+                        <span class="event-category-card__text">Светящиеся цифры для дней рождения, юбилеев и
+                            фотозон.</span>
+                    </span>
                 </a>
             </div>
         </div>
@@ -311,8 +295,8 @@
         <div class="text-center mb-12 reveal">
             <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Наши работы</p>
             <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Портфолио фотозон</h2>
-            <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Каждый проект — уникальное решение, созданное под стиль
-                вашего мероприятия и бренд.</p>
+            <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Посмотрите реальные работы для свадеб, дней рождения,
+                детских праздников и gender party.</p>
         </div>
 
         <!-- Filters -->
@@ -328,6 +312,8 @@
                 data-filter="birthday">Дни рождения</button>
             <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="kids">Детские праздники</button>
+            <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
+                data-filter="corporate">Корпоративы</button>
         </div>
 
         <!-- Masonry Grid -->
@@ -916,6 +902,22 @@
                     </div>
                 </div>
             </div>
+            <div class="reveal portfolio-item" data-category="corporate" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer">
+                    <img src="picture/korporativ/fotozona-na-korporativ-minsk.webp"
+                        alt="Фотозона на корпоратив в Минске" class="w-full h-full object-cover">
+                    <div
+                        class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">
+                        Корпоратив</div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <p class="text-white font-serif text-xl font-bold">Corporate Event</p>
+                            <p class="text-white/70 text-sm mt-1">Бренд-зона, фотозона и декор для корпоративного события</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="portfolio-desktop-controls" class="hidden justify-center gap-2 mt-10 reveal">
@@ -971,6 +973,35 @@
             </button>
             <p class="mt-3 text-sm text-brand-muted">Бесплатный PDF-каталог с актуальными идеями оформления
                 мероприятий.</p>
+        </div>
+    </section>
+
+    <!-- Promotion Section -->
+    <section class="promotion-section px-6 py-12 md:px-12 md:py-16">
+        <div class="promotion-card reveal mx-auto max-w-7xl">
+            <div class="promotion-card__glow" aria-hidden="true"></div>
+            <div class="promotion-card__content">
+                <div class="max-w-2xl">
+                    <p class="promotion-card__eyebrow">Специальное предложение</p>
+                    <h2 class="promotion-card__title">Фотозона под ключ от 550 BYN</h2>
+                    <p class="promotion-card__text">Подберём оформление под ваш праздник: день рождения, юбилей,
+                        свадьбу, gender party или детское событие.</p>
+                </div>
+                <div class="promotion-card__offer">
+                    <div>
+                        <p class="promotion-card__old-price">950 BYN</p>
+                        <p class="promotion-card__price">550 BYN</p>
+                        <p class="promotion-card__note">Доставка, монтаж и демонтаж включены</p>
+                    </div>
+                    <button type="button" onclick="openModal('Фотозона по акции — 550 BYN', 'Акционный блок 550 BYN')"
+                        class="hero-btn hero-btn--primary promotion-card__button">Забронировать дату</button>
+                </div>
+                <div class="cta-microproof cta-microproof--promotion">
+                    <span>✓ Монтаж включён</span>
+                    <span>✓ Работаем по договору</span>
+                    <span>✓ Без скрытых платежей</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1265,6 +1296,115 @@
             </svg>
             Фиксация цены при бронировании даты. Точная стоимость зависит от площади и сложности.
         </p>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section px-6 py-10 md:px-12 md:py-14" aria-label="Почему нам доверяют">
+        <div class="mx-auto grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M4 19V9m5 10V5m5 14v-7m5 7V3M3 19h18" />
+                    </svg>
+                </div>
+                <h2>Более 100 реализованных проектов</h2>
+            </article>
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M7 3h7l4 4v14H7V3Zm7 0v5h4M10 13h5m-5 4h5" />
+                    </svg>
+                </div>
+                <h2>Работаем по договору</h2>
+            </article>
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M4 18h16M6 18V9l6-4 6 4v9M9 18v-5h6v5" />
+                    </svg>
+                </div>
+                <h2>Монтаж и демонтаж под ключ</h2>
+            </article>
+            <article class="trust-card reveal">
+                <div class="trust-card__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"
+                            d="M4 7h4l1.5-2h5L16 7h4v12H4V7Zm4 8 2.5-2.5 2 2L15 12l3 3M8 10h.01" />
+                    </svg>
+                </div>
+                <h2>Реальные фотографии работ</h2>
+            </article>
+        </div>
+    </section>
+
+    <!-- SEO Services Links -->
+    <section class="py-16 px-6 md:px-12 bg-white/60">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 reveal">
+                <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Услуги в Минске</p>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-brand-black">Фотозоны и декор под ваш формат
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <a href="fotazony-na-svadbu-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на свадьбу</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Свадебные фотозоны, цветы, свет и монтаж
+                        под ключ.</p>
+                </a>
+                <a href="fotazony-na-den-rozhdeniya-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на день рождения</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Шары, надписи, цифры и праздничный декор
+                        для взрослых и детей.</p>
+                </a>
+                <a href="fotazony-dlya-detskih-prazdnikov-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Детские праздники</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозоны для годика, тематических
+                        вечеринок, космоса, бабочек и нежных детских декоров.</p>
+                </a>
+                <a href="dekor-svadby-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Декор свадьбы</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Президиум, церемония, столы гостей и единая
+                        визуальная концепция.</p>
+                </a>
+                <a href="oformlenie-zala-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Оформление зала</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декор ресторана, лофта, банкетного зала или
+                        корпоративной площадки.</p>
+                </a>
+                <a href="gender-party-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Gender party</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозона, reveal-зона, шары и нежная
+                        палитра для гендер пати.</p>
+                </a>
+                <a href="fotazona-na-korporativ-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Корпоративы</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Бренд-зоны, welcome-зоны и фотозоны для
+                        корпоративных мероприятий.</p>
+                </a>
+                <a href="fotazona-na-yubiley-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Фотозона на юбилей</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Элегантные фотозоны для семейных и
+                        банкетных фото.</p>
+                </a>
+                <a href="arenda-cifr-na-prazdnik-minsk/"
+                    class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Аренда цифр</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Декоративные цифры 1-90 лет для юбилеев,
+                        дней рождения и фотозон.</p>
+                </a>
+            </div>
+        </div>
     </section>
 
     <!-- Reviews Section -->
