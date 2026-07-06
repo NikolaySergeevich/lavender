@@ -16,6 +16,26 @@
         #navbar.mobile-menu-open .text-brand-black {
             color: #08090D;
         }
+        .brand-lockup {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: inherit;
+        }
+        .brand-logo {
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #F4F5F7;
+            box-shadow: 0 4px 14px rgba(8, 9, 13, 0.12);
+        }
+        .brand-logo--footer {
+            width: 42px;
+            height: 42px;
+            flex-basis: 42px;
+        }
         .hover-lift { transition: transform 0.4s ease, box-shadow 0.4s ease; }
         .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); }
         .img-zoom { overflow: hidden; }
