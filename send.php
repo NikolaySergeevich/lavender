@@ -112,27 +112,39 @@ function render_success_redirect($redirect_url, $form_name, $page_path) {
 <!doctype html>
 <html lang="ru">
 <head>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({
+        'gtm.start': new Date().getTime(),
+        event:'gtm.js'
+    });
+    var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),
+        dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;
+    j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+    f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MMKLD7DN');
+</script>
+<!-- End Google Tag Manager -->
     <meta charset="utf-8">
     <meta name="robots" content="noindex,nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Заявка отправлена</title>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'gtm.start': new Date().getTime(),
-            event: 'gtm.js'
-        });
-        (function(w, d, s, l, i) {
-            var firstScript = d.getElementsByTagName(s)[0];
-            var gtmScript = d.createElement(s);
-            var dataLayerParam = l !== 'dataLayer' ? '&l=' + l : '';
-            gtmScript.async = true;
-            gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dataLayerParam;
-            firstScript.parentNode.insertBefore(gtmScript, firstScript);
-        })(window, document, 'script', 'dataLayer', 'GTM-MMKLD7DN');
-    </script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MMKLD7DN"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden">
+    </iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
     <p>Заявка успешно отправлена. Возвращаем вас на сайт…</p>
     <script>
         (function() {

@@ -1773,7 +1773,7 @@
                     <div class="space-y-4">
                         <a href="https://t.me/kidseventa1?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
                             target="_blank"
-                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
+                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group" rel="noopener noreferrer">
                             <div class="w-12 h-12 flex items-center justify-center">
                                 <img src="picture/icon/free-icon-telegram.webp" alt="Telegram"
                                     class="w-10 h-10 object-contain">
@@ -1791,7 +1791,7 @@
                         </a>
                         <a href="https://wa.me/375291357999?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___"
                             target="_blank"
-                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
+                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group" rel="noopener noreferrer">
                             <div class="w-12 h-12 flex items-center justify-center">
                                 <img src="picture/icon/free-icon-whatsapp.webp" alt="WhatsApp"
                                     class="w-10 h-10 object-contain">
@@ -1808,7 +1808,7 @@
                             </svg>
                         </a>
                         <a href="viber://chat?number=+375291357999"
-                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
+                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group" target="_blank" rel="noopener noreferrer">
                             <div class="w-12 h-12 flex items-center justify-center">
                                 <img src="picture/icon/free-icon-viber.webp" alt="Viber"
                                     class="w-10 h-10 object-contain">
@@ -1826,7 +1826,7 @@
                         </a>
                         <a href="https://www.instagram.com/lav.ender.dragon?igsh=MWJ2azYxc2tzaHM0aw%3D%3D&utm_source=qr"
                             target="_blank"
-                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group">
+                            class="flex items-center gap-4 p-4 rounded-xl bg-white border border-brand-black/5 hover:border-brand-gold transition-all group" rel="noopener noreferrer">
                             <div class="w-12 h-12 flex items-center justify-center">
                                 <img src="picture/icon/free-icon-instagram.webp" alt="Instagram"
                                     class="w-10 h-10 object-contain">
@@ -1918,9 +1918,9 @@
                         </div>
                         <h4 class="font-serif text-xl font-bold mb-2 text-brand-black">Спасибо!</h4>
                         <p class="text-brand-muted mb-4">Мы уже получили заявку и скоро свяжемся с вами.</p>
-                        <button onclick="window.open('https://t.me/kidseventa1', '_blank')"
-                            class="px-6 py-2 border border-brand-gold text-brand-black rounded-full hover:bg-brand-gold hover:text-brand-black transition-all">Перейти
-                            в Telegram</button>
+                        <a href="https://t.me/kidseventa1" target="_blank" rel="noopener noreferrer" data-analytics-location="quick_contact"
+                            class="inline-block px-6 py-2 border border-brand-gold text-brand-black rounded-full hover:bg-brand-gold hover:text-brand-black transition-all">Перейти
+                            в Telegram</a>
                     </div>
                 </div>
             </div>
@@ -1988,8 +1988,8 @@
     <!-- Sticky CTA -->
     <div id="sticky-cta" class="mobile-contact-bar md:hidden">
         <div class="mobile-contact-bar__inner">
-            <a href="https://t.me/kidseventa1" target="_blank"
-                class="mobile-contact-bar__button mobile-contact-bar__button--telegram">Telegram</a>
+            <a href="https://t.me/kidseventa1" target="_blank" data-analytics-location="floating_button"
+                class="mobile-contact-bar__button mobile-contact-bar__button--telegram" rel="noopener noreferrer">Telegram</a>
             <a href="tel:+375291357999" class="mobile-contact-bar__button">Позвонить</a>
             <button type="button" onclick="openModal('Мобильная панель', 'Мобильная панель — заявка')"
                 class="mobile-contact-bar__button mobile-contact-bar__button--primary">Заявка</button>
@@ -1998,7 +1998,8 @@
 
     <!-- Chat Bubble -->
     <a href="https://t.me/kidseventa1?text=Здравствуйте! Интересует фотозона. Тип мероприятия: ___" target="_blank"
-        class="chat-bubble" title="Написать в Telegram">
+        data-analytics-location="floating_button"
+        class="chat-bubble" title="Написать в Telegram" rel="noopener noreferrer">
         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path
                 d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.53 8.09l-1.77 8.35c-.13.61-.5.76-.99.47l-2.74-2.02-1.32 1.27c-.15.15-.27.27-.56.27l.2-2.8 5.1-4.6c.22-.2-.05-.31-.35-.12l-6.3 3.97-2.71-.85c-.59-.18-.6-.59.12-.87l10.59-4.07c.49-.18.92.12.73.87z">
@@ -2114,9 +2115,9 @@
                 </div>
                 <h4 class="font-serif text-2xl font-bold mb-2 text-brand-black">Спасибо!</h4>
                 <p class="text-brand-muted">Мы уже получили заявку и скоро свяжемся с вами.</p>
-                <button onclick="window.open('https://t.me/kidseventa1', '_blank'); closeModal();"
-                    class="mt-6 px-6 py-2 bg-brand-gold text-brand-black rounded-full hover:bg-brand-goldLight transition-colors font-medium">Написать
-                    в Telegram</button>
+                <a href="https://t.me/kidseventa1" target="_blank" rel="noopener noreferrer" data-analytics-location="modal"
+                    class="inline-block mt-6 px-6 py-2 bg-brand-gold text-brand-black rounded-full hover:bg-brand-goldLight transition-colors font-medium" onclick="closeModal()">Написать
+                    в Telegram</a>
             </div>
         </div>
     </div>
