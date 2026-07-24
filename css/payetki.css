@@ -109,12 +109,23 @@ body.payetki-page {
     line-height: 1.7;
 }
 
-.payetki-hero__actions,
-.payetki-cta__actions {
+.payetki-hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 2rem;
+}
+
+.payetki-cta__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 15rem));
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.payetki-cta__actions .payetki-btn {
+    width: 100%;
+    min-height: 3.25rem;
 }
 
 .payetki-btn {
@@ -1028,6 +1039,10 @@ body.seo-lightbox-open .back-to-top {
         width: 100%;
     }
 
+    .payetki-cta__actions {
+        grid-template-columns: 1fr;
+    }
+
     .payetki-hero__facts {
         grid-template-columns: 1fr;
     }
@@ -1043,6 +1058,37 @@ body.seo-lightbox-open .back-to-top {
         min-height: 2.75rem;
         justify-content: center;
         padding: 0.55rem 0.45rem;
+    }
+
+    .payetki-hero__price {
+        position: static;
+        width: auto;
+        max-width: none;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 0.45rem;
+        margin: 0.55rem 0.15rem 0;
+        padding: 0.45rem 0.65rem;
+        border-radius: 0.75rem;
+        color: var(--payetki-ink);
+        border-color: rgba(113, 97, 143, 0.18);
+        background: rgba(217, 209, 232, 0.44);
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+
+    .payetki-hero__price strong {
+        flex: 0 0 auto;
+        font-size: 1rem;
+        line-height: 1.05;
+    }
+
+    .payetki-hero__price span {
+        display: inline;
+        margin-top: 0;
+        font-size: 0.64rem;
+        line-height: 1.25;
     }
 
     .payetki-section {
