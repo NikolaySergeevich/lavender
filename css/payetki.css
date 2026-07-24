@@ -1,0 +1,1097 @@
+:root {
+    --payetki-ink: #08090d;
+    --payetki-muted: #63656d;
+    --payetki-surface: #ffffff;
+    --payetki-ivory: #f4f5f7;
+    --payetki-lavender: #b9a7d8;
+    --payetki-lavender-dark: #71618f;
+    --payetki-line: rgba(8, 9, 13, 0.09);
+}
+
+body.payetki-page {
+    overflow-x: hidden;
+    color: var(--payetki-ink);
+    background: var(--payetki-ivory);
+}
+
+.payetki-page .seo-nav {
+    background: rgba(244, 245, 247, 0.92);
+}
+
+.payetki-nav__links a,
+.payetki-footer a {
+    transition: color 0.2s ease;
+}
+
+.payetki-nav__links a:hover,
+.payetki-nav__links a:focus-visible,
+.payetki-footer a:hover,
+.payetki-footer a:focus-visible {
+    color: var(--payetki-lavender-dark);
+    outline: none;
+}
+
+.payetki-hero {
+    position: relative;
+    padding: 8.8rem 1.5rem 5rem;
+    overflow: hidden;
+}
+
+.payetki-hero::before {
+    content: "";
+    position: absolute;
+    top: 3rem;
+    right: -10rem;
+    width: 34rem;
+    height: 34rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(185, 167, 216, 0.25), rgba(185, 167, 216, 0));
+    pointer-events: none;
+}
+
+.payetki-hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+}
+
+.payetki-eyebrow {
+    color: var(--payetki-lavender-dark);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.payetki-hero h1 {
+    max-width: 12ch;
+    margin-top: 1rem;
+    font-size: clamp(2.55rem, 5vw, 4.8rem);
+    line-height: 1.02;
+}
+
+.payetki-hero__lead {
+    max-width: 42rem;
+    margin-top: 1.5rem;
+    color: var(--payetki-muted);
+    font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+    line-height: 1.7;
+}
+
+.payetki-hero__actions,
+.payetki-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.payetki-btn {
+    min-height: 3.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.35rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.payetki-btn:hover {
+    transform: translateY(-2px);
+}
+
+.payetki-btn:active {
+    transform: translateY(0);
+}
+
+.payetki-btn:focus-visible {
+    outline: 3px solid rgba(113, 97, 143, 0.35);
+    outline-offset: 3px;
+}
+
+.payetki-btn--primary {
+    color: var(--payetki-ink);
+    background: var(--payetki-lavender);
+    box-shadow: 0 12px 28px rgba(113, 97, 143, 0.22);
+}
+
+.payetki-btn--primary:hover {
+    background: #c9bbe0;
+    box-shadow: 0 16px 34px rgba(113, 97, 143, 0.28);
+}
+
+.payetki-btn--secondary {
+    color: var(--payetki-ink);
+    border-color: rgba(8, 9, 13, 0.16);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.payetki-btn--secondary:hover {
+    border-color: rgba(113, 97, 143, 0.45);
+    background: #fff;
+}
+
+.payetki-hero__facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem 1rem;
+    margin-top: 2rem;
+    color: var(--payetki-muted);
+    font-size: 0.92rem;
+}
+
+.payetki-hero__facts span {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.payetki-hero__facts span::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--payetki-lavender);
+    box-shadow: 0 0 0 4px rgba(185, 167, 216, 0.18);
+}
+
+.payetki-hero__visual {
+    position: relative;
+}
+
+.payetki-hero__frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(8, 9, 13, 0.08);
+    border-radius: 1.5rem;
+    background: #e9e8ec;
+    box-shadow: 0 28px 70px rgba(8, 9, 13, 0.17);
+}
+
+.payetki-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: opacity 0.24s ease, transform 0.45s ease;
+}
+
+.payetki-hero__image.is-changing {
+    opacity: 0.35;
+    transform: scale(1.015);
+}
+
+.payetki-hero__price {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    max-width: calc(100% - 2rem);
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 1rem;
+    color: #fff;
+    background: rgba(8, 9, 13, 0.72);
+    backdrop-filter: blur(10px);
+}
+
+.payetki-hero__price strong {
+    display: block;
+    font-size: 1.35rem;
+}
+
+.payetki-hero__price span {
+    font-size: 0.82rem;
+    opacity: 0.86;
+}
+
+.payetki-hero__switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.payetki-hero__switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--payetki-line);
+    border-radius: 999px;
+    color: var(--payetki-muted);
+    background: rgba(255, 255, 255, 0.72);
+    font-size: 0.8rem;
+    font-weight: 800;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.payetki-hero__switch::before {
+    content: "";
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 50%;
+    background: var(--swatch);
+    box-shadow: inset 0 0 0 1px rgba(8, 9, 13, 0.1);
+}
+
+.payetki-hero__switch:hover,
+.payetki-hero__switch:focus-visible,
+.payetki-hero__switch[aria-pressed="true"] {
+    color: var(--payetki-ink);
+    border-color: rgba(113, 97, 143, 0.45);
+    background: #fff;
+    outline: none;
+}
+
+.payetki-section {
+    padding: clamp(4rem, 7vw, 6.5rem) 1.5rem;
+}
+
+.payetki-section--white {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.payetki-section--lavender {
+    background: linear-gradient(135deg, rgba(217, 209, 232, 0.52), rgba(255, 255, 255, 0.72));
+}
+
+.payetki-heading {
+    max-width: 52rem;
+    margin-bottom: 2.5rem;
+}
+
+.payetki-heading--center {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.payetki-heading h2,
+.payetki-price h2,
+.payetki-cta h2 {
+    margin-top: 0.65rem;
+    font-size: clamp(2rem, 4vw, 3.55rem);
+    line-height: 1.08;
+}
+
+.payetki-heading > p:last-child,
+.payetki-cta > p {
+    margin-top: 1rem;
+    color: var(--payetki-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.payetki-color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.payetki-color-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--payetki-line);
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 12px 30px rgba(8, 9, 13, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.payetki-color-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(113, 97, 143, 0.28);
+    box-shadow: 0 20px 42px rgba(8, 9, 13, 0.1);
+}
+
+.payetki-color-card__media {
+    position: relative;
+    overflow: hidden;
+    background: #ececf0;
+}
+
+.payetki-color-card__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.payetki-color-card:hover img {
+    transform: scale(1.025);
+}
+
+.payetki-color-card__media::after {
+    content: "Увеличить";
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(8, 9, 13, 0.68);
+    font-size: 0.7rem;
+    font-weight: 800;
+    pointer-events: none;
+}
+
+.payetki-color-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.35rem;
+}
+
+.payetki-color-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 1.35rem;
+}
+
+.payetki-color-card__title::before {
+    content: "";
+    width: 0.85rem;
+    height: 0.85rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--swatch);
+    box-shadow: inset 0 0 0 1px rgba(8, 9, 13, 0.12);
+}
+
+.payetki-color-card__body p {
+    flex: 1;
+    margin: 0.8rem 0 1.25rem;
+    color: var(--payetki-muted);
+    line-height: 1.65;
+}
+
+.payetki-card-button {
+    width: 100%;
+    min-height: 2.8rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba(113, 97, 143, 0.35);
+    border-radius: 999px;
+    color: var(--payetki-ink);
+    background: rgba(217, 209, 232, 0.42);
+    font-weight: 800;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.payetki-card-button:hover,
+.payetki-card-button:focus-visible {
+    background: var(--payetki-lavender);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.payetki-showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+}
+
+.payetki-showcase__copy p {
+    margin-top: 1rem;
+    color: var(--payetki-muted);
+    line-height: 1.8;
+}
+
+.payetki-note {
+    display: inline-flex;
+    margin-top: 1.25rem;
+    padding: 0.7rem 0.9rem;
+    border-left: 3px solid var(--payetki-lavender);
+    color: var(--payetki-ink) !important;
+    background: rgba(217, 209, 232, 0.34);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.payetki-showcase__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+}
+
+.payetki-showcase__gallery img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.payetki-showcase__gallery img:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 8.6;
+}
+
+.payetki-price {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+}
+
+.payetki-price__amount {
+    margin-top: 1rem;
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.05em;
+}
+
+.payetki-price__amount span {
+    font-size: 0.32em;
+    letter-spacing: 0;
+}
+
+.payetki-price__lead {
+    max-width: 34rem;
+    margin-top: 1rem;
+    color: var(--payetki-muted);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.payetki-price__card {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid rgba(113, 97, 143, 0.2);
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 20px 50px rgba(8, 9, 13, 0.08);
+}
+
+.payetki-checklist {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.payetki-checklist li {
+    position: relative;
+    padding-left: 1.8rem;
+    color: var(--payetki-muted);
+    line-height: 1.55;
+}
+
+.payetki-checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--payetki-lavender-dark);
+    font-weight: 900;
+}
+
+.payetki-price__notice {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--payetki-line);
+    color: var(--payetki-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.payetki-size-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.payetki-size-card {
+    padding: 1.5rem;
+    border: 1px solid var(--payetki-line);
+    border-radius: 1.25rem;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.payetki-size-card__shape-wrap {
+    height: 10rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.payetki-size-card__shape {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(113, 97, 143, 0.42);
+    color: var(--payetki-lavender-dark);
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+        repeating-linear-gradient(0deg, transparent 0 12px, rgba(113, 97, 143, 0.09) 12px 13px),
+        repeating-linear-gradient(90deg, transparent 0 12px, rgba(113, 97, 143, 0.09) 12px 13px),
+        rgba(217, 209, 232, 0.38);
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.payetki-size-card__shape--portrait {
+    width: 8.9rem;
+    height: 10rem;
+}
+
+.payetki-size-card__shape--square {
+    width: 9rem;
+    height: 9rem;
+}
+
+.payetki-size-card__shape--wide {
+    width: 10rem;
+    height: 7rem;
+}
+
+.payetki-size-card h3 {
+    font-size: 1.55rem;
+}
+
+.payetki-size-card p {
+    margin-top: 0.55rem;
+    color: var(--payetki-muted);
+}
+
+.payetki-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.payetki-benefit {
+    padding: 1.5rem;
+    border: 1px solid var(--payetki-line);
+    border-radius: 1.15rem;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.payetki-benefit__icon {
+    width: 2.8rem;
+    height: 2.8rem;
+    display: grid;
+    place-items: center;
+    margin-bottom: 1rem;
+    border-radius: 0.9rem;
+    color: var(--payetki-lavender-dark);
+    background: rgba(217, 209, 232, 0.52);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.payetki-benefit h3 {
+    font-size: 1.15rem;
+}
+
+.payetki-benefit p {
+    margin-top: 0.6rem;
+    color: var(--payetki-muted);
+    line-height: 1.65;
+}
+
+.payetki-event-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem;
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+.payetki-event-tags span {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--payetki-line);
+    border-radius: 999px;
+    color: var(--payetki-muted);
+    background: rgba(255, 255, 255, 0.78);
+    font-weight: 700;
+}
+
+.payetki-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.payetki-step {
+    position: relative;
+    padding: 1.5rem;
+    border-top: 3px solid var(--payetki-lavender);
+    border-radius: 0 0 1rem 1rem;
+    background: rgba(255, 255, 255, 0.76);
+}
+
+.payetki-step__number {
+    color: var(--payetki-lavender-dark);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.payetki-step h3 {
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.payetki-step p {
+    margin-top: 0.6rem;
+    color: var(--payetki-muted);
+    line-height: 1.6;
+}
+
+.payetki-booking {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(2rem, 6vw, 5.5rem);
+    align-items: start;
+}
+
+.payetki-booking__copy {
+    position: sticky;
+    top: 7.5rem;
+}
+
+.payetki-booking__copy p {
+    margin-top: 1rem;
+    color: var(--payetki-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.payetki-form-shell {
+    padding: clamp(1.35rem, 4vw, 2.4rem);
+    border: 1px solid var(--payetki-line);
+    border-radius: 1.5rem;
+    background: #fff;
+    box-shadow: 0 24px 60px rgba(8, 9, 13, 0.1);
+}
+
+.payetki-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.payetki-form__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.payetki-field {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.payetki-field label {
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.payetki-field input,
+.payetki-field select,
+.payetki-field textarea {
+    width: 100%;
+    min-height: 3.2rem;
+    padding: 0.8rem 0.95rem;
+    border: 1px solid rgba(8, 9, 13, 0.13);
+    border-radius: 0.85rem;
+    color: var(--payetki-ink);
+    background: var(--payetki-ivory);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.payetki-field textarea {
+    min-height: 7rem;
+    resize: vertical;
+}
+
+.payetki-field input:focus,
+.payetki-field select:focus,
+.payetki-field textarea:focus {
+    border-color: var(--payetki-lavender-dark);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(185, 167, 216, 0.23);
+    outline: none;
+}
+
+.payetki-form__privacy {
+    color: var(--payetki-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.payetki-form__privacy a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.payetki-form__success {
+    padding: 2rem 0.5rem;
+    text-align: center;
+}
+
+.payetki-form__success[hidden],
+.payetki-form[hidden] {
+    display: none;
+}
+
+.payetki-form__success-mark {
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    color: #316b45;
+    background: rgba(84, 170, 112, 0.16);
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+.payetki-faq {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 58rem;
+    margin: 0 auto;
+}
+
+.payetki-faq details {
+    border: 1px solid var(--payetki-line);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.payetki-faq summary {
+    position: relative;
+    padding: 1.2rem 3.25rem 1.2rem 1.25rem;
+    cursor: pointer;
+    font-weight: 800;
+    list-style: none;
+}
+
+.payetki-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.payetki-faq summary::after {
+    content: "+";
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    transform: translateY(-50%);
+    color: var(--payetki-lavender-dark);
+    font-size: 1.5rem;
+}
+
+.payetki-faq details[open] summary::after {
+    content: "−";
+}
+
+.payetki-faq summary:focus-visible {
+    outline: 3px solid rgba(113, 97, 143, 0.28);
+    outline-offset: 2px;
+    border-radius: 1rem;
+}
+
+.payetki-faq details p {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--payetki-muted);
+    line-height: 1.7;
+}
+
+.payetki-cta {
+    padding: clamp(2rem, 6vw, 4.2rem);
+    border-radius: 1.6rem;
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 10%, rgba(185, 167, 216, 0.34), transparent 35%),
+        #17141d;
+    box-shadow: 0 28px 70px rgba(8, 9, 13, 0.2);
+}
+
+.payetki-cta > p {
+    max-width: 46rem;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.payetki-cta .payetki-btn--secondary {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.payetki-cta .payetki-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.payetki-footer {
+    padding: 3rem 1.5rem 7rem;
+    border-top: 1px solid var(--payetki-line);
+    color: var(--payetki-muted);
+    background: #fff;
+}
+
+.payetki-footer__grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+}
+
+.payetki-footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.payetki-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(8, 9, 13, 0.72);
+    backdrop-filter: blur(8px);
+}
+
+.payetki-modal.is-open {
+    display: flex;
+}
+
+.payetki-modal__dialog {
+    position: relative;
+    width: min(38rem, 100%);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    padding: clamp(1.35rem, 4vw, 2.35rem);
+    border-radius: 1.5rem;
+    background: var(--payetki-ivory);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+}
+
+.payetki-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.7rem;
+    height: 2.7rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--payetki-line);
+    border-radius: 50%;
+    background: #fff;
+    font-size: 1.55rem;
+    line-height: 1;
+}
+
+.payetki-modal__close:hover,
+.payetki-modal__close:focus-visible {
+    border-color: var(--payetki-lavender-dark);
+    outline: none;
+}
+
+.payetki-modal__heading {
+    padding-right: 3rem;
+    margin-bottom: 1.25rem;
+}
+
+.payetki-modal__heading h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.payetki-modal__heading p {
+    margin-top: 0.65rem;
+    color: var(--payetki-muted);
+    line-height: 1.6;
+}
+
+body.payetki-modal-open {
+    overflow: hidden;
+}
+
+body.payetki-modal-open .mobile-contact-bar,
+body.seo-lightbox-open .mobile-contact-bar,
+body.payetki-modal-open .back-to-top,
+body.seo-lightbox-open .back-to-top {
+    display: none !important;
+}
+
+@media (max-width: 1024px) {
+    .payetki-hero__grid,
+    .payetki-showcase,
+    .payetki-price,
+    .payetki-booking {
+        grid-template-columns: 1fr;
+    }
+
+    .payetki-hero h1 {
+        max-width: 15ch;
+    }
+
+    .payetki-hero__visual {
+        max-width: 52rem;
+    }
+
+    .payetki-booking__copy {
+        position: static;
+    }
+
+    .payetki-color-grid,
+    .payetki-benefits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .payetki-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .payetki-page .payetki-nav__links {
+        display: none;
+    }
+
+    .payetki-nav__telegram {
+        min-height: 2.85rem;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.78rem;
+    }
+
+    .payetki-hero {
+        padding-top: 7rem;
+        padding-bottom: 3.5rem;
+    }
+
+    .payetki-hero h1 {
+        max-width: 100%;
+        font-size: clamp(2.35rem, 11.5vw, 3.35rem);
+        line-height: 1.03;
+    }
+
+    .payetki-hero__lead {
+        font-size: 1rem;
+        line-height: 1.72;
+    }
+
+    .payetki-hero__grid {
+        gap: 2.25rem;
+    }
+
+    .payetki-hero__actions .payetki-btn {
+        width: 100%;
+    }
+
+    .payetki-hero__facts {
+        grid-template-columns: 1fr;
+    }
+
+    .payetki-hero__switcher {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.55rem;
+    }
+
+    .payetki-hero__switch {
+        min-width: 0;
+        min-height: 2.75rem;
+        justify-content: center;
+        padding: 0.55rem 0.45rem;
+    }
+
+    .payetki-section {
+        padding: 3.75rem 1rem;
+    }
+
+    .payetki-heading {
+        margin-bottom: 2rem;
+    }
+
+    .payetki-color-grid,
+    .payetki-size-grid,
+    .payetki-benefits,
+    .payetki-steps,
+    .payetki-form__row {
+        grid-template-columns: 1fr;
+    }
+
+    .payetki-showcase__gallery {
+        gap: 0.55rem;
+    }
+
+    .payetki-footer {
+        padding-bottom: calc(7.5rem + env(safe-area-inset-bottom));
+    }
+
+    .payetki-footer__grid {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .payetki-modal {
+        align-items: flex-end;
+        padding: 0.75rem;
+        padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    }
+
+    .payetki-modal__dialog {
+        width: 100%;
+        max-height: calc(100dvh - 1.5rem - env(safe-area-inset-bottom));
+        border-radius: 1.25rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .payetki-page .brand-lockup {
+        gap: 0.45rem;
+    }
+
+    .payetki-page .brand-lockup .brand-logo {
+        width: 30px;
+        height: 30px;
+        flex-basis: 30px;
+    }
+
+    .payetki-page nav .brand-lockup span {
+        font-size: 1.2rem;
+    }
+
+    .payetki-hero {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .payetki-section {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
