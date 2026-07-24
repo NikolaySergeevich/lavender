@@ -88,6 +88,7 @@ function form_name_value() {
         'pdf_download_form',
         'callback_form',
         'exit_popup_form',
+        'payetki_booking_form',
     );
     $value = post_value('form_name');
 
@@ -101,10 +102,12 @@ function source_page_path() {
     return is_string($path) && $path !== '' ? $path : '/';
 }
 
-function render_success_redirect($redirect_url, $form_name, $page_path) {
+function render_success_redirect($redirect_url, $form_name, $page_path, $lead_source = 'website_form', $selected_color = '') {
     $redirect_json = json_encode($redirect_url, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $form_name_json = json_encode($form_name ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $page_path_json = json_encode($page_path ?: '/', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $lead_source_json = json_encode($lead_source ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $selected_color_json = json_encode($selected_color, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     header('Content-Type: text/html; charset=UTF-8');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
@@ -160,9 +163,10 @@ function render_success_redirect($redirect_url, $form_name, $page_path) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: 'generate_lead',
-                lead_source: 'website_form',
+                lead_source: <?php echo $lead_source_json; ?>,
                 form_name: <?php echo $form_name_json; ?>,
                 page_path: <?php echo $page_path_json; ?>,
+                selected_color: <?php echo $selected_color_json; ?>,
                 eventCallback: redirectToSite,
                 eventTimeout: 1500
             });
@@ -184,7 +188,15 @@ $required_fields_missing = post_value('name') === '' || post_value('phone') === 
 
 if (
     $form_name !== 'pdf_download_form'
+    && $form_name !== 'payetki_booking_form'
     && (post_value('eventType') === '' || post_value('budget') === '')
+) {
+    $required_fields_missing = true;
+}
+
+if (
+    $form_name === 'payetki_booking_form'
+    && (post_value('date') === '' || post_value('selected_color') === '')
 ) {
     $required_fields_missing = true;
 }
@@ -202,6 +214,8 @@ $lines = array();
 add_line($lines, 'Источник', post_value('source'));
 add_line($lines, 'Имя', post_value('name'));
 add_line($lines, 'Телефон / Telegram', post_value('phone'));
+add_line($lines, 'Услуга', post_value('product_type'));
+add_line($lines, 'Цвет пайеток', post_value('selected_color'));
 add_line($lines, 'Тип мероприятия', post_value('eventType'));
 add_line($lines, 'Бюджет мероприятия', post_value('budget'));
 add_line($lines, 'Дата', post_value('date'));
@@ -212,6 +226,7 @@ add_line($lines, 'Квиз: площадь', post_value('quiz-area'));
 add_line($lines, 'Квиз: стиль', post_value('quiz-style'));
 add_line($lines, 'Квиз: срочность', post_value('quiz-urgency'));
 add_line($lines, 'Согласие', post_value('consent'));
+add_line($lines, 'Страница', post_value('page_path'));
 
 if (empty($lines) || !$token || !$chat_id) {
     if ($expects_json) {
@@ -259,7 +274,10 @@ if (function_exists('curl_init')) {
 }
 
 $is_pdf_catalog = post_value('source') === 'PDF Каталог трендов 2026';
-$redirect_url = 'index.html?sent=' . ($success ? '1' : '0')
+$redirect_base = $form_name === 'payetki_booking_form'
+    ? 'arenda-payetok-minsk/'
+    : 'index.html';
+$redirect_url = $redirect_base . '?sent=' . ($success ? '1' : '0')
     . ($is_pdf_catalog ? '&pdf_catalog=1' : '')
     . '&form_name=' . rawurlencode($form_name);
 
@@ -278,7 +296,13 @@ if ($expects_json) {
 }
 
 if ($success) {
-    render_success_redirect($redirect_url, $form_name, source_page_path());
+    render_success_redirect(
+        $redirect_url,
+        $form_name,
+        source_page_path(),
+        $form_name === 'payetki_booking_form' ? 'payetki_landing' : 'website_form',
+        post_value('selected_color')
+    );
 }
 
 header('Location: ' . $redirect_url);
