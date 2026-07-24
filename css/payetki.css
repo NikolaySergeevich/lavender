@@ -9,13 +9,42 @@
 }
 
 body.payetki-page {
+    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
     color: var(--payetki-ink);
     background: var(--payetki-ivory);
 }
 
+.payetki-page main,
+.payetki-page header,
+.payetki-page section,
+.payetki-page footer,
+.payetki-page nav > div,
+.payetki-hero__grid > *,
+.payetki-showcase > *,
+.payetki-price > *,
+.payetki-booking > * {
+    min-width: 0;
+}
+
+.payetki-page img {
+    max-width: 100%;
+}
+
+.payetki-page button,
+.payetki-page input,
+.payetki-page select,
+.payetki-page textarea {
+    font-family: inherit;
+}
+
 .payetki-page .seo-nav {
     background: rgba(244, 245, 247, 0.92);
+}
+
+.payetki-page .seo-nav > div {
+    width: 100%;
 }
 
 .payetki-nav__links a,
@@ -1030,6 +1059,16 @@ body.seo-lightbox-open .back-to-top {
     .payetki-steps,
     .payetki-form__row {
         grid-template-columns: 1fr;
+    }
+
+    .payetki-color-card,
+    .payetki-size-card,
+    .payetki-benefit,
+    .payetki-step,
+    .payetki-price__card,
+    .payetki-form-shell {
+        width: 100%;
+        max-width: 100%;
     }
 
     .payetki-showcase__gallery {
