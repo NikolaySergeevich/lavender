@@ -291,7 +291,7 @@ try {
     $phone.Line.ForeColor.RGB = $colors.White
     $phone.Fill.Transparency = 1
     Add-Text $slide 'Телефон' 290 667 205 17 12 'Arial' $colors.White $true 2 | Out-Null
-    $phone.ActionSettings(1).Hyperlink.Address = 'tel:+375291357999'
+    $phone.ActionSettings(1).Hyperlink.Address = 'tel:+375293342335'
     Add-Footer $slide 9 $true
 
     if (Test-Path -LiteralPath $pptxPath) { Remove-Item -LiteralPath $pptxPath -Force }
