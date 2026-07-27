@@ -136,6 +136,53 @@ function render_success_redirect($redirect_url, $form_name, $page_path, $lead_so
     <meta name="robots" content="noindex,nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Заявка отправлена</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            color: #08090d;
+            background:
+                radial-gradient(circle at 82% 12%, rgba(185, 167, 216, 0.34), transparent 30rem),
+                #f4f5f7;
+            font-family: Inter, Arial, sans-serif;
+        }
+        .success-card {
+            width: min(560px, 100%);
+            padding: clamp(32px, 7vw, 56px);
+            border: 1px solid rgba(8, 9, 13, 0.09);
+            border-radius: 26px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 28px 70px rgba(8, 9, 13, 0.14);
+        }
+        .success-mark {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 22px;
+            display: grid;
+            place-items: center;
+            border-radius: 20px;
+            color: #71618f;
+            background: rgba(217, 209, 232, 0.64);
+            font-size: 30px;
+            font-weight: 900;
+        }
+        h1 {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: clamp(30px, 6vw, 46px);
+            line-height: 1.08;
+        }
+        p {
+            margin: 16px 0 0;
+            color: #62656d;
+            line-height: 1.7;
+        }
+    </style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -148,7 +195,11 @@ function render_success_redirect($redirect_url, $form_name, $page_path, $lead_so
     </iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
-    <p>Заявка успешно отправлена. Возвращаем вас на сайт…</p>
+    <main class="success-card">
+        <div class="success-mark" aria-hidden="true">✓</div>
+        <h1>Заявка отправлена</h1>
+        <p>Спасибо! Возвращаем вас на сайт — скоро свяжемся с вами.</p>
+    </main>
     <script>
         (function() {
             var redirectUrl = <?php echo $redirect_json; ?>;

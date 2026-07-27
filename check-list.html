@@ -37,13 +37,14 @@
 <meta name="description" content="Чек-лист LAVDRAGON: 10 частых ошибок при выборе фотозоны для свадьбы, юбилея, дня рождения или корпоративного события.">
 <link rel="canonical" href="https://lavdragon.by/check-list.html">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/seo.css">
 <style>
   :root {
     --bg: #FAFAFA;
     --card: #FFFFFF;
-    --dark: #1A1A2E;
-    --accent: #C9A84C;
-    --accent-light: #F5E6B8;
+    --dark: #17141D;
+    --accent: #B9A7D8;
+    --accent-light: #E6E0F0;
     --text: #2C2C2C;
     --text-light: #6B6B6B;
     --border: #E8E8E8;
@@ -64,6 +65,18 @@
     line-height: 1.6;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+
+  .checklist-nav {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+
+  .checklist-nav + .page {
+    margin-top: 76px;
   }
 
   .page {
@@ -417,6 +430,17 @@
 
   /* ========== PRINT ========== */
   @media print {
+    .checklist-nav,
+    .seo-site-footer,
+    .seo-mobile-contact,
+    .back-to-top {
+      display: none !important;
+    }
+
+    .checklist-nav + .page {
+      margin-top: 0;
+    }
+
     body { margin: 0; }
     .page {
       page-break-after: always;
@@ -444,6 +468,13 @@
     </iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<nav class="seo-nav checklist-nav px-6 md:px-12 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-6">
+    <a href="index.html" class="font-serif text-2xl font-bold">LAVDRAGON</a>
+    <a href="index.html#contact" class="seo-nav__action">Получить расчёт</a>
+  </div>
+</nav>
 
 <!-- ==================== ОБЛОЖКА ==================== -->
 <div class="page cover">
@@ -608,11 +639,12 @@
       <span>Пошаговый план реализации</span>
     </div>
   </div>
-  <a href="#" class="cta-button">Записаться на консультацию</a>
+  <a href="index.html#contact" class="cta-button">Записаться на консультацию</a>
   <p class="cta-note">Количество бесплатных консультаций ограничено</p>
   <div class="cta-footer">photostudio © 2026</div>
 </div>
 
+    <script src="js/seo-page.js"></script>
     <script src="js/back-to-top.js"></script>
 </body>
 </html>

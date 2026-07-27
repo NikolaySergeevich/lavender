@@ -1179,3 +1179,79 @@
                 right: 1.5rem;
             }
         }
+
+        /* Shared premium polish aligned with the Payetki landing system. */
+        .hero-btn {
+            border-radius: 999px;
+        }
+        .hero-premium .hero-btn--primary {
+            color: #08090D;
+            background: #B9A7D8;
+            box-shadow: 0 14px 32px rgba(185, 167, 216, 0.24);
+        }
+        .hero-premium .hero-btn--primary:hover {
+            background: #C9BBE0;
+        }
+        .event-category-card,
+        .portfolio-card,
+        .trust-card,
+        .faq-item,
+        .promotion-card,
+        .lead-form,
+        #contact > div > div {
+            border-radius: 20px;
+        }
+        .event-category-card,
+        .portfolio-card,
+        .trust-card {
+            box-shadow: 0 12px 30px rgba(8, 9, 13, 0.06);
+        }
+        .event-category-card:hover,
+        .portfolio-card:hover,
+        .trust-card:hover {
+            border-color: rgba(113, 97, 143, 0.28);
+            box-shadow: 0 20px 42px rgba(8, 9, 13, 0.1);
+        }
+        form[action="send.php"] input:not([type="hidden"]),
+        form[action="send.php"] select,
+        form[action="send.php"] textarea {
+            min-height: 52px;
+            border: 1px solid rgba(8, 9, 13, 0.1);
+            border-radius: 14px;
+            color: #08090D;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+        }
+        form[action="send.php"] textarea {
+            min-height: 112px;
+        }
+        form[action="send.php"] input:not([type="hidden"]):focus,
+        form[action="send.php"] select:focus,
+        form[action="send.php"] textarea:focus {
+            border-color: rgba(113, 97, 143, 0.62) !important;
+            outline: 3px solid rgba(185, 167, 216, 0.18) !important;
+            outline-offset: 1px;
+        }
+        form[action="send.php"] button[type="submit"] {
+            min-height: 52px;
+            border-radius: 999px !important;
+            color: #08090D;
+            background: #B9A7D8;
+            box-shadow: 0 12px 28px rgba(113, 97, 143, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        form[action="send.php"] button[type="submit"]:hover {
+            transform: translateY(-2px);
+            background: #C9BBE0;
+            box-shadow: 0 16px 34px rgba(113, 97, 143, 0.27);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
