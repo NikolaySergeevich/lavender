@@ -645,7 +645,8 @@ a.seo-card:hover,
 }
 
 .seo-gallery__card:has(figcaption)::after {
-    bottom: 4.6rem;
+    top: 0.75rem;
+    bottom: auto;
 }
 
 .seo-gallery .seo-gallery__card img,
