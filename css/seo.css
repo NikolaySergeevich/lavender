@@ -248,6 +248,24 @@ body.seo-standard-page {
     outline: none;
 }
 
+.seo-brand-lockup {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--seo-ink) !important;
+}
+
+.seo-brand-lockup .brand-logo {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--seo-surface);
+    box-shadow: 0 4px 14px rgba(8, 9, 13, 0.12);
+}
+
 .seo-nav .filter-btn,
 .seo-nav__action {
     min-height: 2.8rem;
@@ -1043,7 +1061,8 @@ a.seo-card:hover,
 
     .seo-hero h1 {
         max-width: 100%;
-        font-size: clamp(2.35rem, 11.5vw, 3.35rem) !important;
+        font-size: clamp(2rem, 10vw, 2.85rem) !important;
+        overflow-wrap: anywhere;
     }
 
     .seo-hero__lead {
