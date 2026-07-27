@@ -453,9 +453,9 @@
 
         const reviewsTrack = document.getElementById('reviews-track');
         const initialReviewImages = [
-            { image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp', imageAlt: 'Свадебная фотозона для отзыва Анны' },
-            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp', imageAlt: 'Фотозона для корпоративного мероприятия' },
-            { image: 'picture/wedding/svadebnaya-fotozona-minsk-svet.webp', imageAlt: 'Световая фотозона для event-агентства' }
+            { image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp', imageAlt: 'Бежевая свадебная фотозона с круглыми панелями, розами, эвкалиптом и свечами' },
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp', imageAlt: 'Бежевая фотозона с перламутровыми шарами, бусами и светящейся надписью It’s my birthday' },
+            { image: 'picture/wedding/svadebnaya-fotozona-minsk-svet.webp', imageAlt: 'Серая софа под круглой цветочной аркой с розами и тёплой гирляндой' }
         ];
         reviewsTrack?.querySelectorAll(':scope > div').forEach((slide, index) => {
             const card = slide.firstElementChild;
@@ -485,11 +485,11 @@
             personTexts?.[1]?.classList.add('review-card__meta');
         });
         const additionalReviews = [
-            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-dekor.webp', imageAlt: 'Фотозона на юбилей', name: 'Ольга М.', meta: 'Юбилей', text: 'Команда сама подсказала, как лучше поставить фотозону в зале. На фотографиях всё выглядит аккуратно и дорого.' },
-            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp', imageAlt: 'Фотозона на день рождения', name: 'Ирина С.', meta: 'День рождения', text: 'Приехали вовремя, быстро всё смонтировали, а после праздника спокойно разобрали. Мы ни о чём не переживали.' },
-            { image: 'picture/children-parties/detskaya-fotozona-minsk-butterflies.webp', imageAlt: 'Детская фотозона с бабочками', name: 'Наталья К.', meta: 'Детский праздник', text: 'Фотозона получилась нежной и безопасной. Дети постоянно возле неё фотографировались, а родители просили контакты.' },
-            { image: 'picture/wedding/svadebnaya-fotozona-minsk-sad.webp', imageAlt: 'Свадебная фотозона сад', name: 'Алексей Р.', meta: 'Свадьба', text: 'Смета была понятной, без неожиданностей. В день свадьбы мы вообще не отвлекались на монтаж — всё уже было готово.' },
-            { image: 'picture/gender-party/gender-party-minsk-shary.webp', imageAlt: 'Фотозона для gender party', name: 'Виктория П.', meta: 'Gender party', text: 'Цвета подобрали идеально. Фото вышли светлые, праздничные и без лишней перегрузки.' }
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-dekor.webp', imageAlt: 'Торжественная фотозона с чёрно-золотой гирляндой шаров, белыми цветами и поздравлением Сергею', name: 'Ольга М.', meta: 'Юбилей', text: 'Команда сама подсказала, как лучше поставить фотозону в зале. На фотографиях всё выглядит аккуратно и дорого.' },
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp', imageAlt: 'Белая драпированная фотозона с цветочными композициями и английской надписью Happy Birthday', name: 'Ирина С.', meta: 'День рождения', text: 'Приехали вовремя, быстро всё смонтировали, а после праздника спокойно разобрали. Мы ни о чём не переживали.' },
+            { image: 'picture/children-parties/detskaya-fotozona-minsk-butterflies.webp', imageAlt: 'Нежно-розовая фотозона на крещение Анечки с шарами, бантом и светящимися бабочками', name: 'Наталья К.', meta: 'Детский праздник', text: 'Фотозона получилась нежной и безопасной. Дети постоянно возле неё фотографировались, а родители просили контакты.' },
+            { image: 'picture/wedding/svadebnaya-fotozona-minsk-sad.webp', imageAlt: 'Стол молодожёнов с белой драпировкой, жемчужными нитями и деревьями в кашпо', name: 'Алексей Р.', meta: 'Свадьба', text: 'Смета была понятной, без неожиданностей. В день свадьбы мы вообще не отвлекались на монтаж — всё уже было готово.' },
+            { image: 'picture/gender-party/gender-party-minsk-shary.webp', imageAlt: 'Арочная композиция Girl or Boy с розово-голубыми шарами, золотыми листьями и кубиками BABE', name: 'Виктория П.', meta: 'Gender party', text: 'Цвета подобрали идеально. Фото вышли светлые, праздничные и без лишней перегрузки.' }
         ];
         if (reviewsTrack) {
             reviewsTrack.insertAdjacentHTML('beforeend', additionalReviews.map(createReviewCard).join(''));

@@ -34,108 +34,108 @@
                 match: 'arenda-cifr-na-prazdnik-minsk',
                 label: 'Аренда декора',
                 image: 'picture/numbers/arenda-cifr-50-let-minsk.webp',
-                imageAlt: 'Аренда декоративных цифр на праздник в Минске'
+                imageAlt: 'Светящиеся цифры 50 перед серебряной панелью с бело-золотой гирляндой из шаров'
             },
             {
                 match: 'ceny-na-fotazony-minsk',
                 label: 'Стоимость оформления',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-kryg.webp',
-                imageAlt: 'Фотозона LavDragon в тёплых золотых оттенках'
+                imageAlt: 'Круглая уличная фотозона с бело-золотыми шарами, поздравлением и числом 45'
             },
             {
                 match: 'dekor-svadby-minsk',
                 label: 'Свадебный декор',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp',
-                imageAlt: 'Свадебный декор и фотозона в Минске'
+                imageAlt: 'Бежевая свадебная фотозона с круглыми панелями, розами, эвкалиптом и свечами'
             },
             {
                 match: 'fotazona-na-korporativ-minsk',
                 label: 'Корпоративные события',
                 image: 'picture/korporativ/fotozona-na-korporativ-minsk-kypalie.webp',
-                imageAlt: 'Фотозона на корпоратив в Минске'
+                imageAlt: 'Бохо-фотозона на природе с белой панелью, пампасной травой, тюками сена и фонарями'
             },
             {
                 match: 'fotazona-na-yubiley-minsk',
                 label: 'Юбилеи',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp',
-                imageAlt: 'Фотозона на юбилей в Минске'
+                imageAlt: 'Бежевая фотозона с перламутровыми шарами, бусами и светящейся надписью It’s my birthday'
             },
             {
                 match: 'fotazony-dlya-detskih-prazdnikov-minsk',
                 label: 'Детские праздники',
                 image: 'picture/children-parties/detskaya-fotozona-minsk-pink.webp',
-                imageAlt: 'Фотозона для детского праздника в Минске'
+                imageAlt: 'Розово-жёлтая фотозона на годик с шарами, ромашками, креслом и объёмной цифрой один'
             },
             {
                 match: 'fotazony-na-den-rozhdeniya-minsk',
                 label: 'Дни рождения',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-kryg.webp',
-                imageAlt: 'Фотозона на день рождения в нежных золотых оттенках'
+                imageAlt: 'Круглая уличная фотозона с бело-золотыми шарами, поздравлением и числом 45'
             },
             {
                 match: 'fotazony-na-svadbu-minsk',
                 label: 'Свадебные фотозоны',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-cvety.webp',
-                imageAlt: 'Свадебная фотозона в Минске'
+                imageAlt: 'Золотые прямоугольные рамы с белой драпировкой, розами и свечами'
             },
             {
                 match: 'gender-party-minsk',
                 label: 'Gender party',
                 image: 'picture/gender-party/gender-party-baby-butterfly-firework.webp',
-                imageAlt: 'Оформление gender party в Минске'
+                imageAlt: 'Светящиеся буквы BABY и бабочки на фоне розового пиротехнического фонтана в сумерках'
             },
             {
                 match: 'oformlenie-zala-minsk',
                 label: 'Оформление мероприятий',
                 image: 'picture/hall-decoration/decoration-minsk-service-rose.webp',
-                imageAlt: 'Оформление зала на праздник в Минске'
+                imageAlt: 'Розовые розы и горящие белые свечи вдоль длинного праздничного стола'
             },
             {
                 match: 'svadebnaya-fotozona-v-bezhevyh-tonah-minsk',
                 label: 'Реализованный проект',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-cvety.webp',
-                imageAlt: 'Свадебная фотозона в бежевых тонах в Минске'
+                imageAlt: 'Золотые прямоугольные рамы с белой драпировкой, розами и свечами'
             },
             {
                 match: 'skolko-stoit-fotozona-minsk-2026',
                 label: 'Гид по стоимости',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-stil.webp',
-                imageAlt: 'Стильная фотозона LavDragon в Минске',
+                imageAlt: 'Изумрудная фотозона с красно-белыми цветами, чёрно-золотыми шарами и табличкой Happy Birthday',
                 works: 'ceny-na-fotazony-minsk/'
             },
             {
                 match: 'trendy-svadebnogo-dekora-2026',
                 label: 'Тренды и идеи',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-bloom.webp',
-                imageAlt: 'Современный свадебный декор в Минске',
+                imageAlt: 'Белая свадебная фотозона с цветочной аркой, креслами и тёплой гирляндой',
                 works: 'fotazony-na-svadbu-minsk/'
             },
             {
                 match: 'kak-vybrat-fotozonu-na-svadbu',
                 label: 'Практический гид',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp',
-                imageAlt: 'Свадебная фотозона с декоративной композицией',
+                imageAlt: 'Бежевая свадебная фотозона с круглыми панелями, розами, эвкалиптом и свечами',
                 works: 'fotazony-na-svadbu-minsk/'
             },
             {
                 match: 'idei-fotozon-dlya-yubileya',
                 label: 'Подборка идей',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp',
-                imageAlt: 'Фотозона для юбилея в Минске',
+                imageAlt: 'Бежевая фотозона с перламутровыми шарами, бусами и светящейся надписью It’s my birthday',
                 works: 'fotazona-na-yubiley-minsk/'
             },
             {
                 match: 'oformlenie-svadby-na-50-gostey',
                 label: 'Планирование свадьбы',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-sad.webp',
-                imageAlt: 'Оформление свадьбы в Минске',
+                imageAlt: 'Стол молодожёнов с белой драпировкой, жемчужными нитями и деревьями в кашпо',
                 works: 'dekor-svadby-minsk/'
             },
             {
                 match: '/blog/',
                 label: 'Журнал LavDragon',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-dofamin.webp',
-                imageAlt: 'Идеи фотозон и декора мероприятий LavDragon',
+                imageAlt: 'Яркий банкетный стол с синими гортензиями, красными цветами и космическим фоном',
                 works: 'fotazony-na-svadbu-minsk/'
             }
         ];
@@ -143,13 +143,25 @@
         return configs.find((config) => path.includes(config.match)) || {
             label: 'LavDragon · Минск',
             image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-stil.webp',
-            imageAlt: 'Фотозона и декор мероприятия LavDragon'
+            imageAlt: 'Изумрудная фотозона с красно-белыми цветами, чёрно-золотыми шарами и табличкой Happy Birthday'
         };
     }
 
     function enhanceNavigation() {
         const nav = document.querySelector('.seo-nav');
         if (!nav) return;
+
+        const homeLink = nav.querySelector('a[href="../"], a[href="../../"], a[href="/"]');
+        if (homeLink) {
+            const homeUrl = homeLink.href;
+            homeLink.classList.add('brand-lockup', 'seo-brand-lockup');
+            homeLink.setAttribute('aria-label', 'Lavdragon — на главную');
+            homeLink.innerHTML = `
+                <img src="${new URL('lavdr.ico', homeUrl).href}" width="34" height="34"
+                    alt="" class="brand-logo" aria-hidden="true">
+                <span class="font-serif text-2xl font-bold tracking-tight">Lavdragon</span>
+            `;
+        }
 
         const action = Array.from(nav.querySelectorAll('a')).find((link) => {
             const href = link.getAttribute('href') || '';
