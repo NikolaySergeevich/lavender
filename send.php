@@ -102,12 +102,22 @@ function source_page_path() {
     return is_string($path) && $path !== '' ? $path : '/';
 }
 
-function render_success_redirect($redirect_url, $form_name, $page_path, $lead_source = 'website_form', $selected_color = '') {
+function render_success_redirect(
+    $redirect_url,
+    $form_name,
+    $page_path,
+    $lead_source = 'website_form',
+    $selected_color = '',
+    $selected_project = '',
+    $form_location = ''
+) {
     $redirect_json = json_encode($redirect_url, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $form_name_json = json_encode($form_name ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $page_path_json = json_encode($page_path ?: '/', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $lead_source_json = json_encode($lead_source ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $selected_color_json = json_encode($selected_color, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $selected_project_json = json_encode($selected_project, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $form_location_json = json_encode($form_location ?: $form_name, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     header('Content-Type: text/html; charset=UTF-8');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
@@ -218,6 +228,8 @@ function render_success_redirect($redirect_url, $form_name, $page_path, $lead_so
                 form_name: <?php echo $form_name_json; ?>,
                 page_path: <?php echo $page_path_json; ?>,
                 selected_color: <?php echo $selected_color_json; ?>,
+                selected_project: <?php echo $selected_project_json; ?>,
+                form_location: <?php echo $form_location_json; ?>,
                 eventCallback: redirectToSite,
                 eventTimeout: 1500
             });
@@ -234,13 +246,16 @@ function render_success_redirect($redirect_url, $form_name, $page_path, $lead_so
 
 $form_name = form_name_value();
 $expects_json = expects_json_response();
+$redirect_base = $form_name === 'payetki_booking_form'
+    ? 'arenda-payetok-minsk/'
+    : 'index.html';
 
 $required_fields_missing = post_value('name') === '' || post_value('phone') === '';
 
 if (
     $form_name !== 'pdf_download_form'
     && $form_name !== 'payetki_booking_form'
-    && (post_value('eventType') === '' || post_value('budget') === '')
+    && post_value('eventType') === ''
 ) {
     $required_fields_missing = true;
 }
@@ -257,7 +272,7 @@ if ($required_fields_missing) {
         send_json_response(false, array('message' => 'Заполните обязательные поля формы.'), 422);
     }
 
-    header('Location: index.html?sent=0');
+    header('Location: ' . $redirect_base . '?sent=0');
     exit;
 }
 
@@ -270,8 +285,14 @@ add_line($lines, 'Цвет пайеток', post_value('selected_color'));
 add_line($lines, 'Тип мероприятия', post_value('eventType'));
 add_line($lines, 'Бюджет мероприятия', post_value('budget'));
 add_line($lines, 'Дата', post_value('date'));
+add_line($lines, 'Место проведения', post_value('place'));
 add_line($lines, 'Комментарий', post_value('comment'));
 add_line($lines, 'Предварительная стоимость', post_value('estimatedPrice'));
+add_line($lines, 'Выбранный проект', post_value('selected_project'));
+add_line($lines, 'ID проекта', post_value('project_id'));
+add_line($lines, 'Изображение проекта', post_value('project_image'));
+add_line($lines, 'Категория проекта', post_value('project_category'));
+add_line($lines, 'Расположение формы', post_value('form_location'));
 add_line($lines, 'Квиз: тип мероприятия', post_value('quiz-type'));
 add_line($lines, 'Квиз: площадь', post_value('quiz-area'));
 add_line($lines, 'Квиз: стиль', post_value('quiz-style'));
@@ -284,11 +305,11 @@ if (empty($lines) || !$token || !$chat_id) {
         send_json_response(false, array('message' => 'Сервис отправки заявок временно недоступен.'), 500);
     }
 
-    header('Location: index.html?sent=0');
+    header('Location: ' . $redirect_base . '?sent=0');
     exit;
 }
 
-$text = "Новая заявка с сайта LADRAGON\n\n" . implode("\n", $lines);
+$text = "Новая заявка с сайта LAVDRAGON\n\n" . implode("\n", $lines);
 $url = "https://api.telegram.org/bot{$token}/sendMessage";
 $payload = array(
     'chat_id' => $chat_id,
@@ -325,9 +346,6 @@ if (function_exists('curl_init')) {
 }
 
 $is_pdf_catalog = post_value('source') === 'PDF Каталог трендов 2026';
-$redirect_base = $form_name === 'payetki_booking_form'
-    ? 'arenda-payetok-minsk/'
-    : 'index.html';
 $redirect_url = $redirect_base . '?sent=' . ($success ? '1' : '0')
     . ($is_pdf_catalog ? '&pdf_catalog=1' : '')
     . '&form_name=' . rawurlencode($form_name);
@@ -350,9 +368,11 @@ if ($success) {
     render_success_redirect(
         $redirect_url,
         $form_name,
-        source_page_path(),
+        post_value('page_path') !== '' ? post_value('page_path') : source_page_path(),
         $form_name === 'payetki_booking_form' ? 'payetki_landing' : 'website_form',
-        post_value('selected_color')
+        post_value('selected_color'),
+        post_value('selected_project'),
+        post_value('form_location')
     );
 }
 
