@@ -16,7 +16,7 @@
 
         enhanceNavigation();
         const hero = enhanceHero(page, siteRoot);
-        const gallery = enhanceGallery();
+        const gallery = enhanceGallery(page, siteRoot);
         enhanceSections();
         enhanceFaq(page);
         addBenefits(hero);
@@ -393,12 +393,22 @@
         });
     }
 
-    function enhanceGallery() {
+    function enhanceGallery(page, siteRoot) {
         const gallery = document.querySelector('.seo-gallery');
         if (!gallery) return null;
         if (!gallery.id) gallery.id = 'works';
+        if (page.match === 'arenda-cifr-na-prazdnik-minsk') {
+            return gallery.closest('section') || gallery;
+        }
 
-        Array.from(gallery.querySelectorAll('img')).forEach((image) => {
+        const projectModal = createProjectInquiryModal(page, siteRoot);
+        const benefits = [
+            'Адаптация под площадку',
+            'Цвета и детали под ваш стиль',
+            'Расчёт под формат события'
+        ];
+
+        Array.from(gallery.querySelectorAll('img')).forEach((image, index) => {
             let card = image.parentElement?.tagName === 'FIGURE' ? image.parentElement : null;
             if (!card) {
                 card = document.createElement('figure');
@@ -415,9 +425,399 @@
                     image.click();
                 }
             });
+
+            if (card.querySelector('.seo-gallery-card__cta')) return;
+
+            const project = getGalleryProjectData(image, card, page, index);
+            if (!card.querySelector('figcaption')) {
+                const caption = document.createElement('figcaption');
+                const title = document.createElement('strong');
+                title.textContent = project.name;
+                caption.appendChild(title);
+                card.appendChild(caption);
+            }
+            const benefitsList = document.createElement('ul');
+            benefitsList.className = 'seo-gallery-card__benefits';
+            benefitsList.setAttribute('aria-label', 'Преимущества проекта');
+            benefits.forEach((text) => {
+                const item = document.createElement('li');
+                item.textContent = text;
+                benefitsList.appendChild(item);
+            });
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'seo-gallery-card__cta seo-btn seo-btn--primary';
+            button.textContent = 'Узнать стоимость';
+            button.setAttribute('aria-label', `Узнать стоимость проекта «${project.name}»`);
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                pushProjectPriceClick(project);
+                projectModal.open(project, button);
+            });
+
+            card.append(benefitsList, button);
         });
 
+        enhanceStandaloneProjectCards(projectModal, page);
         return gallery.closest('section') || gallery;
+    }
+
+    function enhanceStandaloneProjectCards(projectModal, page) {
+        document.querySelectorAll('[data-seo-project-name]').forEach((card) => {
+            if (card.querySelector('.seo-project-example-card__cta')) return;
+
+            const imagePath = card.dataset.projectImage || '';
+            const project = {
+                name: card.dataset.seoProjectName,
+                id: card.dataset.projectId || getProjectIdFromImagePath(imagePath, 0),
+                image: imagePath ? new URL(imagePath, document.baseURI).href : '',
+                category: page.label || 'Фотозоны'
+            };
+            const benefits = [
+                'Адаптация под площадку',
+                'Цвета и детали под ваш стиль',
+                'Расчёт под формат события'
+            ];
+
+            card.classList.add('seo-project-example-card');
+            const benefitsList = document.createElement('ul');
+            benefitsList.className = 'seo-gallery-card__benefits seo-project-example-card__benefits';
+            benefitsList.setAttribute('aria-label', 'Преимущества проекта');
+            benefits.forEach((text) => {
+                const item = document.createElement('li');
+                item.textContent = text;
+                benefitsList.appendChild(item);
+            });
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'seo-project-example-card__cta seo-btn seo-btn--primary';
+            button.textContent = 'Узнать стоимость';
+            button.setAttribute('aria-label', `Узнать стоимость проекта «${project.name}»`);
+            button.addEventListener('click', () => {
+                pushProjectPriceClick(project);
+                projectModal.open(project, button);
+            });
+
+            card.append(benefitsList, button);
+        });
+    }
+
+    function getGalleryProjectData(image, card, page, index) {
+        const imageUrl = new URL(image.getAttribute('src') || image.src, document.baseURI);
+        const captionTitle = card.querySelector('figcaption b, figcaption strong')?.textContent.trim();
+        const fallbackName = `${page.label || 'Проект'} — вариант ${index + 1}`;
+        const isSingleProjectPage = page.match === 'svadebnaya-fotozona-v-bezhevyh-tonah-minsk';
+        const pageProjectName = document.querySelector('h1')?.textContent.trim();
+
+        return {
+            name: isSingleProjectPage && pageProjectName
+                ? pageProjectName
+                : captionTitle || image.getAttribute('alt')?.trim() || fallbackName,
+            id: isSingleProjectPage
+                ? 'seo-svadebnaya-fotozona-v-bezhevyh-tonah-minsk'
+                : getProjectIdFromImagePath(imageUrl.pathname, index),
+            image: imageUrl.href,
+            category: page.label || 'Фотозоны'
+        };
+    }
+
+    function getProjectIdFromImagePath(pathname, index) {
+        let decodedPath = pathname;
+        try {
+            decodedPath = decodeURIComponent(pathname);
+        } catch (error) {
+            decodedPath = pathname;
+        }
+
+        const pathParts = decodedPath
+            .replace(/\.[^/.]+$/, '')
+            .split('/')
+            .filter(Boolean)
+            .slice(-2);
+        const pathSlug = pathParts
+            .join('-')
+            .normalize('NFKD')
+            .toLowerCase()
+            .replace(/[^a-z0-9а-яё]+/giu, '-')
+            .replace(/^-+|-+$/g, '');
+
+        return `seo-${pathSlug || `project-${index + 1}`}`;
+    }
+
+    function pushProjectPriceClick(project) {
+        const eventData = {
+            event: 'project_price_click',
+            project_name: project.name,
+            project_category: project.category,
+            page_path: window.location.pathname
+        };
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(eventData);
+        console.info('dataLayer project_price_click:', eventData);
+    }
+
+    function createProjectInquiryModal(page, siteRoot) {
+        const existingModal = document.getElementById('seo-project-inquiry-modal');
+        if (existingModal?.__projectInquiryController) {
+            return existingModal.__projectInquiryController;
+        }
+
+        const modal = document.createElement('div');
+        modal.id = 'seo-project-inquiry-modal';
+        modal.className = 'seo-project-modal';
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        modal.innerHTML = `
+            <div class="seo-project-modal__dialog" role="dialog" aria-modal="true"
+                aria-labelledby="seo-project-modal-title" aria-describedby="seo-project-modal-description">
+                <button type="button" class="seo-project-modal__close" aria-label="Закрыть форму">×</button>
+                <div class="seo-project-modal__form-view">
+                    <p class="seo-eyebrow">Индивидуальный расчёт</p>
+                    <h2 id="seo-project-modal-title" class="font-serif font-bold">Получите расчёт вашей фотозоны</h2>
+                    <p id="seo-project-modal-description" class="seo-project-modal__description">
+                        Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.
+                    </p>
+                    <p class="seo-project-modal__selection">
+                        <span>Выбранный проект:</span>
+                        <strong id="seo-project-modal-selection"></strong>
+                    </p>
+                    <form class="seo-project-form" action="${new URL('send.php', siteRoot).href}" method="POST">
+                        <input type="hidden" name="selected_project" value="">
+                        <input type="hidden" name="project_id" value="">
+                        <input type="hidden" name="project_image" value="">
+                        <input type="hidden" name="project_category" value="">
+                        <input type="hidden" name="page_path" value="">
+                        <input type="hidden" name="form_location" value="seo_gallery_card">
+                        <input type="hidden" name="source" value="">
+                        <input type="hidden" name="form_name" value="consultation_form">
+
+                        <div class="seo-project-form__grid">
+                            <label class="seo-project-form__field">
+                                <span>Имя</span>
+                                <input name="name" type="text" autocomplete="name" required placeholder="Ваше имя">
+                            </label>
+                            <label class="seo-project-form__field">
+                                <span>Телефон или мессенджер</span>
+                                <input name="phone" type="tel" autocomplete="tel" required
+                                    placeholder="+375 29 000-00-00">
+                            </label>
+                            <label class="seo-project-form__field">
+                                <span>Дата мероприятия <small>— необязательно</small></span>
+                                <input name="date" type="date">
+                            </label>
+                            <label class="seo-project-form__field">
+                                <span>Тип мероприятия</span>
+                                <select name="eventType" required>
+                                    <option value="" selected disabled>Выберите тип</option>
+                                    <option>Свадьба</option>
+                                    <option>День рождения</option>
+                                    <option>Юбилей</option>
+                                    <option>Детский праздник</option>
+                                    <option>Корпоратив</option>
+                                    <option>Gender party</option>
+                                    <option>Другое</option>
+                                </select>
+                            </label>
+                            <label class="seo-project-form__field">
+                                <span>Место проведения <small>— необязательно</small></span>
+                                <input name="place" type="text" autocomplete="street-address"
+                                    placeholder="Площадка или адрес">
+                            </label>
+                            <label class="seo-project-form__field">
+                                <span>Планируемый бюджет <small>— необязательно</small></span>
+                                <select name="budget">
+                                    <option selected>пока не определились</option>
+                                    <option>до 600 BYN</option>
+                                    <option>600–800 BYN</option>
+                                    <option>800–1200 BYN</option>
+                                    <option>более 1200 BYN</option>
+                                </select>
+                            </label>
+                        </div>
+                        <label class="seo-project-form__field">
+                            <span>Комментарий <small>— необязательно</small></span>
+                            <textarea name="comment" rows="3"
+                                placeholder="Пожелания по оформлению, цветам или размеру"></textarea>
+                        </label>
+                        <p class="seo-project-form__status" role="status" aria-live="polite"></p>
+                        <button type="submit" class="seo-project-form__submit seo-btn seo-btn--primary">
+                            Получить расчёт
+                        </button>
+                    </form>
+                </div>
+                <div class="seo-project-modal__success" hidden tabindex="-1">
+                    <div class="seo-project-modal__success-mark" aria-hidden="true">✓</div>
+                    <h2 class="font-serif font-bold">Заявка отправлена</h2>
+                    <p>Спасибо! Мы получили запрос на расчёт и скоро свяжемся с вами.</p>
+                    <button type="button" class="seo-project-modal__success-close seo-btn seo-btn--secondary">
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        const dialog = modal.querySelector('.seo-project-modal__dialog');
+        const closeButton = modal.querySelector('.seo-project-modal__close');
+        const successCloseButton = modal.querySelector('.seo-project-modal__success-close');
+        const formView = modal.querySelector('.seo-project-modal__form-view');
+        const successView = modal.querySelector('.seo-project-modal__success');
+        const selection = modal.querySelector('#seo-project-modal-selection');
+        const form = modal.querySelector('.seo-project-form');
+        const submitButton = form.querySelector('[type="submit"]');
+        const status = form.querySelector('.seo-project-form__status');
+        const dateField = form.querySelector('[name="date"]');
+        let lastFocusedElement = null;
+        let submitting = false;
+
+        const today = new Date();
+        dateField.min = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+            .toISOString()
+            .slice(0, 10);
+
+        function setHiddenValue(name, value) {
+            const field = form.querySelector(`[name="${name}"]`);
+            if (field) field.value = value || '';
+        }
+
+        function open(project, trigger) {
+            lastFocusedElement = trigger || document.activeElement;
+            dialog.scrollTop = 0;
+            selection.textContent = project.name;
+            setHiddenValue('selected_project', project.name);
+            setHiddenValue('project_id', project.id);
+            setHiddenValue('project_image', project.image);
+            setHiddenValue('project_category', project.category);
+            setHiddenValue('page_path', window.location.pathname);
+            setHiddenValue('form_location', 'seo_gallery_card');
+            setHiddenValue('source', `SEO-галерея — ${project.name}`);
+            setHiddenValue('form_name', 'consultation_form');
+
+            status.textContent = '';
+            formView.hidden = false;
+            successView.hidden = true;
+            submitButton.disabled = submitting;
+            modal.hidden = false;
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('seo-project-modal-open');
+            requestAnimationFrame(() => modal.classList.add('is-open'));
+            closeButton.focus();
+        }
+
+        function close() {
+            if (modal.hidden) return;
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            modal.hidden = true;
+            document.body.classList.remove('seo-project-modal-open');
+            if (lastFocusedElement instanceof HTMLElement) {
+                lastFocusedElement.focus();
+            }
+        }
+
+        function getFocusableElements() {
+            return Array.from(dialog.querySelectorAll(
+                'button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
+                'textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+            )).filter((element) => !element.closest('[hidden]'));
+        }
+
+        closeButton.addEventListener('click', close);
+        successCloseButton.addEventListener('click', close);
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) close();
+        });
+        modal.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                close();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+
+            const focusable = getFocusableElements();
+            if (!focusable.length) {
+                event.preventDefault();
+                return;
+            }
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (submitting) return;
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            submitting = true;
+            submitButton.disabled = true;
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Отправка…';
+            status.textContent = '';
+            let successful = false;
+
+            try {
+                const formData = new FormData(form);
+                const selectedProject = String(formData.get('selected_project') || '');
+
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        Accept: 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                const result = await response.json();
+                if (response.status !== 200 || result.success !== true) {
+                    throw new Error(result.message || 'Не удалось отправить заявку.');
+                }
+
+                successful = true;
+                const generateLeadEvent = {
+                    event: 'generate_lead',
+                    lead_source: 'website_form',
+                    form_name: 'consultation_form',
+                    selected_project: selectedProject,
+                    form_location: 'seo_gallery_card',
+                    page_path: window.location.pathname
+                };
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push(generateLeadEvent);
+                console.info('dataLayer generate_lead:', generateLeadEvent);
+
+                form.reset();
+                formView.hidden = true;
+                successView.hidden = false;
+                successView.focus();
+            } catch (error) {
+                console.error('Ошибка отправки формы проекта:', error);
+                status.textContent = error.message || 'Не удалось отправить заявку. Попробуйте ещё раз.';
+            } finally {
+                submitting = false;
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = successful;
+            }
+        });
+
+        const controller = { open, close };
+        modal.__projectInquiryController = controller;
+        return controller;
     }
 
     function enhanceFaq(page) {
@@ -450,6 +850,7 @@
         }
         const container = faqHeading.parentElement;
         if (!container || container.querySelector('.seo-faq')) return;
+        appendPricingFaq(container, page);
 
         const nodes = Array.from(container.children);
         const start = nodes.indexOf(faqHeading) + 1;
@@ -485,6 +886,39 @@
                 if (details !== opened) details.open = false;
             });
         }, true);
+    }
+
+    function appendPricingFaq(container, page) {
+        const pageMatch = page.match || '';
+        const relevantPage = /fotozon|gender-party|ceny-na-fotazony|svadebnaya-fotozona/.test(pageMatch);
+        if (!relevantPage) return;
+
+        const items = [
+            [
+                'Сколько стоит фотозона?',
+                'Стоимость фотозоны зависит от размера, конструкции, количества декора, места проведения и сложности монтажа. Базовые варианты начинаются от 550 BYN. После уточнения деталей мы подготовим точный расчёт.'
+            ],
+            [
+                'Можно ли адаптировать проект под мой бюджет?',
+                'Да. Мы можем изменить размер конструкции, количество декора и дополнительные элементы, сохранив общую стилистику проекта.'
+            ],
+            [
+                'Что входит в стоимость?',
+                'Состав зависит от выбранного пакета. Обычно в стоимость входят конструкция, декор, индивидуальная надпись, монтаж и демонтаж. Доставка рассчитывается отдельно в зависимости от адреса. Точный состав указывается в расчёте.'
+            ]
+        ];
+        const existingQuestions = new Set(
+            Array.from(container.querySelectorAll('h3')).map((heading) => heading.textContent.trim().toLowerCase())
+        );
+
+        items.forEach(([questionText, answerText]) => {
+            if (existingQuestions.has(questionText.toLowerCase())) return;
+            const question = document.createElement('h3');
+            question.textContent = questionText;
+            const answer = document.createElement('p');
+            answer.textContent = answerText;
+            container.append(question, answer);
+        });
     }
 
     function getFallbackFaq(page) {

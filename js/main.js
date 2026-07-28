@@ -18,12 +18,14 @@
             mobileMenu.classList.add('flex');
             navbar.classList.add('mobile-menu-open');
             mobileBtn.setAttribute('aria-expanded', 'true');
+            mobileBtn.setAttribute('aria-label', 'Закрыть меню');
         }
         function closeMobileMenu() {
             mobileMenu.classList.add('hidden');
             mobileMenu.classList.remove('flex');
             navbar.classList.remove('mobile-menu-open');
             mobileBtn.setAttribute('aria-expanded', 'false');
+            mobileBtn.setAttribute('aria-label', 'Открыть меню');
         }
         function toggleMobileMenu() {
             if (mobileMenu.classList.contains('hidden')) openMobileMenu();
@@ -205,11 +207,13 @@
             'Фотозона gender party Baby Balls с воздушными шарами, мягкой композицией и светлым праздничным настроением.',
             'Фотозона gender party Boy or Girl с воздушными шарами, тематической надписью и нежной reveal-подачей.'
         ];
-        const portfolioStartingPrices = [
-            740, 620, 600, 750, 550, 590, 570, 580, 650, 560, 610,
-            590, 740, 630, 590, 680, 730, 720, 750, 710, 700, 730, 660, 690,
-            740, 620, 720, 650, 580, 640, 670, 600, 620, 590, 610, 700, 1370, 790, 870, 590, 680, 690
-        ];
+        const portfolioCategoryBenefits = {
+            wedding: 'Подходит для свадьбы',
+            'gender-party': 'Подходит для gender party',
+            kids: 'Подходит для детского праздника',
+            birthday: 'Подходит для дня рождения и юбилея',
+            corporate: 'Подходит для корпоративного события'
+        };
         let currentPortfolioFilter = 'all';
         let visiblePortfolioIndexes = [];
         let visiblePortfolioCount = getPortfolioBatchSize();
@@ -230,47 +234,44 @@
 
             const media = item.querySelector('.img-zoom');
             const title = item.querySelector('.font-serif')?.textContent.trim() || `Проект ${index + 1}`;
-            const startingPrice = portfolioStartingPrices[index] || 550;
-            const priceText = `от ${startingPrice} BYN`;
+            const categorySlug = item.dataset.category || '';
+            const imagePath = portfolioImage?.getAttribute('src') || '';
+            const imageFileName = imagePath.split('/').pop()?.split('?')[0]?.replace(/\.[^.]+$/, '') || `project-${index + 1}`;
             if (!media || item.querySelector('.portfolio-card__details')) return;
 
             item.classList.add('portfolio-card');
-            item.dataset.startingPrice = priceText;
+            item.dataset.projectId = item.dataset.projectId || `${categorySlug || 'project'}-${imageFileName}`;
             media.classList.add('portfolio-card__media');
-
-            const priceBadge = document.createElement('span');
-            priceBadge.className = 'portfolio-card__price-badge';
-            priceBadge.textContent = `От ${startingPrice} BYN`;
-            media.appendChild(priceBadge);
+            if (media.classList.contains('aspect-[3/5]')) {
+                media.classList.add('portfolio-card__media--portrait');
+            }
 
             const details = document.createElement('div');
             details.className = 'portfolio-card__details';
             details.innerHTML = `
                 <div class="portfolio-card__heading">
-                    <h3 class="portfolio-card__title">${title}</h3>
-                    <div class="portfolio-card__pricing">
-                        <p class="portfolio-card__price">Цена: ${priceText}</p>
-                        <p class="portfolio-card__price-note">Точная стоимость зависит от размеров, состава декора и места проведения мероприятия.</p>
-                    </div>
+                    <h3 class="portfolio-card__title"></h3>
+                    <p class="portfolio-card__description"></p>
                 </div>
-                <dl class="portfolio-card__specs">
-                    <div>
-                        <dt>Размер</dt>
-                        <dd>Индивидуальный размер</dd>
-                    </div>
-                    <div>
-                        <dt>В стоимость входит</dt>
-                        <dd>Монтаж, демонтаж, доставка по Минску</dd>
-                    </div>
-                </dl>
-                <button type="button" class="portfolio-card__cta">Рассчитать такую фотозону</button>
+                <ul class="portfolio-card__benefits" aria-label="Преимущества проекта">
+                    <li class="portfolio-card__event"></li>
+                    <li>Размер адаптируется под площадку</li>
+                    <li>Цветовая гамма и надпись — индивидуально</li>
+                    <li>Доставка и монтаж — по расчёту</li>
+                </ul>
+                <button type="button" class="portfolio-card__cta">Узнать стоимость</button>
             `;
 
+            details.querySelector('.portfolio-card__title').textContent = title;
+            details.querySelector('.portfolio-card__description').textContent = description || 'Проект можно адаптировать под формат и стиль вашего мероприятия.';
+            details.querySelector('.portfolio-card__event').textContent = portfolioCategoryBenefits[categorySlug] || 'Подходит для вашего формата мероприятия';
+
             const cta = details.querySelector('.portfolio-card__cta');
+            cta.setAttribute('aria-label', `Узнать стоимость фотозоны «${title}»`);
             cta.addEventListener('click', (event) => {
                 event.stopPropagation();
-                trackGoal('portfolio_click', { project: title, action: 'calculate' });
-                openModal(title, `Портфолио — ${title}`, priceText);
+                const project = portfolioProjects[index];
+                if (project) openProjectRequest(project, 'portfolio_card');
             });
 
             item.appendChild(details);
@@ -350,7 +351,7 @@
             portfolioItems.forEach((item) => {
                 const itemIndex = Number(item.dataset.portfolioIndex);
                 const visibleIndex = visiblePortfolioIndexes.indexOf(itemIndex);
-                item.style.display = visibleIndex >= 0 ? 'block' : 'none';
+                item.style.display = visibleIndex >= 0 ? 'flex' : 'none';
                 item.style.order = visibleIndex >= 0 ? String(visibleIndex) : '';
             });
 
@@ -518,7 +519,20 @@
         const modalSuccess = document.getElementById('modal-success');
         const modalForm = document.getElementById('modal-form');
         const modalSource = document.getElementById('modal-source');
-        const modalEstimatedPrice = document.getElementById('modal-estimated-price');
+        const modalSelectedProject = document.getElementById('modal-selected-project');
+        const modalSelectedProjectName = document.getElementById('modal-selected-project-name');
+        const modalProjectFields = {
+            selectedProject: document.getElementById('selected-project'),
+            projectId: document.getElementById('modal-project-id'),
+            projectImage: document.getElementById('modal-project-image'),
+            projectCategory: document.getElementById('modal-project-category'),
+            pagePath: document.getElementById('modal-page-path'),
+            formLocation: document.getElementById('modal-form-location')
+        };
+        const modalCloseButton = modalOverlay?.querySelector('[data-modal-close]');
+        const modalDialog = modalOverlay?.querySelector('.project-request-dialog');
+        let modalLastActiveElement = null;
+        let lightboxReturnElement = null;
         const today = new Date();
         const todayValue = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
@@ -539,10 +553,46 @@
             return true;
         }
 
-        function openModal(packageName, sourceName, estimatedPrice) {
-            if (typeof closeLightbox === 'function') closeLightbox(false);
+        function setModalProject(project, formLocation) {
+            const selectedProject = project?.title || '';
+            const hasSelectedProject = Boolean(selectedProject);
+
+            modalSelectedProject?.classList.toggle('hidden', !hasSelectedProject);
+            if (modalSelectedProjectName) modalSelectedProjectName.textContent = selectedProject;
+            if (modalProjectFields.selectedProject) modalProjectFields.selectedProject.value = selectedProject;
+            if (modalProjectFields.projectId) modalProjectFields.projectId.value = project?.id || '';
+            if (modalProjectFields.projectImage) modalProjectFields.projectImage.value = project?.imagePath || '';
+            if (modalProjectFields.projectCategory) modalProjectFields.projectCategory.value = project?.category || '';
+            if (modalProjectFields.pagePath) modalProjectFields.pagePath.value = window.location.pathname;
+            if (modalProjectFields.formLocation) modalProjectFields.formLocation.value = formLocation || 'modal';
+        }
+
+        function pushProjectPriceClick(project) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'project_price_click',
+                project_name: project.title,
+                project_category: project.category || project.categorySlug || '',
+                page_path: window.location.pathname
+            });
+        }
+
+        function openProjectRequest(project, formLocation) {
+            pushProjectPriceClick(project);
+            trackGoal('portfolio_click', { project: project.title, action: 'calculate' });
+            openModal(project.title, `Портфолио — ${project.title}`, project, formLocation);
+        }
+
+        function openModal(packageName, sourceName, project, formLocation) {
+            const activeElement = document.activeElement;
+            modalLastActiveElement = lightboxOverlay?.contains(activeElement)
+                ? lightboxReturnElement
+                : activeElement;
+            if (typeof closeLightbox === 'function') closeLightbox(false, false);
             modalOverlay.classList.remove('hidden');
             modalOverlay.classList.add('flex');
+            modalOverlay.setAttribute('aria-hidden', 'false');
+            if (modalDialog) modalDialog.scrollTop = 0;
             modalSuccess.classList.add('hidden');
             modalForm.classList.remove('hidden');
             if (packageName) {
@@ -550,19 +600,48 @@
             } else {
                 modalSource.value = sourceName || 'Модальная форма';
             }
-            modalText.textContent = 'Подберём оформление под ваш праздник, площадку и бюджет.';
-            modalEstimatedPrice.value = estimatedPrice || '';
-            if (sourceName === 'Акционный блок 550 BYN') {
-                trackGoal('promo_click', { offer: '550 BYN' });
-            }
+            modalText.textContent = 'Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.';
+            setModalProject(project, formLocation);
             trackGoal('form_open', { source: modalSource.value });
             document.body.style.overflow = 'hidden';
+            window.setTimeout(() => {
+                const firstField = modalForm.querySelector('input:not([type="hidden"])');
+                (firstField || modalCloseButton)?.focus();
+            }, 0);
         }
         function closeModal() {
             modalOverlay.classList.add('hidden');
             modalOverlay.classList.remove('flex');
+            modalOverlay.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
+            if (modalLastActiveElement && typeof modalLastActiveElement.focus === 'function') {
+                modalLastActiveElement.focus();
+            }
         }
+
+        document.addEventListener('keydown', (event) => {
+            if (!modalOverlay || modalOverlay.classList.contains('hidden')) return;
+            if (event.key === 'Escape') {
+                closeModal();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+
+            const focusable = Array.from(modalOverlay.querySelectorAll(
+                'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href]'
+            )).filter((element) => element.offsetParent !== null);
+            if (!focusable.length) return;
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
 
         // PDF catalog lead magnet
         const pdfCatalogOverlay = document.getElementById('pdf-catalog-overlay');
@@ -625,16 +704,21 @@
         // Exit Intent
         let exitShown = false;
         document.addEventListener('mouseleave', (e) => {
-            if (e.clientY < 5 && !exitShown) {
+            const hasOpenOverlay = document.querySelector(
+                '#modal-overlay:not(.hidden), #quiz-overlay:not(.hidden), #pdf-catalog-overlay:not(.hidden), #lightbox-overlay:not(.hidden)'
+            );
+            if (e.clientY < 5 && !exitShown && !hasOpenOverlay) {
                 document.getElementById('exit-popup').classList.remove('hidden');
                 document.getElementById('exit-popup').classList.add('visible', 'flex');
                 trackGoal('form_open', { source: 'Exit popup — расчёт стоимости' });
+                document.body.style.overflow = 'hidden';
                 exitShown = true;
             }
         });
         function closeExitPopup() {
             document.getElementById('exit-popup').classList.add('hidden');
             document.getElementById('exit-popup').classList.remove('visible', 'flex');
+            document.body.style.overflow = '';
         }
         // Calculation form
         const quizOverlay = document.getElementById('quiz-overlay');
@@ -658,8 +742,9 @@
             const fit = item.dataset.lightboxFit || 'cover';
             const position = item.dataset.lightboxPosition || 'center center';
             const categorySlug = item.dataset.category || '';
-            const startingPrice = item.dataset.startingPrice || '';
-            return { image: image.src, alt: image.alt, title, meta, category, categorySlug, fit, position, startingPrice };
+            const imagePath = image.getAttribute('src') || '';
+            const id = item.dataset.projectId || `${categorySlug || 'project'}-${Number(item.dataset.portfolioIndex) + 1}`;
+            return { id, image: image.src, imagePath, alt: image.alt, title, meta, category, categorySlug, fit, position };
         });
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         let lightboxIndex = 0;
@@ -669,6 +754,9 @@
             const idx = target instanceof Element
                 ? Number(target.dataset.portfolioIndex)
                 : Number(target);
+            lightboxReturnElement = target instanceof Element
+                ? target.querySelector('.portfolio-card__cta')
+                : document.activeElement;
             const portfolioTitle = portfolioProjects[idx]?.title || 'Проект';
             trackGoal('portfolio_click', { project: portfolioTitle });
             const item = portfolioItems[idx];
@@ -688,15 +776,25 @@
             }
 
             renderLightbox();
+            const lightboxDialog = lightboxOverlay.querySelector('.lightbox-dialog');
+            const lightboxDetails = lightboxOverlay.querySelector('.lightbox-dialog__details');
+            if (lightboxDialog) lightboxDialog.scrollTop = 0;
+            if (lightboxDetails) lightboxDetails.scrollTop = 0;
             lightboxOverlay.classList.remove('hidden');
             lightboxOverlay.classList.add('flex');
+            lightboxOverlay.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
+            window.setTimeout(() => lightboxOverlay.querySelector('.lightbox-close')?.focus(), 0);
         }
-        function closeLightbox(restoreScroll = true) {
+        function closeLightbox(restoreScroll = true, restoreFocus = true) {
             if (!lightboxOverlay) return;
             lightboxOverlay.classList.add('hidden');
             lightboxOverlay.classList.remove('flex');
+            lightboxOverlay.setAttribute('aria-hidden', 'true');
             if (restoreScroll) document.body.style.overflow = '';
+            if (restoreFocus && lightboxReturnElement instanceof HTMLElement) {
+                lightboxReturnElement.focus();
+            }
         }
         function changeLightbox(direction, trigger) {
             if (trigger) {
@@ -722,8 +820,7 @@
         document.getElementById('lightbox-cta')?.addEventListener('click', () => {
             const project = lightboxProjects[lightboxIndex];
             if (!project) return;
-            trackGoal('portfolio_click', { project: project.title, action: 'lightbox_calculate' });
-            openModal(project.title, `Портфолио — ${project.title}`, project.startingPrice);
+            openProjectRequest(project, 'portfolio_lightbox');
         });
 
         // Smooth scroll
@@ -742,9 +839,40 @@
 
         document.addEventListener('keydown', (event) => {
             if (lightboxOverlay.classList.contains('hidden')) return;
-            if (event.key === 'Escape') closeLightbox();
-            if (event.key === 'ArrowLeft') changeLightbox(-1);
-            if (event.key === 'ArrowRight') changeLightbox(1);
+            if (event.key === 'Escape') {
+                closeLightbox();
+                return;
+            }
+            if (event.key === 'ArrowLeft') {
+                changeLightbox(-1);
+                return;
+            }
+            if (event.key === 'ArrowRight') {
+                changeLightbox(1);
+                return;
+            }
+            if (event.key !== 'Tab') return;
+
+            const focusable = Array.from(lightboxOverlay.querySelectorAll(
+                'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+            )).filter((element) => element.offsetParent !== null);
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            const exitPopup = document.getElementById('exit-popup');
+            if (event.key === 'Escape' && exitPopup?.classList.contains('visible')) {
+                closeExitPopup();
+            }
         });
 
         // LocalStorage form autosave
@@ -804,7 +932,11 @@
             const rect = field.getBoundingClientRect();
             const width = Math.min(340, window.innerWidth - 24);
             const left = Math.min(Math.max(12, rect.left), window.innerWidth - width - 12);
-            const top = rect.bottom + 8;
+            const calendarHeight = eventCalendar.offsetHeight || 360;
+            const fitsBelow = rect.bottom + 8 + calendarHeight <= window.innerHeight - 12;
+            const top = fitsBelow
+                ? rect.bottom + 8
+                : Math.max(12, rect.top - calendarHeight - 8);
             eventCalendar.style.left = `${left}px`;
             eventCalendar.style.top = `${top}px`;
         }
@@ -861,8 +993,8 @@
             activeCalendarMonth = selectedDate || new Date(today.getFullYear(), today.getMonth(), 1);
             field.setAttribute('aria-expanded', 'true');
             renderEventCalendar();
-            positionEventCalendar(field);
             eventCalendar.classList.remove('hidden');
+            positionEventCalendar(field);
         }
 
         function updateEventDateState(field) {
@@ -903,6 +1035,9 @@
         window.addEventListener('resize', () => {
             if (activeDateField) positionEventCalendar(activeDateField);
         });
+        window.addEventListener('scroll', () => {
+            if (activeDateField) positionEventCalendar(activeDateField);
+        }, true);
 
         const urlParams = new URLSearchParams(window.location.search);
         const sentStatus = urlParams.get('sent');
@@ -940,7 +1075,11 @@
                     || form?.getAttribute('data-form-name')
                     || form?.id
                     || 'website_form',
-                page_path: window.location.pathname
+                page_path: window.location.pathname,
+                selected_project: form?.querySelector('[name="selected_project"]')?.value || '',
+                form_location: form?.querySelector('[name="form_location"]')?.value
+                    || form?.id
+                    || 'website_form'
             };
 
             window.dataLayer.push(generateLeadEvent);
@@ -969,6 +1108,7 @@
             if (form.id === 'modal-form') {
                 modalForm.classList.add('hidden');
                 modalSuccess.classList.remove('hidden');
+                modalSuccess.focus();
                 return;
             }
 
@@ -987,9 +1127,29 @@
             alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
         }
 
+        function ensureHiddenField(form, name, value) {
+            let field = form.querySelector(`[name="${name}"]`);
+            if (!field) {
+                field = document.createElement('input');
+                field.type = 'hidden';
+                field.name = name;
+                form.appendChild(field);
+            }
+            if (!field.value) field.value = value;
+            return field;
+        }
+
         document.querySelectorAll('form[action="send.php"]').forEach(form => {
+            ensureHiddenField(form, 'page_path', window.location.pathname);
+            ensureHiddenField(
+                form,
+                'form_location',
+                form.querySelector('[name="source"]')?.value || form.id || 'website_form'
+            );
+
             form.addEventListener('submit', async event => {
                 event.preventDefault();
+                if (form.dataset.submitting === 'true') return;
 
                 if (!form.checkValidity()) {
                     form.reportValidity();
@@ -1004,6 +1164,7 @@
                 const submitButton = event.submitter || form.querySelector('[type="submit"]');
                 const originalButtonText = submitButton?.textContent;
 
+                form.dataset.submitting = 'true';
                 if (submitButton) {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
@@ -1030,6 +1191,7 @@
                     console.error('Ошибка отправки формы:', error);
                     alert(error.message || 'Не удалось отправить заявку. Попробуйте ещё раз.');
                 } finally {
+                    form.dataset.submitting = 'false';
                     if (submitButton) {
                         submitButton.disabled = false;
                         submitButton.textContent = originalButtonText;

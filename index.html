@@ -105,7 +105,7 @@
             <img src="lavdr.ico" alt="" class="brand-logo">
             <span class="font-serif text-2xl font-bold tracking-tight">Lavdragon</span>
         </a>
-        <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+        <div class="hidden xl:flex items-center gap-8 text-sm font-medium tracking-wide">
             <a href="#event-picker" class="hover:text-brand-black transition-colors">Форматы</a>
             <a href="ceny-na-fotazony-minsk/" class="hover:text-brand-black transition-colors">Цены</a>
             <a href="arenda-cifr-na-prazdnik-minsk/" class="hover:text-brand-black transition-colors">Цифры</a>
@@ -119,8 +119,9 @@
                 class="filter-btn filter-btn--silver filter-btn--lavender-cta px-6 py-2.5 rounded-full font-medium">Обсудить
                 проект</button>
         </div>
-        <button id="mobile-menu-btn" class="md:hidden text-brand-black focus:outline-none" aria-controls="mobile-menu"
-            aria-expanded="false">
+        <button id="mobile-menu-btn" type="button"
+            class="xl:hidden w-11 h-11 -mr-2 flex items-center justify-center rounded-full text-brand-black focus:outline-none"
+            aria-label="Открыть меню" aria-controls="mobile-menu" aria-expanded="false">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                 </path>
@@ -147,7 +148,8 @@
         <button onclick="openModal(); closeMobileMenu();"
             class="filter-btn filter-btn--silver filter-btn--lavender-cta mt-4 px-8 py-3 rounded-full font-bold">Обсудить
             проект</button>
-        <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-brand-muted hover:text-brand-black">
+        <button type="button" onclick="closeMobileMenu()" aria-label="Закрыть меню"
+            class="absolute top-4 right-4 w-11 h-11 flex items-center justify-center rounded-full text-brand-muted hover:text-brand-black">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -567,7 +569,7 @@
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <p class="text-white font-serif text-xl font-bold">Юбилей 45 лет</p>
-                            <p class="text-white/70 text-sm mt-1">Круглая уличная фотозона с бело-золотыми шарами — 740 Br</p>
+                            <p class="text-white/70 text-sm mt-1">Круглая уличная фотозона с бело-золотыми шарами</p>
                         </div>
                     </div>
                 </div>
@@ -974,7 +976,7 @@
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <p class="text-white font-serif text-xl font-bold">Бохо-зона на природе</p>
-                            <p class="text-white/70 text-sm mt-1">Пампасная трава, тюки сена и фонари — от 1370 Br</p>
+                            <p class="text-white/70 text-sm mt-1">Пампасная трава, тюки сена и фонари</p>
                         </div>
                     </div>
                 </div>
@@ -991,7 +993,7 @@
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                         <div>
                             <p class="text-white font-serif text-xl font-bold">Круглая фотозона в стиле компании</p>
-                            <p class="text-white/70 text-sm mt-1">Кольцо, шары в фирменных цветах и тематический декор — от 790 Br</p>
+                            <p class="text-white/70 text-sm mt-1">Кольцо, шары в фирменных цветах и тематический декор</p>
                         </div>
                     </div>
                 </div>
@@ -1127,23 +1129,22 @@
             <div class="promotion-card__content">
                 <div class="max-w-2xl">
                     <p class="promotion-card__eyebrow">Специальное предложение</p>
-                    <h2 class="promotion-card__title">Фотозона под ключ от 550 BYN</h2>
+                    <h2 class="promotion-card__title">Фотозоны от 550 BYN</h2>
                     <p class="promotion-card__text">Подберём оформление под ваш праздник: день рождения, юбилей,
                         свадьбу, gender party или детское событие.</p>
                 </div>
                 <div class="promotion-card__offer">
                     <div>
-                        <p class="promotion-card__old-price">950 BYN</p>
-                        <p class="promotion-card__price">550 BYN</p>
-                        <p class="promotion-card__note">Доставка, монтаж и демонтаж включены</p>
+                        <p class="promotion-card__price">от 550 BYN</p>
+                        <p class="promotion-card__note">Точный состав и стоимость определим после короткого брифа</p>
                     </div>
-                    <button type="button" onclick="openModal('Фотозона по акции — 550 BYN', 'Акционный блок 550 BYN')"
-                        class="hero-btn hero-btn--primary promotion-card__button">Забронировать дату</button>
+                    <button type="button" onclick="openModal('Фотозона от 550 BYN', 'Блок ценового ориентира')"
+                        class="hero-btn hero-btn--primary promotion-card__button">Получить расчёт</button>
                 </div>
                 <div class="cta-microproof cta-microproof--promotion">
-                    <span>✓ Монтаж включён</span>
+                    <span>✓ Адаптация под площадку</span>
                     <span>✓ Работаем по договору</span>
-                    <span>✓ Без скрытых платежей</span>
+                    <span>✓ Состав фиксируется в расчёте</span>
                 </div>
             </div>
         </div>
@@ -1290,20 +1291,20 @@
     <section id="pricing" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div class="text-center mb-16 reveal">
             <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Пакеты</p>
-            <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Выберите своё решение</h2>
-            <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Фиксация цены при бронировании даты. Без скрытых
-                платежей.</p>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Стоимость услуг</h2>
+            <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Итоговая стоимость зависит от размера, наполнения,
+                сложности монтажа и места проведения.</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="reveal p-8 md:p-10 rounded-2xl bg-white border border-brand-black/5 hover-lift flex flex-col">
                 <div class="mb-6">
-                    <h3 class="font-serif text-2xl font-bold text-brand-black">Essential</h3>
-                    <p class="text-brand-muted text-sm mt-1">Типовые решения, быстрая установка</p>
+                    <h3 class="font-serif text-2xl font-bold text-brand-black">Базовый</h3>
+                    <p class="text-brand-muted text-sm mt-1">Готовая конструкция из каталога</p>
                 </div>
                 <div class="mb-6">
                     <p class="text-4xl font-bold text-brand-black">от 550 BYN</p>
-                    <p class="text-brand-muted text-sm mt-1">за фотозону до 8 м²</p>
+                    <p class="text-brand-muted text-sm mt-1">Базовый декор и стандартная надпись</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
@@ -1311,29 +1312,29 @@
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Готовый дизайн из каталога</li>
+                        </svg>Готовая конструкция из каталога</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Стандартные материалы</li>
+                        </svg>Базовый декор</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Монтаж за 2 часа</li>
+                        </svg>Стандартная надпись</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Демонтаж включён</li>
+                        </svg>Монтаж и демонтаж</li>
                 </ul>
-                <button onclick="openModal('Essential')"
-                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Подобрать
-                    решение</button>
+                <button type="button" onclick="openModal('Пакет «Базовый»', 'Пакет — Базовый')"
+                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Получить
+                    расчёт</button>
             </div>
 
             <div
@@ -1342,12 +1343,12 @@
                     class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-gold text-brand-black rounded-full text-xs font-bold">
                     Популярный</div>
                 <div class="mb-6">
-                    <h3 class="font-serif text-2xl font-bold">Signature</h3>
-                    <p class="text-brand-muted text-sm mt-1">Кастомный дизайн, премиальные материалы</p>
+                    <h3 class="font-serif text-2xl font-bold">Стандарт</h3>
+                    <p class="text-brand-muted text-sm mt-1">Расширенное оформление</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold">от 600 BYN</p>
-                    <p class="text-brand-muted text-sm mt-1">за фотозону до 15 м²</p>
+                    <p class="text-4xl font-bold">от 750 BYN</p>
+                    <p class="text-brand-muted text-sm mt-1">Индивидуальная цветовая гамма</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
                     <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
@@ -1355,44 +1356,44 @@
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Индивидуальный дизайн-проект</li>
+                        </svg>Расширенное оформление</li>
                     <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>3D-визуализация</li>
+                        </svg>Индивидуальная цветовая гамма</li>
                     <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Премиальные материалы</li>
+                        </svg>Дополнительный декор</li>
                     <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Световое оформление</li>
+                        </svg>Индивидуальная надпись</li>
                     <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
                             fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Персональный менеджер</li>
+                        </svg>Монтаж и демонтаж</li>
                 </ul>
-                <button onclick="openModal('Signature')"
-                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-3 rounded-full font-bold">Подобрать
-                    решение</button>
+                <button type="button" onclick="openModal('Пакет «Стандарт»', 'Пакет — Стандарт')"
+                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-3 rounded-full font-bold">Получить
+                    расчёт</button>
             </div>
 
             <div class="reveal p-8 md:p-10 rounded-2xl bg-white border border-brand-black/5 hover-lift flex flex-col">
                 <div class="mb-6">
-                    <h3 class="font-serif text-2xl font-bold text-brand-black">Bespoke</h3>
-                    <p class="text-brand-muted text-sm mt-1">Полный цикл, инженерные конструкции</p>
+                    <h3 class="font-serif text-2xl font-bold text-brand-black">Индивидуальный проект</h3>
+                    <p class="text-brand-muted text-sm mt-1">Разработка концепции под мероприятие</p>
                 </div>
                 <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 2 150 BYN</p>
+                    <p class="text-4xl font-bold text-brand-black">от 950 BYN</p>
                     <p class="text-brand-muted text-sm mt-1">индивидуальный расчёт</p>
                 </div>
                 <ul class="space-y-3 mb-8 flex-1">
@@ -1401,35 +1402,35 @@
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Всё из Signature +</li>
+                        </svg>Разработка концепции</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>LED/AR-интеграция</li>
+                        </svg>Нестандартные конструкции</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Инженерные конструкции</li>
+                        </svg>Объёмный декор</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Личный продюсер проекта</li>
+                        </svg>Индивидуальное оформление</li>
                     <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
                             class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd"></path>
-                        </svg>Работа в 14 городах</li>
+                        </svg>Доставка, монтаж и демонтаж</li>
                 </ul>
-                <button onclick="openModal('Bespoke')"
-                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Подобрать
-                    решение</button>
+                <button type="button" onclick="openModal('Индивидуальный проект', 'Пакет — Индивидуальный проект')"
+                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Обсудить
+                    проект</button>
             </div>
         </div>
 
@@ -1438,7 +1439,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
-            Фиксация цены при бронировании даты. Точная стоимость зависит от площади и сложности.
+            Большинство проектов рассчитываются индивидуально. Мы можем адаптировать оформление под площадку, стиль
+            мероприятия и бюджет.
         </p>
     </section>
 
@@ -1735,6 +1737,54 @@
             <div class="faq-item bg-white rounded-xl border border-brand-black/5 overflow-hidden cursor-pointer"
                 onclick="toggleFaq(this)">
                 <div class="flex justify-between items-center p-6">
+                    <h3 class="font-medium text-brand-black text-lg pr-4">Сколько стоит фотозона?</h3>
+                    <svg class="faq-arrow w-6 h-6 text-brand-black shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer px-6 pb-6 text-brand-muted">
+                    <p>Стоимость фотозоны зависит от размера, конструкции, количества декора, места проведения и
+                        сложности монтажа. Базовые варианты начинаются от 550 BYN. После уточнения деталей мы подготовим
+                        точный расчёт.</p>
+                </div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-brand-black/5 overflow-hidden cursor-pointer"
+                onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-6">
+                    <h3 class="font-medium text-brand-black text-lg pr-4">Можно ли адаптировать проект под мой бюджет?
+                    </h3>
+                    <svg class="faq-arrow w-6 h-6 text-brand-black shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer px-6 pb-6 text-brand-muted">
+                    <p>Да. Мы можем изменить размер конструкции, количество декора и дополнительные элементы, сохранив
+                        общую стилистику проекта.</p>
+                </div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-brand-black/5 overflow-hidden cursor-pointer"
+                onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-6">
+                    <h3 class="font-medium text-brand-black text-lg pr-4">Что входит в стоимость?</h3>
+                    <svg class="faq-arrow w-6 h-6 text-brand-black shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+                <div class="faq-answer px-6 pb-6 text-brand-muted">
+                    <p>Состав зависит от выбранного пакета. Обычно в стоимость входят конструкция, декор,
+                        индивидуальная надпись, монтаж и демонтаж. Доставка рассчитывается отдельно в зависимости от
+                        адреса. Точный состав указывается в расчёте.</p>
+                </div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-brand-black/5 overflow-hidden cursor-pointer"
+                onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-6">
                     <h3 class="font-medium text-brand-black text-lg pr-4">За какое время до мероприятия нужно заказать
                         фотозону?</h3>
                     <svg class="faq-arrow w-6 h-6 text-brand-black shrink-0" fill="none" stroke="currentColor"
@@ -1743,7 +1793,7 @@
                     </svg>
                 </div>
                 <div class="faq-answer px-6 pb-6 text-brand-muted">
-                    <p>Оптимально — за 2-3 недели до события. Для сложных проектов (Bespoke) рекомендуем 4-6 недель. В
+                    <p>Оптимально — за 2-3 недели до события. Для сложных индивидуальных проектов рекомендуем 4-6 недель. В
                         срочных случаях можем сделать за 5-7 дней с доплатой за экспресс.</p>
                 </div>
             </div>
@@ -1786,8 +1836,8 @@
                     </svg>
                 </div>
                 <div class="faq-answer px-6 pb-6 text-brand-muted">
-                    <p>Да, работаем в 14 городах Беларуси. Для выездных проектов рассчитываем логистику отдельно. Пакет
-                        Bespoke включает работу в любом городе.</p>
+                    <p>Да, работаем в 14 городах Беларуси. Для выездных проектов рассчитываем логистику отдельно.
+                        Условия индивидуального проекта обсуждаются отдельно.</p>
                 </div>
             </div>
             <div class="faq-item bg-white rounded-xl border border-brand-black/5 overflow-hidden cursor-pointer"
@@ -1921,15 +1971,18 @@
 
                 <!-- Form -->
                 <div class="bg-white rounded-2xl p-8 border border-brand-black/5">
-                    <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
-                    <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
+                    <h3 class="lead-form__title">Получите расчёт вашей фотозоны</h3>
+                    <p class="lead-form__subtitle">Расскажите о мероприятии — мы предложим подходящий вариант и
+                        рассчитаем стоимость.</p>
                     <form id="contact-form" class="space-y-4" action="send.php" method="POST">
                         <input type="hidden" name="source" value="Форма в разделе контактов">
                         <input type="hidden" name="form_name" value="main_contact_form">
                         <input name="name" type="text" required placeholder="Имя"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                        <input name="phone" type="tel" required placeholder="Телефон"
+                        <input name="phone" type="tel" required placeholder="Телефон или мессенджер"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                        <input name="date" type="text" placeholder="Дата мероприятия"
+                            class="event-date w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                         <select name="eventType" required
                             class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                             <option value="" selected disabled>Тип мероприятия</option>
@@ -1940,21 +1993,25 @@
                             <option>Корпоратив</option>
                             <option>Другое</option>
                         </select>
-                        <select name="budget" required
+                        <input name="place" type="text" placeholder="Место проведения"
+                            class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                        <textarea name="comment" rows="3" placeholder="Комментарий"
+                            class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-y"></textarea>
+                        <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                             class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                            <option value="" selected disabled>Бюджет мероприятия</option>
-                            <option>До 600 BYN</option>
-                            <option>600–700 BYN</option>
-                            <option>700–800 BYN</option>
-                            <option>800–1000 BYN</option>
-                            <option>Более 1000 BYN</option>
+                            <option value="" selected>Бюджет — необязательно</option>
+                            <option>до 600 BYN</option>
+                            <option>600–800 BYN</option>
+                            <option>800–1200 BYN</option>
+                            <option>более 1200 BYN</option>
+                            <option>пока не определились</option>
                         </select>
                         <button type="submit"
                             class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
-                            расчёт стоимости</button>
+                            расчёт</button>
                         <div class="lead-form__benefits">
-                            <p>✓ Ответим в течение 15 минут</p>
-                            <p>✓ Монтаж и демонтаж включены</p>
+                            <p>✓ Индивидуальный расчёт</p>
+                            <p>✓ Адаптация под площадку</p>
                             <p>✓ Работаем по договору</p>
                         </div>
                     </form>
@@ -2058,12 +2115,13 @@
     </a>
 
     <!-- Portfolio Lightbox -->
-    <div id="lightbox-overlay"
+    <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-hidden="true"
+        aria-labelledby="lightbox-title"
         class="fixed inset-0 z-[70] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
         onclick="if(event.target===this)closeLightbox()">
         <div
-            class="relative w-full max-w-6xl bg-brand-black rounded-3xl overflow-hidden shadow-2xl modal-enter max-h-[90vh]">
-            <button onclick="closeLightbox()"
+            class="lightbox-dialog relative w-full max-w-6xl bg-brand-black rounded-3xl overflow-hidden shadow-2xl modal-enter">
+            <button type="button" onclick="closeLightbox()"
                 class="lightbox-close absolute top-4 right-4 z-20 w-11 h-11 rounded-full text-white flex items-center justify-center"
                 aria-label="Закрыть галерею">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2071,10 +2129,10 @@
                     </path>
                 </svg>
             </button>
-            <div class="grid lg:grid-cols-[1.35fr_0.65fr]">
-                <div class="relative bg-black aspect-[4/3] lg:aspect-auto lg:min-h-[640px]">
+            <div class="lightbox-dialog__grid grid lg:grid-cols-[1.35fr_0.65fr]">
+                <div class="lightbox-dialog__media relative bg-black aspect-[4/3] lg:aspect-auto">
                     <img id="lightbox-image" src="" alt="" class="w-full h-full object-cover" decoding="async" loading="lazy">
-                    <button onclick="changeLightbox(-1, this)"
+                    <button type="button" onclick="changeLightbox(-1, this)"
                         class="lightbox-nav lightbox-nav--prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-colors"
                         aria-label="Предыдущий проект">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2082,7 +2140,7 @@
                             </path>
                         </svg>
                     </button>
-                    <button onclick="changeLightbox(1, this)"
+                    <button type="button" onclick="changeLightbox(1, this)"
                         class="lightbox-nav lightbox-nav--next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full flex items-center justify-center transition-colors"
                         aria-label="Следующий проект">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2091,43 +2149,62 @@
                         </svg>
                     </button>
                 </div>
-                <div class="p-8 md:p-10 text-brand-ivory flex flex-col justify-end overflow-y-auto max-h-[90vh]">
+                <div class="lightbox-dialog__details p-8 md:p-10 text-brand-ivory flex flex-col overflow-y-auto">
                     <p id="lightbox-category" class="text-brand-black tracking-widest uppercase text-xs mb-3"></p>
                     <h3 id="lightbox-title" class="font-serif text-3xl md:text-4xl font-bold mb-4"></h3>
                     <p id="lightbox-meta" class="text-brand-muted mb-6"></p>
-                    <p class="text-brand-text/80 leading-relaxed mb-8">Подберём похожую концепцию под вашу площадку,
+                    <p class="text-brand-text/80 leading-relaxed mb-5">Подберём похожую концепцию под вашу площадку,
                         бренд и бюджет. Подготовим визуализацию, смету и сроки после короткого брифа.</p>
+                    <ul class="lightbox-benefits mb-7" aria-label="Преимущества проекта">
+                        <li>Адаптация под площадку</li>
+                        <li>Индивидуальная надпись</li>
+                        <li>Цветовая адаптация</li>
+                        <li>Доставка и монтаж — по расчёту</li>
+                    </ul>
                     <button id="lightbox-cta" type="button"
-                        class="filter-btn filter-btn--silver filter-btn--lavender-cta filter-btn--no-shine px-6 py-2 rounded-full text-sm font-bold">Хочу
-                        похожую фотозону</button>
+                        class="filter-btn filter-btn--silver filter-btn--lavender-cta filter-btn--no-shine px-6 py-3 rounded-full text-sm font-bold">Узнать
+                        стоимость</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal -->
-    <div id="modal-overlay"
+    <div id="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true"
+        aria-labelledby="modal-title"
         class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
         onclick="if(event.target===this)closeModal()">
         <div
-            class="bg-brand-ivory rounded-3xl p-8 md:p-10 max-w-lg w-full relative modal-enter shadow-2xl max-h-[90vh] overflow-y-auto">
-            <button onclick="closeModal()"
-                class="absolute top-6 right-6 text-brand-muted hover:text-brand-black transition-colors">
+            class="project-request-dialog bg-brand-ivory rounded-3xl p-6 pt-16 md:p-10 max-w-lg w-full relative modal-enter shadow-2xl overflow-y-auto">
+            <button type="button" data-modal-close onclick="closeModal()" aria-label="Закрыть форму"
+                class="modal-close absolute top-3 right-3 text-brand-muted hover:text-brand-black transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
                 </svg>
             </button>
-            <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
-            <p class="lead-form__subtitle" id="modal-text">Подберём оформление под ваш праздник, площадку и бюджет.</p>
+            <h3 id="modal-title" class="lead-form__title">Получите расчёт вашей фотозоны</h3>
+            <p class="lead-form__subtitle" id="modal-text">Расскажите о мероприятии — мы предложим подходящий вариант
+                и рассчитаем стоимость.</p>
+            <div id="modal-selected-project" class="selected-project hidden" aria-live="polite">
+                <span>Выбранный проект:</span>
+                <strong id="modal-selected-project-name"></strong>
+            </div>
             <form id="modal-form" class="space-y-4" action="send.php" method="POST">
                 <input type="hidden" name="source" id="modal-source" value="Модальная форма">
                 <input type="hidden" name="form_name" value="consultation_form">
-                <input type="hidden" name="estimatedPrice" id="modal-estimated-price" value="">
+                <input type="hidden" name="selected_project" id="selected-project" value="">
+                <input type="hidden" name="project_id" id="modal-project-id" value="">
+                <input type="hidden" name="project_image" id="modal-project-image" value="">
+                <input type="hidden" name="project_category" id="modal-project-category" value="">
+                <input type="hidden" name="page_path" id="modal-page-path" value="">
+                <input type="hidden" name="form_location" id="modal-form-location" value="modal">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                <input name="phone" type="tel" required placeholder="Телефон"
+                <input name="phone" type="tel" required placeholder="Телефон или мессенджер"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                <input name="date" type="text" placeholder="Дата мероприятия"
+                    class="event-date w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <select name="eventType" required
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                     <option value="" selected disabled>Тип мероприятия</option>
@@ -2138,25 +2215,29 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <select name="budget" required
+                <input name="place" type="text" placeholder="Место проведения"
+                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                <textarea name="comment" rows="3" placeholder="Комментарий"
+                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-y"></textarea>
+                <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected disabled>Бюджет мероприятия</option>
-                    <option>До 600 BYN</option>
-                    <option>600–700 BYN</option>
-                    <option>700–800 BYN</option>
-                    <option>800–1000 BYN</option>
-                    <option>Более 1000 BYN</option>
+                    <option value="" selected>Бюджет — необязательно</option>
+                    <option>до 600 BYN</option>
+                    <option>600–800 BYN</option>
+                    <option>800–1200 BYN</option>
+                    <option>более 1200 BYN</option>
+                    <option>пока не определились</option>
                 </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
-                    расчёт стоимости</button>
+                    расчёт</button>
                 <div class="lead-form__benefits">
-                    <p>✓ Ответим в течение 15 минут</p>
-                    <p>✓ Монтаж и демонтаж включены</p>
+                    <p>✓ Индивидуальный расчёт</p>
+                    <p>✓ Адаптация под площадку</p>
                     <p>✓ Работаем по договору</p>
                 </div>
             </form>
-            <div id="modal-success" class="hidden text-center py-8">
+            <div id="modal-success" class="hidden text-center py-8" tabindex="-1">
                 <div
                     class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 text-green-600 flex items-center justify-center">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2177,9 +2258,9 @@
         class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
         onclick="if(event.target===this)closePdfCatalog()">
         <div
-            class="bg-brand-ivory rounded-3xl p-8 md:p-10 max-w-xl w-full relative modal-enter shadow-2xl max-h-[90vh] overflow-y-auto">
+            class="project-request-dialog bg-brand-ivory rounded-3xl p-6 pt-16 md:p-10 max-w-xl w-full relative modal-enter shadow-2xl overflow-y-auto">
             <button type="button" onclick="closePdfCatalog()"
-                class="absolute top-6 right-6 text-brand-muted hover:text-brand-black transition-colors"
+                class="modal-close absolute top-3 right-3 text-brand-muted hover:text-brand-black transition-colors"
                 aria-label="Закрыть">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -2229,16 +2310,17 @@
     <div id="quiz-overlay"
         class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
         onclick="if(event.target===this)closeQuiz()">
-        <div class="bg-brand-ivory rounded-3xl p-8 md:p-10 max-w-xl w-full relative modal-enter shadow-2xl">
-            <button onclick="closeQuiz()"
-                class="absolute top-6 right-6 text-brand-muted hover:text-brand-black transition-colors">
+        <div class="project-request-dialog bg-brand-ivory rounded-3xl p-6 pt-16 md:p-10 max-w-xl w-full relative modal-enter shadow-2xl overflow-y-auto">
+            <button type="button" onclick="closeQuiz()" aria-label="Закрыть форму"
+                class="modal-close absolute top-3 right-3 text-brand-muted hover:text-brand-black transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
                 </svg>
             </button>
-            <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
-            <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
+            <h3 class="lead-form__title">Получите расчёт вашей фотозоны</h3>
+            <p class="lead-form__subtitle">Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем
+                стоимость.</p>
             <form id="quiz-form" action="send.php" method="POST" class="space-y-4">
                 <input type="hidden" name="source" value="Квиз расчёта стоимости">
                 <input type="hidden" name="form_name" value="callback_form">
@@ -2257,14 +2339,14 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <select name="budget" required
+                <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected disabled>Бюджет мероприятия</option>
-                    <option>До 600 BYN</option>
-                    <option>600–700 BYN</option>
-                    <option>700–800 BYN</option>
-                    <option>800–1000 BYN</option>
-                    <option>Более 1000 BYN</option>
+                    <option value="" selected>Бюджет — необязательно</option>
+                    <option>до 600 BYN</option>
+                    <option>600–800 BYN</option>
+                    <option>800–1200 BYN</option>
+                    <option>более 1200 BYN</option>
+                    <option>пока не определились</option>
                 </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
@@ -2281,9 +2363,9 @@
     <!-- Exit Intent Popup -->
     <div id="exit-popup"
         class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm exit-popup">
-        <div class="bg-brand-ivory rounded-3xl p-8 md:p-10 max-w-lg w-full relative modal-enter shadow-2xl text-center">
-            <button onclick="closeExitPopup()"
-                class="absolute top-6 right-6 text-brand-muted hover:text-brand-black transition-colors">
+        <div class="project-request-dialog bg-brand-ivory rounded-3xl p-6 pt-16 md:p-10 max-w-lg w-full relative modal-enter shadow-2xl text-center overflow-y-auto">
+            <button type="button" onclick="closeExitPopup()" aria-label="Закрыть форму"
+                class="modal-close absolute top-3 right-3 text-brand-muted hover:text-brand-black transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
@@ -2296,8 +2378,9 @@
                     </path>
                 </svg>
             </div>
-            <h3 class="lead-form__title">Получите расчёт фотозоны за 15 минут</h3>
-            <p class="lead-form__subtitle">Подберём оформление под ваш праздник, площадку и бюджет.</p>
+            <h3 class="lead-form__title">Получите расчёт вашей фотозоны</h3>
+            <p class="lead-form__subtitle">Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем
+                стоимость.</p>
             <form action="send.php" method="POST" class="space-y-3">
                 <input type="hidden" name="source" value="Exit popup — расчёт стоимости">
                 <input type="hidden" name="form_name" value="exit_popup_form">
@@ -2315,14 +2398,14 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <select name="budget" required
+                <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected disabled>Бюджет мероприятия</option>
-                    <option>До 600 BYN</option>
-                    <option>600–700 BYN</option>
-                    <option>700–800 BYN</option>
-                    <option>800–1000 BYN</option>
-                    <option>Более 1000 BYN</option>
+                    <option value="" selected>Бюджет — необязательно</option>
+                    <option>до 600 BYN</option>
+                    <option>600–800 BYN</option>
+                    <option>800–1200 BYN</option>
+                    <option>более 1200 BYN</option>
+                    <option>пока не определились</option>
                 </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
