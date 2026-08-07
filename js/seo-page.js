@@ -55,8 +55,8 @@
             {
                 match: 'fotazona-na-korporativ-minsk',
                 label: 'Корпоративные события',
-                image: 'picture/korporativ/fotozona-na-korporativ-minsk-kypalie.webp',
-                imageAlt: 'Бохо-фотозона на природе с белой панелью, пампасной травой, тюками сена и фонарями'
+                image: 'picture/korporativ/fotozona-na-korporativ-minsk-zerkalo-tsvety.webp',
+                imageAlt: 'Дизайнерская фотозона с зеркалом и цветами на корпоратив в Минске'
             },
             {
                 match: 'fotazona-na-yubiley-minsk',
@@ -1066,7 +1066,7 @@
         const items = [
             ['Свадьбы', 'Фотозоны на свадьбу', 'fotazony-na-svadbu-minsk/', 'picture/wedding/svadebnaya-fotozona-minsk-cvety.webp'],
             ['Юбилей', 'Фотозоны на юбилей', 'fotazona-na-yubiley-minsk/', 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp'],
-            ['Корпоратив', 'Фотозоны для компаний', 'fotazona-na-korporativ-minsk/', 'picture/korporativ/fotozona-na-korporativ-minsk-kypalie.webp'],
+            ['Корпоратив', 'Фотозоны для компаний', 'fotazona-na-korporativ-minsk/', 'picture/korporativ/fotozona-na-korporativ-minsk-zerkalo-tsvety.webp'],
             ['Gender party', 'Оформление reveal-праздника', 'gender-party-minsk/', 'picture/gender-party/gender-party-baby-butterfly-firework.webp'],
             ['День рождения', 'Фотозоны на день рождения', 'fotazony-na-den-rozhdeniya-minsk/', 'picture/birthday/fotozona-den-rozhdeniya-minsk-kryg.webp'],
             ['Аренда', 'Стены из пайеток', 'arenda-payetok-minsk/', 'picture/poetki/fotozona-minsk-poetki-hamelion.webp']
