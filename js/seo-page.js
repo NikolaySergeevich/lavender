@@ -13,18 +13,21 @@
         const siteRoot = scriptSource ? new URL('../', scriptSource) : new URL('/', window.location.href);
         const path = window.location.pathname.toLowerCase();
         const page = getPageConfig(path);
+        const projectModal = createProjectInquiryModal(page, siteRoot);
 
-        enhanceNavigation();
-        const hero = enhanceHero(page, siteRoot);
-        const gallery = enhanceGallery(page, siteRoot);
+        enhanceNavigation(page, projectModal);
+        const hero = enhanceHero(page, siteRoot, projectModal);
+        const gallery = enhanceGallery(page, siteRoot, projectModal);
         enhanceSections();
         enhanceFaq(page);
         addBenefits(hero);
-        addInlineCtas(gallery);
+        addProjectDetailCta(page, projectModal);
+        addInlineCtas(gallery, page, projectModal);
         addRelated(page, siteRoot);
-        addFinalCta();
+        addFinalCta(page, projectModal);
         addFooter(siteRoot);
-        addMobileContact();
+        addMobileContact(page, projectModal);
+        bindGeneralInquiryCtas(projectModal);
         optimizeImages(hero);
     }
 
@@ -33,6 +36,7 @@
             {
                 match: 'arenda-cifr-na-prazdnik-minsk',
                 label: 'Аренда декора',
+                category: 'Аренда цифр',
                 image: 'picture/numbers/arenda-cifr-50-let-minsk.webp',
                 imageAlt: 'Светящиеся цифры 50 перед серебряной панелью с бело-золотой гирляндой из шаров'
             },
@@ -93,6 +97,7 @@
             {
                 match: 'svadebnaya-fotozona-v-bezhevyh-tonah-minsk',
                 label: 'Реализованный проект',
+                category: 'Свадьба',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-cvety.webp',
                 imageAlt: 'Золотые прямоугольные рамы с белой драпировкой, розами и свечами'
             },
@@ -147,7 +152,7 @@
         };
     }
 
-    function enhanceNavigation() {
+    function enhanceNavigation(page, projectModal) {
         const nav = document.querySelector('.seo-nav');
         if (!nav) return;
 
@@ -171,10 +176,15 @@
         if (action) {
             action.classList.add('seo-nav__action');
             action.setAttribute('data-analytics-location', action.getAttribute('data-analytics-location') || 'header');
+            const project = getPageProject(page);
+            bindInquiryTrigger(action, projectModal, project, {
+                source: project ? 'Страница проекта' : 'Шапка сайта',
+                formLocation: project ? 'seo_project_page' : 'seo_header'
+            });
         }
     }
 
-    function enhanceHero(page, siteRoot) {
+    function enhanceHero(page, siteRoot, projectModal) {
         let hero = document.querySelector('.seo-hero');
         if (!hero) return null;
 
@@ -230,7 +240,7 @@
         visual.appendChild(image);
         image.classList.add('seo-hero__image');
 
-        const actions = ensureHeroActions(copy, page, siteRoot);
+        const actions = ensureHeroActions(copy, page, siteRoot, projectModal);
         ensureHeroFacts(copy, actions);
 
         return hero;
@@ -279,7 +289,7 @@
         return header;
     }
 
-    function ensureHeroActions(copy, page, siteRoot) {
+    function ensureHeroActions(copy, page, siteRoot, projectModal) {
         let actions = Array.from(copy.querySelectorAll('div')).find((element) => {
             return element.querySelector(':scope > a') && !element.classList.contains('seo-hero__facts');
         });
@@ -294,6 +304,7 @@
         const links = Array.from(actions.querySelectorAll(':scope > a'));
         const telegram = links.find((link) => (link.getAttribute('href') || '').includes('t.me/'));
         const hashLink = links.find((link) => (link.getAttribute('href') || '').startsWith('#'));
+        const priceLink = links.find((link) => (link.getAttribute('href') || '').includes('ceny-na-fotazony-minsk'));
         const gallery = document.querySelector('.seo-gallery');
 
         let calculate = telegram;
@@ -305,10 +316,15 @@
             calculate.setAttribute('data-analytics-location', 'hero');
             actions.prepend(calculate);
         }
-        calculate.textContent = 'Получить расчёт';
+        const pageProject = getPageProject(page);
+        calculate.textContent = pageProject ? 'Узнать стоимость' : 'Рассчитать стоимость';
         calculate.className = 'seo-btn seo-btn--primary';
 
-        let works = hashLink && hashLink !== calculate ? hashLink : null;
+        let works = hashLink && hashLink !== calculate
+            ? hashLink
+            : priceLink && priceLink !== calculate
+                ? priceLink
+                : null;
         if (!works) {
             works = document.createElement('a');
             actions.appendChild(works);
@@ -329,7 +345,42 @@
             link.className = 'seo-btn seo-btn--secondary';
         });
 
+        bindInquiryTrigger(calculate, projectModal, pageProject, {
+            source: pageProject ? 'Страница проекта' : 'Первый экран',
+            formLocation: pageProject ? 'seo_project_page' : 'seo_hero'
+        });
+
         return actions;
+    }
+
+    function isProjectDetailPage(page) {
+        return page.match === 'svadebnaya-fotozona-v-bezhevyh-tonah-minsk';
+    }
+
+    function getPageProject(page) {
+        if (!isProjectDetailPage(page)) return null;
+
+        const image = document.querySelector('.seo-hero img, .seo-gallery img');
+        const imageUrl = image ? new URL(image.getAttribute('src') || image.src, document.baseURI) : null;
+        const name = document.querySelector('h1')?.textContent.trim() || 'Фотозона LavDragon';
+
+        return {
+            name,
+            id: 'seo-svadebnaya-fotozona-v-bezhevyh-tonah-minsk',
+            image: imageUrl?.href || '',
+            category: page.category || 'Фотозоны',
+            pageUrl: window.location.href
+        };
+    }
+
+    function bindInquiryTrigger(control, projectModal, project, context) {
+        if (!control || control.dataset.inquiryBound === 'true') return;
+        control.dataset.inquiryBound = 'true';
+        control.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (project) pushProjectPriceClick(project);
+            projectModal.open(project, control, context);
+        });
     }
 
     function ensureHeroFacts(copy, actions) {
@@ -379,6 +430,30 @@
         hero.insertAdjacentElement('afterend', section);
     }
 
+    function addProjectDetailCta(page, projectModal) {
+        const project = getPageProject(page);
+        if (!project || document.querySelector('.seo-project-cta')) return;
+
+        const section = document.createElement('section');
+        section.className = 'seo-project-cta';
+        section.innerHTML = `
+            <div class="seo-project-cta__inner">
+                <div>
+                    <p class="seo-eyebrow">Индивидуальный расчёт</p>
+                    <h2 class="font-serif font-bold">Понравилась эта фотозона?</h2>
+                    <p>Рассчитаем стоимость именно под ваше мероприятие, площадку и желаемое наполнение.</p>
+                </div>
+                <button type="button" class="seo-btn seo-btn--primary">Узнать стоимость</button>
+            </div>
+        `;
+        const insertAfter = document.querySelector('.seo-benefit-strip') || document.querySelector('.seo-hero');
+        insertAfter?.insertAdjacentElement('afterend', section);
+        bindInquiryTrigger(section.querySelector('button'), projectModal, project, {
+            source: 'Страница проекта',
+            formLocation: 'seo_project_page'
+        });
+    }
+
     function enhanceSections() {
         const sections = Array.from(document.querySelectorAll('main > .seo-section, main > section.seo-section'));
         sections.forEach((section, index) => {
@@ -393,20 +468,10 @@
         });
     }
 
-    function enhanceGallery(page, siteRoot) {
+    function enhanceGallery(page, siteRoot, projectModal) {
         const gallery = document.querySelector('.seo-gallery');
         if (!gallery) return null;
         if (!gallery.id) gallery.id = 'works';
-        if (page.match === 'arenda-cifr-na-prazdnik-minsk') {
-            return gallery.closest('section') || gallery;
-        }
-
-        const projectModal = createProjectInquiryModal(page, siteRoot);
-        const benefits = [
-            'Адаптация под площадку',
-            'Цвета и детали под ваш стиль',
-            'Расчёт под формат события'
-        ];
 
         Array.from(gallery.querySelectorAll('img')).forEach((image, index) => {
             let card = image.parentElement?.tagName === 'FIGURE' ? image.parentElement : null;
@@ -438,8 +503,8 @@
             }
             const benefitsList = document.createElement('ul');
             benefitsList.className = 'seo-gallery-card__benefits';
-            benefitsList.setAttribute('aria-label', 'Преимущества проекта');
-            benefits.forEach((text) => {
+            benefitsList.setAttribute('aria-label', 'Характеристики проекта');
+            getProjectCardBenefits(project).forEach((text) => {
                 const item = document.createElement('li');
                 item.textContent = text;
                 benefitsList.appendChild(item);
@@ -454,7 +519,10 @@
                 event.preventDefault();
                 event.stopPropagation();
                 pushProjectPriceClick(project);
-                projectModal.open(project, button);
+                projectModal.open(project, button, {
+                    source: 'Карточка проекта',
+                    formLocation: 'seo_gallery_card'
+                });
             });
 
             card.append(benefitsList, button);
@@ -473,19 +541,14 @@
                 name: card.dataset.seoProjectName,
                 id: card.dataset.projectId || getProjectIdFromImagePath(imagePath, 0),
                 image: imagePath ? new URL(imagePath, document.baseURI).href : '',
-                category: page.label || 'Фотозоны'
+                category: page.category || page.label || 'Фотозоны',
+                pageUrl: window.location.href
             };
-            const benefits = [
-                'Адаптация под площадку',
-                'Цвета и детали под ваш стиль',
-                'Расчёт под формат события'
-            ];
-
             card.classList.add('seo-project-example-card');
             const benefitsList = document.createElement('ul');
             benefitsList.className = 'seo-gallery-card__benefits seo-project-example-card__benefits';
-            benefitsList.setAttribute('aria-label', 'Преимущества проекта');
-            benefits.forEach((text) => {
+            benefitsList.setAttribute('aria-label', 'Характеристики проекта');
+            getProjectCardBenefits(project).forEach((text) => {
                 const item = document.createElement('li');
                 item.textContent = text;
                 benefitsList.appendChild(item);
@@ -498,7 +561,10 @@
             button.setAttribute('aria-label', `Узнать стоимость проекта «${project.name}»`);
             button.addEventListener('click', () => {
                 pushProjectPriceClick(project);
-                projectModal.open(project, button);
+                projectModal.open(project, button, {
+                    source: 'Карточка проекта',
+                    formLocation: 'seo_gallery_card'
+                });
             });
 
             card.append(benefitsList, button);
@@ -520,8 +586,19 @@
                 ? 'seo-svadebnaya-fotozona-v-bezhevyh-tonah-minsk'
                 : getProjectIdFromImagePath(imageUrl.pathname, index),
             image: imageUrl.href,
-            category: page.label || 'Фотозоны'
+            category: page.category || page.label || 'Фотозоны',
+            pageUrl: window.location.href
         };
+    }
+
+    function getProjectCardBenefits(project) {
+        return [
+            `Стиль: ${project.category || 'под ваше событие'}`,
+            'Размер: адаптируем под площадку',
+            'Время монтажа: согласуем с площадкой',
+            'Количество элементов: подберём под формат',
+            'Особенность: палитра и детали — индивидуально'
+        ];
     }
 
     function getProjectIdFromImagePath(pathname, index) {
@@ -590,6 +667,7 @@
                         <input type="hidden" name="project_id" value="">
                         <input type="hidden" name="project_image" value="">
                         <input type="hidden" name="project_category" value="">
+                        <input type="hidden" name="project_url" value="">
                         <input type="hidden" name="page_path" value="">
                         <input type="hidden" name="form_location" value="seo_gallery_card">
                         <input type="hidden" name="source" value="">
@@ -631,10 +709,10 @@
                                 <span>Планируемый бюджет <small>— необязательно</small></span>
                                 <select name="budget">
                                     <option selected>пока не определились</option>
-                                    <option>до 600 BYN</option>
-                                    <option>600–800 BYN</option>
-                                    <option>800–1200 BYN</option>
-                                    <option>более 1200 BYN</option>
+                                    <option>компактный формат</option>
+                                    <option>оптимальный формат</option>
+                                    <option>расширенный формат</option>
+                                    <option>премиальный формат</option>
                                 </select>
                             </label>
                         </div>
@@ -666,6 +744,7 @@
         const successCloseButton = modal.querySelector('.seo-project-modal__success-close');
         const formView = modal.querySelector('.seo-project-modal__form-view');
         const successView = modal.querySelector('.seo-project-modal__success');
+        const selectionBlock = modal.querySelector('.seo-project-modal__selection');
         const selection = modal.querySelector('#seo-project-modal-selection');
         const form = modal.querySelector('.seo-project-form');
         const submitButton = form.querySelector('[type="submit"]');
@@ -684,17 +763,20 @@
             if (field) field.value = value || '';
         }
 
-        function open(project, trigger) {
+        function open(project, trigger, context = {}) {
             lastFocusedElement = trigger || document.activeElement;
             dialog.scrollTop = 0;
-            selection.textContent = project.name;
-            setHiddenValue('selected_project', project.name);
-            setHiddenValue('project_id', project.id);
-            setHiddenValue('project_image', project.image);
-            setHiddenValue('project_category', project.category);
+            const hasProject = Boolean(project?.name);
+            selectionBlock.hidden = !hasProject;
+            selection.textContent = hasProject ? project.name : '';
+            setHiddenValue('selected_project', project?.name);
+            setHiddenValue('project_id', project?.id);
+            setHiddenValue('project_image', project?.image);
+            setHiddenValue('project_category', project?.category);
+            setHiddenValue('project_url', project?.pageUrl);
             setHiddenValue('page_path', window.location.pathname);
-            setHiddenValue('form_location', 'seo_gallery_card');
-            setHiddenValue('source', `SEO-галерея — ${project.name}`);
+            setHiddenValue('form_location', context.formLocation || 'seo_general_inquiry');
+            setHiddenValue('source', context.source || (hasProject ? 'Карточка проекта' : 'Общая заявка'));
             setHiddenValue('form_name', 'consultation_form');
 
             status.textContent = '';
@@ -794,7 +876,7 @@
                     lead_source: 'website_form',
                     form_name: 'consultation_form',
                     selected_project: selectedProject,
-                    form_location: 'seo_gallery_card',
+                    form_location: String(formData.get('form_location') || 'seo_general_inquiry'),
                     page_path: window.location.pathname
                 };
                 window.dataLayer = window.dataLayer || [];
@@ -896,7 +978,7 @@
         const items = [
             [
                 'Сколько стоит фотозона?',
-                'Стоимость фотозоны зависит от размера, конструкции, количества декора, места проведения и сложности монтажа. Базовые варианты начинаются от 550 BYN. После уточнения деталей мы подготовим точный расчёт.'
+                'Стоимость фотозоны зависит от размера, конструкции, количества декора, места проведения и сложности монтажа. После уточнения деталей мы подготовим точный расчёт и заранее согласуем состав работ.'
             ],
             [
                 'Можно ли адаптировать проект под мой бюджет?',
@@ -943,7 +1025,7 @@
         ];
     }
 
-    function addInlineCtas(gallerySection) {
+    function addInlineCtas(gallerySection, page, projectModal) {
         const main = document.querySelector('main');
         if (!main) return;
         const sections = Array.from(main.querySelectorAll(':scope > section.seo-section'));
@@ -965,10 +1047,15 @@
                         <strong>${index === 0 ? 'Хотите обсудить идею?' : 'Понравилась эта работа?'}</strong>
                         <p>Подберём похожую фотозону под ваше мероприятие, площадку и бюджет.</p>
                     </div>
-                    <a href="https://t.me/kidseventa1" target="_blank" rel="noopener noreferrer" data-analytics-location="section_cta" class="seo-btn seo-btn--primary">Получить расчёт</a>
+                    <button type="button" data-analytics-location="section_cta" class="seo-btn seo-btn--primary">Получить расчёт</button>
                 </div>
             `;
             target.insertAdjacentElement('afterend', wrapper);
+            const project = getPageProject(page);
+            bindInquiryTrigger(wrapper.querySelector('button'), projectModal, project, {
+                source: project ? 'Страница проекта' : 'CTA в тексте',
+                formLocation: project ? 'seo_project_page' : 'seo_inline_cta'
+            });
         });
     }
 
@@ -1013,7 +1100,7 @@
         main.appendChild(section);
     }
 
-    function addFinalCta() {
+    function addFinalCta(page, projectModal) {
         const main = document.querySelector('main') || document.querySelector('.seo-article')?.parentElement;
         if (!main || document.querySelector('.seo-final-section')) return;
         const section = document.createElement('section');
@@ -1024,12 +1111,17 @@
                 <h2 class="font-serif font-bold">Подберём оформление для вашего события</h2>
                 <p>Напишите дату, площадку и формат мероприятия. Предложим состав фотозоны и ориентир по бюджету без лишних деталей.</p>
                 <div class="seo-final-cta__actions">
-                    <a href="https://t.me/kidseventa1" target="_blank" rel="noopener noreferrer" data-analytics-location="final_cta" class="seo-btn seo-btn--primary">Получить расчёт</a>
+                    <button type="button" data-analytics-location="final_cta" class="seo-btn seo-btn--primary">Получить расчёт</button>
                     <a href="#works" class="seo-btn seo-btn--secondary">Смотреть работы</a>
                 </div>
             </div>
         `;
         main.appendChild(section);
+        const project = getPageProject(page);
+        bindInquiryTrigger(section.querySelector('button'), projectModal, project, {
+            source: project ? 'Страница проекта' : 'Финальный CTA',
+            formLocation: project ? 'seo_project_page' : 'seo_final_cta'
+        });
     }
 
     function addFooter(siteRoot) {
@@ -1052,18 +1144,32 @@
         document.body.appendChild(footer);
     }
 
-    function addMobileContact() {
+    function addMobileContact(page, projectModal) {
         if (document.querySelector('#sticky-cta, .mobile-contact-bar, .seo-mobile-contact')) return;
         const bar = document.createElement('div');
         bar.className = 'seo-mobile-contact';
         bar.setAttribute('aria-label', 'Быстрые действия');
         bar.innerHTML = `
             <div class="seo-mobile-contact__inner">
-                <a href="https://t.me/kidseventa1" target="_blank" rel="noopener noreferrer" data-analytics-location="floating_button">Получить расчёт</a>
+                <button type="button" data-analytics-location="floating_button">Получить расчёт</button>
                 <a href="tel:+375293342335" data-analytics-location="floating_button">Позвонить</a>
             </div>
         `;
         document.body.appendChild(bar);
+        const project = getPageProject(page);
+        bindInquiryTrigger(bar.querySelector('button'), projectModal, project, {
+            source: project ? 'Страница проекта' : 'Мобильная кнопка',
+            formLocation: project ? 'seo_project_page' : 'seo_mobile_cta'
+        });
+    }
+
+    function bindGeneralInquiryCtas(projectModal) {
+        document.querySelectorAll('[data-open-general-inquiry]').forEach((control) => {
+            bindInquiryTrigger(control, projectModal, null, {
+                source: control.dataset.inquirySource || 'Пакет услуг',
+                formLocation: control.dataset.inquiryLocation || 'seo_service_package'
+            });
+        });
     }
 
     function optimizeImages(hero) {

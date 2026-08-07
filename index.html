@@ -1129,16 +1129,16 @@
             <div class="promotion-card__content">
                 <div class="max-w-2xl">
                     <p class="promotion-card__eyebrow">Специальное предложение</p>
-                    <h2 class="promotion-card__title">Фотозоны от 550 BYN</h2>
+                    <h2 class="promotion-card__title">Фотозона, которая станет центром вашего события</h2>
                     <p class="promotion-card__text">Подберём оформление под ваш праздник: день рождения, юбилей,
                         свадьбу, gender party или детское событие.</p>
                 </div>
                 <div class="promotion-card__offer">
                     <div>
-                        <p class="promotion-card__price">от 550 BYN</p>
-                        <p class="promotion-card__note">Точный состав и стоимость определим после короткого брифа</p>
+                        <p class="promotion-card__price">Индивидуальный проект</p>
+                        <p class="promotion-card__note">Подберём состав, который подойдёт площадке, стилю и вашему событию</p>
                     </div>
-                    <button type="button" onclick="openModal('Фотозона от 550 BYN', 'Блок ценового ориентира')"
+                    <button type="button" onclick="openModal('Фотозона для вашего события', 'Промо-блок — индивидуальный расчёт', null, 'promotion_cta')"
                         class="hero-btn hero-btn--primary promotion-card__button">Получить расчёт</button>
                 </div>
                 <div class="cta-microproof cta-microproof--promotion">
@@ -1288,160 +1288,98 @@
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="text-center mb-16 reveal">
+    <section id="pricing" class="pricing-section py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="text-center mb-12 md:mb-16 reveal">
             <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Пакеты</p>
             <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Стоимость услуг</h2>
-            <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Итоговая стоимость зависит от размера, наполнения,
-                сложности монтажа и места проведения.</p>
+            <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Выберите уровень оформления — финальный состав
+                заранее согласуем под площадку, стиль и сценарий вашего события.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="reveal p-8 md:p-10 rounded-2xl bg-white border border-brand-black/5 hover-lift flex flex-col">
-                <div class="mb-6">
-                    <h3 class="font-serif text-2xl font-bold text-brand-black">Базовый</h3>
-                    <p class="text-brand-muted text-sm mt-1">Готовая конструкция из каталога</p>
+        <div class="pricing-grid pricing-grid--desktop hidden md:grid">
+            <article class="pricing-card reveal">
+                <div class="pricing-card__heading">
+                    <p class="pricing-card__eyebrow">Для готовой идеи</p>
+                    <h3>Старт</h3>
+                    <p class="pricing-card__price">от 550 BYN</p>
                 </div>
-                <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 550 BYN</p>
-                    <p class="text-brand-muted text-sm mt-1">Базовый декор и стандартная надпись</p>
-                </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Готовая конструкция из каталога</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Базовый декор</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Стандартная надпись</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Монтаж и демонтаж</li>
+                <ul class="pricing-card__features">
+                    <li>Готовая фотозона</li>
+                    <li>Аренда конструкции</li>
+                    <li>Монтаж</li>
+                    <li>Демонтаж</li>
                 </ul>
-                <button type="button" onclick="openModal('Пакет «Базовый»', 'Пакет — Базовый')"
-                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Получить
-                    расчёт</button>
-            </div>
+                <button type="button" onclick="openModal('Пакет «Старт»', 'Пакет — Старт', null, 'service_package')" class="pricing-card__cta">Выбрать пакет</button>
+            </article>
 
-            <div
-                class="reveal p-8 md:p-10 rounded-2xl bg-brand-black text-brand-ivory border-2 border-brand-gold hover-lift flex flex-col relative">
-                <div
-                    class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-gold text-brand-black rounded-full text-xs font-bold">
-                    Популярный</div>
-                <div class="mb-6">
-                    <h3 class="font-serif text-2xl font-bold">Стандарт</h3>
-                    <p class="text-brand-muted text-sm mt-1">Расширенное оформление</p>
+            <article class="pricing-card pricing-card--featured reveal">
+                <p class="pricing-card__badge">Популярный ⭐</p>
+                <div class="pricing-card__heading">
+                    <p class="pricing-card__eyebrow">Для персонального праздника</p>
+                    <h3>Популярный</h3>
+                    <p class="pricing-card__price">от 750 BYN</p>
                 </div>
-                <div class="mb-6">
-                    <p class="text-4xl font-bold">от 750 BYN</p>
-                    <p class="text-brand-muted text-sm mt-1">Индивидуальная цветовая гамма</p>
-                </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Расширенное оформление</li>
-                    <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Индивидуальная цветовая гамма</li>
-                    <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Дополнительный декор</li>
-                    <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Индивидуальная надпись</li>
-                    <li class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-brand-ivory shrink-0"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Монтаж и демонтаж</li>
+                <ul class="pricing-card__features">
+                    <li>Индивидуальный дизайн</li>
+                    <li>Персональная надпись</li>
+                    <li>Декор под формат события</li>
+                    <li>Монтаж</li>
                 </ul>
-                <button type="button" onclick="openModal('Пакет «Стандарт»', 'Пакет — Стандарт')"
-                    class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-3 rounded-full font-bold">Получить
-                    расчёт</button>
-            </div>
+                <button type="button" onclick="openModal('Пакет «Популярный»', 'Пакет — Популярный', null, 'service_package')" class="pricing-card__cta">Рассчитать стоимость</button>
+            </article>
 
-            <div class="reveal p-8 md:p-10 rounded-2xl bg-white border border-brand-black/5 hover-lift flex flex-col">
-                <div class="mb-6">
-                    <h3 class="font-serif text-2xl font-bold text-brand-black">Индивидуальный проект</h3>
-                    <p class="text-brand-muted text-sm mt-1">Разработка концепции под мероприятие</p>
+            <article class="pricing-card reveal">
+                <div class="pricing-card__heading">
+                    <p class="pricing-card__eyebrow">Для особенного события</p>
+                    <h3>Premium</h3>
+                    <p class="pricing-card__price">от 950 BYN</p>
                 </div>
-                <div class="mb-6">
-                    <p class="text-4xl font-bold text-brand-black">от 950 BYN</p>
-                    <p class="text-brand-muted text-sm mt-1">индивидуальный расчёт</p>
-                </div>
-                <ul class="space-y-3 mb-8 flex-1">
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Разработка концепции</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Нестандартные конструкции</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Объёмный декор</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Индивидуальное оформление</li>
-                    <li class="flex items-center gap-2 text-sm text-brand-graphite"><svg
-                            class="w-4 h-4 text-brand-black shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>Доставка, монтаж и демонтаж</li>
+                <ul class="pricing-card__features">
+                    <li>Полностью индивидуальный проект</li>
+                    <li>Эксклюзивный декор</li>
+                    <li>Доставка</li>
+                    <li>Монтаж</li>
+                    <li>Сопровождение проекта</li>
                 </ul>
-                <button type="button" onclick="openModal('Индивидуальный проект', 'Пакет — Индивидуальный проект')"
-                    class="filter-btn filter-btn--silver w-full py-3 rounded-full font-medium">Обсудить
-                    проект</button>
-            </div>
+                <button type="button" onclick="openModal('Пакет «Premium»', 'Пакет — Premium', null, 'service_package')" class="pricing-card__cta">Получить предложение</button>
+            </article>
         </div>
 
-        <p class="text-center text-brand-muted text-sm mt-8 reveal flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            Большинство проектов рассчитываются индивидуально. Мы можем адаптировать оформление под площадку, стиль
-            мероприятия и бюджет.
-        </p>
+        <div class="pricing-mobile md:hidden" aria-label="Пакеты услуг">
+            <article class="pricing-mobile-card reveal">
+                <div class="pricing-mobile-card__top"><span>01</span><p>Готовое решение</p></div>
+                <h3>Старт</h3>
+                <p class="pricing-mobile-card__price">от 550 BYN</p>
+                <ul><li>Готовая фотозона</li><li>Аренда конструкции</li><li>Монтаж</li><li>Демонтаж</li></ul>
+                <button type="button" onclick="openModal('Пакет «Старт»', 'Пакет — Старт', null, 'service_package')">Выбрать пакет</button>
+            </article>
+            <article class="pricing-mobile-card pricing-mobile-card--featured reveal">
+                <p class="pricing-mobile-card__badge">Популярный ⭐</p>
+                <div class="pricing-mobile-card__top"><span>02</span><p>Персональный дизайн</p></div>
+                <h3>Популярный</h3>
+                <p class="pricing-mobile-card__price">от 750 BYN</p>
+                <ul><li>Индивидуальный дизайн</li><li>Персональная надпись</li><li>Декор под формат события</li><li>Монтаж</li></ul>
+                <button type="button" onclick="openModal('Пакет «Популярный»', 'Пакет — Популярный', null, 'service_package')">Рассчитать стоимость</button>
+            </article>
+            <article class="pricing-mobile-card reveal">
+                <div class="pricing-mobile-card__top"><span>03</span><p>Авторская концепция</p></div>
+                <h3>Premium</h3>
+                <p class="pricing-mobile-card__price">от 950 BYN</p>
+                <ul><li>Полностью индивидуальный проект</li><li>Эксклюзивный декор</li><li>Доставка</li><li>Монтаж</li><li>Сопровождение проекта</li></ul>
+                <button type="button" onclick="openModal('Пакет «Premium»', 'Пакет — Premium', null, 'service_package')">Получить предложение</button>
+            </article>
+        </div>
+
+        <aside class="pricing-trust reveal" aria-label="Условия расчёта">
+            <p class="pricing-trust__title">Прозрачно до начала работ</p>
+            <ul>
+                <li>Окончательную стоимость согласовываем заранее</li>
+                <li>Без скрытых доплат</li>
+                <li>Монтаж и демонтаж включаем в согласованный состав</li>
+                <li>Работаем по договору</li>
+                <li>Гарантируем согласованный результат</li>
+            </ul>
+        </aside>
     </section>
 
     <!-- Trust Section -->
@@ -1746,8 +1684,7 @@
                 </div>
                 <div class="faq-answer px-6 pb-6 text-brand-muted">
                     <p>Стоимость фотозоны зависит от размера, конструкции, количества декора, места проведения и
-                        сложности монтажа. Базовые варианты начинаются от 550 BYN. После уточнения деталей мы подготовим
-                        точный расчёт.</p>
+                        сложности монтажа. После уточнения деталей мы подготовим точный расчёт и заранее согласуем состав работ.</p>
                 </div>
             </div>
             <div class="faq-item bg-white rounded-xl border border-brand-black/5 overflow-hidden cursor-pointer"
@@ -2000,10 +1937,10 @@
                         <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                             class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                             <option value="" selected>Бюджет — необязательно</option>
-                            <option>до 600 BYN</option>
-                            <option>600–800 BYN</option>
-                            <option>800–1200 BYN</option>
-                            <option>более 1200 BYN</option>
+                            <option>Компактный формат</option>
+                            <option>Оптимальный формат</option>
+                            <option>Расширенный формат</option>
+                            <option>Премиальный формат</option>
                             <option>пока не определились</option>
                         </select>
                         <button type="submit"
@@ -2197,6 +2134,7 @@
                 <input type="hidden" name="project_id" id="modal-project-id" value="">
                 <input type="hidden" name="project_image" id="modal-project-image" value="">
                 <input type="hidden" name="project_category" id="modal-project-category" value="">
+                <input type="hidden" name="project_url" id="modal-project-url" value="">
                 <input type="hidden" name="page_path" id="modal-page-path" value="">
                 <input type="hidden" name="form_location" id="modal-form-location" value="modal">
                 <input name="name" type="text" required placeholder="Имя"
@@ -2222,10 +2160,10 @@
                 <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                     <option value="" selected>Бюджет — необязательно</option>
-                    <option>до 600 BYN</option>
-                    <option>600–800 BYN</option>
-                    <option>800–1200 BYN</option>
-                    <option>более 1200 BYN</option>
+                    <option>Компактный формат</option>
+                    <option>Оптимальный формат</option>
+                    <option>Расширенный формат</option>
+                    <option>Премиальный формат</option>
                     <option>пока не определились</option>
                 </select>
                 <button type="submit"
@@ -2324,7 +2262,7 @@
             <form id="quiz-form" action="send.php" method="POST" class="space-y-4">
                 <input type="hidden" name="source" value="Квиз расчёта стоимости">
                 <input type="hidden" name="form_name" value="callback_form">
-                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="от 550 BYN">
+                <input type="hidden" name="estimatedPrice" id="quiz-estimated-price" value="Индивидуальный расчёт">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <input name="phone" type="tel" required placeholder="Телефон"
@@ -2342,10 +2280,10 @@
                 <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                     <option value="" selected>Бюджет — необязательно</option>
-                    <option>до 600 BYN</option>
-                    <option>600–800 BYN</option>
-                    <option>800–1200 BYN</option>
-                    <option>более 1200 BYN</option>
+                    <option>Компактный формат</option>
+                    <option>Оптимальный формат</option>
+                    <option>Расширенный формат</option>
+                    <option>Премиальный формат</option>
                     <option>пока не определились</option>
                 </select>
                 <button type="submit"
@@ -2401,10 +2339,10 @@
                 <select name="budget" aria-label="Планируемый бюджет (необязательно)"
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                     <option value="" selected>Бюджет — необязательно</option>
-                    <option>до 600 BYN</option>
-                    <option>600–800 BYN</option>
-                    <option>800–1200 BYN</option>
-                    <option>более 1200 BYN</option>
+                    <option>Компактный формат</option>
+                    <option>Оптимальный формат</option>
+                    <option>Расширенный формат</option>
+                    <option>Премиальный формат</option>
                     <option>пока не определились</option>
                 </select>
                 <button type="submit"

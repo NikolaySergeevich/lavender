@@ -102,6 +102,28 @@ function source_page_path() {
     return is_string($path) && $path !== '' ? $path : '/';
 }
 
+function lead_source_label($form_location, $source) {
+    $locations = array(
+        'portfolio_card' => 'Карточка проекта',
+        'seo_gallery_card' => 'Карточка проекта',
+        'portfolio_lightbox' => 'Просмотр проекта',
+        'seo_project_page' => 'Страница проекта',
+        'seo_header' => 'Шапка сайта',
+        'seo_general_inquiry' => 'Общая заявка',
+        'service_package' => 'Пакет услуг',
+        'seo_service_package' => 'Пакет услуг',
+        'seo_hero' => 'Кнопка в первом экране',
+        'seo_inline_cta' => 'CTA в тексте',
+        'seo_final_cta' => 'Финальный CTA',
+        'seo_mobile_cta' => 'Мобильная кнопка',
+        'promotion_cta' => 'Промо-блок',
+        'payetki_project_page' => 'Страница проекта',
+        'payetki_project_card' => 'Карточка проекта',
+    );
+
+    return isset($locations[$form_location]) ? $locations[$form_location] : $source;
+}
+
 function render_success_redirect(
     $redirect_url,
     $form_name,
@@ -277,7 +299,10 @@ if ($required_fields_missing) {
 }
 
 $lines = array();
-add_line($lines, 'Источник', post_value('source'));
+$form_location = post_value('form_location');
+$source = post_value('source');
+add_line($lines, 'Источник', lead_source_label($form_location, $source));
+add_line($lines, 'Детали источника', $source);
 add_line($lines, 'Имя', post_value('name'));
 add_line($lines, 'Телефон / Telegram', post_value('phone'));
 add_line($lines, 'Услуга', post_value('product_type'));
@@ -288,11 +313,12 @@ add_line($lines, 'Дата', post_value('date'));
 add_line($lines, 'Место проведения', post_value('place'));
 add_line($lines, 'Комментарий', post_value('comment'));
 add_line($lines, 'Предварительная стоимость', post_value('estimatedPrice'));
-add_line($lines, 'Выбранный проект', post_value('selected_project'));
+add_line($lines, 'Фотозона', post_value('selected_project'));
 add_line($lines, 'ID проекта', post_value('project_id'));
 add_line($lines, 'Изображение проекта', post_value('project_image'));
-add_line($lines, 'Категория проекта', post_value('project_category'));
-add_line($lines, 'Расположение формы', post_value('form_location'));
+add_line($lines, 'Категория', post_value('project_category'));
+add_line($lines, 'URL проекта', post_value('project_url'));
+add_line($lines, 'Расположение формы', $form_location);
 add_line($lines, 'Квиз: тип мероприятия', post_value('quiz-type'));
 add_line($lines, 'Квиз: площадь', post_value('quiz-area'));
 add_line($lines, 'Квиз: стиль', post_value('quiz-style'));

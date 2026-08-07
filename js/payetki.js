@@ -20,11 +20,14 @@
 
     function pushGenerateLeadEvent(form) {
         const selectedColor = form.querySelector('[name="selected_color"]')?.value || 'Не определился';
+        const selectedProject = form.querySelector('[name="selected_project"]')?.value || 'Стена из пайеток';
         const eventData = {
             event: 'generate_lead',
             lead_source: 'payetki_landing',
             form_name: 'payetki_booking_form',
             selected_color: selectedColor,
+            selected_project: selectedProject,
+            form_location: form.querySelector('[name="form_location"]')?.value || 'payetki_project_page',
             page_path: pagePath
         };
 
@@ -106,6 +109,13 @@
         });
     }
 
+    function setProjectContext() {
+        document.querySelectorAll('.payetki-form').forEach(function (form) {
+            const projectUrl = form.querySelector('[name="project_url"]');
+            if (projectUrl) projectUrl.value = window.location.href;
+        });
+    }
+
     function setMinimumDates() {
         const today = new Date();
         const offset = today.getTimezoneOffset();
@@ -115,13 +125,15 @@
         });
     }
 
-    function openModal(selectedColor, source) {
+    function openModal(selectedColor, source, formLocation) {
         if (!modal) return;
 
         lastFocusedElement = document.activeElement;
         if (modalColor && selectedColor) modalColor.value = selectedColor;
         const sourceField = modal.querySelector('[name="source"]');
+        const formLocationField = modal.querySelector('[name="form_location"]');
         if (sourceField) sourceField.value = source || 'Модальная форма — аренда пайеток';
+        if (formLocationField) formLocationField.value = formLocation || 'payetki_project_page';
 
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
@@ -145,7 +157,8 @@
         button.addEventListener('click', function () {
             openModal(
                 button.getAttribute('data-color') || 'Не определился',
-                button.getAttribute('data-source') || 'CTA — аренда пайеток'
+                button.getAttribute('data-source') || 'CTA — аренда пайеток',
+                button.hasAttribute('data-color') ? 'payetki_project_card' : 'payetki_project_page'
             );
         });
     });
@@ -252,5 +265,6 @@
     });
 
     setFormPagePaths();
+    setProjectContext();
     setMinimumDates();
 })();
