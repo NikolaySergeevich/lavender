@@ -208,7 +208,7 @@
             </a>
             <div class="payetki-nav__links flex items-center gap-6 text-sm font-medium">
                 <a href="#colors">Цвета</a>
-                <a href="#price">Цена</a>
+                <a href="#price">Комплектация</a>
                 <a href="#sizes">Размеры</a>
                 <a href="#booking">Заявка</a>
                 <a href="#faq">FAQ</a>
@@ -223,9 +223,9 @@
                 <div>
                     <p class="payetki-eyebrow">Аренда стены из пайеток в Минске</p>
                     <h1 class="font-serif font-bold">Мерцающая фотозона, которая оживает в каждом кадре</h1>
-                    <p class="payetki-hero__lead">Шесть цветов пайеток, регулируемый каркас и оформление под ваше событие. Аренда комплекта на двое суток — 290 руб.</p>
+                    <p class="payetki-hero__lead">Шесть цветов пайеток, регулируемый каркас и оформление под ваше событие. Подберём подходящий размер и комплектацию для вашей площадки.</p>
                     <div class="payetki-hero__actions">
-                        <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking data-source="Hero — проверить свободную дату">Получить расчёт</button>
+                        <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking data-source="Hero — проверить свободную дату">Узнать стоимость</button>
                         <a href="#colors" class="payetki-btn payetki-btn--secondary">Смотреть работы</a>
                     </div>
                     <div class="payetki-hero__facts" aria-label="Основные условия аренды">
@@ -240,10 +240,6 @@
                     <div class="payetki-hero__media">
                         <div class="payetki-hero__frame">
                             <img id="payetki-hero-image" class="payetki-hero__image" src="../picture/poetki/fotozona-minsk-poetki-hamelion.webp" width="1448" height="1086" fetchpriority="high" decoding="async" alt="Стена из пайеток хамелеон с розовыми, сиреневыми, жёлтыми, голубыми и мятными шарами">
-                        </div>
-                        <div class="payetki-hero__price">
-                            <strong>290 руб.</strong>
-                            <span>комплект с каркасом на двое суток</span>
                         </div>
                     </div>
                     <div class="payetki-hero__switcher" aria-label="Сменить фотографию">
@@ -358,9 +354,8 @@
                 <div>
                     <p class="payetki-eyebrow">Понятная комплектация</p>
                     <h2 class="font-serif font-bold">Аренда стены из пайеток</h2>
-                    <p class="payetki-price__amount">290 <span>руб.</span></p>
-                    <p class="payetki-price__lead">На двое суток вместе с регулируемым телескопическим каркасом.</p>
-                    <button type="button" class="payetki-btn payetki-btn--primary mt-7" data-open-booking data-source="Блок цены — проверить дату и стоимость">Проверить дату и стоимость</button>
+                    <p class="payetki-price__lead">Подберём размер и комплектацию с учётом площадки, даты и дополнительного декора.</p>
+                    <button type="button" class="payetki-btn payetki-btn--primary mt-7" data-open-booking data-source="Блок цены — проверить дату и стоимость">Узнать стоимость</button>
                 </div>
                 <div class="payetki-price__card">
                     <ul class="payetki-checklist">
@@ -368,9 +363,9 @@
                         <li>Телескопический каркас: высота 1,5–3 м, ширина 2–4 м</li>
                         <li>Аренда комплекта на двое суток</li>
                         <li>Возможность собрать разные размеры с шагом 30 см</li>
-                        <li>Каждый дополнительный день — +60 руб.</li>
+                        <li>Срок аренды и дополнительные дни согласуем заранее</li>
                     </ul>
-                    <p class="payetki-price__notice">Доставка, монтаж, демонтаж и дополнительный декор рассчитываются в зависимости от адреса и выбранной комплектации.</p>
+                    <p class="payetki-price__notice">Условия доставки, монтажа, демонтажа и дополнительного декора согласуем заранее.</p>
                 </div>
             </div>
         </section>
@@ -466,6 +461,11 @@
                         <input type="hidden" name="source" value="Лендинг пайеток — основная форма">
                         <input type="hidden" name="form_name" value="payetki_booking_form">
                         <input type="hidden" name="product_type" value="Стена из пайеток">
+                        <input type="hidden" name="selected_project" value="Стена из пайеток">
+                        <input type="hidden" name="project_id" value="payetki-wall">
+                        <input type="hidden" name="project_category" value="Аренда пайеток">
+                        <input type="hidden" name="project_url" value="/arenda-payetok-minsk/">
+                        <input type="hidden" name="form_location" value="payetki_project_page">
                         <input type="hidden" name="page_path" value="">
                         <div class="payetki-form__row">
                             <div class="payetki-field"><label for="payetki-name">Имя</label><input id="payetki-name" name="name" type="text" autocomplete="name" required placeholder="Ваше имя"></div>
@@ -506,13 +506,13 @@
                     <h2 class="font-serif font-bold">Частые вопросы</h2>
                 </div>
                 <div class="payetki-faq">
-                    <details><summary>Что входит в стоимость 290 руб.?</summary><p>До 72 модульных панелей 30 × 30 см и регулируемый телескопический каркас на двое суток. Доставка, монтаж, демонтаж и дополнительный декор рассчитываются в зависимости от адреса и выбранной комплектации.</p></details>
+                    <details><summary>Что входит в комплект?</summary><p>До 72 модульных панелей 30 × 30 см и регулируемый телескопический каркас на двое суток. Условия доставки, монтажа, демонтажа и дополнительного декора согласуем заранее.</p></details>
                     <details><summary>Какие цвета есть в наличии?</summary><p>Розовый, голубой, чёрный, золотой, синий и хамелеон. Выберите вариант в заявке — мы проверим его доступность на нужную дату.</p></details>
                     <details><summary>Какой максимальный размер стены?</summary><p>Полный комплект из 72 панелей позволяет собрать стену размером 2,4 × 2,7 м.</p></details>
                     <details><summary>Можно ли изменить размер?</summary><p>Да. Размер адаптируется под площадку с шагом 30 см в пределах количества панелей и диапазона телескопического каркаса.</p></details>
-                    <details><summary>Можно ли заказать пайетки с шарами?</summary><p>Да. Стену можно дополнить шарами, надписью, светящимися цифрами, цветами, неоном или тумбами. Дополнительный декор рассчитывается отдельно.</p></details>
-                    <details><summary>Входит ли доставка и монтаж?</summary><p>Доставка, монтаж и демонтаж рассчитываются в зависимости от адреса и выбранной комплектации. Точный расчёт можно получить перед бронированием.</p></details>
-                    <details><summary>На сколько дней выдаётся комплект?</summary><p>Базовая стоимость указана за двое суток. Каждый дополнительный день — +60 руб.</p></details>
+                    <details><summary>Можно ли заказать пайетки с шарами?</summary><p>Да. Стену можно дополнить шарами, надписью, светящимися цифрами, цветами, неоном или тумбами. Дополнительный декор подберём под стиль и формат события.</p></details>
+                    <details><summary>Входит ли доставка и монтаж?</summary><p>Доставку, монтаж и демонтаж организуем с учётом адреса и выбранной комплектации. Все детали согласуем до бронирования.</p></details>
+                    <details><summary>На сколько дней выдаётся комплект?</summary><p>Базовый срок аренды — двое суток. Дополнительные дни согласуем заранее.</p></details>
                     <details><summary>Подходит ли стена для фото и видео?</summary><p>Да. Подвижные пайетки отражают свет и создают меняющийся рисунок, который выразительно выглядит на фотографиях и видео.</p></details>
                     <details><summary>Можно ли установить её на улице?</summary><p>Установка на улице возможна только при подходящей погоде и возможности надёжно закрепить конструкцию. Условия необходимо согласовать заранее.</p></details>
                     <details><summary>Как заранее забронировать нужный цвет?</summary><p>Укажите дату мероприятия и нужный цвет в форме или напишите в Telegram. Мы проверим доступность и согласуем детали бронирования.</p></details>
@@ -576,6 +576,11 @@
                 <input type="hidden" name="source" value="Модальная форма — аренда пайеток">
                 <input type="hidden" name="form_name" value="payetki_booking_form">
                 <input type="hidden" name="product_type" value="Стена из пайеток">
+                <input type="hidden" name="selected_project" value="Стена из пайеток">
+                <input type="hidden" name="project_id" value="payetki-wall">
+                <input type="hidden" name="project_category" value="Аренда пайеток">
+                <input type="hidden" name="project_url" value="/arenda-payetok-minsk/">
+                <input type="hidden" name="form_location" value="payetki_project_page">
                 <input type="hidden" name="page_path" value="">
                 <div class="payetki-form__row">
                     <div class="payetki-field"><label for="payetki-modal-name">Имя</label><input id="payetki-modal-name" name="name" type="text" autocomplete="name" required placeholder="Ваше имя"></div>

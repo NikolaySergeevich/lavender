@@ -207,12 +207,37 @@
             'Фотозона gender party Baby Balls с воздушными шарами, мягкой композицией и светлым праздничным настроением.',
             'Фотозона gender party Boy or Girl с воздушными шарами, тематической надписью и нежной reveal-подачей.'
         ];
-        const portfolioCategoryBenefits = {
-            wedding: 'Подходит для свадьбы',
-            'gender-party': 'Подходит для gender party',
-            kids: 'Подходит для детского праздника',
-            birthday: 'Подходит для дня рождения и юбилея',
-            corporate: 'Подходит для корпоративного события'
+        const portfolioCategoryDetails = {
+            wedding: {
+                style: 'Свадебный декор',
+                size: 'адаптируется под площадку',
+                installation: 'в согласованное с площадкой окно',
+                elements: 'панели, флористика и свет'
+            },
+            'gender-party': {
+                style: 'Gender party',
+                size: 'адаптируется под формат reveal',
+                installation: 'до прихода гостей',
+                elements: 'фон, шары и тематические детали'
+            },
+            kids: {
+                style: 'Детский праздник',
+                size: 'под дом, студию или зал',
+                installation: 'до начала праздника',
+                elements: 'безопасный декор и тематические акценты'
+            },
+            birthday: {
+                style: 'День рождения или юбилей',
+                size: 'под площадку и количество гостей',
+                installation: 'в удобное для площадки время',
+                elements: 'фон, шары, надпись и декор'
+            },
+            corporate: {
+                style: 'Корпоративное событие',
+                size: 'под зону welcome или сцену',
+                installation: 'по таймингу мероприятия',
+                elements: 'бренд-акценты и декор под формат'
+            }
         };
         let currentPortfolioFilter = 'all';
         let visiblePortfolioIndexes = [];
@@ -253,18 +278,30 @@
                     <h3 class="portfolio-card__title"></h3>
                     <p class="portfolio-card__description"></p>
                 </div>
-                <ul class="portfolio-card__benefits" aria-label="Преимущества проекта">
-                    <li class="portfolio-card__event"></li>
-                    <li>Размер адаптируется под площадку</li>
-                    <li>Цветовая гамма и надпись — индивидуально</li>
-                    <li>Доставка и монтаж — по расчёту</li>
-                </ul>
+                <ul class="portfolio-card__benefits" aria-label="Характеристики проекта"></ul>
                 <button type="button" class="portfolio-card__cta">Узнать стоимость</button>
             `;
 
             details.querySelector('.portfolio-card__title').textContent = title;
             details.querySelector('.portfolio-card__description').textContent = description || 'Проект можно адаптировать под формат и стиль вашего мероприятия.';
-            details.querySelector('.portfolio-card__event').textContent = portfolioCategoryBenefits[categorySlug] || 'Подходит для вашего формата мероприятия';
+            const projectDetails = portfolioCategoryDetails[categorySlug] || {
+                style: 'Фотозона для события',
+                size: 'адаптируется под площадку',
+                installation: 'в согласованное время',
+                elements: 'декор под ваш формат'
+            };
+            const benefitsList = details.querySelector('.portfolio-card__benefits');
+            [
+                `Стиль: ${projectDetails.style}`,
+                `Размер: ${projectDetails.size}`,
+                `Время монтажа: ${projectDetails.installation}`,
+                `Количество элементов: ${projectDetails.elements}`,
+                `Особенность: ${description || 'палитра и детали под ваше событие'}`
+            ].forEach((text) => {
+                const benefit = document.createElement('li');
+                benefit.textContent = text;
+                benefitsList.appendChild(benefit);
+            });
 
             const cta = details.querySelector('.portfolio-card__cta');
             cta.setAttribute('aria-label', `Узнать стоимость фотозоны «${title}»`);
@@ -526,6 +563,7 @@
             projectId: document.getElementById('modal-project-id'),
             projectImage: document.getElementById('modal-project-image'),
             projectCategory: document.getElementById('modal-project-category'),
+            projectUrl: document.getElementById('modal-project-url'),
             pagePath: document.getElementById('modal-page-path'),
             formLocation: document.getElementById('modal-form-location')
         };
@@ -563,6 +601,7 @@
             if (modalProjectFields.projectId) modalProjectFields.projectId.value = project?.id || '';
             if (modalProjectFields.projectImage) modalProjectFields.projectImage.value = project?.imagePath || '';
             if (modalProjectFields.projectCategory) modalProjectFields.projectCategory.value = project?.category || '';
+            if (modalProjectFields.projectUrl) modalProjectFields.projectUrl.value = project?.pageUrl || '';
             if (modalProjectFields.pagePath) modalProjectFields.pagePath.value = window.location.pathname;
             if (modalProjectFields.formLocation) modalProjectFields.formLocation.value = formLocation || 'modal';
         }
@@ -744,7 +783,19 @@
             const categorySlug = item.dataset.category || '';
             const imagePath = image.getAttribute('src') || '';
             const id = item.dataset.projectId || `${categorySlug || 'project'}-${Number(item.dataset.portfolioIndex) + 1}`;
-            return { id, image: image.src, imagePath, alt: image.alt, title, meta, category, categorySlug, fit, position };
+            return {
+                id,
+                image: image.src,
+                imagePath,
+                alt: image.alt,
+                title,
+                meta,
+                category,
+                categorySlug,
+                fit,
+                position,
+                pageUrl: window.location.href
+            };
         });
         const lightboxOverlay = document.getElementById('lightbox-overlay');
         let lightboxIndex = 0;
