@@ -325,6 +325,14 @@
             line-height: 1;
             letter-spacing: -0.045em;
         }
+        .promotion-card__offer-title {
+            margin-top: 4px;
+            color: #C9CED6;
+            font-family: "Playfair Display", serif;
+            font-size: clamp(1.45rem, 2.8vw, 2.35rem);
+            font-weight: 700;
+            line-height: 1.08;
+        }
         .promotion-card__note {
             margin-top: 12px;
             color: rgba(244, 245, 247, 0.72);
@@ -332,6 +340,27 @@
         }
         .promotion-card__button {
             flex-shrink: 0;
+        }
+        .promotion-card__bonus {
+            display: grid;
+            grid-template-columns: minmax(10rem, 0.3fr) minmax(0, 1fr);
+            gap: 12px 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(244, 245, 247, 0.1);
+        }
+        .promotion-card__bonus strong {
+            color: #C9CED6;
+            font-size: 0.88rem;
+        }
+        .promotion-card__bonus strong::before {
+            content: "✦";
+            margin-right: 8px;
+            color: #B9A7D8;
+        }
+        .promotion-card__bonus p {
+            color: rgba(244, 245, 247, 0.7);
+            font-size: 0.9rem;
+            line-height: 1.55;
         }
         @media (max-width: 768px) {
             .hero-parallax { background-attachment: scroll; }
@@ -423,6 +452,7 @@
                 padding-top: 24px;
             }
             .promotion-card__button { width: 100%; }
+            .promotion-card__bonus { grid-template-columns: 1fr; gap: 8px; }
             .cta-microproof { flex-direction: column; gap: 6px; }
         }
         .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
@@ -1518,6 +1548,11 @@
         .pricing-mobile {
             display: grid;
             gap: 1rem;
+        }
+        @media (min-width: 768px) {
+            .pricing-mobile {
+                display: none !important;
+            }
         }
         .pricing-mobile-card {
             position: relative;

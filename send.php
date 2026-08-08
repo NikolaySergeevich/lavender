@@ -117,8 +117,11 @@ function lead_source_label($form_location, $source) {
         'seo_final_cta' => 'Финальный CTA',
         'seo_mobile_cta' => 'Мобильная кнопка',
         'promotion_cta' => 'Промо-блок',
+        'seo_special_offer' => 'Специальное предложение',
+        'seo_special_offer_bundle' => 'Комплексное предложение',
         'payetki_project_page' => 'Страница проекта',
         'payetki_project_card' => 'Карточка проекта',
+        'payetki_special_offer' => 'Специальное предложение',
     );
 
     return isset($locations[$form_location]) ? $locations[$form_location] : $source;
@@ -131,7 +134,9 @@ function render_success_redirect(
     $lead_source = 'website_form',
     $selected_color = '',
     $selected_project = '',
-    $form_location = ''
+    $form_location = '',
+    $offer_type = '',
+    $offer_page = ''
 ) {
     $redirect_json = json_encode($redirect_url, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $form_name_json = json_encode($form_name ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
@@ -140,6 +145,8 @@ function render_success_redirect(
     $selected_color_json = json_encode($selected_color, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $selected_project_json = json_encode($selected_project, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     $form_location_json = json_encode($form_location ?: $form_name, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $offer_type_json = json_encode($offer_type, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $offer_page_json = json_encode($offer_page, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
     header('Content-Type: text/html; charset=UTF-8');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
@@ -252,6 +259,8 @@ function render_success_redirect(
                 selected_color: <?php echo $selected_color_json; ?>,
                 selected_project: <?php echo $selected_project_json; ?>,
                 form_location: <?php echo $form_location_json; ?>,
+                offer_type: <?php echo $offer_type_json; ?>,
+                offer_page: <?php echo $offer_page_json; ?>,
                 eventCallback: redirectToSite,
                 eventTimeout: 1500
             });
@@ -319,6 +328,8 @@ add_line($lines, 'Изображение проекта', post_value('project_im
 add_line($lines, 'Категория', post_value('project_category'));
 add_line($lines, 'URL проекта', post_value('project_url'));
 add_line($lines, 'Расположение формы', $form_location);
+add_line($lines, 'Тип предложения', post_value('offer_type'));
+add_line($lines, 'Страница предложения', post_value('offer_page'));
 add_line($lines, 'Квиз: тип мероприятия', post_value('quiz-type'));
 add_line($lines, 'Квиз: площадь', post_value('quiz-area'));
 add_line($lines, 'Квиз: стиль', post_value('quiz-style'));
@@ -398,7 +409,9 @@ if ($success) {
         $form_name === 'payetki_booking_form' ? 'payetki_landing' : 'website_form',
         post_value('selected_color'),
         post_value('selected_project'),
-        post_value('form_location')
+        post_value('form_location'),
+        post_value('offer_type'),
+        post_value('offer_page')
     );
 }
 

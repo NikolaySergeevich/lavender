@@ -1211,23 +1211,29 @@
             <div class="promotion-card__glow" aria-hidden="true"></div>
             <div class="promotion-card__content">
                 <div class="max-w-2xl">
-                    <p class="promotion-card__eyebrow">Специальное предложение</p>
-                    <h2 class="promotion-card__title">Фотозона, которая станет центром вашего события</h2>
-                    <p class="promotion-card__text">Подберём оформление под ваш праздник: день рождения, юбилей,
-                        свадьбу, gender party или детское событие.</p>
+                    <p class="promotion-card__eyebrow">Предложение на вашу дату</p>
+                    <h2 class="promotion-card__title">Получите предложение для вашего события</h2>
+                    <p class="promotion-card__text">Расскажите о дате, площадке и задаче — подберём оформление,
+                        которое подойдёт формату, стилю и гостям вашего праздника.</p>
                 </div>
                 <div class="promotion-card__offer">
                     <div>
-                        <p class="promotion-card__price">Индивидуальный проект</p>
-                        <p class="promotion-card__note">Подберём состав, который подойдёт площадке, стилю и вашему событию</p>
+                        <p class="promotion-card__offer-title">Индивидуальное предложение</p>
+                        <p class="promotion-card__note">Состав и расчёт подготовим после короткого брифа. Для подходящих
+                            конфигураций проверим доступные дополнения.</p>
                     </div>
-                    <button type="button" onclick="openModal('Фотозона для вашего события', 'Промо-блок — индивидуальный расчёт', null, 'promotion_cta')"
-                        class="hero-btn hero-btn--primary promotion-card__button">Получить расчёт</button>
+                    <button type="button" data-offer-type="date_offer" data-offer-page="/" onclick="openModal('Предложение на вашу дату', 'Промо-блок — предложение на дату', null, 'promotion_cta', { offerType: 'date_offer', offerPage: '/', formTitle: 'Получить предложение на вашу дату', formDescription: 'Оставьте контакты — уточним дату, площадку и задачу, чтобы предложить подходящий вариант.', submitLabel: 'Получить предложение' })"
+                        class="hero-btn hero-btn--primary promotion-card__button">Получить предложение</button>
+                </div>
+                <div class="promotion-card__bonus">
+                    <strong>Бонус к оформлению</strong>
+                    <p>Для некоторых конфигураций можем предложить дополнительный декоративный акцент или расширить
+                        комплект. Применимость уточним после короткого брифа.</p>
                 </div>
                 <div class="cta-microproof cta-microproof--promotion">
                     <span>✓ Адаптация под площадку</span>
-                    <span>✓ Работаем по договору</span>
-                    <span>✓ Состав фиксируется в расчёте</span>
+                    <span>✓ Условия согласуем заранее</span>
+                    <span>✓ Состав фиксируем в расчёте</span>
                 </div>
             </div>
         </div>
@@ -2223,6 +2229,8 @@
                 <input type="hidden" name="project_url" id="modal-project-url" value="">
                 <input type="hidden" name="page_path" id="modal-page-path" value="">
                 <input type="hidden" name="form_location" id="modal-form-location" value="modal">
+                <input type="hidden" name="offer_type" id="modal-offer-type" value="">
+                <input type="hidden" name="offer_page" id="modal-offer-page" value="">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <input name="phone" type="tel" required placeholder="Телефон или мессенджер"

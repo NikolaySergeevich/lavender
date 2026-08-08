@@ -485,6 +485,72 @@ body.payetki-page {
     aspect-ratio: 16 / 8.6;
 }
 
+.payetki-section--special {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+.payetki-special-offer {
+    padding: clamp(1.5rem, 4.5vw, 3rem);
+    border: 1px solid rgba(113, 97, 143, 0.28);
+    border-radius: 1.5rem;
+    background:
+        radial-gradient(circle at 92% 8%, rgba(185, 167, 216, 0.34), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(217, 209, 232, 0.58));
+    box-shadow: 0 20px 52px rgba(8, 9, 13, 0.1);
+}
+
+.payetki-special-offer__main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: end;
+}
+
+.payetki-special-offer h2 {
+    max-width: 20ch;
+    margin-top: 0.6rem;
+    font-size: clamp(1.9rem, 3.8vw, 3rem);
+    line-height: 1.08;
+}
+
+.payetki-special-offer__main p:not(.payetki-eyebrow) {
+    max-width: 46rem;
+    margin-top: 0.9rem;
+    color: var(--payetki-muted);
+    line-height: 1.7;
+}
+
+.payetki-special-offer__main .payetki-btn {
+    min-width: 12.5rem;
+}
+
+.payetki-special-offer__bonus {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.3fr) minmax(0, 1fr);
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(8, 9, 13, 0.09);
+}
+
+.payetki-special-offer__bonus strong {
+    font-size: 0.94rem;
+}
+
+.payetki-special-offer__bonus strong::before {
+    content: "✦";
+    margin-right: 0.42rem;
+    color: var(--payetki-lavender-dark);
+}
+
+.payetki-special-offer__bonus p {
+    margin: 0;
+    color: var(--payetki-muted);
+    font-size: 0.92rem;
+    line-height: 1.62;
+}
+
 .payetki-price {
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -1099,6 +1165,31 @@ body.seo-lightbox-open .back-to-top {
 
     .payetki-section {
         padding: 3.75rem 1rem;
+    }
+
+    .payetki-section--special {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .payetki-special-offer {
+        padding: 1.35rem;
+        border-radius: 1.1rem;
+    }
+
+    .payetki-special-offer__main,
+    .payetki-special-offer__bonus {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .payetki-special-offer__main .payetki-btn {
+        width: 100%;
+    }
+
+    .payetki-special-offer__bonus {
+        margin-top: 1.15rem;
+        padding-top: 1rem;
     }
 
     .payetki-heading {

@@ -516,7 +516,8 @@ body.seo-standard-page {
 .seo-section > .max-w-6xl,
 .seo-related__inner,
 .seo-final-cta,
-.seo-inline-cta {
+.seo-inline-cta,
+.seo-special-offer {
     width: min(80rem, 100%);
 }
 
@@ -1218,6 +1219,135 @@ body.seo-project-modal-open {
     flex: 0 0 auto;
 }
 
+.seo-special-offer-section {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+.seo-special-offer {
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4.5vw, 3rem);
+    border: 1px solid rgba(113, 97, 143, 0.28);
+    border-radius: var(--seo-radius-lg);
+    color: var(--seo-ink);
+    background:
+        radial-gradient(circle at 92% 8%, rgba(185, 167, 216, 0.34), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(217, 209, 232, 0.52));
+    box-shadow: var(--seo-shadow-md);
+}
+
+.seo-special-offer--compact {
+    padding: clamp(1.35rem, 3.5vw, 2.25rem);
+    border-color: rgba(113, 97, 143, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--seo-shadow-sm);
+}
+
+.seo-special-offer__main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: end;
+}
+
+.seo-special-offer__copy {
+    max-width: 46rem;
+}
+
+.seo-special-offer__copy h2 {
+    margin-top: 0.55rem;
+    color: var(--seo-ink);
+    font-size: clamp(1.8rem, 3.4vw, 2.85rem) !important;
+    line-height: 1.08 !important;
+}
+
+.seo-special-offer__copy > p:not(.seo-eyebrow) {
+    margin-top: 0.85rem;
+    color: var(--seo-muted);
+    font-size: 1.02rem;
+    line-height: 1.68;
+}
+
+.seo-special-offer__points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    margin-top: 1.15rem;
+    padding: 0;
+    list-style: none;
+    color: var(--seo-ink);
+    font-size: 0.86rem;
+    font-weight: 750;
+}
+
+.seo-special-offer__points li {
+    display: flex;
+    align-items: center;
+    gap: 0.38rem;
+}
+
+.seo-special-offer__points li::before {
+    content: "✓";
+    color: var(--seo-lavender-dark);
+    font-weight: 900;
+}
+
+.seo-special-offer__main > .seo-btn {
+    min-width: 14rem;
+}
+
+.seo-special-offer__bonus,
+.seo-special-offer__bundle {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.3fr) minmax(0, 1fr);
+    gap: 1rem 1.5rem;
+    align-items: start;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(8, 9, 13, 0.09);
+}
+
+.seo-special-offer__bonus strong,
+.seo-special-offer__bundle strong {
+    color: var(--seo-ink);
+    font-size: 0.94rem;
+}
+
+.seo-special-offer__bonus strong::before {
+    content: "✦";
+    display: inline-block;
+    margin-right: 0.42rem;
+    color: var(--seo-lavender-dark);
+}
+
+.seo-special-offer__bonus p,
+.seo-special-offer__bundle p {
+    margin: 0;
+    color: var(--seo-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.seo-special-offer__bundle {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+}
+
+.seo-special-offer__bundle > div {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.seo-special-offer__bundle .seo-btn {
+    border-color: rgba(113, 97, 143, 0.25);
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.seo-special-offer__bundle .seo-btn:hover {
+    border-color: rgba(113, 97, 143, 0.48);
+    background: #fff;
+}
+
 .cost-services-table {
     overflow: hidden;
 }
@@ -1225,6 +1355,12 @@ body.seo-project-modal-open {
 .cost-services-mobile {
     display: grid;
     gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .cost-services-mobile {
+        display: none !important;
+    }
 }
 
 .cost-service-card {
@@ -1599,6 +1735,40 @@ body.seo-project-modal-open {
 
     .seo-project-cta .seo-btn {
         width: 100%;
+    }
+
+    .seo-special-offer-section {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .seo-special-offer {
+        padding: 1.35rem;
+        border-radius: var(--seo-radius);
+    }
+
+    .seo-special-offer__main,
+    .seo-special-offer__bonus,
+    .seo-special-offer__bundle {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .seo-special-offer__main > .seo-btn,
+    .seo-special-offer__bundle .seo-btn {
+        width: 100%;
+    }
+
+    .seo-special-offer__points {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.42rem;
+    }
+
+    .seo-special-offer__bonus,
+    .seo-special-offer__bundle {
+        margin-top: 1.15rem;
+        padding-top: 1rem;
     }
 
     .seo-section--compact {
