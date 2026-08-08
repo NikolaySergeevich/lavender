@@ -69,6 +69,35 @@ function normalize_event_date($value) {
     return $date->format('Y-m-d');
 }
 
+function normalize_available_offer_types($value) {
+    $allowed = array(
+        'early_booking_gift',
+        'bundle_discount',
+        'available_date_offer',
+    );
+    $types = array();
+
+    foreach (explode(',', (string) $value) as $type) {
+        $type = trim($type);
+        if ($type !== '' && in_array($type, $allowed, true) && !in_array($type, $types, true)) {
+            $types[] = $type;
+        }
+    }
+
+    return implode(',', $types);
+}
+
+function days_until_event($event_date) {
+    if ($event_date === '') {
+        return '';
+    }
+
+    $timezone = new DateTimeZone('Europe/Minsk');
+    $event = new DateTimeImmutable($event_date, $timezone);
+    $today = new DateTimeImmutable('today', $timezone);
+    return $today->diff($event)->format('%r%a');
+}
+
 function build_offer_context() {
     $type = post_value('offer_type');
     $name = post_value('offer_name');
@@ -86,6 +115,10 @@ function build_offer_context() {
             'offer_name' => 'Специальное предложение на свободную дату',
             'offer_value' => 'individual_date_offer',
         ),
+        'special_offer_consultation' => array(
+            'offer_name' => 'Подбор специального предложения',
+            'offer_value' => 'manager_selects_best_offer',
+        ),
         'project_quote' => array(
             'offer_name' => 'Расчёт выбранной фотозоны',
             'offer_value' => 'individual_project_calculation',
@@ -98,8 +131,13 @@ function build_offer_context() {
     }
 
     $event_date = normalize_event_date(post_value('date'));
+    $available_offer_types = normalize_available_offer_types(post_value('available_offer_types'));
+    if ($type === 'special_offer_consultation' && $available_offer_types === '') {
+        $available_offer_types = 'early_booking_gift,bundle_discount,available_date_offer';
+    }
     $early_booking_eligible = '';
-    if ($type === 'early_booking_gift' && $event_date !== '') {
+    $days_until_event = days_until_event($event_date);
+    if (($type === 'early_booking_gift' || $type === 'special_offer_consultation') && $event_date !== '') {
         $timezone = new DateTimeZone('Europe/Minsk');
         $event = new DateTimeImmutable($event_date, $timezone);
         $threshold = new DateTimeImmutable('today', $timezone);
@@ -111,15 +149,18 @@ function build_offer_context() {
         'offer_type' => $type,
         'offer_name' => $name,
         'offer_value' => $value,
+        'available_offer_types' => $available_offer_types,
         'offer_page' => post_value('offer_page'),
         'offer_location' => post_value('offer_location'),
         'event_date' => $event_date,
+        'days_until_event' => $days_until_event,
+        'requested_services' => post_value('requested_services'),
         'early_booking_eligible' => $early_booking_eligible,
     );
 }
 
 function offer_requires_event_date($offer_type) {
-    return in_array($offer_type, array('early_booking_gift', 'available_date_offer'), true);
+    return in_array($offer_type, array('early_booking_gift', 'available_date_offer', 'special_offer_consultation'), true);
 }
 
 function offer_event_date_is_past($event_date) {
@@ -198,6 +239,7 @@ function lead_source_label($form_location, $source) {
         'seo_final_cta' => 'Финальный CTA',
         'seo_mobile_cta' => 'Мобильная кнопка',
         'promotion_cta' => 'Промо-блок',
+        'special_offer_cta' => 'Специальные условия',
         'seo_special_offer' => 'Специальное предложение',
         'seo_special_offer_bundle' => 'Комплексное предложение',
         'seo_blog_offer' => 'Предложение в статье',
@@ -230,9 +272,11 @@ function render_success_redirect(
     $offer_type_json = json_encode(isset($offer_context['offer_type']) ? $offer_context['offer_type'] : '', $json_flags);
     $offer_name_json = json_encode(isset($offer_context['offer_name']) ? $offer_context['offer_name'] : '', $json_flags);
     $offer_value_json = json_encode(isset($offer_context['offer_value']) ? $offer_context['offer_value'] : '', $json_flags);
+    $available_offer_types_json = json_encode(isset($offer_context['available_offer_types']) ? $offer_context['available_offer_types'] : '', $json_flags);
     $offer_page_json = json_encode(isset($offer_context['offer_page']) ? $offer_context['offer_page'] : '', $json_flags);
     $offer_location_json = json_encode(isset($offer_context['offer_location']) ? $offer_context['offer_location'] : '', $json_flags);
     $event_date_json = json_encode(isset($offer_context['event_date']) ? $offer_context['event_date'] : '', $json_flags);
+    $requested_services_json = json_encode(isset($offer_context['requested_services']) ? $offer_context['requested_services'] : '', $json_flags);
     $early_booking_eligible_json = json_encode(isset($offer_context['early_booking_eligible']) ? $offer_context['early_booking_eligible'] : '', $json_flags);
 
     header('Content-Type: text/html; charset=UTF-8');
@@ -349,9 +393,11 @@ function render_success_redirect(
                 offer_type: <?php echo $offer_type_json; ?>,
                 offer_name: <?php echo $offer_name_json; ?>,
                 offer_value: <?php echo $offer_value_json; ?>,
+                available_offer_types: <?php echo $available_offer_types_json; ?>,
                 offer_page: <?php echo $offer_page_json; ?>,
                 offer_location: <?php echo $offer_location_json; ?>,
                 event_date: <?php echo $event_date_json; ?>,
+                requested_services: <?php echo $requested_services_json; ?>,
                 early_booking_eligible: <?php echo $early_booking_eligible_json; ?>,
                 eventCallback: redirectToSite,
                 eventTimeout: 1500
@@ -428,26 +474,72 @@ add_line($lines, 'ID проекта', post_value('project_id'));
 add_line($lines, 'Изображение проекта', post_value('project_image'));
 add_line($lines, 'Категория', post_value('project_category'));
 add_line($lines, 'URL проекта', post_value('project_url'));
-add_line($lines, 'Место формы', $form_location);
-add_line($lines, 'Предложение', $offer_context['offer_name']);
-add_line($lines, 'Тип предложения', $offer_context['offer_type']);
-add_line($lines, 'Ценность', $offer_context['offer_value']);
-add_line($lines, 'Страница предложения', $offer_context['offer_page']);
-add_line($lines, 'Место предложения', $offer_context['offer_location']);
-if ($offer_context['offer_type'] === 'bundle_discount') {
-    add_line($lines, 'Условие скидки', 'Скидка 10% применяется к дополнительной зоне');
-}
-if ($offer_context['offer_type'] === 'available_date_offer') {
-    add_line($lines, 'Статус запроса', 'Клиент просит проверить специальные условия на указанную дату');
-}
-if ($offer_context['offer_type'] === 'early_booking_gift') {
+if ($offer_context['offer_type'] === 'special_offer_consultation') {
+    $available_types = explode(',', $offer_context['available_offer_types']);
+    $offer_page = $offer_context['offer_page'] !== ''
+        ? $offer_context['offer_page']
+        : post_value('page_path');
+    add_line($lines, 'Запрос', 'Подобрать специальное предложение');
+    add_line($lines, 'Выбор клиента', 'Клиент не выбирал конкретную акцию');
+    add_line($lines, 'До мероприятия', $offer_context['days_until_event'] . ' дней');
     add_line(
         $lines,
-        'Условие раннего бронирования',
-        $offer_context['early_booking_eligible'] === 'yes'
-            ? 'Дата подходит под условие 30+ дней; итоговый подарок согласуется после уточнения состава заказа'
-            : 'До мероприятия меньше 30 дней; проверить доступные варианты и возможные специальные условия'
+        'Раннее бронирование 30+ дней',
+        $offer_context['early_booking_eligible'] === 'yes' ? 'да' : 'нет'
     );
+    add_line(
+        $lines,
+        'Что планируется оформить',
+        $offer_context['requested_services'] !== '' ? $offer_context['requested_services'] : 'Не указано'
+    );
+    add_line($lines, 'Страница заявки', $offer_page);
+    add_line($lines, 'Место формы', $form_location);
+    $lines[] = '<b>Доступные для проверки механики:</b>';
+    if (in_array('early_booking_gift', $available_types, true)) {
+        $lines[] = '— декор до 100 BYN при бронировании минимум за 30 дней;';
+    }
+    if (in_array('bundle_discount', $available_types, true)) {
+        $lines[] = '— скидка 10% на дополнительную зону при комплексном заказе;';
+    }
+    if (in_array('available_date_offer', $available_types, true)) {
+        $lines[] = '— специальные условия на отдельную свободную дату.';
+    }
+    if (
+        $offer_context['early_booking_eligible'] === 'yes'
+        && in_array('early_booking_gift', $available_types, true)
+    ) {
+        $lines[] = 'Возможно применить подарок за раннее бронирование — требуется проверить состав заказа и доступный декор.';
+    } elseif ($offer_context['early_booking_eligible'] !== 'yes') {
+        $lines[] = 'Условие 30 дней не выполнено — проверить комплексное предложение или условия на свободную дату.';
+    }
+    if (
+        $offer_context['requested_services'] === 'Фотозона и дополнительная зона'
+        && in_array('bundle_discount', $available_types, true)
+    ) {
+        $lines[] = 'Возможно применить скидку 10% на дополнительную зону — требуется расчёт менеджера.';
+    }
+} else {
+    add_line($lines, 'Место формы', $form_location);
+    add_line($lines, 'Предложение', $offer_context['offer_name']);
+    add_line($lines, 'Тип предложения', $offer_context['offer_type']);
+    add_line($lines, 'Ценность', $offer_context['offer_value']);
+    add_line($lines, 'Страница предложения', $offer_context['offer_page']);
+    add_line($lines, 'Место предложения', $offer_context['offer_location']);
+    if ($offer_context['offer_type'] === 'bundle_discount') {
+        add_line($lines, 'Условие скидки', 'Скидка 10% применяется к дополнительной зоне');
+    }
+    if ($offer_context['offer_type'] === 'available_date_offer') {
+        add_line($lines, 'Статус запроса', 'Клиент просит проверить специальные условия на указанную дату');
+    }
+    if ($offer_context['offer_type'] === 'early_booking_gift') {
+        add_line(
+            $lines,
+            'Условие раннего бронирования',
+            $offer_context['early_booking_eligible'] === 'yes'
+                ? 'Дата подходит под условие 30+ дней; итоговый подарок согласуется после уточнения состава заказа'
+                : 'До мероприятия меньше 30 дней; проверить доступные варианты и возможные специальные условия'
+        );
+    }
 }
 add_line($lines, 'Квиз: тип мероприятия', post_value('quiz-type'));
 add_line($lines, 'Квиз: площадь', post_value('quiz-area'));

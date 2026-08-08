@@ -7,59 +7,37 @@
             type: 'early_booking_gift',
             name: 'Декор до 100 BYN за раннее бронирование',
             value: 'decor_up_to_100_byn',
-            eyebrow: 'Раннее бронирование',
+            eyebrow: 'При раннем бронировании',
             title: 'Декор до 100 BYN в подарок',
-            text: 'Забронируйте оформление минимум за 30 календарных дней и получите к фотозоне декоративный элемент стоимостью до 100 BYN.',
-            note: 'Подберём персональную надпись или дополнительный декор под концепцию и наличие.',
-            cta: 'Получить подарок к фотозоне',
-            subtext: 'Расскажите о мероприятии — предложим подходящий декоративный элемент.',
-            points: [
-                'Бронирование минимум за 30 календарных дней',
-                'Декор до 100 BYN — часть заказа, не денежная скидка',
-                'Точный элемент фиксируем в смете'
-            ],
-            formTitle: 'Получите декор до 100 BYN в подарок',
-            formDescription: 'Укажите дату и расскажите о мероприятии. Если до события не менее 30 дней, предложим подходящий подарочный декор для вашей фотозоны.',
-            submitLabel: 'Получить предложение с подарком',
-            requiresEventDate: true
+            text: 'При бронировании минимум за 30 календарных дней — персональная надпись или дополнительный декоративный элемент к фотозоне.',
+            note: 'До 100 BYN — это стоимость декора, а не денежная скидка. Подарок согласуется с концепцией и доступным ассортиментом, является частью заказа, не обменивается на деньги; точный элемент фиксируем в смете.'
         },
         bundle_discount: {
             type: 'bundle_discount',
             name: 'Скидка 10% на дополнительную зону',
             value: '10_percent_additional_zone',
-            eyebrow: 'Комплексное оформление',
+            eyebrow: 'При комплексном заказе',
             title: '−10% на дополнительную зону',
-            text: 'Закажите фотозону вместе с welcome-зоной или оформлением зала и получите скидку 10% на дополнительную зону.',
-            note: 'Зоны соберём в единой концепции и точно рассчитаем после уточнения состава проекта.',
-            cta: 'Рассчитать комплексное оформление',
-            points: [
-                'Скидка 10% действует только на дополнительную зону',
-                'Единая концепция для фотозоны и оформления',
-                'Состав и стоимость согласуем заранее'
-            ],
-            formTitle: 'Рассчитаем комплексное оформление',
-            formDescription: 'Расскажите, какие зоны нужны. Подготовим единую концепцию и учтём скидку 10% на дополнительную зону.',
-            submitLabel: 'Рассчитать комплект'
+            text: 'При заказе фотозоны вместе с welcome-зоной, входной группой или оформлением зала.',
+            note: 'Скидка применяется только к дополнительной зоне и не распространяется автоматически на весь заказ; состав и стоимость фиксируются в расчёте.'
         },
         available_date_offer: {
             type: 'available_date_offer',
             name: 'Специальное предложение на свободную дату',
             value: 'individual_date_offer',
-            eyebrow: 'Доступность команды',
-            title: 'Предложение на свободную дату',
-            text: 'Укажите дату мероприятия — проверим занятость команды и сообщим, доступно ли специальное предложение именно на вашу дату.',
-            note: 'Условия зависят от реальной доступности команды — без таймеров и искусственной срочности.',
-            cta: 'Проверить мою дату',
-            points: [
-                'Дата мероприятия нужна для проверки',
-                'Проверим занятость команды и логистику',
-                'Сообщим условия только для действительно свободной даты'
-            ],
-            formTitle: 'Проверим предложение на вашу дату',
-            formDescription: 'Укажите дату мероприятия — проверим занятость команды и доступные условия.',
-            submitLabel: 'Проверить дату',
-            requiresEventDate: true
+            eyebrow: 'Для отдельных свободных дат',
+            title: 'Специальные условия на свободную дату',
+            text: 'Проверим доступность команды и актуальное предложение на дату вашего мероприятия.',
+            note: 'Условия зависят от реальной доступности команды; фиксированную сумму или процент заранее не показываем.'
         }
+    };
+    const SPECIAL_OFFER = {
+        type: 'special_offer_consultation',
+        name: 'Подбор специального предложения',
+        value: 'manager_selects_best_offer',
+        formTitle: 'Узнайте, какое предложение доступно для вашего события',
+        formDescription: 'Укажите дату и расскажите, что планируете оформить. Менеджер проверит условия раннего бронирования, комплексного заказа и доступность выбранной даты.',
+        submitLabel: 'Получить предложение'
     };
 
     function start() {
@@ -81,7 +59,8 @@
         enhanceFaq(page);
         addBenefits(hero);
         addProjectDetailCta(page, projectModal);
-        addInlineCtas(gallery, page, projectModal);
+        const specialOfferSection = addInlineCtas(gallery, page, projectModal);
+        addOfferTeaser(hero, page, specialOfferSection);
         addRelated(page, siteRoot);
         addFinalCta(page, projectModal);
         addFooter(siteRoot);
@@ -98,13 +77,12 @@
                 category: 'Аренда цифр',
                 image: 'picture/numbers/arenda-cifr-50-let-minsk.webp',
                 imageAlt: 'Светящиеся цифры 50 перед серебряной панелью с бело-золотой гирляндой из шаров',
-                offerKeys: ['bundle_discount'],
+                offerKeys: ['bundle_discount', 'available_date_offer'],
                 offerOverrides: {
                     bundle_discount: {
                         title: 'Комплект с цифрами, шарами и фотозоной',
-                        text: 'Если заказываете цифры вместе с шарами или фотозоной, соберём единый проект и применим скидку 10% к дополнительной зоне.',
-                        note: 'Скидка относится к дополнительной зоне; отдельная аренда цифр оформляется без подарка.',
-                        cta: 'Рассчитать комплексное оформление'
+                        text: 'Если заказываете цифры вместе с шарами или фотозоной, соберём единый проект и проверим возможность скидки 10% на дополнительную зону.',
+                        note: 'Скидка применяется только к дополнительной зоне и не распространяется автоматически на весь заказ; состав и стоимость фиксируются в расчёте. Отдельная аренда цифр оформляется без подарка.'
                     }
                 }
             },
@@ -130,7 +108,7 @@
                 label: 'Корпоративные события',
                 image: 'picture/korporativ/fotozona-na-korporativ-minsk-zerkalo-tsvety.webp',
                 imageAlt: 'Дизайнерская фотозона с зеркалом и цветами на корпоратив в Минске',
-                offerKeys: ['bundle_discount', 'available_date_offer', 'early_booking_gift'],
+                offerKeys: ['early_booking_gift', 'bundle_discount', 'available_date_offer'],
                 eventType: 'Корпоратив',
                 projectCategory: 'Корпоратив'
             },
@@ -184,7 +162,7 @@
                 label: 'Оформление мероприятий',
                 image: 'picture/hall-decoration/decoration-minsk-service-rose.webp',
                 imageAlt: 'Розовые розы и горящие белые свечи вдоль длинного праздничного стола',
-                offerKeys: ['bundle_discount', 'early_booking_gift', 'available_date_offer'],
+                offerKeys: ['early_booking_gift', 'bundle_discount', 'available_date_offer'],
                 eventType: 'Другое',
                 projectCategory: 'Оформление мероприятий'
             },
@@ -266,8 +244,7 @@
 
         return {
             ...page,
-            offers,
-            offer: offers[0] || null
+            offers
         };
     }
 
@@ -454,10 +431,9 @@
             actions.prepend(calculate);
         }
         const pageProject = getPageProject(page);
-        const pageOffer = pageProject ? null : page.offer;
         calculate.textContent = pageProject
             ? 'Рассчитать эту фотозону'
-            : pageOffer?.cta || 'Рассчитать стоимость';
+            : 'Рассчитать стоимость';
         calculate.className = 'seo-btn seo-btn--primary';
 
         let works = hashLink && hashLink !== calculate
@@ -499,16 +475,10 @@
                 formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
                 submitLabel: 'Узнать стоимость'
             }
-            : pageOffer
-                ? getOfferContext(page, pageOffer, {
-                    source: 'Первый экран',
-                    formLocation: 'seo_hero',
-                    offerLocation: 'seo_hero_offer'
-                })
-                : {
-                    source: 'Первый экран',
-                    formLocation: 'seo_hero'
-                });
+            : {
+                source: 'Первый экран',
+                formLocation: 'seo_hero'
+            });
 
         return actions;
     }
@@ -533,81 +503,80 @@
         };
     }
 
-    function getOfferContext(page, offer, overrides = {}) {
+    function getSpecialOfferContext(page, offers, overrides = {}) {
+        const relevantOffers = (Array.isArray(offers) ? offers : [offers]).filter(Boolean);
+        const availableOfferTypes = relevantOffers.map((offer) => offer.type).join(',');
+        const firstOffer = relevantOffers[0] || {};
         return {
-            source: `Специальное предложение — ${offer.title}`,
+            source: 'Специальные условия оформления',
             formLocation: 'seo_special_offer',
-            offerType: offer.type || '',
-            offerName: offer.name || '',
-            offerValue: offer.value || '',
+            offerType: SPECIAL_OFFER.type,
+            offerName: SPECIAL_OFFER.name,
+            offerValue: SPECIAL_OFFER.value,
+            availableOfferTypes,
             offerPage: window.location.pathname,
             offerLocation: 'seo_special_offer',
-            eventType: offer.eventType || '',
-            projectCategory: offer.projectCategory || page.category || page.label || 'Фотозоны',
+            eventType: page.eventType || firstOffer.eventType || '',
+            projectCategory: page.projectCategory || page.category || page.label || 'Фотозоны',
             projectUrl: window.location.href,
-            formTitle: offer.formTitle || offer.title || 'Получите предложение на вашу дату',
-            formDescription: offer.formDescription
-                || 'Оставьте контакты — уточним детали и предложим подходящий вариант оформления.',
-            submitLabel: offer.submitLabel || offer.cta || 'Получить предложение',
-            requiresEventDate: offer.requiresEventDate === true,
+            formTitle: SPECIAL_OFFER.formTitle,
+            formDescription: SPECIAL_OFFER.formDescription,
+            submitLabel: SPECIAL_OFFER.submitLabel,
+            requiresEventDate: true,
+            checksEarlyBooking: relevantOffers.some((offer) => offer.type === 'early_booking_gift'),
             ...overrides
         };
     }
 
     function isTrackedOffer(offerType) {
-        return Object.prototype.hasOwnProperty.call(OFFER_LIBRARY, offerType || '');
+        return offerType === SPECIAL_OFFER.type;
     }
 
     function pushOfferEvent(eventName, context = {}) {
         if (!isTrackedOffer(context.offerType)) return;
         const eventData = {
             event: eventName,
-            offer_type: context.offerType,
-            offer_name: context.offerName || '',
+            offer_type: SPECIAL_OFFER.type,
             offer_page: context.offerPage || window.location.pathname,
-            offer_location: context.offerLocation || '',
             page_path: window.location.pathname
         };
-        if (context.offerValue) eventData.offer_value = context.offerValue;
+        if (eventName !== 'offer_teaser_click') {
+            eventData.offer_name = context.offerName || SPECIAL_OFFER.name;
+            eventData.offer_value = context.offerValue || SPECIAL_OFFER.value;
+            eventData.available_offer_types = context.availableOfferTypes || '';
+            eventData.offer_location = context.offerLocation || '';
+        }
+        if (context.target) eventData.target = context.target;
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push(eventData);
         console.info(`dataLayer ${eventName}:`, eventData);
     }
 
-    function observeOfferCards(cards) {
-        if (!('IntersectionObserver' in window)) return;
-        const timers = new WeakMap();
-        const offerObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const card = entry.target;
-                if (card.dataset.offerViewed === 'true') return;
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-                    if (timers.has(card)) return;
-                    card.dataset.offerVisible = 'true';
-                    const timer = window.setTimeout(() => {
-                        if (card.dataset.offerVisible !== 'true' || card.dataset.offerViewed === 'true') return;
-                        card.dataset.offerViewed = 'true';
-                        pushOfferEvent('offer_view', {
-                            offerType: card.dataset.offerType,
-                            offerName: card.dataset.offerName,
-                            offerValue: card.dataset.offerValue,
-                            offerPage: window.location.pathname,
-                            offerLocation: card.dataset.offerLocation
-                        });
-                        offerObserver.unobserve(card);
-                    }, 1000);
-                    timers.set(card, timer);
-                } else {
-                    card.dataset.offerVisible = 'false';
-                    const timer = timers.get(card);
-                    if (timer) {
-                        window.clearTimeout(timer);
-                        timers.delete(card);
-                    }
-                }
-            });
+    function observeSpecialOffer(section, context) {
+        if (!section || !isTrackedOffer(context?.offerType) || !('IntersectionObserver' in window)) return;
+        let timer = null;
+        const observer = new IntersectionObserver((entries) => {
+            const entry = entries[0];
+            if (!entry || section.dataset.offerViewed === 'true') return;
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                if (timer) return;
+                section.dataset.offerVisible = 'true';
+                timer = window.setTimeout(() => {
+                    if (section.dataset.offerVisible !== 'true' || section.dataset.offerViewed === 'true') return;
+                    section.dataset.offerViewed = 'true';
+                    pushOfferEvent('offer_view', context);
+                    observer.unobserve(section);
+                    timer = null;
+                }, 1000);
+                return;
+            }
+            section.dataset.offerVisible = 'false';
+            if (timer) {
+                window.clearTimeout(timer);
+                timer = null;
+            }
         }, { threshold: [0, 0.5] });
-        cards.forEach((card) => offerObserver.observe(card));
+        observer.observe(section);
     }
 
     function bindInquiryTrigger(control, projectModal, project, context) {
@@ -924,6 +893,7 @@
                         <input type="hidden" name="offer_type" value="">
                         <input type="hidden" name="offer_name" value="">
                         <input type="hidden" name="offer_value" value="">
+                        <input type="hidden" name="available_offer_types" value="">
                         <input type="hidden" name="offer_page" value="">
                         <input type="hidden" name="offer_location" value="">
                         <input type="hidden" name="event_date" value="">
@@ -974,6 +944,16 @@
                                     <option>премиальный формат</option>
                                 </select>
                             </label>
+                            <label class="seo-project-form__field">
+                                <span>Что планируете оформить? <small>— необязательно</small></span>
+                                <select name="requested_services">
+                                    <option value="" selected>Что планируете оформить? — необязательно</option>
+                                    <option>Только фотозона</option>
+                                    <option>Фотозона и дополнительная зона</option>
+                                    <option>Оформление зала</option>
+                                    <option>Пока не определились</option>
+                                </select>
+                            </label>
                         </div>
                         <label class="seo-project-form__field">
                             <span>Комментарий <small>— необязательно</small></span>
@@ -1014,6 +994,7 @@
         const dateRequiredLabel = form.querySelector('.seo-project-form__date-required');
         const dateNote = form.querySelector('.seo-project-form__date-note');
         const eventTypeField = form.querySelector('[name="eventType"]');
+        const requestedServicesField = form.querySelector('[name="requested_services"]');
         let lastFocusedElement = null;
         let submitting = false;
 
@@ -1053,9 +1034,10 @@
         function syncOfferDateContext(showMessage = false) {
             const dateValue = dateField?.value || '';
             const isEarlyBooking = form.dataset.earlyBookingOffer === 'true';
+            const checksEarlyBooking = form.dataset.checksEarlyBooking === 'true';
             const requiresEventDate = form.dataset.offerRequiresEventDate === 'true';
             setHiddenValue('event_date', dateValue);
-            setHiddenValue('early_booking_eligible', isEarlyBooking
+            setHiddenValue('early_booking_eligible', (isEarlyBooking || checksEarlyBooking)
                 ? getEarlyBookingEligibility(dateValue)
                 : '');
 
@@ -1070,6 +1052,11 @@
                     dateNote.textContent = 'До мероприятия меньше 30 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
                     dateNote.dataset.state = 'notice';
                 }
+            } else if (checksEarlyBooking && dateValue) {
+                dateNote.textContent = getEarlyBookingEligibility(dateValue) === 'yes'
+                    ? 'Дата указана: менеджер проверит возможность подарочного декора после уточнения состава заказа.'
+                    : 'Дата указана: менеджер проверит доступность команды и варианты комплексного оформления.';
+                dateNote.dataset.state = 'notice';
             } else if (requiresEventDate && showMessage && !dateValue) {
                 dateNote.textContent = 'Укажите дату мероприятия, чтобы проверить условия предложения.';
                 dateNote.dataset.state = 'notice';
@@ -1081,6 +1068,7 @@
             const isEarlyBooking = context.offerType === 'early_booking_gift';
             form.dataset.offerRequiresEventDate = requiresEventDate ? 'true' : 'false';
             form.dataset.earlyBookingOffer = isEarlyBooking ? 'true' : 'false';
+            form.dataset.checksEarlyBooking = context.checksEarlyBooking === true ? 'true' : 'false';
             if (dateField) {
                 dateField.required = requiresEventDate;
                 dateField.value = '';
@@ -1097,9 +1085,11 @@
                 'offer_type',
                 'offer_name',
                 'offer_value',
+                'available_offer_types',
                 'offer_page',
                 'offer_location',
                 'event_date',
+                'requested_services',
                 'early_booking_eligible'
             ].forEach((name) => {
                 if (Object.prototype.hasOwnProperty.call(offerContext, name)) {
@@ -1124,6 +1114,7 @@
             setHiddenValue('offer_type', context.offerType || '');
             setHiddenValue('offer_name', context.offerName || '');
             setHiddenValue('offer_value', context.offerValue || '');
+            setHiddenValue('available_offer_types', context.availableOfferTypes || '');
             setHiddenValue('offer_page', context.offerPage || '');
             setHiddenValue('offer_location', context.offerLocation || '');
             setHiddenValue('event_date', '');
@@ -1131,6 +1122,7 @@
             setHiddenValue('source', context.source || (hasProject ? 'Карточка проекта' : 'Общая заявка'));
             setHiddenValue('form_name', 'consultation_form');
             if (eventTypeField) eventTypeField.value = context.eventType || '';
+            if (requestedServicesField) requestedServicesField.value = '';
             if (title) title.textContent = context.formTitle || 'Получите расчёт вашей фотозоны';
             if (description) {
                 description.textContent = context.formDescription
@@ -1248,18 +1240,22 @@
                 const offerType = String(successfulFormData.get('offer_type') || '');
                 const offerName = String(successfulFormData.get('offer_name') || '');
                 const offerValue = String(successfulFormData.get('offer_value') || '');
+                const availableOfferTypes = String(successfulFormData.get('available_offer_types') || '');
                 const offerPage = String(successfulFormData.get('offer_page') || '');
                 const offerLocation = String(successfulFormData.get('offer_location') || '');
                 const eventDate = String(successfulFormData.get('event_date') || '');
                 const earlyBookingEligible = String(successfulFormData.get('early_booking_eligible') || '');
+                const requestedServices = String(successfulFormData.get('requested_services') || '');
                 if (selectedProject) generateLeadEvent.project_name = selectedProject;
                 if (offerType) {
                     generateLeadEvent.offer_type = offerType;
                     generateLeadEvent.offer_name = offerName;
                     generateLeadEvent.offer_value = offerValue;
+                    generateLeadEvent.available_offer_types = availableOfferTypes;
                     generateLeadEvent.offer_page = offerPage;
                     generateLeadEvent.offer_location = offerLocation;
                     generateLeadEvent.event_date = eventDate;
+                    generateLeadEvent.requested_services = requestedServices;
                     generateLeadEvent.early_booking_eligible = earlyBookingEligible;
                 }
                 window.dataLayer = window.dataLayer || [];
@@ -1410,7 +1406,7 @@
 
     function addInlineCtas(gallerySection, page, projectModal) {
         const main = document.querySelector('main');
-        if (!main || isProjectDetailPage(page)) return;
+        if (!main || isProjectDetailPage(page)) return null;
         const sections = Array.from(main.querySelectorAll(':scope > section.seo-section'));
         const faqSection = sections.find((section) => section.querySelector('.seo-faq'));
         const targets = [];
@@ -1425,7 +1421,7 @@
             const target = gallerySection && gallerySection !== faqSection
                 ? gallerySection
                 : targets[targets.length - 1];
-            addSpecialOfferAfter(target, page, projectModal, page.offers, {
+            return addSpecialOfferAfter(target, page, projectModal, page.offers, {
                 formLocation: page.compactOffers ? 'seo_blog_offer' : 'seo_special_offer',
                 offerLocation: page.compactOffers ? 'seo_blog_offer' : 'seo_special_offer',
                 source: page.compactOffers ? 'Компактное предложение в материале' : 'Специальные условия оформления',
@@ -1454,51 +1450,133 @@
             source: project ? 'Страница проекта' : 'CTA в тексте',
             formLocation: project ? 'seo_project_page' : 'seo_inline_cta'
         });
+        return wrapper;
     }
 
     function addSpecialOfferAfter(target, page, projectModal, offers, options = {}) {
         const resolvedOffers = (Array.isArray(offers) ? offers : [offers]).filter(Boolean);
-        if (!target || !resolvedOffers.length) return;
+        if (!target || !resolvedOffers.length) return null;
+        const existing = document.getElementById('special-offer');
+        if (existing) return existing;
+
+        const context = getSpecialOfferContext(page, resolvedOffers, {
+            source: options.source || 'Специальные условия оформления',
+            formLocation: options.formLocation || 'seo_special_offer',
+            offerLocation: options.offerLocation || 'seo_special_offer'
+        });
+        const compact = Boolean(options.compact);
+        const buttonLabel = compact ? 'Узнать условия' : 'Узнать доступное предложение';
 
         const section = document.createElement('section');
-        section.className = `seo-section seo-section--compact seo-special-offer-section${options.compact ? ' seo-special-offer-section--compact' : ''}`;
-        section.innerHTML = `
-            <div class="seo-special-offer${options.compact ? ' seo-special-offer--compact' : ''}">
-                <div class="seo-offer-grid${options.compact ? ' seo-offer-grid--compact' : ''}">
-                    ${resolvedOffers.map((offer) => `
-                        <article class="seo-offer-card" data-offer-card data-offer-type="${offer.type}"
-                            data-offer-name="${offer.name}" data-offer-value="${offer.value}"
-                            data-offer-location="${options.offerLocation || 'seo_special_offer'}">
-                            <p class="seo-eyebrow">${offer.eyebrow}</p>
-                            <h2 class="font-serif font-bold">${offer.title}</h2>
-                            <p>${offer.text}</p>
-                            <ul class="seo-offer-card__points" aria-label="Условия предложения">
-                                ${(offer.points || []).map((point) => `<li>${point}</li>`).join('')}
-                            </ul>
-                            <p class="seo-offer-card__note">${offer.note || ''}</p>
-                            <button type="button" data-offer-action="${offer.type}" class="seo-btn seo-btn--primary">${offer.cta}</button>
-                            ${offer.subtext ? `<p class="seo-offer-card__subtext">${offer.subtext}</p>` : ''}
-                        </article>
-                    `).join('')}
+        section.id = 'special-offer';
+        section.tabIndex = -1;
+        section.className = `seo-section seo-section--compact seo-special-offer-section${compact ? ' seo-special-offer-section--compact' : ''}`;
+        section.dataset.offerType = context.offerType;
+        section.dataset.offerName = context.offerName;
+        section.dataset.offerValue = context.offerValue;
+        section.dataset.availableOfferTypes = context.availableOfferTypes;
+        section.dataset.offerLocation = context.offerLocation;
+        section.setAttribute('aria-labelledby', 'special-offer-title');
+        section.innerHTML = compact
+            ? `
+                <div class="seo-special-offer seo-special-offer--compact">
+                    <div class="seo-special-offer__compact-copy">
+                        <p class="seo-eyebrow">Специальные условия</p>
+                        <h2 id="special-offer-title" class="font-serif font-bold">Планируете мероприятие?</h2>
+                        <p>Для некоторых дат и комплектаций доступны специальные условия.</p>
+                    </div>
+                    <button type="button" data-special-offer-action class="seo-btn seo-btn--primary">${buttonLabel}</button>
                 </div>
-            </div>
-        `;
+            `
+            : `
+                <div class="seo-special-offer">
+                    <header class="seo-special-offer__copy">
+                        <p class="seo-eyebrow">Без самостоятельного выбора акции</p>
+                        <h2 id="special-offer-title" class="font-serif font-bold">Специальные условия для вашего события</h2>
+                        <p>В зависимости от даты мероприятия и состава заказа мы подберём наиболее выгодный вариант.</p>
+                        <p class="seo-special-offer__guidance">Вам не нужно выбирать предложение самостоятельно — оставьте дату и расскажите о мероприятии. Менеджер проверит условия и предложит подходящий вариант.</p>
+                    </header>
+                    <div class="seo-special-offer__options" role="list" aria-label="Возможные специальные условия">
+                        ${resolvedOffers.map((offer) => `
+                            <article class="seo-special-offer__option" role="listitem">
+                                <p class="seo-special-offer__tag">${offer.eyebrow}</p>
+                                <h3 class="font-serif font-bold">${offer.title}</h3>
+                                <p>${offer.text}</p>
+                                <p class="seo-special-offer__note">${offer.note || ''}</p>
+                            </article>
+                        `).join('')}
+                    </div>
+                    <p class="seo-special-offer__decision">Какое предложение подходит именно вам, определим после уточнения даты, площадки и состава оформления.</p>
+                    <div class="seo-special-offer__action">
+                        <button type="button" data-special-offer-action class="seo-btn seo-btn--primary">${buttonLabel}</button>
+                        <p>Это бесплатно и ни к чему вас не обязывает.</p>
+                    </div>
+                </div>
+            `;
         target.insertAdjacentElement('afterend', section);
 
-        resolvedOffers.forEach((offer) => {
-            bindInquiryTrigger(
-                section.querySelector(`[data-offer-action="${offer.type}"]`),
-                projectModal,
-                null,
-                getOfferContext(page, offer, {
-                    source: `${options.source || 'Специальные условия'} — ${offer.title}`,
-                    formLocation: options.formLocation || 'seo_special_offer',
-                    offerLocation: options.offerLocation || 'seo_special_offer'
-                })
-            );
-        });
+        bindInquiryTrigger(section.querySelector('[data-special-offer-action]'), projectModal, null, context);
+        observeSpecialOffer(section, context);
+        scrollToSpecialOfferIfRequested(section);
+        return section;
+    }
 
-        observeOfferCards(Array.from(section.querySelectorAll('[data-offer-card]')));
+    function addOfferTeaser(hero, page, specialOfferSection) {
+        if (
+            !hero
+            || !specialOfferSection
+            || specialOfferSection.id !== 'special-offer'
+            || page.compactOffers
+            || isProjectDetailPage(page)
+            || document.querySelector('.seo-offer-teaser')
+        ) {
+            return;
+        }
+
+        const teaser = document.createElement('aside');
+        teaser.className = 'seo-offer-teaser';
+        teaser.setAttribute('aria-label', 'Специальные условия для события');
+        teaser.innerHTML = `
+            <div class="seo-offer-teaser__copy">
+                <strong>Для вашего события могут быть доступны подарок или специальные условия</strong>
+                <span>Покажем варианты ниже и поможем определить подходящий после уточнения даты.</span>
+            </div>
+            <a href="#special-offer">Посмотреть специальные предложения</a>
+        `;
+        const insertionTarget = document.querySelector('.seo-benefit-strip') || hero;
+        insertionTarget.insertAdjacentElement('afterend', teaser);
+
+        teaser.querySelector('a')?.addEventListener('click', (event) => {
+            const target = document.getElementById('special-offer');
+            if (!target) return;
+            event.preventDefault();
+            pushOfferEvent('offer_teaser_click', {
+                offerType: SPECIAL_OFFER.type,
+                offerPage: window.location.pathname,
+                target: '#special-offer'
+            });
+            if (window.history?.pushState) {
+                window.history.pushState(null, '', '#special-offer');
+            }
+            scrollToSpecialOffer(target, true);
+        });
+    }
+
+    function scrollToSpecialOfferIfRequested(section) {
+        if (window.location.hash !== '#special-offer') return;
+        requestAnimationFrame(() => scrollToSpecialOffer(section, false));
+    }
+
+    function scrollToSpecialOffer(section, smooth) {
+        if (!section) return;
+        const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        if (typeof section.focus === 'function') {
+            section.focus({ preventScroll: true });
+        }
+        section.scrollIntoView({
+            behavior: smooth && !reducedMotion ? 'smooth' : 'auto',
+            block: 'start'
+        });
     }
 
     function addRelated(page, siteRoot) {
@@ -1546,10 +1624,9 @@
         const main = document.querySelector('main') || document.querySelector('.seo-article')?.parentElement;
         if (!main || document.querySelector('.seo-final-section')) return;
         const project = getPageProject(page);
-        const pageOffer = project ? null : page.offer;
         const ctaLabel = project
             ? 'Рассчитать эту фотозону'
-            : pageOffer?.cta || 'Получить расчёт';
+            : 'Получить расчёт';
         const section = document.createElement('section');
         section.className = 'seo-final-section';
         section.innerHTML = `
@@ -1578,16 +1655,10 @@
                 formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
                 submitLabel: 'Узнать стоимость'
             }
-            : pageOffer
-                ? getOfferContext(page, pageOffer, {
-                    source: 'Финальный CTA',
-                    formLocation: 'seo_final_cta',
-                    offerLocation: 'seo_final_offer'
-                })
-                : {
-                    source: 'Финальный CTA',
-                    formLocation: 'seo_final_cta'
-                });
+            : {
+                source: 'Финальный CTA',
+                formLocation: 'seo_final_cta'
+            });
     }
 
     function addFooter(siteRoot) {
@@ -1613,10 +1684,9 @@
     function addMobileContact(page, projectModal) {
         if (document.querySelector('#sticky-cta, .mobile-contact-bar, .seo-mobile-contact')) return;
         const project = getPageProject(page);
-        const pageOffer = project ? null : page.offer;
         const ctaLabel = project
             ? 'Рассчитать эту фотозону'
-            : pageOffer?.cta || 'Получить расчёт';
+            : 'Получить расчёт';
         const bar = document.createElement('div');
         bar.className = 'seo-mobile-contact';
         bar.setAttribute('aria-label', 'Быстрые действия');
@@ -1641,16 +1711,10 @@
                 formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
                 submitLabel: 'Узнать стоимость'
             }
-            : pageOffer
-                ? getOfferContext(page, pageOffer, {
-                    source: 'Мобильная кнопка',
-                    formLocation: 'seo_mobile_cta',
-                    offerLocation: 'seo_mobile_offer'
-                })
-                : {
-                    source: 'Мобильная кнопка',
-                    formLocation: 'seo_mobile_cta'
-                });
+            : {
+                source: 'Мобильная кнопка',
+                formLocation: 'seo_mobile_cta'
+            });
     }
 
     function bindGeneralInquiryCtas(projectModal) {
