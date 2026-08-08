@@ -570,8 +570,13 @@
             projectCategory: document.getElementById('modal-project-category'),
             projectUrl: document.getElementById('modal-project-url'),
             pagePath: document.getElementById('modal-page-path'),
-            formLocation: document.getElementById('modal-form-location')
+            formLocation: document.getElementById('modal-form-location'),
+            offerType: document.getElementById('modal-offer-type'),
+            offerPage: document.getElementById('modal-offer-page')
         };
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubmitButton = modalForm?.querySelector('[type="submit"]');
+        const modalEventType = modalForm?.querySelector('[name="eventType"]');
         const modalCloseButton = modalOverlay?.querySelector('[data-modal-close]');
         const modalDialog = modalOverlay?.querySelector('.project-request-dialog');
         let modalLastActiveElement = null;
@@ -596,7 +601,7 @@
             return true;
         }
 
-        function setModalProject(project, formLocation) {
+        function setModalProject(project, formLocation, context = {}) {
             const selectedProject = project?.title || '';
             const hasSelectedProject = Boolean(selectedProject);
 
@@ -605,10 +610,12 @@
             if (modalProjectFields.selectedProject) modalProjectFields.selectedProject.value = selectedProject;
             if (modalProjectFields.projectId) modalProjectFields.projectId.value = project?.id || '';
             if (modalProjectFields.projectImage) modalProjectFields.projectImage.value = project?.imagePath || '';
-            if (modalProjectFields.projectCategory) modalProjectFields.projectCategory.value = project?.category || '';
-            if (modalProjectFields.projectUrl) modalProjectFields.projectUrl.value = project?.pageUrl || '';
+            if (modalProjectFields.projectCategory) modalProjectFields.projectCategory.value = project?.category || context.projectCategory || '';
+            if (modalProjectFields.projectUrl) modalProjectFields.projectUrl.value = project?.pageUrl || context.projectUrl || '';
             if (modalProjectFields.pagePath) modalProjectFields.pagePath.value = window.location.pathname;
             if (modalProjectFields.formLocation) modalProjectFields.formLocation.value = formLocation || 'modal';
+            if (modalProjectFields.offerType) modalProjectFields.offerType.value = context.offerType || '';
+            if (modalProjectFields.offerPage) modalProjectFields.offerPage.value = context.offerPage || '';
         }
 
         function pushProjectPriceClick(project) {
@@ -627,7 +634,7 @@
             openModal(project.title, `Портфолио — ${project.title}`, project, formLocation);
         }
 
-        function openModal(packageName, sourceName, project, formLocation) {
+        function openModal(packageName, sourceName, project, formLocation, context = {}) {
             const activeElement = document.activeElement;
             modalLastActiveElement = lightboxOverlay?.contains(activeElement)
                 ? lightboxReturnElement
@@ -644,8 +651,12 @@
             } else {
                 modalSource.value = sourceName || 'Модальная форма';
             }
-            modalText.textContent = 'Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.';
-            setModalProject(project, formLocation);
+            if (modalTitle) modalTitle.textContent = context.formTitle || 'Получите расчёт вашей фотозоны';
+            modalText.textContent = context.formDescription
+                || 'Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.';
+            if (modalSubmitButton) modalSubmitButton.textContent = context.submitLabel || 'Получить расчёт';
+            if (modalEventType) modalEventType.value = context.eventType || '';
+            setModalProject(project, formLocation, context);
             trackGoal('form_open', { source: modalSource.value });
             document.body.style.overflow = 'hidden';
             window.setTimeout(() => {
@@ -1137,6 +1148,12 @@
                     || form?.id
                     || 'website_form'
             };
+            const selectedProject = form?.querySelector('[name="selected_project"]')?.value || '';
+            const offerType = form?.querySelector('[name="offer_type"]')?.value || '';
+            const offerPage = form?.querySelector('[name="offer_page"]')?.value || '';
+            if (selectedProject) generateLeadEvent.project_name = selectedProject;
+            if (offerType) generateLeadEvent.offer_type = offerType;
+            if (offerPage) generateLeadEvent.offer_page = offerPage;
 
             window.dataLayer.push(generateLeadEvent);
             console.info('dataLayer generate_lead:', generateLeadEvent);

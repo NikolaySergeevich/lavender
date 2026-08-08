@@ -30,6 +30,10 @@
             form_location: form.querySelector('[name="form_location"]')?.value || 'payetki_project_page',
             page_path: pagePath
         };
+        const offerType = form.querySelector('[name="offer_type"]')?.value || '';
+        const offerPage = form.querySelector('[name="offer_page"]')?.value || '';
+        if (offerType) eventData.offer_type = offerType;
+        if (offerPage) eventData.offer_page = offerPage;
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push(eventData);
@@ -125,15 +129,19 @@
         });
     }
 
-    function openModal(selectedColor, source, formLocation) {
+    function openModal(selectedColor, source, formLocation, context = {}) {
         if (!modal) return;
 
         lastFocusedElement = document.activeElement;
         if (modalColor && selectedColor) modalColor.value = selectedColor;
         const sourceField = modal.querySelector('[name="source"]');
         const formLocationField = modal.querySelector('[name="form_location"]');
+        const offerTypeField = modal.querySelector('[name="offer_type"]');
+        const offerPageField = modal.querySelector('[name="offer_page"]');
         if (sourceField) sourceField.value = source || 'Модальная форма — аренда пайеток';
         if (formLocationField) formLocationField.value = formLocation || 'payetki_project_page';
+        if (offerTypeField) offerTypeField.value = context.offerType || '';
+        if (offerPageField) offerPageField.value = context.offerPage || '';
 
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
@@ -158,7 +166,15 @@
             openModal(
                 button.getAttribute('data-color') || 'Не определился',
                 button.getAttribute('data-source') || 'CTA — аренда пайеток',
-                button.hasAttribute('data-color') ? 'payetki_project_card' : 'payetki_project_page'
+                button.hasAttribute('data-color')
+                    ? 'payetki_project_card'
+                    : button.hasAttribute('data-offer-type')
+                        ? 'payetki_special_offer'
+                        : 'payetki_project_page',
+                {
+                    offerType: button.getAttribute('data-offer-type') || '',
+                    offerPage: button.getAttribute('data-offer-page') || ''
+                }
             );
         });
     });
