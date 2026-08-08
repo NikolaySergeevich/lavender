@@ -254,6 +254,16 @@
             </div>
         </header>
 
+        <section class="payetki-offer-teaser" aria-label="Специальные условия">
+            <div class="payetki-offer-teaser__inner max-w-7xl mx-auto">
+                <div>
+                    <p>Для вашего события могут быть доступны подарок или специальные условия</p>
+                    <span>Покажем варианты ниже и поможем определить подходящий после уточнения даты.</span>
+                </div>
+                <a class="payetki-offer-teaser__link" href="#special-offer" data-offer-teaser>Посмотреть специальные предложения</a>
+            </div>
+        </section>
+
         <section id="colors" class="payetki-section payetki-section--white">
             <div class="max-w-7xl mx-auto">
                 <div class="payetki-heading payetki-heading--center">
@@ -349,43 +359,52 @@
             </div>
         </section>
 
-        <section class="payetki-section payetki-section--special">
+        <section id="special-offer" class="payetki-section payetki-section--special" tabindex="-1"
+            data-special-offer data-offer-type="special_offer_consultation"
+            data-offer-name="Подбор специального предложения" data-offer-value="manager_selects_best_offer"
+            data-available-offer-types="early_booking_gift,bundle_discount,available_date_offer"
+            data-offer-location="payetki_special_offer">
             <div class="payetki-special-offer max-w-7xl mx-auto">
-                <div class="payetki-offer-grid">
-                    <article class="payetki-offer-card" data-offer-card data-offer-type="available_date_offer"
-                        data-offer-name="Специальное предложение на свободную дату"
-                        data-offer-value="individual_date_offer" data-offer-location="payetki_special_offer">
-                        <p class="payetki-eyebrow">Доступность команды</p>
-                        <h2 class="font-serif font-bold">Предложение на свободную дату</h2>
-                        <p>Укажите дату мероприятия — проверим занятость команды, нужный цвет и сообщим, доступно ли
-                            специальное предложение именно на вашу дату.</p>
-                        <p class="payetki-offer-card__note">Условия зависят от реальной доступности — без таймеров и
-                            искусственной срочности.</p>
-                        <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking
-                            data-source="Специальное предложение — свободная дата" data-offer-type="available_date_offer"
-                            data-offer-name="Специальное предложение на свободную дату"
-                            data-offer-value="individual_date_offer" data-offer-location="payetki_special_offer"
-                            data-offer-page="/arenda-payetok-minsk/" data-requires-event-date="true">Проверить мою дату</button>
+                <div class="payetki-special-offer__main">
+                    <div>
+                        <p class="payetki-eyebrow">Выгода без лишнего выбора</p>
+                        <h2 class="font-serif font-bold">Специальные условия для вашего события</h2>
+                        <p>В зависимости от даты мероприятия и состава заказа мы подберём наиболее выгодный вариант.</p>
+                        <p class="payetki-special-offer__intro">Вам не нужно выбирать предложение самостоятельно — оставьте дату и расскажите о мероприятии. Менеджер проверит условия и предложит подходящий вариант.</p>
+                    </div>
+                </div>
+
+                <div class="payetki-offer-grid" aria-label="Возможные специальные условия">
+                    <article class="payetki-offer-option">
+                        <p class="payetki-offer-option__label">При раннем бронировании</p>
+                        <h3 class="font-serif font-bold">Декор до 100 BYN в подарок</h3>
+                        <p>При бронировании полноценной фотозоны с пайеточной стеной и дополнительным оформлением минимум за 30 календарных дней — персональная надпись или другой декоративный элемент.</p>
+                        <p class="payetki-offer-option__note">Не действует для простой аренды стены за 290 BYN. Подарок — часть заказа, согласуется с концепцией и наличием, не обменивается на деньги: это декор стоимостью до 100 BYN, а не денежная скидка.</p>
                     </article>
-                    <article class="payetki-offer-card payetki-offer-card--gift" data-offer-card
-                        data-offer-type="early_booking_gift" data-offer-name="Декор до 100 BYN за раннее бронирование"
-                        data-offer-value="decor_up_to_100_byn" data-offer-location="payetki_full_photozone_offer">
-                        <p class="payetki-eyebrow">Только для фотозоны с декором</p>
-                        <h2 class="font-serif font-bold">Декор до 100 BYN в подарок</h2>
-                        <p>При заказе полноценной фотозоны с пайеточной стеной и дополнительным оформлением подберём декоративный элемент стоимостью до 100 BYN.</p>
-                        <p class="payetki-offer-card__note">Не действует на самостоятельную аренду стены; это часть
-                            оформления, а элемент зависит от концепции и наличия.</p>
-                        <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking
-                            data-source="Пайеточная фотозона — раннее бронирование" data-offer-type="early_booking_gift"
-                            data-offer-name="Декор до 100 BYN за раннее бронирование"
-                            data-offer-value="decor_up_to_100_byn" data-offer-location="payetki_full_photozone_offer"
-                            data-offer-page="/arenda-payetok-minsk/" data-requires-event-date="true"
-                             data-selected-project="Фотозона с пайеточной стеной и дополнительным оформлением"
-                             data-project-id="payetki-full-photozone" data-project-category="Фотозона с пайетками и декором"
-                             data-product-type="Фотозона с пайеточной стеной и дополнительным оформлением">Получить подарок к фотозоне</button>
-                        <p class="payetki-offer-card__subtext">Расскажите о мероприятии — предложим подходящий
-                            декоративный элемент.</p>
+                    <article class="payetki-offer-option">
+                        <p class="payetki-offer-option__label">При комплексном заказе</p>
+                        <h3 class="font-serif font-bold">−10% на дополнительную зону</h3>
+                        <p>При заказе пайеточной фотозоны вместе с welcome-зоной, входной группой или оформлением зала.</p>
+                        <p class="payetki-offer-option__note">Скидка применяется только к дополнительной зоне и не распространяется автоматически на весь заказ; состав и стоимость фиксируются в расчёте.</p>
                     </article>
+                    <article class="payetki-offer-option">
+                        <p class="payetki-offer-option__label">Для отдельных свободных дат</p>
+                        <h3 class="font-serif font-bold">Специальные условия на свободную дату</h3>
+                        <p>Проверим доступность команды и актуальное предложение на дату вашего мероприятия.</p>
+                        <p class="payetki-offer-option__note">Условия зависят от реальной доступности команды — фиксированную сумму или процент заранее не показываем, без таймеров и искусственной срочности.</p>
+                    </article>
+                </div>
+
+                <div class="payetki-special-offer__footer">
+                    <p>Какое предложение подходит именно вам, определим после уточнения даты, площадки и состава оформления.</p>
+                    <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking
+                        data-special-offer-consultation data-source="Специальные условия — подбор предложения"
+                        data-offer-type="special_offer_consultation" data-offer-name="Подбор специального предложения"
+                        data-offer-value="manager_selects_best_offer"
+                        data-available-offer-types="early_booking_gift,bundle_discount,available_date_offer"
+                        data-offer-location="payetki_special_offer" data-offer-page="/arenda-payetok-minsk/"
+                        data-requires-event-date="true">Узнать доступное предложение</button>
+                    <span>Это бесплатно и ни к чему вас не обязывает.</span>
                 </div>
             </div>
         </section>
@@ -511,6 +530,7 @@
                         <input type="hidden" name="offer_type" value="">
                         <input type="hidden" name="offer_name" value="">
                         <input type="hidden" name="offer_value" value="">
+                        <input type="hidden" name="available_offer_types" value="">
                         <input type="hidden" name="offer_page" value="">
                         <input type="hidden" name="offer_location" value="">
                         <input type="hidden" name="event_date" value="">
@@ -534,6 +554,15 @@
                                     <option value="Хамелеон">Хамелеон</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="payetki-field">
+                            <label for="payetki-services">Что планируете оформить? <span class="font-normal text-brand-muted">— необязательно</span></label>
+                            <select id="payetki-services" name="requested_services">
+                                <option value="Пока не определились">Пока не определились</option>
+                                <option value="Только фотозона">Только фотозона</option>
+                                <option value="Фотозона и дополнительная зона">Фотозона и дополнительная зона</option>
+                                <option value="Оформление зала">Оформление зала</option>
+                            </select>
                         </div>
                         <div class="payetki-field"><label for="payetki-comment">Комментарий <span class="font-normal text-brand-muted">— необязательно</span></label><textarea id="payetki-comment" name="comment" placeholder="Адрес, желаемый размер или идея оформления"></textarea></div>
                         <p class="payetki-form__offer-status" role="status" aria-live="polite"></p>
@@ -635,6 +664,7 @@
                 <input type="hidden" name="offer_type" value="">
                 <input type="hidden" name="offer_name" value="">
                 <input type="hidden" name="offer_value" value="">
+                <input type="hidden" name="available_offer_types" value="">
                 <input type="hidden" name="offer_page" value="">
                 <input type="hidden" name="offer_location" value="">
                 <input type="hidden" name="event_date" value="">
@@ -658,6 +688,15 @@
                             <option value="Хамелеон">Хамелеон</option>
                         </select>
                     </div>
+                </div>
+                <div class="payetki-field">
+                    <label for="payetki-modal-services">Что планируете оформить? <span class="font-normal text-brand-muted">— необязательно</span></label>
+                    <select id="payetki-modal-services" name="requested_services">
+                        <option value="Пока не определились">Пока не определились</option>
+                        <option value="Только фотозона">Только фотозона</option>
+                        <option value="Фотозона и дополнительная зона">Фотозона и дополнительная зона</option>
+                        <option value="Оформление зала">Оформление зала</option>
+                    </select>
                 </div>
                 <div class="payetki-field"><label for="payetki-modal-comment">Комментарий <span class="font-normal text-brand-muted">— необязательно</span></label><textarea id="payetki-modal-comment" name="comment" placeholder="Адрес, размер или дополнительный декор"></textarea></div>
                 <p class="payetki-form__offer-status" role="status" aria-live="polite"></p>

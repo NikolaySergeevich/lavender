@@ -13,30 +13,14 @@
     window.__lavdragonMessengerTrackingInitialized = true;
 
     const OFFER_CONTEXTS = {
-        early_booking_gift: {
-            offerType: 'early_booking_gift',
-            offerName: 'Декор до 100 BYN за раннее бронирование',
-            offerValue: 'decor_up_to_100_byn',
-            formTitle: 'Получите декор до 100 BYN в подарок',
-            formDescription: 'Укажите дату и расскажите о мероприятии. Если до события не менее 30 дней, предложим подходящий подарочный декор для вашей фотозоны.',
-            submitLabel: 'Получить предложение с подарком',
-            requiresEventDate: true
-        },
-        bundle_discount: {
-            offerType: 'bundle_discount',
-            offerName: 'Скидка 10% на дополнительную зону',
-            offerValue: '10_percent_additional_zone',
-            formTitle: 'Рассчитаем комплексное оформление',
-            formDescription: 'Расскажите, какие зоны нужны. Подготовим единую концепцию и учтём скидку 10% на дополнительную зону.',
-            submitLabel: 'Рассчитать комплект'
-        },
-        available_date_offer: {
-            offerType: 'available_date_offer',
-            offerName: 'Специальное предложение на свободную дату',
-            offerValue: 'individual_date_offer',
-            formTitle: 'Проверим предложение на вашу дату',
-            formDescription: 'Укажите дату мероприятия — проверим занятость команды и доступные условия.',
-            submitLabel: 'Проверить дату',
+        special_offer_consultation: {
+            offerType: 'special_offer_consultation',
+            offerName: 'Подбор специального предложения',
+            offerValue: 'manager_selects_best_offer',
+            availableOfferTypes: 'early_booking_gift,bundle_discount,available_date_offer',
+            formTitle: 'Узнайте, какое предложение доступно для вашего события',
+            formDescription: 'Укажите дату и расскажите, что планируете оформить. Менеджер проверит условия раннего бронирования, комплексного заказа и доступность выбранной даты.',
+            submitLabel: 'Получить предложение',
             requiresEventDate: true
         }
     };
@@ -72,23 +56,23 @@
 
     function syncOfferDateContext(form, showMessage) {
         const dateValue = form?.querySelector('[name="date"]')?.value || '';
-        const isEarlyBooking = form?.dataset.earlyBookingOffer === 'true';
+        const isSpecialOffer = form?.dataset.specialOfferConsultation === 'true';
         const isOfferDateRequired = form?.dataset.offerRequiresEventDate === 'true';
         const status = form?.querySelector('.payetki-form__offer-status');
         setFormFieldValue(form, 'event_date', dateValue);
-        setFormFieldValue(form, 'early_booking_eligible', isEarlyBooking
+        setFormFieldValue(form, 'early_booking_eligible', isSpecialOffer
             ? getEarlyBookingEligibility(dateValue)
             : '');
 
         if (!status) return;
         status.textContent = '';
         status.dataset.state = '';
-        if (isEarlyBooking && dateValue) {
+        if (isSpecialOffer && dateValue) {
             if (getEarlyBookingEligibility(dateValue) === 'yes') {
-                status.textContent = 'Дата подходит под условие раннего бронирования. Итоговый подарок согласуем после уточнения состава заказа.';
+                status.textContent = 'Дата позволяет проверить возможность подарочного декора. Менеджер уточнит состав оформления и доступность декора.';
                 status.dataset.state = 'success';
             } else {
-                status.textContent = 'До мероприятия меньше 30 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
+                status.textContent = 'До мероприятия меньше 30 дней. Менеджер проверит комплексное предложение и условия на свободную дату.';
                 status.dataset.state = 'notice';
             }
         } else if (isOfferDateRequired && showMessage && !dateValue) {
@@ -103,9 +87,11 @@
             'offer_type',
             'offer_name',
             'offer_value',
+            'available_offer_types',
             'offer_page',
             'offer_location',
             'event_date',
+            'requested_services',
             'early_booking_eligible'
         ].forEach(function (name) {
             if (Object.prototype.hasOwnProperty.call(offerContext, name)) {
@@ -115,7 +101,7 @@
     }
 
     function isTrackedOffer(offerType) {
-        return Object.prototype.hasOwnProperty.call(OFFER_CONTEXTS, offerType || '');
+        return offerType === 'special_offer_consultation';
     }
 
     function pushOfferEvent(eventName, context) {
@@ -123,51 +109,51 @@
         const eventData = {
             event: eventName,
             offer_type: context.offerType,
-            offer_name: context.offerName || '',
             offer_page: context.offerPage || pagePath,
-            offer_location: context.offerLocation || '',
             page_path: pagePath
         };
+        if (context.offerName) eventData.offer_name = context.offerName;
+        if (context.offerLocation) eventData.offer_location = context.offerLocation;
         if (context.offerValue) eventData.offer_value = context.offerValue;
+        if (context.availableOfferTypes) eventData.available_offer_types = context.availableOfferTypes;
+        if (context.target) eventData.target = context.target;
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push(eventData);
         console.info(`dataLayer ${eventName}:`, eventData);
     }
 
-    function observeOfferCards(cards) {
-        if (!('IntersectionObserver' in window)) return;
-        const timers = new WeakMap();
+    function observeSpecialOffer(block) {
+        if (!block || !('IntersectionObserver' in window)) return;
+        let timer = null;
         const offerObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
-                const card = entry.target;
-                if (card.dataset.offerViewed === 'true') return;
+                if (block.dataset.offerViewed === 'true') return;
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-                    if (timers.has(card)) return;
-                    card.dataset.offerVisible = 'true';
-                    const timer = window.setTimeout(function () {
-                        if (card.dataset.offerVisible !== 'true' || card.dataset.offerViewed === 'true') return;
-                        card.dataset.offerViewed = 'true';
+                    if (timer) return;
+                    block.dataset.offerVisible = 'true';
+                    timer = window.setTimeout(function () {
+                        if (block.dataset.offerVisible !== 'true' || block.dataset.offerViewed === 'true') return;
+                        block.dataset.offerViewed = 'true';
                         pushOfferEvent('offer_view', {
-                            offerType: card.dataset.offerType,
-                            offerName: card.dataset.offerName,
-                            offerValue: card.dataset.offerValue,
+                            offerType: block.dataset.offerType,
+                            offerName: block.dataset.offerName,
+                            offerValue: block.dataset.offerValue,
                             offerPage: pagePath,
-                            offerLocation: card.dataset.offerLocation
+                            offerLocation: block.dataset.offerLocation,
+                            availableOfferTypes: block.dataset.availableOfferTypes
                         });
-                        offerObserver.unobserve(card);
+                        offerObserver.unobserve(block);
                     }, 1000);
-                    timers.set(card, timer);
                 } else {
-                    card.dataset.offerVisible = 'false';
-                    const timer = timers.get(card);
+                    block.dataset.offerVisible = 'false';
                     if (timer) {
                         window.clearTimeout(timer);
-                        timers.delete(card);
+                        timer = null;
                     }
                 }
             });
         }, { threshold: [0, 0.5] });
-        cards.forEach(function (card) { offerObserver.observe(card); });
+        offerObserver.observe(block);
     }
 
     function trackYandexGoal(goal, params) {
@@ -191,17 +177,21 @@
         const offerType = form.querySelector('[name="offer_type"]')?.value || '';
         const offerName = form.querySelector('[name="offer_name"]')?.value || '';
         const offerValue = form.querySelector('[name="offer_value"]')?.value || '';
+        const availableOfferTypes = form.querySelector('[name="available_offer_types"]')?.value || '';
         const offerPage = form.querySelector('[name="offer_page"]')?.value || '';
         const offerLocation = form.querySelector('[name="offer_location"]')?.value || '';
         const eventDate = form.querySelector('[name="event_date"]')?.value || '';
         const earlyBookingEligible = form.querySelector('[name="early_booking_eligible"]')?.value || '';
+        const requestedServices = form.querySelector('[name="requested_services"]')?.value || '';
         if (offerType) {
             eventData.offer_type = offerType;
             eventData.offer_name = offerName;
             eventData.offer_value = offerValue;
+            eventData.available_offer_types = availableOfferTypes;
             eventData.offer_page = offerPage;
             eventData.offer_location = offerLocation;
             eventData.event_date = eventDate;
+            eventData.requested_services = requestedServices;
             eventData.early_booking_eligible = earlyBookingEligible;
         }
 
@@ -315,6 +305,7 @@
         setFormFieldValue(modalForm, 'offer_type', context.offerType || '');
         setFormFieldValue(modalForm, 'offer_name', context.offerName || '');
         setFormFieldValue(modalForm, 'offer_value', context.offerValue || '');
+        setFormFieldValue(modalForm, 'available_offer_types', context.availableOfferTypes || '');
         setFormFieldValue(modalForm, 'offer_page', context.offerPage || '');
         setFormFieldValue(modalForm, 'offer_location', context.offerLocation || '');
         setFormFieldValue(modalForm, 'event_date', '');
@@ -324,8 +315,10 @@
         setFormFieldValue(modalForm, 'project_id', context.projectId || 'payetki-wall');
         setFormFieldValue(modalForm, 'project_category', context.projectCategory || 'Аренда пайеток');
         setFormFieldValue(modalForm, 'project_url', context.projectUrl || window.location.href);
-        modalForm.dataset.earlyBookingOffer = context.offerType === 'early_booking_gift' ? 'true' : 'false';
+        modalForm.dataset.specialOfferConsultation = context.offerType === 'special_offer_consultation' ? 'true' : 'false';
         modalForm.dataset.offerRequiresEventDate = context.requiresEventDate === true ? 'true' : 'false';
+        const modalServices = modalForm?.querySelector('[name="requested_services"]');
+        if (modalServices) modalServices.value = context.requestedServices || 'Пока не определились';
         if (modalDate) {
             modalDate.value = '';
             modalDate.required = true;
@@ -367,6 +360,7 @@
                 offerType,
                 offerName: button.getAttribute('data-offer-name') || baseContext.offerName || '',
                 offerValue: button.getAttribute('data-offer-value') || baseContext.offerValue || '',
+                availableOfferTypes: button.getAttribute('data-available-offer-types') || baseContext.availableOfferTypes || '',
                 offerPage: button.getAttribute('data-offer-page') || (offerType ? pagePath : ''),
                 offerLocation: button.getAttribute('data-offer-location') || '',
                 requiresEventDate: button.getAttribute('data-requires-event-date') === 'true'
@@ -388,6 +382,25 @@
                         : 'payetki_project_page',
                 context
             );
+        });
+    });
+
+    document.querySelectorAll('[data-offer-teaser]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            const targetSelector = link.getAttribute('href') || '#special-offer';
+            const target = document.querySelector(targetSelector);
+            pushOfferEvent('offer_teaser_click', {
+                offerType: 'special_offer_consultation',
+                offerPage: pagePath,
+                target: targetSelector
+            });
+            if (!target) return;
+
+            event.preventDefault();
+            const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            target.focus({ preventScroll: true });
+            window.history.pushState(null, '', targetSelector);
         });
     });
 
@@ -504,5 +517,5 @@
     setFormPagePaths();
     setProjectContext();
     setMinimumDates();
-    observeOfferCards(Array.from(document.querySelectorAll('[data-offer-card]')));
+    observeSpecialOffer(document.querySelector('[data-special-offer]'));
 })();
