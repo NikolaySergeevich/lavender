@@ -52,6 +52,87 @@ function post_value($key) {
     return isset($_POST[$key]) ? trim((string) $_POST[$key]) : '';
 }
 
+function normalize_event_date($value) {
+    if ($value === '') {
+        return '';
+    }
+
+    $timezone = new DateTimeZone('Europe/Minsk');
+    $date = DateTimeImmutable::createFromFormat('!Y-m-d', $value, $timezone);
+    $errors = DateTimeImmutable::getLastErrors();
+    $has_errors = is_array($errors) && ($errors['warning_count'] > 0 || $errors['error_count'] > 0);
+
+    if ($date === false || $has_errors || $date->format('Y-m-d') !== $value) {
+        return '';
+    }
+
+    return $date->format('Y-m-d');
+}
+
+function build_offer_context() {
+    $type = post_value('offer_type');
+    $name = post_value('offer_name');
+    $value = post_value('offer_value');
+    $definitions = array(
+        'early_booking_gift' => array(
+            'offer_name' => 'Декор до 100 BYN за раннее бронирование',
+            'offer_value' => 'decor_up_to_100_byn',
+        ),
+        'bundle_discount' => array(
+            'offer_name' => 'Скидка 10% на дополнительную зону',
+            'offer_value' => '10_percent_additional_zone',
+        ),
+        'available_date_offer' => array(
+            'offer_name' => 'Специальное предложение на свободную дату',
+            'offer_value' => 'individual_date_offer',
+        ),
+        'project_quote' => array(
+            'offer_name' => 'Расчёт выбранной фотозоны',
+            'offer_value' => 'individual_project_calculation',
+        ),
+    );
+
+    if (isset($definitions[$type])) {
+        $name = $definitions[$type]['offer_name'];
+        $value = $definitions[$type]['offer_value'];
+    }
+
+    $event_date = normalize_event_date(post_value('date'));
+    $early_booking_eligible = '';
+    if ($type === 'early_booking_gift' && $event_date !== '') {
+        $timezone = new DateTimeZone('Europe/Minsk');
+        $event = new DateTimeImmutable($event_date, $timezone);
+        $threshold = new DateTimeImmutable('today', $timezone);
+        $threshold = $threshold->modify('+30 days');
+        $early_booking_eligible = $event >= $threshold ? 'yes' : 'no';
+    }
+
+    return array(
+        'offer_type' => $type,
+        'offer_name' => $name,
+        'offer_value' => $value,
+        'offer_page' => post_value('offer_page'),
+        'offer_location' => post_value('offer_location'),
+        'event_date' => $event_date,
+        'early_booking_eligible' => $early_booking_eligible,
+    );
+}
+
+function offer_requires_event_date($offer_type) {
+    return in_array($offer_type, array('early_booking_gift', 'available_date_offer'), true);
+}
+
+function offer_event_date_is_past($event_date) {
+    if ($event_date === '') {
+        return false;
+    }
+
+    $timezone = new DateTimeZone('Europe/Minsk');
+    $event = new DateTimeImmutable($event_date, $timezone);
+    $today = new DateTimeImmutable('today', $timezone);
+    return $event < $today;
+}
+
 function expects_json_response() {
     $requested_with = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
         ? strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH'])
@@ -119,6 +200,7 @@ function lead_source_label($form_location, $source) {
         'promotion_cta' => 'Промо-блок',
         'seo_special_offer' => 'Специальное предложение',
         'seo_special_offer_bundle' => 'Комплексное предложение',
+        'seo_blog_offer' => 'Предложение в статье',
         'payetki_project_page' => 'Страница проекта',
         'payetki_project_card' => 'Карточка проекта',
         'payetki_special_offer' => 'Специальное предложение',
@@ -135,18 +217,23 @@ function render_success_redirect(
     $selected_color = '',
     $selected_project = '',
     $form_location = '',
-    $offer_type = '',
-    $offer_page = ''
+    $offer_context = array()
 ) {
-    $redirect_json = json_encode($redirect_url, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $form_name_json = json_encode($form_name ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $page_path_json = json_encode($page_path ?: '/', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $lead_source_json = json_encode($lead_source ?: 'website_form', JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $selected_color_json = json_encode($selected_color, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $selected_project_json = json_encode($selected_project, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $form_location_json = json_encode($form_location ?: $form_name, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $offer_type_json = json_encode($offer_type, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    $offer_page_json = json_encode($offer_page, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    $json_flags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+    $redirect_json = json_encode($redirect_url, $json_flags);
+    $form_name_json = json_encode($form_name ?: 'website_form', $json_flags);
+    $page_path_json = json_encode($page_path ?: '/', $json_flags);
+    $lead_source_json = json_encode($lead_source ?: 'website_form', $json_flags);
+    $selected_color_json = json_encode($selected_color, $json_flags);
+    $selected_project_json = json_encode($selected_project, $json_flags);
+    $form_location_json = json_encode($form_location ?: $form_name, $json_flags);
+    $offer_type_json = json_encode(isset($offer_context['offer_type']) ? $offer_context['offer_type'] : '', $json_flags);
+    $offer_name_json = json_encode(isset($offer_context['offer_name']) ? $offer_context['offer_name'] : '', $json_flags);
+    $offer_value_json = json_encode(isset($offer_context['offer_value']) ? $offer_context['offer_value'] : '', $json_flags);
+    $offer_page_json = json_encode(isset($offer_context['offer_page']) ? $offer_context['offer_page'] : '', $json_flags);
+    $offer_location_json = json_encode(isset($offer_context['offer_location']) ? $offer_context['offer_location'] : '', $json_flags);
+    $event_date_json = json_encode(isset($offer_context['event_date']) ? $offer_context['event_date'] : '', $json_flags);
+    $early_booking_eligible_json = json_encode(isset($offer_context['early_booking_eligible']) ? $offer_context['early_booking_eligible'] : '', $json_flags);
 
     header('Content-Type: text/html; charset=UTF-8');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
@@ -260,7 +347,12 @@ function render_success_redirect(
                 selected_project: <?php echo $selected_project_json; ?>,
                 form_location: <?php echo $form_location_json; ?>,
                 offer_type: <?php echo $offer_type_json; ?>,
+                offer_name: <?php echo $offer_name_json; ?>,
+                offer_value: <?php echo $offer_value_json; ?>,
                 offer_page: <?php echo $offer_page_json; ?>,
+                offer_location: <?php echo $offer_location_json; ?>,
+                event_date: <?php echo $event_date_json; ?>,
+                early_booking_eligible: <?php echo $early_booking_eligible_json; ?>,
                 eventCallback: redirectToSite,
                 eventTimeout: 1500
             });
@@ -280,8 +372,10 @@ $expects_json = expects_json_response();
 $redirect_base = $form_name === 'payetki_booking_form'
     ? 'arenda-payetok-minsk/'
     : 'index.html';
+$offer_context = build_offer_context();
 
 $required_fields_missing = post_value('name') === '' || post_value('phone') === '';
+$validation_message = 'Заполните обязательные поля формы.';
 
 if (
     $form_name !== 'pdf_download_form'
@@ -298,9 +392,16 @@ if (
     $required_fields_missing = true;
 }
 
+if (offer_requires_event_date($offer_context['offer_type'])) {
+    if ($offer_context['event_date'] === '' || offer_event_date_is_past($offer_context['event_date'])) {
+        $required_fields_missing = true;
+        $validation_message = 'Укажите корректную дату мероприятия.';
+    }
+}
+
 if ($required_fields_missing) {
     if ($expects_json) {
-        send_json_response(false, array('message' => 'Заполните обязательные поля формы.'), 422);
+        send_json_response(false, array('message' => $validation_message), 422);
     }
 
     header('Location: ' . $redirect_base . '?sent=0');
@@ -318,7 +419,7 @@ add_line($lines, 'Услуга', post_value('product_type'));
 add_line($lines, 'Цвет пайеток', post_value('selected_color'));
 add_line($lines, 'Тип мероприятия', post_value('eventType'));
 add_line($lines, 'Бюджет мероприятия', post_value('budget'));
-add_line($lines, 'Дата', post_value('date'));
+add_line($lines, 'Дата мероприятия', $offer_context['event_date'] !== '' ? $offer_context['event_date'] : post_value('date'));
 add_line($lines, 'Место проведения', post_value('place'));
 add_line($lines, 'Комментарий', post_value('comment'));
 add_line($lines, 'Предварительная стоимость', post_value('estimatedPrice'));
@@ -327,9 +428,27 @@ add_line($lines, 'ID проекта', post_value('project_id'));
 add_line($lines, 'Изображение проекта', post_value('project_image'));
 add_line($lines, 'Категория', post_value('project_category'));
 add_line($lines, 'URL проекта', post_value('project_url'));
-add_line($lines, 'Расположение формы', $form_location);
-add_line($lines, 'Тип предложения', post_value('offer_type'));
-add_line($lines, 'Страница предложения', post_value('offer_page'));
+add_line($lines, 'Место формы', $form_location);
+add_line($lines, 'Предложение', $offer_context['offer_name']);
+add_line($lines, 'Тип предложения', $offer_context['offer_type']);
+add_line($lines, 'Ценность', $offer_context['offer_value']);
+add_line($lines, 'Страница предложения', $offer_context['offer_page']);
+add_line($lines, 'Место предложения', $offer_context['offer_location']);
+if ($offer_context['offer_type'] === 'bundle_discount') {
+    add_line($lines, 'Условие скидки', 'Скидка 10% применяется к дополнительной зоне');
+}
+if ($offer_context['offer_type'] === 'available_date_offer') {
+    add_line($lines, 'Статус запроса', 'Клиент просит проверить специальные условия на указанную дату');
+}
+if ($offer_context['offer_type'] === 'early_booking_gift') {
+    add_line(
+        $lines,
+        'Условие раннего бронирования',
+        $offer_context['early_booking_eligible'] === 'yes'
+            ? 'Дата подходит под условие 30+ дней; итоговый подарок согласуется после уточнения состава заказа'
+            : 'До мероприятия меньше 30 дней; проверить доступные варианты и возможные специальные условия'
+    );
+}
 add_line($lines, 'Квиз: тип мероприятия', post_value('quiz-type'));
 add_line($lines, 'Квиз: площадь', post_value('quiz-area'));
 add_line($lines, 'Квиз: стиль', post_value('quiz-style'));
@@ -393,6 +512,7 @@ if ($expects_json) {
         array(
             'form_name' => $form_name,
             'pdf_catalog' => $is_pdf_catalog,
+            'offer_context' => $offer_context,
             'message' => $success
                 ? 'Заявка успешно отправлена.'
                 : 'Не удалось отправить заявку. Попробуйте ещё раз.',
@@ -410,8 +530,7 @@ if ($success) {
         post_value('selected_color'),
         post_value('selected_project'),
         post_value('form_location'),
-        post_value('offer_type'),
-        post_value('offer_page')
+        $offer_context
     );
 }
 

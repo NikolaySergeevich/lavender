@@ -351,22 +351,42 @@
 
         <section class="payetki-section payetki-section--special">
             <div class="payetki-special-offer max-w-7xl mx-auto">
-                <div class="payetki-special-offer__main">
-                    <div>
-                        <p class="payetki-eyebrow">Предложение на вашу дату</p>
-                        <h2 class="font-serif font-bold">Подберём пайетки и оформление на вашу дату</h2>
-                        <p>Проверим нужный цвет, подходящий размер и варианты декора для вашей площадки. Состав и условия
-                            согласуем после короткого брифа.</p>
-                    </div>
-                    <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking
-                        data-source="Специальное предложение — пайетки на дату" data-offer-type="payetki_date_offer"
-                        data-offer-page="/arenda-payetok-minsk/">Узнать стоимость</button>
+                <div class="payetki-offer-grid">
+                    <article class="payetki-offer-card" data-offer-card data-offer-type="available_date_offer"
+                        data-offer-name="Специальное предложение на свободную дату"
+                        data-offer-value="individual_date_offer" data-offer-location="payetki_special_offer">
+                        <p class="payetki-eyebrow">Доступность команды</p>
+                        <h2 class="font-serif font-bold">Предложение на свободную дату</h2>
+                        <p>Укажите дату мероприятия — проверим занятость команды, нужный цвет и сообщим, доступно ли
+                            специальное предложение именно на вашу дату.</p>
+                        <p class="payetki-offer-card__note">Условия зависят от реальной доступности — без таймеров и
+                            искусственной срочности.</p>
+                        <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking
+                            data-source="Специальное предложение — свободная дата" data-offer-type="available_date_offer"
+                            data-offer-name="Специальное предложение на свободную дату"
+                            data-offer-value="individual_date_offer" data-offer-location="payetki_special_offer"
+                            data-offer-page="/arenda-payetok-minsk/" data-requires-event-date="true">Проверить мою дату</button>
+                    </article>
+                    <article class="payetki-offer-card payetki-offer-card--gift" data-offer-card
+                        data-offer-type="early_booking_gift" data-offer-name="Декор до 100 BYN за раннее бронирование"
+                        data-offer-value="decor_up_to_100_byn" data-offer-location="payetki_full_photozone_offer">
+                        <p class="payetki-eyebrow">Только для фотозоны с декором</p>
+                        <h2 class="font-serif font-bold">Декор до 100 BYN в подарок</h2>
+                        <p>При заказе полноценной фотозоны с пайеточной стеной и дополнительным оформлением подберём декоративный элемент стоимостью до 100 BYN.</p>
+                        <p class="payetki-offer-card__note">Не действует на самостоятельную аренду стены; это часть
+                            оформления, а элемент зависит от концепции и наличия.</p>
+                        <button type="button" class="payetki-btn payetki-btn--primary" data-open-booking
+                            data-source="Пайеточная фотозона — раннее бронирование" data-offer-type="early_booking_gift"
+                            data-offer-name="Декор до 100 BYN за раннее бронирование"
+                            data-offer-value="decor_up_to_100_byn" data-offer-location="payetki_full_photozone_offer"
+                            data-offer-page="/arenda-payetok-minsk/" data-requires-event-date="true"
+                             data-selected-project="Фотозона с пайеточной стеной и дополнительным оформлением"
+                             data-project-id="payetki-full-photozone" data-project-category="Фотозона с пайетками и декором"
+                             data-product-type="Фотозона с пайеточной стеной и дополнительным оформлением">Получить подарок к фотозоне</button>
+                        <p class="payetki-offer-card__subtext">Расскажите о мероприятии — предложим подходящий
+                            декоративный элемент.</p>
+                    </article>
                 </div>
-                <aside class="payetki-special-offer__bonus" aria-label="Бонус к оформлению">
-                    <strong>Бонус к оформлению</strong>
-                    <p>Для некоторых конфигураций можем предложить дополнительный декоративный акцент. При необходимости
-                        соберём стену с шарами, персональной надписью или светящимися цифрами.</p>
-                </aside>
             </div>
         </section>
 
@@ -482,13 +502,19 @@
                         <input type="hidden" name="source" value="Лендинг пайеток — основная форма">
                         <input type="hidden" name="form_name" value="payetki_booking_form">
                         <input type="hidden" name="product_type" value="Стена из пайеток">
+                        <input type="hidden" name="eventType" value="">
                         <input type="hidden" name="selected_project" value="Стена из пайеток">
                         <input type="hidden" name="project_id" value="payetki-wall">
                         <input type="hidden" name="project_category" value="Аренда пайеток">
                         <input type="hidden" name="project_url" value="/arenda-payetok-minsk/">
                         <input type="hidden" name="form_location" value="payetki_project_page">
                         <input type="hidden" name="offer_type" value="">
+                        <input type="hidden" name="offer_name" value="">
+                        <input type="hidden" name="offer_value" value="">
                         <input type="hidden" name="offer_page" value="">
+                        <input type="hidden" name="offer_location" value="">
+                        <input type="hidden" name="event_date" value="">
+                        <input type="hidden" name="early_booking_eligible" value="">
                         <input type="hidden" name="page_path" value="">
                         <div class="payetki-form__row">
                             <div class="payetki-field"><label for="payetki-name">Имя</label><input id="payetki-name" name="name" type="text" autocomplete="name" required placeholder="Ваше имя"></div>
@@ -510,6 +536,7 @@
                             </div>
                         </div>
                         <div class="payetki-field"><label for="payetki-comment">Комментарий <span class="font-normal text-brand-muted">— необязательно</span></label><textarea id="payetki-comment" name="comment" placeholder="Адрес, желаемый размер или идея оформления"></textarea></div>
+                        <p class="payetki-form__offer-status" role="status" aria-live="polite"></p>
                         <button type="submit" class="payetki-btn payetki-btn--primary w-full">Проверить дату</button>
                         <p class="payetki-form__privacy">Нажимая кнопку, вы соглашаетесь с <a href="../politics.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.</p>
                     </form>
@@ -599,13 +626,19 @@
                 <input type="hidden" name="source" value="Модальная форма — аренда пайеток">
                 <input type="hidden" name="form_name" value="payetki_booking_form">
                 <input type="hidden" name="product_type" value="Стена из пайеток">
+                <input type="hidden" name="eventType" value="">
                 <input type="hidden" name="selected_project" value="Стена из пайеток">
                 <input type="hidden" name="project_id" value="payetki-wall">
                 <input type="hidden" name="project_category" value="Аренда пайеток">
                 <input type="hidden" name="project_url" value="/arenda-payetok-minsk/">
                 <input type="hidden" name="form_location" value="payetki_project_page">
                 <input type="hidden" name="offer_type" value="">
+                <input type="hidden" name="offer_name" value="">
+                <input type="hidden" name="offer_value" value="">
                 <input type="hidden" name="offer_page" value="">
+                <input type="hidden" name="offer_location" value="">
+                <input type="hidden" name="event_date" value="">
+                <input type="hidden" name="early_booking_eligible" value="">
                 <input type="hidden" name="page_path" value="">
                 <div class="payetki-form__row">
                     <div class="payetki-field"><label for="payetki-modal-name">Имя</label><input id="payetki-modal-name" name="name" type="text" autocomplete="name" required placeholder="Ваше имя"></div>
@@ -627,6 +660,7 @@
                     </div>
                 </div>
                 <div class="payetki-field"><label for="payetki-modal-comment">Комментарий <span class="font-normal text-brand-muted">— необязательно</span></label><textarea id="payetki-modal-comment" name="comment" placeholder="Адрес, размер или дополнительный декор"></textarea></div>
+                <p class="payetki-form__offer-status" role="status" aria-live="polite"></p>
                 <button type="submit" class="payetki-btn payetki-btn--primary w-full">Проверить дату</button>
                 <p class="payetki-form__privacy">Нажимая кнопку, вы соглашаетесь с <a href="../politics.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.</p>
             </form>

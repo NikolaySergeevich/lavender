@@ -257,110 +257,118 @@
             line-height: 1.6;
         }
         .promotion-section {
-            background: #F4F5F7;
-        }
-        .promotion-card {
-            position: relative;
             overflow: hidden;
-            border: 1px solid rgba(201, 206, 214, 0.2);
-            border-radius: 24px;
-            color: #F4F5F7;
             background:
-                linear-gradient(115deg, rgba(185, 167, 216, 0.12), transparent 42%),
-                #08090D;
-            box-shadow: 0 28px 70px rgba(8, 9, 13, 0.18);
+                radial-gradient(circle at 89% 7%, rgba(217, 209, 232, 0.72), transparent 22rem),
+                #F4F5F7;
         }
-        .promotion-card__glow {
-            position: absolute;
-            top: -120px;
-            right: -80px;
-            width: 360px;
-            height: 360px;
-            border-radius: 50%;
-            background: rgba(185, 167, 216, 0.2);
-            filter: blur(75px);
-            pointer-events: none;
+        .promotion-section__heading {
+            max-width: 44rem;
+            margin: 0 auto 2.5rem;
+            text-align: center;
         }
-        .promotion-card__content {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            gap: 40px;
-            padding: clamp(28px, 5vw, 64px);
-        }
-        .promotion-card__eyebrow {
-            color: #B9A7D8;
+        .promotion-section__eyebrow,
+        .promotion-offer-card__eyebrow {
+            color: #71618F;
             font-size: 0.72rem;
-            font-weight: 800;
-            letter-spacing: 0.22em;
+            font-weight: 850;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
         }
-        .promotion-card__title {
-            margin-top: 14px;
+        .promotion-section__heading h2 {
+            margin-top: 0.7rem;
+            color: #08090D;
             font-family: "Playfair Display", serif;
-            font-size: clamp(2rem, 4vw, 3.75rem);
+            font-size: clamp(2.1rem, 4vw, 3.6rem);
             font-weight: 700;
             line-height: 1.05;
         }
-        .promotion-card__text {
-            max-width: 620px;
-            margin-top: 20px;
-            color: rgba(244, 245, 247, 0.7);
-            font-size: clamp(1rem, 1.4vw, 1.16rem);
+        .promotion-section__heading > p:last-child {
+            margin-top: 1rem;
+            color: #6F7178;
+            font-size: 1rem;
             line-height: 1.65;
         }
-        .promotion-card__offer {
-            display: flex;
-            align-items: end;
-            justify-content: space-between;
-            gap: 32px;
-            padding-top: 32px;
-            border-top: 1px solid rgba(244, 245, 247, 0.14);
-        }
-        .promotion-card__price {
-            margin-top: 4px;
-            color: #B9A7D8;
-            font-size: clamp(2.75rem, 6vw, 5rem);
-            font-weight: 850;
-            line-height: 1;
-            letter-spacing: -0.045em;
-        }
-        .promotion-card__offer-title {
-            margin-top: 4px;
-            color: #C9CED6;
-            font-family: "Playfair Display", serif;
-            font-size: clamp(1.45rem, 2.8vw, 2.35rem);
-            font-weight: 700;
-            line-height: 1.08;
-        }
-        .promotion-card__note {
-            margin-top: 12px;
-            color: rgba(244, 245, 247, 0.72);
-            font-size: 0.92rem;
-        }
-        .promotion-card__button {
-            flex-shrink: 0;
-        }
-        .promotion-card__bonus {
+        .promotion-offers-grid {
             display: grid;
-            grid-template-columns: minmax(10rem, 0.3fr) minmax(0, 1fr);
-            gap: 12px 24px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(244, 245, 247, 0.1);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.25rem;
+            align-items: stretch;
         }
-        .promotion-card__bonus strong {
-            color: #C9CED6;
-            font-size: 0.88rem;
+        .promotion-offer-card {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            padding: clamp(1.45rem, 3vw, 2.25rem);
+            border: 1px solid rgba(8, 9, 13, 0.1);
+            border-radius: 1.5rem;
+            color: #08090D;
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: 0 16px 38px rgba(8, 9, 13, 0.07);
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
         }
-        .promotion-card__bonus strong::before {
-            content: "✦";
-            margin-right: 8px;
-            color: #B9A7D8;
+        .promotion-offer-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(113, 97, 143, 0.34);
+            box-shadow: 0 23px 44px rgba(8, 9, 13, 0.12);
         }
-        .promotion-card__bonus p {
-            color: rgba(244, 245, 247, 0.7);
-            font-size: 0.9rem;
+        .promotion-offer-card--featured {
+            border-color: rgba(113, 97, 143, 0.58);
+            color: #F4F5F7;
+            background:
+                radial-gradient(circle at 91% 6%, rgba(185, 167, 216, 0.42), transparent 38%),
+                #17161D;
+            box-shadow: 0 21px 48px rgba(8, 9, 13, 0.18);
+        }
+        .promotion-offer-card h3 {
+            margin-top: 0.8rem;
+            font-family: "Playfair Display", serif;
+            font-size: clamp(1.48rem, 2.3vw, 2rem);
+            font-weight: 700;
+            line-height: 1.12;
+        }
+        .promotion-offer-card > p:not(.promotion-offer-card__eyebrow):not(.promotion-offer-card__note):not(.promotion-offer-card__microcopy) {
+            margin-top: 1rem;
+            color: #555860;
+            font-size: 0.96rem;
+            line-height: 1.65;
+        }
+        .promotion-offer-card--featured > p:not(.promotion-offer-card__eyebrow):not(.promotion-offer-card__note):not(.promotion-offer-card__microcopy) {
+            color: rgba(244, 245, 247, 0.82);
+        }
+        .promotion-offer-card--featured .promotion-offer-card__eyebrow {
+            color: #D9D1E8;
+        }
+        .promotion-offer-card__note {
+            margin-top: auto;
+            padding-top: 1.15rem;
+            color: #6F7178;
+            font-size: 0.84rem;
             line-height: 1.55;
+        }
+        .promotion-offer-card--featured .promotion-offer-card__note {
+            color: rgba(244, 245, 247, 0.68);
+        }
+        .promotion-offer-card__button {
+            width: 100%;
+            min-height: 3.25rem;
+            margin-top: 1.3rem;
+            color: #08090D;
+            background: #D9D1E8;
+        }
+        .promotion-offer-card__button:hover {
+            background: #C9BBE0;
+        }
+        .promotion-offer-card__button:focus-visible {
+            outline: 3px solid rgba(113, 97, 143, 0.42);
+            outline-offset: 3px;
+        }
+        .promotion-offer-card__microcopy {
+            margin-top: 0.7rem;
+            color: #6F7178;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            text-align: center;
         }
         @media (max-width: 768px) {
             .hero-parallax { background-attachment: scroll; }
@@ -443,16 +451,9 @@
             .event-category-card:hover { transform: none; }
             .event-category-card__body { padding: 18px; }
             .event-category-card__title { font-size: 1.22rem; }
-            .promotion-card { border-radius: 18px; }
-            .promotion-card__content { gap: 28px; }
-            .promotion-card__offer {
-                align-items: stretch;
-                flex-direction: column;
-                gap: 24px;
-                padding-top: 24px;
-            }
-            .promotion-card__button { width: 100%; }
-            .promotion-card__bonus { grid-template-columns: 1fr; gap: 8px; }
+            .promotion-section__heading { margin-bottom: 1.75rem; text-align: left; }
+            .promotion-offers-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .promotion-offer-card { min-height: 0; border-radius: 1.2rem; }
             .cta-microproof { flex-direction: column; gap: 6px; }
         }
         .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
@@ -572,6 +573,22 @@
             color: #777B84;
             font-size: 0.95rem;
             line-height: 1.55;
+        }
+        .lead-form__offer-status:empty {
+            display: none;
+        }
+        .lead-form__offer-status {
+            margin: -4px 0 2px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: #5F636B;
+            background: rgba(217, 209, 232, 0.34);
+            font-size: 0.78rem;
+            line-height: 1.45;
+        }
+        .lead-form__offer-status[data-state="success"] {
+            color: #3f5947;
+            background: rgba(84, 170, 112, 0.13);
         }
         .lead-form__benefits {
             display: grid;

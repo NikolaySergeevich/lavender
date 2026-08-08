@@ -2,6 +2,65 @@
     'use strict';
 
     const scriptSource = document.currentScript?.src || '';
+    const OFFER_LIBRARY = {
+        early_booking_gift: {
+            type: 'early_booking_gift',
+            name: 'Декор до 100 BYN за раннее бронирование',
+            value: 'decor_up_to_100_byn',
+            eyebrow: 'Раннее бронирование',
+            title: 'Декор до 100 BYN в подарок',
+            text: 'Забронируйте оформление минимум за 30 календарных дней и получите к фотозоне декоративный элемент стоимостью до 100 BYN.',
+            note: 'Подберём персональную надпись или дополнительный декор под концепцию и наличие.',
+            cta: 'Получить подарок к фотозоне',
+            subtext: 'Расскажите о мероприятии — предложим подходящий декоративный элемент.',
+            points: [
+                'Бронирование минимум за 30 календарных дней',
+                'Декор до 100 BYN — часть заказа, не денежная скидка',
+                'Точный элемент фиксируем в смете'
+            ],
+            formTitle: 'Получите декор до 100 BYN в подарок',
+            formDescription: 'Укажите дату и расскажите о мероприятии. Если до события не менее 30 дней, предложим подходящий подарочный декор для вашей фотозоны.',
+            submitLabel: 'Получить предложение с подарком',
+            requiresEventDate: true
+        },
+        bundle_discount: {
+            type: 'bundle_discount',
+            name: 'Скидка 10% на дополнительную зону',
+            value: '10_percent_additional_zone',
+            eyebrow: 'Комплексное оформление',
+            title: '−10% на дополнительную зону',
+            text: 'Закажите фотозону вместе с welcome-зоной или оформлением зала и получите скидку 10% на дополнительную зону.',
+            note: 'Зоны соберём в единой концепции и точно рассчитаем после уточнения состава проекта.',
+            cta: 'Рассчитать комплексное оформление',
+            points: [
+                'Скидка 10% действует только на дополнительную зону',
+                'Единая концепция для фотозоны и оформления',
+                'Состав и стоимость согласуем заранее'
+            ],
+            formTitle: 'Рассчитаем комплексное оформление',
+            formDescription: 'Расскажите, какие зоны нужны. Подготовим единую концепцию и учтём скидку 10% на дополнительную зону.',
+            submitLabel: 'Рассчитать комплект'
+        },
+        available_date_offer: {
+            type: 'available_date_offer',
+            name: 'Специальное предложение на свободную дату',
+            value: 'individual_date_offer',
+            eyebrow: 'Доступность команды',
+            title: 'Предложение на свободную дату',
+            text: 'Укажите дату мероприятия — проверим занятость команды и сообщим, доступно ли специальное предложение именно на вашу дату.',
+            note: 'Условия зависят от реальной доступности команды — без таймеров и искусственной срочности.',
+            cta: 'Проверить мою дату',
+            points: [
+                'Дата мероприятия нужна для проверки',
+                'Проверим занятость команды и логистику',
+                'Сообщим условия только для действительно свободной даты'
+            ],
+            formTitle: 'Проверим предложение на вашу дату',
+            formDescription: 'Укажите дату мероприятия — проверим занятость команды и доступные условия.',
+            submitLabel: 'Проверить дату',
+            requiresEventDate: true
+        }
+    };
 
     function start() {
         if (!document.querySelector('.seo-nav') || document.body.classList.contains('payetki-page')) {
@@ -39,18 +98,13 @@
                 category: 'Аренда цифр',
                 image: 'picture/numbers/arenda-cifr-50-let-minsk.webp',
                 imageAlt: 'Светящиеся цифры 50 перед серебряной панелью с бело-золотой гирляндой из шаров',
-                offer: {
-                    type: 'numbers_date_offer',
-                    eyebrow: 'Предложение на вашу дату',
-                    title: 'Подберём цифры и оформление на вашу дату',
-                    text: 'Уточним формат события, площадку и нужные цифры, чтобы предложить подходящую комплектацию без лишнего декора.',
-                    cta: 'Получить варианты',
-                    projectCategory: 'Аренда цифр',
-                    bundle: {
-                        type: 'numbers_bundle',
-                        title: 'Единая композиция для праздника',
-                        text: 'Если это подходит вашей задаче, соберём цифры, шары и фотозону в одном стиле.',
-                        cta: 'Собрать комплект'
+                offerKeys: ['bundle_discount'],
+                offerOverrides: {
+                    bundle_discount: {
+                        title: 'Комплект с цифрами, шарами и фотозоной',
+                        text: 'Если заказываете цифры вместе с шарами или фотозоной, соберём единый проект и применим скидку 10% к дополнительной зоне.',
+                        note: 'Скидка относится к дополнительной зоне; отдельная аренда цифр оформляется без подарка.',
+                        cta: 'Рассчитать комплексное оформление'
                     }
                 }
             },
@@ -59,159 +113,80 @@
                 label: 'Стоимость оформления',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-kryg.webp',
                 imageAlt: 'Круглая уличная фотозона с бело-золотыми шарами, поздравлением и числом 45',
-                offer: {
-                    type: 'date_offer',
-                    eyebrow: 'Предложение на вашу дату',
-                    title: 'Получите предложение для вашего события',
-                    text: 'Расскажите о дате, площадке и задаче — подберём состав оформления и заранее объясним, от чего зависит расчёт.',
-                    cta: 'Получить предложение',
-                    projectCategory: 'Фотозоны'
-                }
+                offerKeys: ['available_date_offer'],
+                projectCategory: 'Фотозоны'
             },
             {
                 match: 'dekor-svadby-minsk',
                 label: 'Свадебный декор',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp',
                 imageAlt: 'Бежевая свадебная фотозона с круглыми панелями, розами, эвкалиптом и свечами',
-                offer: {
-                    type: 'wedding_date_offer',
-                    eyebrow: 'Свадебное предложение',
-                    title: 'Получите предложение для вашей свадьбы',
-                    text: 'Учтём стиль пары, площадку и сценарий дня, чтобы собрать цельное оформление без случайных деталей.',
-                    cta: 'Получить предложение',
-                    eventType: 'Свадьба',
-                    projectCategory: 'Свадьба',
-                    bundle: {
-                        type: 'wedding_bundle',
-                        title: 'Единая свадебная концепция',
-                        text: 'При подходящем формате объединим президиум, фотозону, церемонию и welcome-зону в одном проекте.',
-                        cta: 'Рассчитать свадебное оформление'
-                    }
-                }
+                offerKeys: ['early_booking_gift', 'bundle_discount', 'available_date_offer'],
+                eventType: 'Свадьба',
+                projectCategory: 'Свадьба'
             },
             {
                 match: 'fotazona-na-korporativ-minsk',
                 label: 'Корпоративные события',
                 image: 'picture/korporativ/fotozona-na-korporativ-minsk-zerkalo-tsvety.webp',
                 imageAlt: 'Дизайнерская фотозона с зеркалом и цветами на корпоратив в Минске',
-                offer: {
-                    type: 'corporate_date_offer',
-                    eyebrow: 'Предложение для компании',
-                    title: 'Оформление, которое работает на событие и бренд',
-                    text: 'Уточним дату, формат, площадку и задачу бренда, чтобы предложить единое решение для гостей и контента.',
-                    cta: 'Рассчитать корпоративное оформление',
-                    eventType: 'Корпоратив',
-                    projectCategory: 'Корпоратив',
-                    secondary: {
-                        type: 'corporate_bundle',
-                        eyebrow: 'Комплексное предложение',
-                        title: 'Выгоднее одним проектом',
-                        text: 'Фотозона, входная или welcome-зона и брендирование в одной концепции — особенно удобно для открытий, презентаций и корпоративов.',
-                        cta: 'Рассчитать комплексное оформление'
-                    }
-                }
+                offerKeys: ['bundle_discount', 'available_date_offer', 'early_booking_gift'],
+                eventType: 'Корпоратив',
+                projectCategory: 'Корпоратив'
             },
             {
                 match: 'fotazona-na-yubiley-minsk',
                 label: 'Юбилеи',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp',
                 imageAlt: 'Бежевая фотозона с перламутровыми шарами, бусами и светящейся надписью It’s my birthday',
-                offer: {
-                    type: 'anniversary_date_offer',
-                    eyebrow: 'Предложение на дату юбилея',
-                    title: 'Получите предложение для вашего юбилея',
-                    text: 'Подберём фотозону под возраст, формат банкета, площадку и желаемое настроение праздника.',
-                    cta: 'Получить предложение',
-                    eventType: 'Юбилей',
-                    projectCategory: 'Юбилей'
-                }
+                offerKeys: ['early_booking_gift', 'available_date_offer'],
+                eventType: 'Юбилей',
+                projectCategory: 'Юбилей'
             },
             {
                 match: 'fotazony-dlya-detskih-prazdnikov-minsk',
                 label: 'Детские праздники',
                 image: 'picture/children-parties/detskaya-fotozona-minsk-pink.webp',
                 imageAlt: 'Розово-жёлтая фотозона на годик с шарами, ромашками, креслом и объёмной цифрой один',
-                offer: {
-                    type: 'children_options',
-                    eyebrow: 'Варианты для вашего праздника',
-                    title: 'Подберём фотозону под возраст и любимую тему',
-                    text: 'Расскажите о возрасте ребёнка, теме, площадке и комфортном бюджете — предложим несколько уместных вариантов.',
-                    cta: 'Получить варианты',
-                    eventType: 'Детский праздник',
-                    projectCategory: 'Детский праздник',
-                    bundle: {
-                        type: 'children_bundle',
-                        title: 'Комплект для детского праздника',
-                        text: 'При подходящей комплектации объединим фотозону, цифру и персональную надпись в одну композицию.',
-                        cta: 'Собрать комплект'
-                    }
-                }
+                offerKeys: ['early_booking_gift', 'available_date_offer'],
+                eventType: 'Детский праздник',
+                projectCategory: 'Детский праздник'
             },
             {
                 match: 'fotazony-na-den-rozhdeniya-minsk',
                 label: 'Дни рождения',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-kryg.webp',
                 imageAlt: 'Круглая уличная фотозона с бело-золотыми шарами, поздравлением и числом 45',
-                offer: {
-                    type: 'birthday_options',
-                    eyebrow: 'Варианты для вашего праздника',
-                    title: 'Получите варианты для дня рождения',
-                    text: 'Учтём возраст, площадку, стиль и желаемый бюджет, чтобы предложить оформление с нужным настроением.',
-                    cta: 'Получить варианты',
-                    eventType: 'День рождения',
-                    projectCategory: 'День рождения'
-                }
+                offerKeys: ['early_booking_gift', 'available_date_offer'],
+                eventType: 'День рождения',
+                projectCategory: 'День рождения'
             },
             {
                 match: 'fotazony-na-svadbu-minsk',
                 label: 'Свадебные фотозоны',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-cvety.webp',
                 imageAlt: 'Золотые прямоугольные рамы с белой драпировкой, розами и свечами',
-                offer: {
-                    type: 'wedding_date_offer',
-                    eyebrow: 'Свадебное предложение',
-                    title: 'Получите предложение для вашей свадьбы',
-                    text: 'Подберём фотозону под стиль пары, площадку и сценарий дня, чтобы все важные зоны выглядели цельно.',
-                    cta: 'Получить предложение',
-                    eventType: 'Свадьба',
-                    projectCategory: 'Свадьба',
-                    bundle: {
-                        type: 'wedding_bundle',
-                        title: 'Единая свадебная концепция',
-                        text: 'При подходящем формате объединим фотозону, welcome-зону и декор церемонии в единой палитре.',
-                        cta: 'Рассчитать свадебное оформление'
-                    }
-                }
+                offerKeys: ['early_booking_gift', 'bundle_discount', 'available_date_offer'],
+                eventType: 'Свадьба',
+                projectCategory: 'Свадьба'
             },
             {
                 match: 'gender-party-minsk',
                 label: 'Gender party',
                 image: 'picture/gender-party/gender-party-baby-butterfly-firework.webp',
                 imageAlt: 'Светящиеся буквы BABY и бабочки на фоне розового пиротехнического фонтана в сумерках',
-                offer: {
-                    type: 'gender_party_date_offer',
-                    eyebrow: 'Предложение на вашу дату',
-                    title: 'Подберём оформление для вашего reveal-праздника',
-                    text: 'Учтём формат reveal, палитру, площадку и детали, которые вы хотите сохранить в секрете до момента раскрытия.',
-                    cta: 'Получить варианты',
-                    eventType: 'Gender party',
-                    projectCategory: 'Gender party'
-                }
+                offerKeys: ['early_booking_gift', 'available_date_offer'],
+                eventType: 'Gender party',
+                projectCategory: 'Gender party'
             },
             {
                 match: 'oformlenie-zala-minsk',
                 label: 'Оформление мероприятий',
                 image: 'picture/hall-decoration/decoration-minsk-service-rose.webp',
                 imageAlt: 'Розовые розы и горящие белые свечи вдоль длинного праздничного стола',
-                offer: {
-                    type: 'hall_decoration_date_offer',
-                    eyebrow: 'Предложение на вашу дату',
-                    title: 'Получите предложение по оформлению площадки',
-                    text: 'Расскажите о формате, количестве зон и площадке — предложим целостный состав декора для вашего события.',
-                    cta: 'Получить предложение',
-                    eventType: 'Другое',
-                    projectCategory: 'Оформление мероприятий'
-                }
+                offerKeys: ['bundle_discount', 'early_booking_gift', 'available_date_offer'],
+                eventType: 'Другое',
+                projectCategory: 'Оформление мероприятий'
             },
             {
                 match: 'svadebnaya-fotozona-v-bezhevyh-tonah-minsk',
@@ -225,49 +200,92 @@
                 label: 'Гид по стоимости',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-stil.webp',
                 imageAlt: 'Изумрудная фотозона с красно-белыми цветами, чёрно-золотыми шарами и табличкой Happy Birthday',
-                works: 'ceny-na-fotazony-minsk/'
+                works: 'ceny-na-fotazony-minsk/',
+                offerKeys: ['available_date_offer'],
+                compactOffers: true
             },
             {
                 match: 'trendy-svadebnogo-dekora-2026',
                 label: 'Тренды и идеи',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-bloom.webp',
                 imageAlt: 'Белая свадебная фотозона с цветочной аркой, креслами и тёплой гирляндой',
-                works: 'fotazony-na-svadbu-minsk/'
+                works: 'fotazony-na-svadbu-minsk/',
+                offerKeys: ['available_date_offer'],
+                compactOffers: true
             },
             {
                 match: 'kak-vybrat-fotozonu-na-svadbu',
                 label: 'Практический гид',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp',
                 imageAlt: 'Бежевая свадебная фотозона с круглыми панелями, розами, эвкалиптом и свечами',
-                works: 'fotazony-na-svadbu-minsk/'
+                works: 'fotazony-na-svadbu-minsk/',
+                offerKeys: ['available_date_offer'],
+                compactOffers: true
             },
             {
                 match: 'idei-fotozon-dlya-yubileya',
                 label: 'Подборка идей',
                 image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp',
                 imageAlt: 'Бежевая фотозона с перламутровыми шарами, бусами и светящейся надписью It’s my birthday',
-                works: 'fotazona-na-yubiley-minsk/'
+                works: 'fotazona-na-yubiley-minsk/',
+                offerKeys: ['available_date_offer'],
+                compactOffers: true
             },
             {
                 match: 'oformlenie-svadby-na-50-gostey',
                 label: 'Планирование свадьбы',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-sad.webp',
                 imageAlt: 'Стол молодожёнов с белой драпировкой, жемчужными нитями и деревьями в кашпо',
-                works: 'dekor-svadby-minsk/'
+                works: 'dekor-svadby-minsk/',
+                offerKeys: ['available_date_offer'],
+                compactOffers: true
             },
             {
                 match: '/blog/',
                 label: 'Журнал LavDragon',
                 image: 'picture/wedding/svadebnaya-fotozona-minsk-dofamin.webp',
                 imageAlt: 'Яркий банкетный стол с синими гортензиями, красными цветами и космическим фоном',
-                works: 'fotazony-na-svadbu-minsk/'
+                works: 'fotazony-na-svadbu-minsk/',
+                offerKeys: ['available_date_offer'],
+                compactOffers: true
             }
         ];
 
-        return configs.find((config) => path.includes(config.match)) || {
+        const page = configs.find((config) => path.includes(config.match)) || {
             label: 'LavDragon · Минск',
             image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-stil.webp',
             imageAlt: 'Изумрудная фотозона с красно-белыми цветами, чёрно-золотыми шарами и табличкой Happy Birthday'
+        };
+        return hydratePageOffers(page);
+    }
+
+    function hydratePageOffers(page) {
+        const overrides = page.offerOverrides || {};
+        const keys = Array.isArray(page.offerKeys) ? page.offerKeys : [];
+        const offers = keys.map((key) => createOffer(key, page, overrides[key] || {}));
+
+        return {
+            ...page,
+            offers,
+            offer: offers[0] || null
+        };
+    }
+
+    function createOffer(key, page, overrides = {}) {
+        const base = OFFER_LIBRARY[key];
+        if (!base) return null;
+        return {
+            ...base,
+            ...overrides,
+            type: base.type,
+            name: base.name,
+            value: base.value,
+            eventType: overrides.eventType || page.eventType || '',
+            projectCategory: overrides.projectCategory
+                || page.projectCategory
+                || page.category
+                || page.label
+                || 'Фотозоны'
         };
     }
 
@@ -472,15 +490,20 @@
                 source: 'Страница проекта',
                 formLocation: 'seo_project_page',
                 offerType: 'project_quote',
+                offerName: 'Расчёт выбранной фотозоны',
+                offerValue: 'individual_project_calculation',
                 offerPage: window.location.pathname,
+                offerLocation: 'project_detail_offer',
                 eventType: page.category || '',
-                formTitle: 'Рассчитать эту фотозону',
-                submitLabel: 'Получить расчёт'
+                formTitle: 'Узнать стоимость этой фотозоны',
+                formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
+                submitLabel: 'Узнать стоимость'
             }
             : pageOffer
                 ? getOfferContext(page, pageOffer, {
                     source: 'Первый экран',
-                    formLocation: 'seo_hero'
+                    formLocation: 'seo_hero',
+                    offerLocation: 'seo_hero_offer'
                 })
                 : {
                     source: 'Первый экран',
@@ -514,8 +537,11 @@
         return {
             source: `Специальное предложение — ${offer.title}`,
             formLocation: 'seo_special_offer',
-            offerType: offer.type || 'date_offer',
+            offerType: offer.type || '',
+            offerName: offer.name || '',
+            offerValue: offer.value || '',
             offerPage: window.location.pathname,
+            offerLocation: 'seo_special_offer',
             eventType: offer.eventType || '',
             projectCategory: offer.projectCategory || page.category || page.label || 'Фотозоны',
             projectUrl: window.location.href,
@@ -523,18 +549,78 @@
             formDescription: offer.formDescription
                 || 'Оставьте контакты — уточним детали и предложим подходящий вариант оформления.',
             submitLabel: offer.submitLabel || offer.cta || 'Получить предложение',
+            requiresEventDate: offer.requiresEventDate === true,
             ...overrides
         };
+    }
+
+    function isTrackedOffer(offerType) {
+        return Object.prototype.hasOwnProperty.call(OFFER_LIBRARY, offerType || '');
+    }
+
+    function pushOfferEvent(eventName, context = {}) {
+        if (!isTrackedOffer(context.offerType)) return;
+        const eventData = {
+            event: eventName,
+            offer_type: context.offerType,
+            offer_name: context.offerName || '',
+            offer_page: context.offerPage || window.location.pathname,
+            offer_location: context.offerLocation || '',
+            page_path: window.location.pathname
+        };
+        if (context.offerValue) eventData.offer_value = context.offerValue;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(eventData);
+        console.info(`dataLayer ${eventName}:`, eventData);
+    }
+
+    function observeOfferCards(cards) {
+        if (!('IntersectionObserver' in window)) return;
+        const timers = new WeakMap();
+        const offerObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const card = entry.target;
+                if (card.dataset.offerViewed === 'true') return;
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                    if (timers.has(card)) return;
+                    card.dataset.offerVisible = 'true';
+                    const timer = window.setTimeout(() => {
+                        if (card.dataset.offerVisible !== 'true' || card.dataset.offerViewed === 'true') return;
+                        card.dataset.offerViewed = 'true';
+                        pushOfferEvent('offer_view', {
+                            offerType: card.dataset.offerType,
+                            offerName: card.dataset.offerName,
+                            offerValue: card.dataset.offerValue,
+                            offerPage: window.location.pathname,
+                            offerLocation: card.dataset.offerLocation
+                        });
+                        offerObserver.unobserve(card);
+                    }, 1000);
+                    timers.set(card, timer);
+                } else {
+                    card.dataset.offerVisible = 'false';
+                    const timer = timers.get(card);
+                    if (timer) {
+                        window.clearTimeout(timer);
+                        timers.delete(card);
+                    }
+                }
+            });
+        }, { threshold: [0, 0.5] });
+        cards.forEach((card) => offerObserver.observe(card));
     }
 
     function bindInquiryTrigger(control, projectModal, project, context) {
         if (!control || control.dataset.inquiryBound === 'true') return;
         if (context?.offerType) control.dataset.offerType = context.offerType;
+        if (context?.offerName) control.dataset.offerName = context.offerName;
         if (context?.offerPage) control.dataset.offerPage = context.offerPage;
+        if (context?.offerLocation) control.dataset.offerLocation = context.offerLocation;
         control.dataset.inquiryBound = 'true';
         control.addEventListener('click', (event) => {
             event.preventDefault();
             if (project) pushProjectPriceClick(project);
+            pushOfferEvent('offer_click', context);
             projectModal.open(project, control, context);
         });
     }
@@ -597,9 +683,9 @@
                 <div>
                     <p class="seo-eyebrow">Предложение для выбранного проекта</p>
                     <h2 class="font-serif font-bold">Понравилась эта фотозона?</h2>
-                    <p>Адаптируем её под ваше мероприятие, площадку и желаемое наполнение — и подготовим персональный расчёт.</p>
+                    <p>Рассчитаем стоимость именно под ваше мероприятие, площадку и желаемое наполнение.</p>
                 </div>
-                <button type="button" class="seo-btn seo-btn--primary">Рассчитать эту фотозону</button>
+                <button type="button" class="seo-btn seo-btn--primary">Узнать стоимость</button>
             </div>
         `;
         const insertAfter = document.querySelector('.seo-benefit-strip') || document.querySelector('.seo-hero');
@@ -608,10 +694,14 @@
             source: 'Страница проекта',
             formLocation: 'seo_project_page',
             offerType: 'project_quote',
+            offerName: 'Расчёт выбранной фотозоны',
+            offerValue: 'individual_project_calculation',
             offerPage: window.location.pathname,
+            offerLocation: 'project_detail_offer',
             eventType: page.category || '',
-            formTitle: 'Рассчитать эту фотозону',
-            submitLabel: 'Получить расчёт'
+            formTitle: 'Узнать стоимость этой фотозоны',
+            formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
+            submitLabel: 'Узнать стоимость'
         });
     }
 
@@ -832,7 +922,12 @@
                         <input type="hidden" name="page_path" value="">
                         <input type="hidden" name="form_location" value="seo_gallery_card">
                         <input type="hidden" name="offer_type" value="">
+                        <input type="hidden" name="offer_name" value="">
+                        <input type="hidden" name="offer_value" value="">
                         <input type="hidden" name="offer_page" value="">
+                        <input type="hidden" name="offer_location" value="">
+                        <input type="hidden" name="event_date" value="">
+                        <input type="hidden" name="early_booking_eligible" value="">
                         <input type="hidden" name="source" value="">
                         <input type="hidden" name="form_name" value="consultation_form">
 
@@ -847,8 +942,9 @@
                                     placeholder="+375 29 000-00-00">
                             </label>
                             <label class="seo-project-form__field">
-                                <span>Дата мероприятия <small>— необязательно</small></span>
+                                <span>Дата мероприятия <small class="seo-project-form__date-required">— необязательно</small></span>
                                 <input name="date" type="date">
+                                <small class="seo-project-form__date-note" role="status" aria-live="polite"></small>
                             </label>
                             <label class="seo-project-form__field">
                                 <span>Тип мероприятия</span>
@@ -915,6 +1011,8 @@
         const submitButton = form.querySelector('[type="submit"]');
         const status = form.querySelector('.seo-project-form__status');
         const dateField = form.querySelector('[name="date"]');
+        const dateRequiredLabel = form.querySelector('.seo-project-form__date-required');
+        const dateNote = form.querySelector('.seo-project-form__date-note');
         const eventTypeField = form.querySelector('[name="eventType"]');
         let lastFocusedElement = null;
         let submitting = false;
@@ -927,6 +1025,87 @@
         function setHiddenValue(name, value) {
             const field = form.querySelector(`[name="${name}"]`);
             if (field) field.value = value || '';
+        }
+
+        function getLocalDate(value) {
+            const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || '');
+            if (!match) return null;
+            const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+            if (
+                date.getFullYear() !== Number(match[1])
+                || date.getMonth() !== Number(match[2]) - 1
+                || date.getDate() !== Number(match[3])
+            ) {
+                return null;
+            }
+            date.setHours(0, 0, 0, 0);
+            return date;
+        }
+
+        function getEarlyBookingEligibility(value) {
+            const eventDate = getLocalDate(value);
+            if (!eventDate) return '';
+            const threshold = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            threshold.setDate(threshold.getDate() + 30);
+            return eventDate >= threshold ? 'yes' : 'no';
+        }
+
+        function syncOfferDateContext(showMessage = false) {
+            const dateValue = dateField?.value || '';
+            const isEarlyBooking = form.dataset.earlyBookingOffer === 'true';
+            const requiresEventDate = form.dataset.offerRequiresEventDate === 'true';
+            setHiddenValue('event_date', dateValue);
+            setHiddenValue('early_booking_eligible', isEarlyBooking
+                ? getEarlyBookingEligibility(dateValue)
+                : '');
+
+            if (!dateNote) return;
+            dateNote.textContent = '';
+            dateNote.dataset.state = '';
+            if (isEarlyBooking && dateValue) {
+                if (getEarlyBookingEligibility(dateValue) === 'yes') {
+                    dateNote.textContent = 'Дата подходит под условие раннего бронирования. Итоговый подарок согласуем после уточнения состава заказа.';
+                    dateNote.dataset.state = 'success';
+                } else {
+                    dateNote.textContent = 'До мероприятия меньше 30 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
+                    dateNote.dataset.state = 'notice';
+                }
+            } else if (requiresEventDate && showMessage && !dateValue) {
+                dateNote.textContent = 'Укажите дату мероприятия, чтобы проверить условия предложения.';
+                dateNote.dataset.state = 'notice';
+            }
+        }
+
+        function setDateRequirement(context = {}) {
+            const requiresEventDate = context.requiresEventDate === true;
+            const isEarlyBooking = context.offerType === 'early_booking_gift';
+            form.dataset.offerRequiresEventDate = requiresEventDate ? 'true' : 'false';
+            form.dataset.earlyBookingOffer = isEarlyBooking ? 'true' : 'false';
+            if (dateField) {
+                dateField.required = requiresEventDate;
+                dateField.value = '';
+            }
+            if (dateRequiredLabel) {
+                dateRequiredLabel.textContent = requiresEventDate ? '— обязательно' : '— необязательно';
+            }
+            syncOfferDateContext(requiresEventDate);
+        }
+
+        function applyServerOfferContext(offerContext) {
+            if (!offerContext || typeof offerContext !== 'object') return;
+            [
+                'offer_type',
+                'offer_name',
+                'offer_value',
+                'offer_page',
+                'offer_location',
+                'event_date',
+                'early_booking_eligible'
+            ].forEach((name) => {
+                if (Object.prototype.hasOwnProperty.call(offerContext, name)) {
+                    setHiddenValue(name, String(offerContext[name] ?? ''));
+                }
+            });
         }
 
         function open(project, trigger, context = {}) {
@@ -943,7 +1122,12 @@
             setHiddenValue('page_path', window.location.pathname);
             setHiddenValue('form_location', context.formLocation || 'seo_general_inquiry');
             setHiddenValue('offer_type', context.offerType || '');
+            setHiddenValue('offer_name', context.offerName || '');
+            setHiddenValue('offer_value', context.offerValue || '');
             setHiddenValue('offer_page', context.offerPage || '');
+            setHiddenValue('offer_location', context.offerLocation || '');
+            setHiddenValue('event_date', '');
+            setHiddenValue('early_booking_eligible', '');
             setHiddenValue('source', context.source || (hasProject ? 'Карточка проекта' : 'Общая заявка'));
             setHiddenValue('form_name', 'consultation_form');
             if (eventTypeField) eventTypeField.value = context.eventType || '';
@@ -954,6 +1138,7 @@
             }
             submitButton.textContent = context.submitLabel || 'Получить расчёт';
 
+            setDateRequirement(context);
             status.textContent = '';
             formView.hidden = false;
             successView.hidden = true;
@@ -1013,9 +1198,13 @@
             }
         });
 
+        dateField.addEventListener('input', () => syncOfferDateContext());
+        dateField.addEventListener('change', () => syncOfferDateContext());
+
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             if (submitting) return;
+            syncOfferDateContext(true);
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
@@ -1046,19 +1235,33 @@
                 }
 
                 successful = true;
+                applyServerOfferContext(result.offer_context);
+                const successfulFormData = new FormData(form);
                 const generateLeadEvent = {
                     event: 'generate_lead',
                     lead_source: 'website_form',
                     form_name: 'consultation_form',
-                    selected_project: selectedProject,
-                    form_location: String(formData.get('form_location') || 'seo_general_inquiry'),
+                    selected_project: String(successfulFormData.get('selected_project') || selectedProject),
+                    form_location: String(successfulFormData.get('form_location') || 'seo_general_inquiry'),
                     page_path: window.location.pathname
                 };
-                const offerType = String(formData.get('offer_type') || '');
-                const offerPage = String(formData.get('offer_page') || '');
+                const offerType = String(successfulFormData.get('offer_type') || '');
+                const offerName = String(successfulFormData.get('offer_name') || '');
+                const offerValue = String(successfulFormData.get('offer_value') || '');
+                const offerPage = String(successfulFormData.get('offer_page') || '');
+                const offerLocation = String(successfulFormData.get('offer_location') || '');
+                const eventDate = String(successfulFormData.get('event_date') || '');
+                const earlyBookingEligible = String(successfulFormData.get('early_booking_eligible') || '');
                 if (selectedProject) generateLeadEvent.project_name = selectedProject;
-                if (offerType) generateLeadEvent.offer_type = offerType;
-                if (offerPage) generateLeadEvent.offer_page = offerPage;
+                if (offerType) {
+                    generateLeadEvent.offer_type = offerType;
+                    generateLeadEvent.offer_name = offerName;
+                    generateLeadEvent.offer_value = offerValue;
+                    generateLeadEvent.offer_page = offerPage;
+                    generateLeadEvent.offer_location = offerLocation;
+                    generateLeadEvent.event_date = eventDate;
+                    generateLeadEvent.early_booking_eligible = earlyBookingEligible;
+                }
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push(generateLeadEvent);
                 console.info('dataLayer generate_lead:', generateLeadEvent);
@@ -1218,121 +1421,84 @@
             if (article) targets.push(article);
         }
 
-        if (page.offer && targets.length) {
-            if (page.offer.secondary && targets.length > 1) {
-                addSpecialOfferAfter(targets[0], page, projectModal, page.offer, {
-                    formLocation: 'seo_special_offer',
-                    source: `Специальное предложение — ${page.offer.title}`
-                });
-                addSpecialOfferAfter(targets[targets.length - 1], page, projectModal, page.offer.secondary, {
-                    formLocation: 'seo_special_offer_bundle',
-                    source: `Комплексное предложение — ${page.offer.secondary.title}`,
-                    inheritedOffer: page.offer,
-                    compact: true
-                });
-            } else {
-                addSpecialOfferAfter(targets[targets.length - 1], page, projectModal, page.offer, {
-                    formLocation: 'seo_special_offer',
-                    source: `Специальное предложение — ${page.offer.title}`
-                });
-            }
+        if (page.offers?.length && targets.length) {
+            const target = gallerySection && gallerySection !== faqSection
+                ? gallerySection
+                : targets[targets.length - 1];
+            addSpecialOfferAfter(target, page, projectModal, page.offers, {
+                formLocation: page.compactOffers ? 'seo_blog_offer' : 'seo_special_offer',
+                offerLocation: page.compactOffers ? 'seo_blog_offer' : 'seo_special_offer',
+                source: page.compactOffers ? 'Компактное предложение в материале' : 'Специальные условия оформления',
+                compact: Boolean(page.compactOffers)
+            });
             return;
         }
 
-        targets.forEach((target, index) => {
-            const wrapper = document.createElement('section');
-            wrapper.className = 'seo-section seo-section--compact';
-            wrapper.innerHTML = `
-                <div class="seo-inline-cta">
-                    <div class="seo-inline-cta__copy">
-                        <strong>${index === 0 ? 'Хотите обсудить идею?' : 'Понравилась эта работа?'}</strong>
-                        <p>Подберём похожую фотозону под ваше мероприятие, площадку и бюджет.</p>
-                    </div>
-                    <button type="button" data-analytics-location="section_cta" class="seo-btn seo-btn--primary">Получить расчёт</button>
+        const target = gallerySection && gallerySection !== faqSection
+            ? gallerySection
+            : targets[targets.length - 1];
+        const wrapper = document.createElement('section');
+        wrapper.className = 'seo-section seo-section--compact';
+        wrapper.innerHTML = `
+            <div class="seo-inline-cta">
+                <div class="seo-inline-cta__copy">
+                    <strong>Хотите обсудить идею?</strong>
+                    <p>Подберём похожую фотозону под ваше мероприятие, площадку и бюджет.</p>
                 </div>
-            `;
-            target.insertAdjacentElement('afterend', wrapper);
-            const project = getPageProject(page);
-            bindInquiryTrigger(wrapper.querySelector('button'), projectModal, project, {
-                source: project ? 'Страница проекта' : 'CTA в тексте',
-                formLocation: project ? 'seo_project_page' : 'seo_inline_cta'
-            });
+                <button type="button" data-analytics-location="section_cta" class="seo-btn seo-btn--primary">Получить расчёт</button>
+            </div>
+        `;
+        target.insertAdjacentElement('afterend', wrapper);
+        const project = getPageProject(page);
+        bindInquiryTrigger(wrapper.querySelector('button'), projectModal, project, {
+            source: project ? 'Страница проекта' : 'CTA в тексте',
+            formLocation: project ? 'seo_project_page' : 'seo_inline_cta'
         });
     }
 
-    function addSpecialOfferAfter(target, page, projectModal, offer, options = {}) {
-        if (!target || !offer) return;
+    function addSpecialOfferAfter(target, page, projectModal, offers, options = {}) {
+        const resolvedOffers = (Array.isArray(offers) ? offers : [offers]).filter(Boolean);
+        if (!target || !resolvedOffers.length) return;
 
-        const inheritedOffer = options.inheritedOffer || {};
-        const resolvedOffer = {
-            ...inheritedOffer,
-            ...offer,
-            eventType: offer.eventType || inheritedOffer.eventType || '',
-            projectCategory: offer.projectCategory || inheritedOffer.projectCategory || page.category || page.label
-        };
         const section = document.createElement('section');
         section.className = `seo-section seo-section--compact seo-special-offer-section${options.compact ? ' seo-special-offer-section--compact' : ''}`;
         section.innerHTML = `
             <div class="seo-special-offer${options.compact ? ' seo-special-offer--compact' : ''}">
-                <div class="seo-special-offer__main">
-                    <div class="seo-special-offer__copy">
-                        <p class="seo-eyebrow">${resolvedOffer.eyebrow || 'Предложение на вашу дату'}</p>
-                        <h2 class="font-serif font-bold">${resolvedOffer.title}</h2>
-                        <p>${resolvedOffer.text}</p>
-                        <ul class="seo-special-offer__points" aria-label="Условия предложения">
-                            <li>Уточним состав под задачу и площадку</li>
-                            <li>Все условия согласуем до начала работ</li>
-                        </ul>
-                    </div>
-                    <button type="button" data-offer-action="primary" class="seo-btn seo-btn--primary">${resolvedOffer.cta}</button>
+                <div class="seo-offer-grid${options.compact ? ' seo-offer-grid--compact' : ''}">
+                    ${resolvedOffers.map((offer) => `
+                        <article class="seo-offer-card" data-offer-card data-offer-type="${offer.type}"
+                            data-offer-name="${offer.name}" data-offer-value="${offer.value}"
+                            data-offer-location="${options.offerLocation || 'seo_special_offer'}">
+                            <p class="seo-eyebrow">${offer.eyebrow}</p>
+                            <h2 class="font-serif font-bold">${offer.title}</h2>
+                            <p>${offer.text}</p>
+                            <ul class="seo-offer-card__points" aria-label="Условия предложения">
+                                ${(offer.points || []).map((point) => `<li>${point}</li>`).join('')}
+                            </ul>
+                            <p class="seo-offer-card__note">${offer.note || ''}</p>
+                            <button type="button" data-offer-action="${offer.type}" class="seo-btn seo-btn--primary">${offer.cta}</button>
+                            ${offer.subtext ? `<p class="seo-offer-card__subtext">${offer.subtext}</p>` : ''}
+                        </article>
+                    `).join('')}
                 </div>
-                ${options.compact ? '' : `
-                    <aside class="seo-special-offer__bonus" aria-label="Бонус к оформлению">
-                        <strong>Бонус к оформлению</strong>
-                        <p>Для некоторых конфигураций можем предложить дополнительный декоративный акцент или расширить комплект. Подходящий вариант уточним после короткого брифа.</p>
-                    </aside>
-                `}
-                ${resolvedOffer.bundle && !options.compact ? `
-                    <div class="seo-special-offer__bundle">
-                        <div>
-                            <strong>${resolvedOffer.bundle.title}</strong>
-                            <p>${resolvedOffer.bundle.text}</p>
-                        </div>
-                        <button type="button" data-offer-action="bundle" class="seo-btn seo-btn--secondary">${resolvedOffer.bundle.cta}</button>
-                    </div>
-                ` : ''}
             </div>
         `;
         target.insertAdjacentElement('afterend', section);
 
-        bindInquiryTrigger(
-            section.querySelector('[data-offer-action="primary"]'),
-            projectModal,
-            null,
-            getOfferContext(page, resolvedOffer, {
-                source: options.source,
-                formLocation: options.formLocation || 'seo_special_offer'
-            })
-        );
-
-        const bundleButton = section.querySelector('[data-offer-action="bundle"]');
-        if (bundleButton && resolvedOffer.bundle) {
-            const bundleOffer = {
-                ...resolvedOffer,
-                ...resolvedOffer.bundle,
-                eventType: resolvedOffer.bundle.eventType || resolvedOffer.eventType,
-                projectCategory: resolvedOffer.bundle.projectCategory || resolvedOffer.projectCategory
-            };
+        resolvedOffers.forEach((offer) => {
             bindInquiryTrigger(
-                bundleButton,
+                section.querySelector(`[data-offer-action="${offer.type}"]`),
                 projectModal,
                 null,
-                getOfferContext(page, bundleOffer, {
-                    source: `Комплексное предложение — ${resolvedOffer.bundle.title}`,
-                    formLocation: 'seo_special_offer_bundle'
+                getOfferContext(page, offer, {
+                    source: `${options.source || 'Специальные условия'} — ${offer.title}`,
+                    formLocation: options.formLocation || 'seo_special_offer',
+                    offerLocation: options.offerLocation || 'seo_special_offer'
                 })
             );
-        }
+        });
+
+        observeOfferCards(Array.from(section.querySelectorAll('[data-offer-card]')));
     }
 
     function addRelated(page, siteRoot) {
@@ -1403,15 +1569,20 @@
                 source: 'Страница проекта',
                 formLocation: 'seo_project_page',
                 offerType: 'project_quote',
+                offerName: 'Расчёт выбранной фотозоны',
+                offerValue: 'individual_project_calculation',
                 offerPage: window.location.pathname,
+                offerLocation: 'project_detail_offer',
                 eventType: page.category || '',
-                formTitle: 'Рассчитать эту фотозону',
-                submitLabel: 'Получить расчёт'
+                formTitle: 'Узнать стоимость этой фотозоны',
+                formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
+                submitLabel: 'Узнать стоимость'
             }
             : pageOffer
                 ? getOfferContext(page, pageOffer, {
                     source: 'Финальный CTA',
-                    formLocation: 'seo_final_cta'
+                    formLocation: 'seo_final_cta',
+                    offerLocation: 'seo_final_offer'
                 })
                 : {
                     source: 'Финальный CTA',
@@ -1461,15 +1632,20 @@
                 source: 'Страница проекта',
                 formLocation: 'seo_project_page',
                 offerType: 'project_quote',
+                offerName: 'Расчёт выбранной фотозоны',
+                offerValue: 'individual_project_calculation',
                 offerPage: window.location.pathname,
+                offerLocation: 'project_detail_offer',
                 eventType: page.category || '',
-                formTitle: 'Рассчитать эту фотозону',
-                submitLabel: 'Получить расчёт'
+                formTitle: 'Узнать стоимость этой фотозоны',
+                formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
+                submitLabel: 'Узнать стоимость'
             }
             : pageOffer
                 ? getOfferContext(page, pageOffer, {
                     source: 'Мобильная кнопка',
-                    formLocation: 'seo_mobile_cta'
+                    formLocation: 'seo_mobile_cta',
+                    offerLocation: 'seo_mobile_offer'
                 })
                 : {
                     source: 'Мобильная кнопка',

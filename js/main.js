@@ -572,11 +572,18 @@
             pagePath: document.getElementById('modal-page-path'),
             formLocation: document.getElementById('modal-form-location'),
             offerType: document.getElementById('modal-offer-type'),
-            offerPage: document.getElementById('modal-offer-page')
+            offerName: document.getElementById('modal-offer-name'),
+            offerValue: document.getElementById('modal-offer-value'),
+            offerPage: document.getElementById('modal-offer-page'),
+            offerLocation: document.getElementById('modal-offer-location'),
+            eventDate: document.getElementById('modal-event-date'),
+            earlyBookingEligible: document.getElementById('modal-early-booking-eligible')
         };
         const modalTitle = document.getElementById('modal-title');
         const modalSubmitButton = modalForm?.querySelector('[type="submit"]');
         const modalEventType = modalForm?.querySelector('[name="eventType"]');
+        const modalDateField = modalForm?.querySelector('[name="date"]');
+        const modalOfferDateStatus = document.getElementById('modal-offer-date-status');
         const modalCloseButton = modalOverlay?.querySelector('[data-modal-close]');
         const modalDialog = modalOverlay?.querySelector('.project-request-dialog');
         let modalLastActiveElement = null;
@@ -589,6 +596,11 @@
             if (!dateField) return true;
 
             dateField.setAttribute('min', todayValue);
+            if (dateField.required && !dateField.value) {
+                dateField.setCustomValidity('Укажите дату мероприятия');
+                dateField.reportValidity();
+                return false;
+            }
             if (dateField.value && dateField.value < todayValue) {
                 dateField.value = '';
                 dateField.classList.remove('is-selected');
@@ -601,21 +613,98 @@
             return true;
         }
 
+        function setFormHiddenValue(form, name, value) {
+            const field = form?.querySelector(`[name="${name}"]`);
+            if (field) field.value = value || '';
+        }
+
+        function getLocalDate(value) {
+            const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || '');
+            if (!match) return null;
+            const date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+            if (
+                date.getFullYear() !== Number(match[1])
+                || date.getMonth() !== Number(match[2]) - 1
+                || date.getDate() !== Number(match[3])
+            ) {
+                return null;
+            }
+            date.setHours(0, 0, 0, 0);
+            return date;
+        }
+
+        function getEarlyBookingEligibility(value) {
+            const eventDate = getLocalDate(value);
+            if (!eventDate) return '';
+            const threshold = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            threshold.setDate(threshold.getDate() + 30);
+            return eventDate >= threshold ? 'yes' : 'no';
+        }
+
+        function syncOfferDateContext(form, showMessage = false) {
+            const dateField = form?.querySelector('[name="date"]');
+            const dateValue = dateField?.value || '';
+            const isEarlyBooking = form?.dataset.earlyBookingOffer === 'true';
+            const requiresEventDate = form?.dataset.offerRequiresEventDate === 'true';
+
+            setFormHiddenValue(form, 'event_date', dateValue);
+            setFormHiddenValue(form, 'early_booking_eligible', isEarlyBooking
+                ? getEarlyBookingEligibility(dateValue)
+                : '');
+
+            if (form !== modalForm || !modalOfferDateStatus) return;
+
+            modalOfferDateStatus.textContent = '';
+            modalOfferDateStatus.dataset.state = '';
+            if (isEarlyBooking && dateValue) {
+                const eligible = getEarlyBookingEligibility(dateValue);
+                if (eligible === 'yes') {
+                    modalOfferDateStatus.textContent = 'Дата подходит под условие раннего бронирования. Итоговый подарок согласуем после уточнения состава заказа.';
+                    modalOfferDateStatus.dataset.state = 'success';
+                } else if (eligible === 'no') {
+                    modalOfferDateStatus.textContent = 'До мероприятия меньше 30 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
+                    modalOfferDateStatus.dataset.state = 'notice';
+                }
+            } else if (requiresEventDate && showMessage && !dateValue) {
+                modalOfferDateStatus.textContent = 'Укажите дату мероприятия, чтобы проверить условия предложения.';
+                modalOfferDateStatus.dataset.state = 'notice';
+            }
+        }
+
+        function setModalOfferDateRequirement(context = {}) {
+            if (!modalForm || !modalDateField) return;
+            const requiresEventDate = context.requiresEventDate === true;
+            const isEarlyBooking = context.offerType === 'early_booking_gift';
+            modalForm.dataset.offerRequiresEventDate = requiresEventDate ? 'true' : 'false';
+            modalForm.dataset.earlyBookingOffer = isEarlyBooking ? 'true' : 'false';
+            modalDateField.required = requiresEventDate;
+            modalDateField.setAttribute('aria-required', requiresEventDate ? 'true' : 'false');
+            modalDateField.placeholder = requiresEventDate
+                ? 'Дата мероприятия — обязательно'
+                : 'Дата мероприятия';
+            syncOfferDateContext(modalForm, requiresEventDate);
+        }
+
         function setModalProject(project, formLocation, context = {}) {
-            const selectedProject = project?.title || '';
+            const selectedProject = project?.title || context.selectedProject || '';
             const hasSelectedProject = Boolean(selectedProject);
 
             modalSelectedProject?.classList.toggle('hidden', !hasSelectedProject);
             if (modalSelectedProjectName) modalSelectedProjectName.textContent = selectedProject;
             if (modalProjectFields.selectedProject) modalProjectFields.selectedProject.value = selectedProject;
-            if (modalProjectFields.projectId) modalProjectFields.projectId.value = project?.id || '';
-            if (modalProjectFields.projectImage) modalProjectFields.projectImage.value = project?.imagePath || '';
+            if (modalProjectFields.projectId) modalProjectFields.projectId.value = project?.id || context.projectId || '';
+            if (modalProjectFields.projectImage) modalProjectFields.projectImage.value = project?.imagePath || context.projectImage || '';
             if (modalProjectFields.projectCategory) modalProjectFields.projectCategory.value = project?.category || context.projectCategory || '';
             if (modalProjectFields.projectUrl) modalProjectFields.projectUrl.value = project?.pageUrl || context.projectUrl || '';
             if (modalProjectFields.pagePath) modalProjectFields.pagePath.value = window.location.pathname;
             if (modalProjectFields.formLocation) modalProjectFields.formLocation.value = formLocation || 'modal';
             if (modalProjectFields.offerType) modalProjectFields.offerType.value = context.offerType || '';
+            if (modalProjectFields.offerName) modalProjectFields.offerName.value = context.offerName || '';
+            if (modalProjectFields.offerValue) modalProjectFields.offerValue.value = context.offerValue || '';
             if (modalProjectFields.offerPage) modalProjectFields.offerPage.value = context.offerPage || '';
+            if (modalProjectFields.offerLocation) modalProjectFields.offerLocation.value = context.offerLocation || '';
+            if (modalProjectFields.eventDate) modalProjectFields.eventDate.value = '';
+            if (modalProjectFields.earlyBookingEligible) modalProjectFields.earlyBookingEligible.value = '';
         }
 
         function pushProjectPriceClick(project) {
@@ -656,7 +745,13 @@
                 || 'Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.';
             if (modalSubmitButton) modalSubmitButton.textContent = context.submitLabel || 'Получить расчёт';
             if (modalEventType) modalEventType.value = context.eventType || '';
+            if (modalDateField) {
+                modalDateField.value = '';
+                modalDateField.classList.remove('is-selected');
+                modalDateField.setCustomValidity('');
+            }
             setModalProject(project, formLocation, context);
+            setModalOfferDateRequirement(context);
             trackGoal('form_open', { source: modalSource.value });
             document.body.style.overflow = 'hidden';
             window.setTimeout(() => {
@@ -673,6 +768,111 @@
                 modalLastActiveElement.focus();
             }
         }
+
+        const homeOfferContexts = {
+            early_booking_gift: {
+                formTitle: 'Получите декор до 100 BYN в подарок',
+                formDescription: 'Укажите дату и расскажите о мероприятии. Если до события не менее 30 дней, предложим подходящий подарочный декор для вашей фотозоны.',
+                submitLabel: 'Получить предложение с подарком',
+                requiresEventDate: true
+            },
+            bundle_discount: {
+                formTitle: 'Рассчитаем комплексное оформление',
+                formDescription: 'Расскажите, какие зоны нужны. Подготовим единую концепцию и учтём скидку 10% на дополнительную зону.',
+                submitLabel: 'Рассчитать комплект'
+            },
+            available_date_offer: {
+                formTitle: 'Проверим предложение на вашу дату',
+                formDescription: 'Укажите дату мероприятия — проверим занятость команды и доступные условия.',
+                submitLabel: 'Проверить дату',
+                requiresEventDate: true
+            }
+        };
+
+        function pushOfferEvent(eventName, context = {}) {
+            if (!context.offerType) return;
+            const eventData = {
+                event: eventName,
+                offer_type: context.offerType,
+                offer_name: context.offerName || '',
+                offer_page: context.offerPage || window.location.pathname,
+                offer_location: context.offerLocation || '',
+                page_path: window.location.pathname
+            };
+            if (context.offerValue) eventData.offer_value = context.offerValue;
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(eventData);
+            console.info(`dataLayer ${eventName}:`, eventData);
+        }
+
+        function observeOfferCards(cards) {
+            if (!('IntersectionObserver' in window)) return;
+            const timers = new WeakMap();
+            const offerObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const card = entry.target;
+                    if (card.dataset.offerViewed === 'true') return;
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        if (timers.has(card)) return;
+                        const timer = window.setTimeout(() => {
+                            if (card.dataset.offerVisible !== 'true' || card.dataset.offerViewed === 'true') return;
+                            card.dataset.offerViewed = 'true';
+                            pushOfferEvent('offer_view', {
+                                offerType: card.dataset.offerType,
+                                offerName: card.dataset.offerName,
+                                offerValue: card.dataset.offerValue,
+                                offerPage: window.location.pathname,
+                                offerLocation: card.dataset.offerLocation
+                            });
+                            offerObserver.unobserve(card);
+                        }, 1000);
+                        timers.set(card, timer);
+                        card.dataset.offerVisible = 'true';
+                    } else {
+                        card.dataset.offerVisible = 'false';
+                        const timer = timers.get(card);
+                        if (timer) {
+                            window.clearTimeout(timer);
+                            timers.delete(card);
+                        }
+                    }
+                });
+            }, { threshold: [0, 0.5] });
+            cards.forEach((card) => offerObserver.observe(card));
+        }
+
+        function bindHomeOfferCards() {
+            const cards = Array.from(document.querySelectorAll('[data-offer-card]'));
+            cards.forEach((card) => {
+                const button = card.querySelector('[data-home-offer]');
+                if (!button) return;
+                button.addEventListener('click', () => {
+                    const offerType = card.dataset.offerType || '';
+                    const baseContext = homeOfferContexts[offerType] || {};
+                    const context = {
+                        ...baseContext,
+                        offerType,
+                        offerName: card.dataset.offerName || '',
+                        offerValue: card.dataset.offerValue || '',
+                        offerPage: window.location.pathname,
+                        offerLocation: card.dataset.offerLocation || 'homepage_offers',
+                        projectCategory: 'Фотозоны',
+                        projectUrl: window.location.href
+                    };
+                    pushOfferEvent('offer_click', context);
+                    openModal(
+                        context.offerName,
+                        `Главная — ${context.offerName}`,
+                        null,
+                        'promotion_cta',
+                        context
+                    );
+                });
+            });
+            observeOfferCards(cards);
+        }
+
+        bindHomeOfferCards();
 
         document.addEventListener('keydown', (event) => {
             if (!modalOverlay || modalOverlay.classList.contains('hidden')) return;
@@ -1081,8 +1281,14 @@
             field.setAttribute('aria-haspopup', 'dialog');
             field.setAttribute('aria-expanded', 'false');
             updateEventDateState(field);
-            field.addEventListener('input', () => updateEventDateState(field));
-            field.addEventListener('change', () => updateEventDateState(field));
+            field.addEventListener('input', () => {
+                updateEventDateState(field);
+                syncOfferDateContext(field.form);
+            });
+            field.addEventListener('change', () => {
+                updateEventDateState(field);
+                syncOfferDateContext(field.form);
+            });
             field.addEventListener('click', () => openEventCalendar(field));
             field.addEventListener('focus', () => openEventCalendar(field));
             field.addEventListener('keydown', (event) => {
@@ -1150,10 +1356,22 @@
             };
             const selectedProject = form?.querySelector('[name="selected_project"]')?.value || '';
             const offerType = form?.querySelector('[name="offer_type"]')?.value || '';
+            const offerName = form?.querySelector('[name="offer_name"]')?.value || '';
+            const offerValue = form?.querySelector('[name="offer_value"]')?.value || '';
             const offerPage = form?.querySelector('[name="offer_page"]')?.value || '';
+            const offerLocation = form?.querySelector('[name="offer_location"]')?.value || '';
+            const eventDate = form?.querySelector('[name="event_date"]')?.value || '';
+            const earlyBookingEligible = form?.querySelector('[name="early_booking_eligible"]')?.value || '';
             if (selectedProject) generateLeadEvent.project_name = selectedProject;
-            if (offerType) generateLeadEvent.offer_type = offerType;
-            if (offerPage) generateLeadEvent.offer_page = offerPage;
+            if (offerType) {
+                generateLeadEvent.offer_type = offerType;
+                generateLeadEvent.offer_name = offerName;
+                generateLeadEvent.offer_value = offerValue;
+                generateLeadEvent.offer_page = offerPage;
+                generateLeadEvent.offer_location = offerLocation;
+                generateLeadEvent.event_date = eventDate;
+                generateLeadEvent.early_booking_eligible = earlyBookingEligible;
+            }
 
             window.dataLayer.push(generateLeadEvent);
             console.info('dataLayer generate_lead:', generateLeadEvent);
@@ -1212,6 +1430,26 @@
             return field;
         }
 
+        function applyServerOfferContext(form, offerContext) {
+            if (!form || !offerContext || typeof offerContext !== 'object') return;
+            [
+                'selected_project',
+                'project_category',
+                'project_url',
+                'offer_type',
+                'offer_name',
+                'offer_value',
+                'offer_page',
+                'offer_location',
+                'event_date',
+                'early_booking_eligible'
+            ].forEach((name) => {
+                if (Object.prototype.hasOwnProperty.call(offerContext, name)) {
+                    setFormHiddenValue(form, name, String(offerContext[name] ?? ''));
+                }
+            });
+        }
+
         document.querySelectorAll('form[action="send.php"]').forEach(form => {
             ensureHiddenField(form, 'page_path', window.location.pathname);
             ensureHiddenField(
@@ -1219,16 +1457,29 @@
                 'form_location',
                 form.querySelector('[name="source"]')?.value || form.id || 'website_form'
             );
+            [
+                'selected_project',
+                'project_category',
+                'project_url',
+                'eventType',
+                'offer_type',
+                'offer_name',
+                'offer_value',
+                'offer_page',
+                'offer_location',
+                'event_date',
+                'early_booking_eligible'
+            ].forEach((name) => ensureHiddenField(form, name, ''));
 
             form.addEventListener('submit', async event => {
                 event.preventDefault();
                 if (form.dataset.submitting === 'true') return;
 
-                if (!form.checkValidity()) {
+                syncOfferDateContext(form, true);
+                if (!validateEventDate(form) || !form.checkValidity()) {
                     form.reportValidity();
                     return;
                 }
-                if (!validateEventDate(form)) return;
 
                 trackGoal('form_submit', {
                     source: form.querySelector('[name="source"]')?.value || 'Форма сайта'
@@ -1258,6 +1509,7 @@
                         throw new Error(result.message || 'Не удалось отправить заявку.');
                     }
 
+                    applyServerOfferContext(form, result.offer_context);
                     handleSuccessfulFormSubmission(form);
                     form.reset();
                 } catch (error) {

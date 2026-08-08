@@ -912,6 +912,25 @@ body.seo-project-modal-open {
     min-height: 0;
 }
 
+.seo-project-form__date-note:empty {
+    display: none;
+}
+
+.seo-project-form__date-note {
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.55rem;
+    color: var(--seo-muted);
+    background: rgba(217, 209, 232, 0.42);
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    line-height: 1.45;
+}
+
+.seo-project-form__date-note[data-state="success"] {
+    color: #3f5947;
+    background: rgba(84, 170, 112, 0.14);
+}
+
 .seo-project-form__submit {
     width: 100%;
     min-width: 0;
@@ -1348,6 +1367,132 @@ body.seo-project-modal-open {
     background: #fff;
 }
 
+.seo-offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.seo-offer-grid--compact {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 48rem;
+}
+
+.seo-offer-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.2rem, 2.5vw, 1.85rem);
+    border: 1px solid rgba(8, 9, 13, 0.1);
+    border-radius: calc(var(--seo-radius) - 0.2rem);
+    color: var(--seo-ink);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] {
+    border-color: rgba(113, 97, 143, 0.54);
+    color: #f4f5f7;
+    background:
+        radial-gradient(circle at 92% 8%, rgba(185, 167, 216, 0.42), transparent 38%),
+        #17141d;
+}
+
+.seo-offer-card h2 {
+    margin-top: 0.7rem;
+    color: inherit;
+    font-size: clamp(1.45rem, 2.4vw, 2.05rem) !important;
+    line-height: 1.1 !important;
+}
+
+.seo-offer-card > p:not(.seo-eyebrow):not(.seo-offer-card__note):not(.seo-offer-card__subtext) {
+    margin-top: 0.85rem;
+    color: var(--seo-muted);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] > p:not(.seo-eyebrow):not(.seo-offer-card__note):not(.seo-offer-card__subtext) {
+    color: rgba(244, 245, 247, 0.82);
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-eyebrow {
+    color: var(--seo-lavender-soft);
+}
+
+.seo-offer-card__points {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1.1rem 0 0;
+    padding: 1rem 0 0;
+    border-top: 1px solid rgba(8, 9, 13, 0.1);
+    list-style: none;
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-offer-card__points {
+    border-color: rgba(255, 255, 255, 0.17);
+}
+
+.seo-offer-card__points li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--seo-muted);
+    font-size: 0.79rem;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.seo-offer-card__points li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--seo-lavender-dark);
+    font-weight: 900;
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-offer-card__points li {
+    color: rgba(244, 245, 247, 0.82);
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-offer-card__points li::before {
+    color: var(--seo-lavender-soft);
+}
+
+.seo-offer-card__note {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--seo-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-offer-card__note {
+    color: rgba(244, 245, 247, 0.66);
+}
+
+.seo-offer-card .seo-btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 3.15rem;
+    margin-top: 1.1rem;
+}
+
+.seo-offer-card__subtext {
+    margin: 0.68rem 0 0;
+    color: var(--seo-muted);
+    font-size: 0.76rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-offer-card__subtext {
+    color: rgba(244, 245, 247, 0.66);
+}
+
+.seo-offer-card[data-offer-type="bundle_discount"] .seo-btn {
+    color: var(--seo-ink);
+    background: var(--seo-lavender-soft);
+}
+
 .cost-services-table {
     overflow: hidden;
 }
@@ -1763,6 +1908,14 @@ body.seo-project-modal-open {
         display: grid;
         grid-template-columns: 1fr;
         gap: 0.42rem;
+    }
+
+    .seo-offer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .seo-offer-card {
+        border-radius: calc(var(--seo-radius) - 0.35rem);
     }
 
     .seo-special-offer__bonus,

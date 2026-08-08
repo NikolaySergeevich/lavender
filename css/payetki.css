@@ -551,6 +551,82 @@ body.payetki-page {
     line-height: 1.62;
 }
 
+.payetki-offer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.payetki-offer-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.3rem, 3vw, 2rem);
+    border: 1px solid rgba(8, 9, 13, 0.1);
+    border-radius: 1.15rem;
+    color: var(--payetki-ink);
+    background: rgba(255, 255, 255, 0.88);
+}
+
+.payetki-offer-card--gift {
+    border-color: rgba(113, 97, 143, 0.52);
+    color: #f4f5f7;
+    background:
+        radial-gradient(circle at 90% 8%, rgba(185, 167, 216, 0.42), transparent 38%),
+        #17141d;
+}
+
+.payetki-offer-card--gift .payetki-eyebrow {
+    color: #d9d1e8;
+}
+
+.payetki-offer-card h2 {
+    max-width: 21ch;
+    margin-top: 0.65rem;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    line-height: 1.08;
+}
+
+.payetki-offer-card > p:not(.payetki-eyebrow):not(.payetki-offer-card__note):not(.payetki-offer-card__subtext) {
+    margin-top: 0.9rem;
+    color: var(--payetki-muted);
+    line-height: 1.65;
+}
+
+.payetki-offer-card--gift > p:not(.payetki-eyebrow):not(.payetki-offer-card__note):not(.payetki-offer-card__subtext) {
+    color: rgba(244, 245, 247, 0.83);
+}
+
+.payetki-offer-card__note {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--payetki-muted);
+    font-size: 0.83rem;
+    line-height: 1.55;
+}
+
+.payetki-offer-card--gift .payetki-offer-card__note {
+    color: rgba(244, 245, 247, 0.67);
+}
+
+.payetki-offer-card .payetki-btn {
+    width: 100%;
+    min-height: 3.2rem;
+    margin-top: 1.15rem;
+}
+
+.payetki-offer-card__subtext {
+    margin: 0.7rem 0 0;
+    color: var(--payetki-muted);
+    font-size: 0.76rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.payetki-offer-card--gift .payetki-offer-card__subtext {
+    color: rgba(244, 245, 247, 0.68);
+}
+
 .payetki-price {
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -843,6 +919,25 @@ body.payetki-page {
     font-size: 0.78rem;
     line-height: 1.5;
     text-align: center;
+}
+
+.payetki-form__offer-status:empty {
+    display: none;
+}
+
+.payetki-form__offer-status {
+    margin: -0.1rem 0;
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.75rem;
+    color: var(--payetki-muted);
+    background: rgba(217, 209, 232, 0.45);
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
+.payetki-form__offer-status[data-state="success"] {
+    color: #3f5947;
+    background: rgba(84, 170, 112, 0.14);
 }
 
 .payetki-form__privacy a {
@@ -1181,6 +1276,10 @@ body.seo-lightbox-open .back-to-top {
     .payetki-special-offer__bonus {
         grid-template-columns: 1fr;
         gap: 1rem;
+    }
+
+    .payetki-offer-grid {
+        grid-template-columns: 1fr;
     }
 
     .payetki-special-offer__main .payetki-btn {

@@ -1205,40 +1205,6 @@
         </div>
     </section>
 
-    <!-- Promotion Section -->
-    <section class="promotion-section px-6 py-12 md:px-12 md:py-16">
-        <div class="promotion-card reveal mx-auto max-w-7xl">
-            <div class="promotion-card__glow" aria-hidden="true"></div>
-            <div class="promotion-card__content">
-                <div class="max-w-2xl">
-                    <p class="promotion-card__eyebrow">Предложение на вашу дату</p>
-                    <h2 class="promotion-card__title">Получите предложение для вашего события</h2>
-                    <p class="promotion-card__text">Расскажите о дате, площадке и задаче — подберём оформление,
-                        которое подойдёт формату, стилю и гостям вашего праздника.</p>
-                </div>
-                <div class="promotion-card__offer">
-                    <div>
-                        <p class="promotion-card__offer-title">Индивидуальное предложение</p>
-                        <p class="promotion-card__note">Состав и расчёт подготовим после короткого брифа. Для подходящих
-                            конфигураций проверим доступные дополнения.</p>
-                    </div>
-                    <button type="button" data-offer-type="date_offer" data-offer-page="/" onclick="openModal('Предложение на вашу дату', 'Промо-блок — предложение на дату', null, 'promotion_cta', { offerType: 'date_offer', offerPage: '/', formTitle: 'Получить предложение на вашу дату', formDescription: 'Оставьте контакты — уточним дату, площадку и задачу, чтобы предложить подходящий вариант.', submitLabel: 'Получить предложение' })"
-                        class="hero-btn hero-btn--primary promotion-card__button">Получить предложение</button>
-                </div>
-                <div class="promotion-card__bonus">
-                    <strong>Бонус к оформлению</strong>
-                    <p>Для некоторых конфигураций можем предложить дополнительный декоративный акцент или расширить
-                        комплект. Применимость уточним после короткого брифа.</p>
-                </div>
-                <div class="cta-microproof cta-microproof--promotion">
-                    <span>✓ Адаптация под площадку</span>
-                    <span>✓ Условия согласуем заранее</span>
-                    <span>✓ Состав фиксируем в расчёте</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Process Section -->
     <section id="process" class="process-section py-24 px-6 md:px-12">
         <div class="max-w-7xl mx-auto">
@@ -1510,6 +1476,56 @@
                 </div>
                 <h2>Реальные фотографии работ</h2>
             </article>
+        </div>
+    </section>
+
+    <!-- Benefits and special conditions -->
+    <section class="promotion-section px-6 py-16 md:px-12 md:py-20" aria-labelledby="promotion-title">
+        <div class="mx-auto max-w-7xl">
+            <header class="promotion-section__heading reveal">
+                <p class="promotion-section__eyebrow">Условия для вашего события</p>
+                <h2 id="promotion-title">Выберите свою выгоду</h2>
+                <p>Три способа сделать оформление выгоднее — без случайных скидок и скрытых условий.</p>
+            </header>
+            <div class="promotion-offers-grid">
+                <article class="promotion-offer-card reveal" data-offer-card data-offer-type="early_booking_gift"
+                    data-offer-name="Декор до 100 BYN за раннее бронирование"
+                    data-offer-value="decor_up_to_100_byn" data-offer-location="homepage_offers">
+                    <p class="promotion-offer-card__eyebrow">Раннее бронирование</p>
+                    <h3>Декор до 100 BYN в подарок</h3>
+                    <p>Забронируйте оформление минимум за 30 дней и получите персональную надпись или дополнительный
+                        декоративный элемент к вашей фотозоне.</p>
+                    <p class="promotion-offer-card__note">Подарок согласуем с учётом концепции и доступного
+                        ассортимента.</p>
+                    <button type="button" class="hero-btn hero-btn--primary promotion-offer-card__button"
+                        data-home-offer>Получить подарок</button>
+                    <p class="promotion-offer-card__microcopy">Расскажите о мероприятии — предложим подходящий
+                        декоративный элемент.</p>
+                </article>
+                <article class="promotion-offer-card promotion-offer-card--featured reveal" data-offer-card
+                    data-offer-type="bundle_discount" data-offer-name="Скидка 10% на дополнительную зону"
+                    data-offer-value="10_percent_additional_zone" data-offer-location="homepage_offers">
+                    <p class="promotion-offer-card__eyebrow">Комплексное оформление</p>
+                    <h3>−10% на дополнительную зону</h3>
+                    <p>Закажите фотозону вместе с welcome-зоной или оформлением зала и получите скидку 10% на
+                        дополнительную зону.</p>
+                    <p class="promotion-offer-card__note">Все зоны оформим в единой концепции, а состав и итоговую
+                        стоимость зафиксируем в расчёте до начала работ.</p>
+                    <button type="button" class="hero-btn hero-btn--primary promotion-offer-card__button"
+                        data-home-offer>Рассчитать комплект</button>
+                </article>
+                <article class="promotion-offer-card reveal" data-offer-card data-offer-type="available_date_offer"
+                    data-offer-name="Специальное предложение на свободную дату"
+                    data-offer-value="individual_date_offer" data-offer-location="homepage_offers">
+                    <p class="promotion-offer-card__eyebrow">Доступность команды</p>
+                    <h3>Предложение на свободную дату</h3>
+                    <p>Укажите дату мероприятия — проверим, доступны ли для неё специальные условия.</p>
+                    <p class="promotion-offer-card__note">Без таймеров и случайных скидок: условия зависят от реальной
+                        доступности.</p>
+                    <button type="button" class="hero-btn hero-btn--primary promotion-offer-card__button"
+                        data-home-offer>Проверить дату</button>
+                </article>
+            </div>
         </div>
     </section>
 
@@ -2230,13 +2246,19 @@
                 <input type="hidden" name="page_path" id="modal-page-path" value="">
                 <input type="hidden" name="form_location" id="modal-form-location" value="modal">
                 <input type="hidden" name="offer_type" id="modal-offer-type" value="">
+                <input type="hidden" name="offer_name" id="modal-offer-name" value="">
+                <input type="hidden" name="offer_value" id="modal-offer-value" value="">
                 <input type="hidden" name="offer_page" id="modal-offer-page" value="">
+                <input type="hidden" name="offer_location" id="modal-offer-location" value="">
+                <input type="hidden" name="event_date" id="modal-event-date" value="">
+                <input type="hidden" name="early_booking_eligible" id="modal-early-booking-eligible" value="">
                 <input name="name" type="text" required placeholder="Имя"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <input name="phone" type="tel" required placeholder="Телефон или мессенджер"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <input name="date" type="text" placeholder="Дата мероприятия"
                     class="event-date w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                <p id="modal-offer-date-status" class="lead-form__offer-status" role="status" aria-live="polite"></p>
                 <select name="eventType" required
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                     <option value="" selected disabled>Тип мероприятия</option>
