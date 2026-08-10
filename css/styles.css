@@ -92,13 +92,6 @@
             line-height: 0.96;
             letter-spacing: -0.035em;
         }
-        .hero-lead {
-            max-width: 680px;
-            margin-top: 28px;
-            color: rgba(244, 245, 247, 0.76);
-            font-size: clamp(1rem, 1.5vw, 1.25rem);
-            line-height: 1.7;
-        }
         .hero-special-offer-marker {
             max-width: 43rem;
             display: grid;
@@ -463,11 +456,6 @@
                 line-height: 1;
                 letter-spacing: -0.03em;
             }
-            .hero-lead {
-                margin-top: 20px;
-                font-size: 1rem;
-                line-height: 1.55;
-            }
             .hero-special-offer-marker {
                 margin-top: 1rem;
                 padding: 0.68rem 0.78rem;
@@ -540,10 +528,6 @@
                 padding-bottom: 1.5rem;
             }
             .hero-title { margin-top: 14px; }
-            .hero-lead {
-                margin-top: 14px;
-                line-height: 1.5;
-            }
             .hero-special-offer-marker {
                 margin-top: 0.8rem;
                 padding: 0.62rem 0.75rem;
@@ -635,8 +619,14 @@
             font-weight: 900;
         }
         .portfolio-card__cta {
+            box-sizing: border-box;
             width: 100%;
+            max-width: 100%;
+            min-width: 0;
             min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-top: auto;
             padding: 10px 16px;
             border: 1px solid rgba(185, 167, 216, 0.8);
@@ -647,6 +637,9 @@
                 rgba(185, 167, 216, 0.32);
             font-size: 0.82rem;
             font-weight: 800;
+            overflow-wrap: anywhere;
+            text-align: center;
+            white-space: normal;
             transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
         }
         .portfolio-card__cta:hover {
@@ -685,6 +678,13 @@
             color: #3f5947;
             background: rgba(84, 170, 112, 0.13);
         }
+        .lead-form__conditional-field {
+            display: grid;
+            gap: 0.5rem;
+        }
+        .lead-form__conditional-field[hidden] {
+            display: none;
+        }
         .lead-form__benefits {
             display: grid;
             gap: 7px;
@@ -696,25 +696,6 @@
         }
         .lead-form__benefits p::first-letter {
             color: #71618F;
-        }
-        .selected-project {
-            margin: -8px 0 20px;
-            padding: 13px 15px;
-            display: grid;
-            gap: 4px;
-            border: 1px solid rgba(113, 97, 143, 0.22);
-            border-radius: 14px;
-            color: #5F636B;
-            background: rgba(217, 209, 232, 0.42);
-            font-size: 0.8rem;
-            line-height: 1.45;
-        }
-        .selected-project.hidden {
-            display: none;
-        }
-        .selected-project strong {
-            color: #08090D;
-            font-size: 0.92rem;
         }
         .project-request-dialog {
             max-height: calc(100vh - 24px);
@@ -980,6 +961,8 @@
             .portfolio-card__title { font-size: 1.2rem; }
             .portfolio-card__cta {
                 min-height: 50px;
+                padding-right: 12px;
+                padding-left: 12px;
                 font-size: 0.88rem;
             }
             .process-timeline {
@@ -1381,8 +1364,13 @@
             font-weight: 900;
         }
         #lightbox-cta {
+            box-sizing: border-box;
             width: 100%;
+            max-width: 100%;
+            min-width: 0;
             min-height: 48px;
+            white-space: normal;
+            overflow-wrap: anywhere;
         }
         .lightbox-nav.is-pressed,
         .lightbox-nav:focus-visible {
@@ -1402,6 +1390,10 @@
             }
             .lightbox-nav--next {
                 right: 1.5rem;
+            }
+            #lightbox-cta {
+                padding-right: 12px;
+                padding-left: 12px;
             }
         }
         @media (max-width: 1023px) {
@@ -1780,6 +1772,47 @@
         @media (min-width: 768px) {
             .pricing-mobile {
                 display: none !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .hero-actions,
+            .promotion-offer-panel__action,
+            .masonry-grid,
+            .portfolio-card__details,
+            .lightbox-dialog__details,
+            .project-request-dialog,
+            form[action="send.php"],
+            .mobile-contact-bar__inner {
+                min-width: 0;
+            }
+            .hero-actions {
+                align-items: stretch;
+            }
+            .hero-actions .hero-btn,
+            .promotion-offer-panel__button {
+                width: 100%;
+                max-width: 100%;
+            }
+            .hero-actions .hero-btn,
+            .promotion-offer-panel__button,
+            .portfolio-card__cta,
+            #lightbox-cta,
+            form[action="send.php"] button[type="submit"],
+            .pricing-card__cta,
+            .pricing-mobile-card button,
+            .mobile-contact-bar__button,
+            .filter-btn--lavender-cta {
+                box-sizing: border-box;
+                min-width: 0;
+                max-width: 100%;
+                overflow-wrap: anywhere;
+                white-space: normal;
+            }
+            .mobile-contact-bar__button {
+                padding-right: 6px;
+                padding-left: 6px;
+                line-height: 1.15;
+                text-align: center;
             }
         }
         @media (prefers-reduced-motion: reduce) {

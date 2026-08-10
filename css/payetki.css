@@ -112,6 +112,7 @@ body.payetki-page {
 .payetki-hero__actions {
     display: flex;
     flex-wrap: wrap;
+    min-width: 0;
     gap: 0.75rem;
     margin-top: 2rem;
 }
@@ -119,6 +120,7 @@ body.payetki-page {
 .payetki-cta__actions {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 15rem));
+    min-width: 0;
     gap: 0.75rem;
     margin-top: 2rem;
 }
@@ -129,6 +131,9 @@ body.payetki-page {
 }
 
 .payetki-btn {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
     min-height: 3.25rem;
     display: inline-flex;
     align-items: center;
@@ -140,6 +145,8 @@ body.payetki-page {
     font-weight: 800;
     line-height: 1.2;
     text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -468,6 +475,9 @@ body.payetki-page {
 }
 
 .payetki-card-button {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
     width: 100%;
     min-height: 2.8rem;
     padding: 0.7rem 1rem;
@@ -476,6 +486,8 @@ body.payetki-page {
     color: var(--payetki-ink);
     background: rgba(217, 209, 232, 0.42);
     font-weight: 800;
+    white-space: normal;
+    overflow-wrap: anywhere;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -628,6 +640,7 @@ body.payetki-page {
 .payetki-special-offer__footer {
     display: grid;
     justify-items: center;
+    min-width: 0;
     max-width: 48rem;
     margin: clamp(1.6rem, 3vw, 2.4rem) auto 0;
     padding-top: clamp(1.35rem, 2.5vw, 1.8rem);
@@ -893,13 +906,19 @@ body.payetki-page {
 
 .payetki-form {
     display: grid;
+    min-width: 0;
     gap: 1rem;
 }
 
 .payetki-form__row {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
     gap: 1rem;
+}
+
+.payetki-form [type="submit"] {
+    width: 100%;
 }
 
 .payetki-field {
@@ -1231,6 +1250,21 @@ body.seo-lightbox-open .back-to-top {
 
     .payetki-hero__actions .payetki-btn {
         width: 100%;
+    }
+
+    .payetki-showcase__copy .payetki-btn,
+    .payetki-price > div:first-child .payetki-btn,
+    .payetki-size-grid + .text-center .payetki-btn,
+    .payetki-steps + .text-center .payetki-btn {
+        width: 100%;
+    }
+
+    .payetki-page .mobile-contact-bar__button {
+        min-width: 0;
+        padding-right: 0.4rem;
+        padding-left: 0.4rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
     }
 
     .payetki-cta__actions {
