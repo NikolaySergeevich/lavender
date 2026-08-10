@@ -561,8 +561,6 @@
         const modalSuccess = document.getElementById('modal-success');
         const modalForm = document.getElementById('modal-form');
         const modalSource = document.getElementById('modal-source');
-        const modalSelectedProject = document.getElementById('modal-selected-project');
-        const modalSelectedProjectName = document.getElementById('modal-selected-project-name');
         const modalProjectFields = {
             selectedProject: document.getElementById('selected-project'),
             projectId: document.getElementById('modal-project-id'),
@@ -583,8 +581,8 @@
         const modalTitle = document.getElementById('modal-title');
         const modalSubmitButton = modalForm?.querySelector('[type="submit"]');
         const modalEventType = modalForm?.querySelector('[name="eventType"]');
-        const modalRequestedServices = modalForm?.querySelector('[name="requested_services"]');
         const modalDateField = modalForm?.querySelector('[name="date"]');
+        const modalOfferDateField = document.getElementById('modal-offer-date-field');
         const modalOfferDateStatus = document.getElementById('modal-offer-date-status');
         const modalCloseButton = modalOverlay?.querySelector('[data-modal-close]');
         const modalDialog = modalOverlay?.querySelector('.project-request-dialog');
@@ -687,6 +685,7 @@
             modalForm.dataset.offerRequiresEventDate = requiresEventDate ? 'true' : 'false';
             modalForm.dataset.earlyBookingOffer = isEarlyBooking ? 'true' : 'false';
             modalForm.dataset.specialOfferConsultation = isSpecialOfferConsultation ? 'true' : 'false';
+            if (modalOfferDateField) modalOfferDateField.hidden = !requiresEventDate;
             modalDateField.required = requiresEventDate;
             modalDateField.setAttribute('aria-required', requiresEventDate ? 'true' : 'false');
             modalDateField.placeholder = requiresEventDate
@@ -697,10 +696,7 @@
 
         function setModalProject(project, formLocation, context = {}) {
             const selectedProject = project?.title || context.selectedProject || '';
-            const hasSelectedProject = Boolean(selectedProject);
 
-            modalSelectedProject?.classList.toggle('hidden', !hasSelectedProject);
-            if (modalSelectedProjectName) modalSelectedProjectName.textContent = selectedProject;
             if (modalProjectFields.selectedProject) modalProjectFields.selectedProject.value = selectedProject;
             if (modalProjectFields.projectId) modalProjectFields.projectId.value = project?.id || context.projectId || '';
             if (modalProjectFields.projectImage) modalProjectFields.projectImage.value = project?.imagePath || context.projectImage || '';
@@ -756,7 +752,7 @@
                 || 'Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.';
             if (modalSubmitButton) modalSubmitButton.textContent = context.submitLabel || 'Получить расчёт';
             if (modalEventType) modalEventType.value = context.eventType || '';
-            if (modalRequestedServices) modalRequestedServices.value = context.requestedServices || '';
+            setFormHiddenValue(modalForm, 'requested_services', context.requestedServices || '');
             if (modalDateField) {
                 modalDateField.value = '';
                 modalDateField.classList.remove('is-selected');

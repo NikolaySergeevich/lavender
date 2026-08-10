@@ -900,10 +900,6 @@
                     <p id="seo-project-modal-description" class="seo-project-modal__description">
                         Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.
                     </p>
-                    <p class="seo-project-modal__selection">
-                        <span>Выбранный проект:</span>
-                        <strong id="seo-project-modal-selection"></strong>
-                    </p>
                     <form class="seo-project-form" action="${new URL('send.php', siteRoot).href}" method="POST">
                         <input type="hidden" name="selected_project" value="">
                         <input type="hidden" name="project_id" value="">
@@ -920,6 +916,7 @@
                         <input type="hidden" name="offer_location" value="">
                         <input type="hidden" name="event_date" value="">
                         <input type="hidden" name="early_booking_eligible" value="">
+                        <input type="hidden" name="requested_services" value="">
                         <input type="hidden" name="source" value="">
                         <input type="hidden" name="form_name" value="consultation_form">
 
@@ -933,7 +930,7 @@
                                 <input name="phone" type="tel" autocomplete="tel" required
                                     placeholder="+375 29 000-00-00">
                             </label>
-                            <label class="seo-project-form__field">
+                            <label class="seo-project-form__field seo-project-form__date-field" hidden>
                                 <span>Дата мероприятия <small class="seo-project-form__date-required">— необязательно</small></span>
                                 <input name="date" type="date">
                                 <small class="seo-project-form__date-note" role="status" aria-live="polite"></small>
@@ -949,31 +946,6 @@
                                     <option>Корпоратив</option>
                                     <option>Gender party</option>
                                     <option>Другое</option>
-                                </select>
-                            </label>
-                            <label class="seo-project-form__field">
-                                <span>Место проведения <small>— необязательно</small></span>
-                                <input name="place" type="text" autocomplete="street-address"
-                                    placeholder="Площадка или адрес">
-                            </label>
-                            <label class="seo-project-form__field">
-                                <span>Планируемый бюджет <small>— необязательно</small></span>
-                                <select name="budget">
-                                    <option selected>пока не определились</option>
-                                    <option>компактный формат</option>
-                                    <option>оптимальный формат</option>
-                                    <option>расширенный формат</option>
-                                    <option>премиальный формат</option>
-                                </select>
-                            </label>
-                            <label class="seo-project-form__field">
-                                <span>Что планируете оформить? <small>— необязательно</small></span>
-                                <select name="requested_services">
-                                    <option value="" selected>Что планируете оформить? — необязательно</option>
-                                    <option>Только фотозона</option>
-                                    <option>Фотозона и дополнительная зона</option>
-                                    <option>Оформление зала</option>
-                                    <option>Пока не определились</option>
                                 </select>
                             </label>
                         </div>
@@ -1005,14 +977,13 @@
         const successCloseButton = modal.querySelector('.seo-project-modal__success-close');
         const formView = modal.querySelector('.seo-project-modal__form-view');
         const successView = modal.querySelector('.seo-project-modal__success');
-        const selectionBlock = modal.querySelector('.seo-project-modal__selection');
-        const selection = modal.querySelector('#seo-project-modal-selection');
         const title = modal.querySelector('#seo-project-modal-title');
         const description = modal.querySelector('#seo-project-modal-description');
         const form = modal.querySelector('.seo-project-form');
         const submitButton = form.querySelector('[type="submit"]');
         const status = form.querySelector('.seo-project-form__status');
         const dateField = form.querySelector('[name="date"]');
+        const dateFieldWrapper = form.querySelector('.seo-project-form__date-field');
         const dateRequiredLabel = form.querySelector('.seo-project-form__date-required');
         const dateNote = form.querySelector('.seo-project-form__date-note');
         const eventTypeField = form.querySelector('[name="eventType"]');
@@ -1091,6 +1062,7 @@
             form.dataset.offerRequiresEventDate = requiresEventDate ? 'true' : 'false';
             form.dataset.earlyBookingOffer = isEarlyBooking ? 'true' : 'false';
             form.dataset.checksEarlyBooking = context.checksEarlyBooking === true ? 'true' : 'false';
+            if (dateFieldWrapper) dateFieldWrapper.hidden = !requiresEventDate;
             if (dateField) {
                 dateField.required = requiresEventDate;
                 dateField.value = '';
@@ -1124,8 +1096,6 @@
             lastFocusedElement = trigger || document.activeElement;
             dialog.scrollTop = 0;
             const hasProject = Boolean(project?.name);
-            selectionBlock.hidden = !hasProject;
-            selection.textContent = hasProject ? project.name : '';
             setHiddenValue('selected_project', project?.name);
             setHiddenValue('project_id', project?.id);
             setHiddenValue('project_image', project?.image);

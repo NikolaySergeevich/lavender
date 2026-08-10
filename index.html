@@ -170,20 +170,16 @@
                 <h1 class="hero-title animate-fade-up" style="animation-delay: 0.35s;">
                     Создаём фотозоны для особенных событий
                 </h1>
-                <p class="hero-lead animate-fade-up" style="animation-delay: 0.5s;">
-                    Фотозоны под ключ для дней рождения, юбилеев, детских праздников, свадеб, gender party и
-                    корпоративов. Доставка, монтаж и демонтаж включены.
-                </p>
-                <div class="hero-special-offer-marker animate-fade-up" style="animation-delay: 0.58s;" aria-label="Специальные условия">
+                <div class="hero-special-offer-marker animate-fade-up" style="animation-delay: 0.5s;" aria-label="Специальные условия">
                     <p>Специальные условия для вашего события</p>
                     <span>Декор до 100 BYN в подарок, выгода на комплексное оформление или выгодное предложение на свободную дату.</span>
                     <a href="#special-offer" data-hero-special-offer-teaser>Посмотреть условия</a>
                 </div>
-                <div class="hero-actions flex flex-col gap-3 sm:flex-row animate-fade-up" style="animation-delay: 0.65s;">
+                <div class="hero-actions flex flex-col gap-3 sm:flex-row animate-fade-up" style="animation-delay: 0.6s;">
                     <a href="#event-picker" class="hero-btn hero-btn--primary">Выбрать фотозону</a>
                     <button type="button" class="hero-btn hero-btn--ghost" data-hero-special-offer-open>Получить расчёт с выгодой</button>
                 </div>
-                <div class="cta-microproof cta-microproof--hero animate-fade-up" style="animation-delay: 0.75s;">
+                <div class="cta-microproof cta-microproof--hero animate-fade-up" style="animation-delay: 0.7s;">
                     <span>✓ Ответим в течение 15 минут</span>
                     <span>✓ Более 100 реализованных проектов</span>
                     <span>✓ Работаем по Минску и области</span>
@@ -2028,8 +2024,6 @@
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                         <input name="phone" type="tel" required placeholder="Телефон или мессенджер"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                        <input name="date" type="text" placeholder="Дата мероприятия"
-                            class="event-date w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                         <select name="eventType" required
                             class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                             <option value="" selected disabled>Тип мероприятия</option>
@@ -2040,19 +2034,8 @@
                             <option>Корпоратив</option>
                             <option>Другое</option>
                         </select>
-                        <input name="place" type="text" placeholder="Место проведения"
-                            class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                         <textarea name="comment" rows="3" placeholder="Комментарий"
                             class="w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-y"></textarea>
-                        <select name="budget" aria-label="Планируемый бюджет (необязательно)"
-                            class="event-select w-full bg-brand-ivory border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                            <option value="" selected>Бюджет — необязательно</option>
-                            <option>Компактный формат</option>
-                            <option>Оптимальный формат</option>
-                            <option>Расширенный формат</option>
-                            <option>Премиальный формат</option>
-                            <option>пока не определились</option>
-                        </select>
                         <button type="submit"
                             class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
                             расчёт</button>
@@ -2233,10 +2216,6 @@
             <h3 id="modal-title" class="lead-form__title">Получите расчёт вашей фотозоны</h3>
             <p class="lead-form__subtitle" id="modal-text">Расскажите о мероприятии — мы предложим подходящий вариант
                 и рассчитаем стоимость.</p>
-            <div id="modal-selected-project" class="selected-project hidden" aria-live="polite">
-                <span>Выбранный проект:</span>
-                <strong id="modal-selected-project-name"></strong>
-            </div>
             <form id="modal-form" class="space-y-4" action="send.php" method="POST">
                 <input type="hidden" name="source" id="modal-source" value="Модальная форма">
                 <input type="hidden" name="form_name" value="consultation_form">
@@ -2259,9 +2238,11 @@
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <input name="phone" type="tel" required placeholder="Телефон или мессенджер"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                <input name="date" type="text" placeholder="Дата мероприятия"
-                    class="event-date w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
-                <p id="modal-offer-date-status" class="lead-form__offer-status" role="status" aria-live="polite"></p>
+                <div id="modal-offer-date-field" class="lead-form__conditional-field" hidden>
+                    <input name="date" type="text" placeholder="Дата мероприятия"
+                        class="event-date w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
+                    <p id="modal-offer-date-status" class="lead-form__offer-status" role="status" aria-live="polite"></p>
+                </div>
                 <select name="eventType" required
                     class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
                     <option value="" selected disabled>Тип мероприятия</option>
@@ -2272,27 +2253,8 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <select name="requested_services" aria-label="Что планируете оформить"
-                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected>Что планируете оформить? — необязательно</option>
-                    <option>Только фотозона</option>
-                    <option>Фотозона и дополнительная зона</option>
-                    <option>Оформление зала</option>
-                    <option>Пока не определились</option>
-                </select>
-                <input name="place" type="text" placeholder="Место проведения"
-                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors">
                 <textarea name="comment" rows="3" placeholder="Комментарий"
                     class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-y"></textarea>
-                <select name="budget" aria-label="Планируемый бюджет (необязательно)"
-                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected>Бюджет — необязательно</option>
-                    <option>Компактный формат</option>
-                    <option>Оптимальный формат</option>
-                    <option>Расширенный формат</option>
-                    <option>Премиальный формат</option>
-                    <option>пока не определились</option>
-                </select>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
                     расчёт</button>
@@ -2404,15 +2366,8 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <select name="budget" aria-label="Планируемый бюджет (необязательно)"
-                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected>Бюджет — необязательно</option>
-                    <option>Компактный формат</option>
-                    <option>Оптимальный формат</option>
-                    <option>Расширенный формат</option>
-                    <option>Премиальный формат</option>
-                    <option>пока не определились</option>
-                </select>
+                <textarea name="comment" rows="3" placeholder="Комментарий"
+                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-y"></textarea>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
                     расчёт стоимости</button>
@@ -2463,15 +2418,8 @@
                     <option>Корпоратив</option>
                     <option>Другое</option>
                 </select>
-                <select name="budget" aria-label="Планируемый бюджет (необязательно)"
-                    class="event-select w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-muted focus:outline-none focus:border-brand-gold transition-colors appearance-none cursor-pointer">
-                    <option value="" selected>Бюджет — необязательно</option>
-                    <option>Компактный формат</option>
-                    <option>Оптимальный формат</option>
-                    <option>Расширенный формат</option>
-                    <option>Премиальный формат</option>
-                    <option>пока не определились</option>
-                </select>
+                <textarea name="comment" rows="3" placeholder="Комментарий"
+                    class="w-full bg-white border border-brand-black/10 rounded-xl px-4 py-3 text-brand-black focus:outline-none focus:border-brand-gold transition-colors resize-y"></textarea>
                 <button type="submit"
                     class="filter-btn filter-btn--silver filter-btn--lavender-cta w-full py-4 font-bold rounded-xl">Получить
                     расчёт стоимости</button>
