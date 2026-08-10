@@ -46,7 +46,13 @@
         .modal-enter { animation: modalIn 0.3s ease forwards; }
         @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .hero-parallax { background-attachment: fixed; background-position: center; background-size: cover; }
-        .hero-premium { background: #08090D; color: #F4F5F7; }
+        .hero-premium {
+            min-height: clamp(650px, 100vh, 700px);
+            min-height: clamp(650px, 100svh, 700px);
+            background: #08090D;
+            color: #F4F5F7;
+        }
+        .hero-premium__content { min-height: inherit; }
         .hero-premium__image {
             background-image: url('../picture/main-web.webp');
             background-position: 62% center;
@@ -93,6 +99,48 @@
             font-size: clamp(1rem, 1.5vw, 1.25rem);
             line-height: 1.7;
         }
+        .hero-special-offer-marker {
+            max-width: 43rem;
+            display: grid;
+            gap: 0.28rem;
+            margin-top: 1.35rem;
+            padding: 0.78rem 0.95rem;
+            border: 1px solid rgba(217, 209, 232, 0.3);
+            border-left: 3px solid #B9A7D8;
+            border-radius: 0 12px 12px 0;
+            background: rgba(8, 9, 13, 0.34);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .hero-special-offer-marker p {
+            color: #F4F5F7;
+            font-size: 0.82rem;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+        .hero-special-offer-marker span {
+            color: rgba(244, 245, 247, 0.74);
+            font-size: 0.76rem;
+            line-height: 1.45;
+        }
+        .hero-special-offer-marker a {
+            width: fit-content;
+            margin-top: 0.08rem;
+            color: #D9D1E8;
+            font-size: 0.75rem;
+            font-weight: 800;
+            line-height: 1.35;
+            text-decoration: underline;
+            text-decoration-color: rgba(217, 209, 232, 0.5);
+            text-underline-offset: 0.22em;
+        }
+        .hero-special-offer-marker a:hover { color: #F4F5F7; }
+        .hero-special-offer-marker a:focus-visible {
+            outline: 3px solid rgba(217, 209, 232, 0.58);
+            outline-offset: 3px;
+            border-radius: 3px;
+        }
+        .hero-actions { margin-top: 1.25rem; }
         .hero-btn {
             display: inline-flex;
             min-height: 54px;
@@ -108,6 +156,11 @@
         .hero-btn--primary:hover { background: #C9CED6; color: #08090D; }
         .hero-btn--ghost { border: 1px solid rgba(244, 245, 247, 0.45); color: #F4F5F7; }
         .hero-btn--ghost:hover { border-color: #C9CED6; color: #C9CED6; }
+        #navbar .nav-special-offer-link {
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
         .cta-microproof {
             display: flex;
             flex-wrap: wrap;
@@ -256,47 +309,6 @@
             font-size: 0.92rem;
             line-height: 1.6;
         }
-        .special-offer-teaser {
-            position: relative;
-            z-index: 2;
-            border-bottom: 1px solid rgba(8, 9, 13, 0.08);
-            background: #fff;
-        }
-        .special-offer-teaser__inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.25rem 2rem;
-        }
-        .special-offer-teaser p {
-            color: #17161D;
-            font-size: 0.94rem;
-            font-weight: 750;
-            line-height: 1.4;
-        }
-        .special-offer-teaser span {
-            display: block;
-            margin-top: 0.2rem;
-            color: #6F7178;
-            font-size: 0.8rem;
-            line-height: 1.45;
-        }
-        .special-offer-teaser a {
-            flex: 0 0 auto;
-            color: #5D4E7E;
-            font-size: 0.84rem;
-            font-weight: 800;
-            line-height: 1.35;
-            text-decoration: underline;
-            text-decoration-color: rgba(113, 97, 143, 0.38);
-            text-underline-offset: 0.28em;
-        }
-        .special-offer-teaser a:hover { color: #08090D; }
-        .special-offer-teaser a:focus-visible {
-            outline: 3px solid rgba(113, 97, 143, 0.4);
-            outline-offset: 4px;
-            border-radius: 4px;
-        }
         .promotion-section {
             overflow: hidden;
             scroll-margin-top: 6rem;
@@ -394,6 +406,18 @@
             font-size: 0.96rem;
             line-height: 1.58;
         }
+        .promotion-offer-panel__signature {
+            max-width: 56rem;
+            margin: 1.15rem auto 0;
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(113, 97, 143, 0.16);
+            border-radius: 12px;
+            color: #555860;
+            background: rgba(217, 209, 232, 0.26);
+            font-size: 0.82rem;
+            line-height: 1.55;
+            text-align: center;
+        }
         .promotion-offer-panel__button {
             min-height: 3.25rem;
             padding-right: 2rem;
@@ -415,12 +439,12 @@
             .hero-parallax { background-attachment: scroll; }
             .hero-premium {
                 min-height: 100vh;
-                min-height: 100svh;
+                min-height: min(100svh, 700px);
                 overflow: visible;
             }
             .hero-premium__content {
                 min-height: 100vh;
-                min-height: 100svh;
+                min-height: min(100svh, 700px);
                 justify-content: flex-start;
                 padding-top: 6.25rem;
                 padding-bottom: 1.75rem;
@@ -444,6 +468,14 @@
                 font-size: 1rem;
                 line-height: 1.55;
             }
+            .hero-special-offer-marker {
+                margin-top: 1rem;
+                padding: 0.68rem 0.78rem;
+            }
+            .hero-special-offer-marker p { font-size: 0.78rem; }
+            .hero-special-offer-marker span { font-size: 0.72rem; }
+            .hero-special-offer-marker a { font-size: 0.73rem; }
+            .hero-actions { margin-top: 0.95rem; }
             .hero-kicker { font-size: 0.64rem; letter-spacing: 0.16em; }
             .hero-kicker::before { width: 28px; }
             .hero-btn {
@@ -492,15 +524,32 @@
             .event-category-card:hover { transform: none; }
             .event-category-card__body { padding: 18px; }
             .event-category-card__title { font-size: 1.22rem; }
-            .special-offer-teaser__inner { align-items: flex-start; flex-direction: column; }
             .promotion-section__heading { margin-bottom: 1.75rem; text-align: left; }
             .promotion-section__guidance { margin-right: 0; margin-left: 0; }
             .promotion-offers-grid { grid-template-columns: 1fr; }
             .promotion-offer-option { padding: 1.25rem 0.35rem; }
             .promotion-offer-option + .promotion-offer-option { border-top: 1px solid rgba(8, 9, 13, 0.09); border-left: 0; }
+            .promotion-offer-panel__signature { margin-top: 0.85rem; text-align: left; }
             .promotion-offer-panel__action { margin-right: 0.35rem; margin-left: 0.35rem; }
             .promotion-offer-panel__button { width: 100%; }
             .cta-microproof { flex-direction: column; gap: 6px; }
+        }
+        @media (max-height: 700px) {
+            .hero-premium__content {
+                padding-top: 6rem;
+                padding-bottom: 1.5rem;
+            }
+            .hero-title { margin-top: 14px; }
+            .hero-lead {
+                margin-top: 14px;
+                line-height: 1.5;
+            }
+            .hero-special-offer-marker {
+                margin-top: 0.8rem;
+                padding: 0.62rem 0.75rem;
+            }
+            .hero-actions { margin-top: 0.8rem; }
+            .cta-microproof--hero { margin-top: 0.75rem; }
         }
         .masonry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
         .portfolio-item { scroll-margin-top: 6rem; }

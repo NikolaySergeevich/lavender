@@ -794,6 +794,12 @@
             requiresEventDate: true,
             projectCategory: 'Фотозоны'
         };
+        const HERO_SPECIAL_OFFER_FORM = {
+            formTitle: 'Получите расчёт и узнайте доступную выгоду',
+            formDescription: 'Укажите дату и расскажите о мероприятии. Менеджер рассчитает оформление и проверит, доступны ли подарок, скидка на дополнительную зону или специальные условия на вашу дату.',
+            submitLabel: 'Получить расчёт с выгодой',
+            formLocation: 'homepage_hero_special_offer'
+        };
 
         function pushOfferEvent(eventName, context = {}) {
             if (!context.offerType) return;
@@ -820,6 +826,14 @@
                 offerPage: window.location.pathname,
                 offerLocation: block?.dataset.offerLocation || 'homepage_special_offer',
                 projectUrl: window.location.href
+            };
+        }
+
+        function getHeroSpecialOfferContext(block) {
+            return {
+                ...getSpecialOfferContext(block),
+                ...HERO_SPECIAL_OFFER_FORM,
+                offerLocation: 'homepage_hero'
             };
         }
 
@@ -860,6 +874,7 @@
                 target: '#special-offer',
                 page_path: window.location.pathname
             };
+            if (context.offerLocation) eventData.offer_location = context.offerLocation;
             window.dataLayer.push(eventData);
             console.info('dataLayer offer_teaser_click:', eventData);
         }
@@ -879,11 +894,23 @@
                     context
                 );
             });
-            document.querySelectorAll('[data-special-offer-teaser]').forEach((teaser) => {
+            const heroContext = getHeroSpecialOfferContext(block);
+            const heroOfferButton = document.querySelector('[data-hero-special-offer-open]');
+            heroOfferButton?.addEventListener('click', () => {
+                pushOfferEvent('offer_click', heroContext);
+                openModal(
+                    heroContext.offerName,
+                    'Главная — расчёт с выгодой',
+                    null,
+                    heroContext.formLocation,
+                    heroContext
+                );
+            });
+            document.querySelectorAll('[data-hero-special-offer-teaser]').forEach((teaser) => {
                 teaser.addEventListener('click', (event) => {
                     const targetSelector = teaser.getAttribute('href') || '#special-offer';
                     const target = document.querySelector(targetSelector);
-                    pushSpecialOfferTeaserClick(context);
+                    pushSpecialOfferTeaserClick(heroContext);
                     if (!target) return;
 
                     event.preventDefault();

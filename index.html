@@ -105,8 +105,9 @@
             <img src="lavdr.ico" alt="" class="brand-logo">
             <span class="font-serif text-2xl font-bold tracking-tight">Lavdragon</span>
         </a>
-        <div class="hidden xl:flex items-center gap-8 text-sm font-medium tracking-wide">
+        <div class="hidden xl:flex items-center gap-5 text-sm font-medium tracking-wide">
             <a href="#event-picker" class="hover:text-brand-black transition-colors">Форматы</a>
+            <a href="#special-offer" class="nav-special-offer-link hover:text-brand-black transition-colors">Спецпредложение</a>
             <a href="ceny-na-fotazony-minsk/" class="hover:text-brand-black transition-colors">Цены</a>
             <a href="arenda-cifr-na-prazdnik-minsk/" class="hover:text-brand-black transition-colors">Цифры</a>
             <a href="arenda-payetok-minsk/" class="hover:text-brand-black transition-colors">Пайетки</a>
@@ -131,8 +132,9 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu"
-        class="fixed inset-0 z-40 bg-brand-ivory/95 backdrop-blur-xl hidden flex-col justify-center items-center gap-8 text-xl font-serif">
+        class="fixed inset-0 z-40 bg-brand-ivory/95 backdrop-blur-xl hidden flex-col justify-center items-center gap-5 text-xl font-serif">
         <a href="#event-picker" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Форматы</a>
+        <a href="#special-offer" onclick="closeMobileMenu()" class="nav-special-offer-link hover:text-brand-black transition-colors">Спецпредложение</a>
         <a href="ceny-na-fotazony-minsk/" onclick="closeMobileMenu()"
             class="hover:text-brand-black transition-colors">Цены</a>
         <a href="arenda-cifr-na-prazdnik-minsk/" onclick="closeMobileMenu()"
@@ -157,12 +159,12 @@
     </div>
 
     <!-- Hero Section -->
-    <header class="hero-premium relative min-h-screen w-full overflow-hidden">
+    <header class="hero-premium relative w-full overflow-hidden">
         <div class="hero-premium__image absolute inset-0 z-0"></div>
         <div class="hero-premium__veil absolute inset-0 z-0"></div>
 
         <div
-            class="hero-premium__content relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-end px-6 pb-12 pt-32 md:px-12 lg:pb-16">
+            class="hero-premium__content relative z-10 mx-auto flex max-w-7xl flex-col justify-end px-6 pb-12 pt-32 md:px-12 lg:pb-16">
             <div class="max-w-5xl">
                 <p class="hero-kicker animate-fade-up" style="animation-delay: 0.2s;">ФОТОЗОНЫ И ДЕКОР В МИНСКЕ</p>
                 <h1 class="hero-title animate-fade-up" style="animation-delay: 0.35s;">
@@ -172,9 +174,14 @@
                     Фотозоны под ключ для дней рождения, юбилеев, детских праздников, свадеб, gender party и
                     корпоративов. Доставка, монтаж и демонтаж включены.
                 </p>
-                <div class="mt-10 flex flex-col gap-3 sm:flex-row animate-fade-up" style="animation-delay: 0.65s;">
+                <div class="hero-special-offer-marker animate-fade-up" style="animation-delay: 0.58s;" aria-label="Специальные условия">
+                    <p>Специальные условия для вашего события</p>
+                    <span>Декор до 100 BYN в подарок, выгода на комплексное оформление или выгодное предложение на свободную дату.</span>
+                    <a href="#special-offer" data-hero-special-offer-teaser>Посмотреть условия</a>
+                </div>
+                <div class="hero-actions flex flex-col gap-3 sm:flex-row animate-fade-up" style="animation-delay: 0.65s;">
                     <a href="#event-picker" class="hero-btn hero-btn--primary">Выбрать фотозону</a>
-                    <button onclick="openModal()" class="hero-btn hero-btn--ghost">Рассчитать стоимость</button>
+                    <button type="button" class="hero-btn hero-btn--ghost" data-hero-special-offer-open>Получить расчёт с выгодой</button>
                 </div>
                 <div class="cta-microproof cta-microproof--hero animate-fade-up" style="animation-delay: 0.75s;">
                     <span>✓ Ответим в течение 15 минут</span>
@@ -190,16 +197,6 @@
             Scroll
         </div>
     </header>
-
-    <section class="special-offer-teaser px-6 py-4 md:px-12" aria-label="Специальные условия">
-        <div class="special-offer-teaser__inner mx-auto max-w-7xl">
-            <div>
-                <p>Для вашего события могут быть доступны подарок или специальные условия</p>
-                <span>Покажем варианты ниже и поможем определить подходящий после уточнения даты.</span>
-            </div>
-            <a href="#special-offer" data-special-offer-teaser>Посмотреть специальные предложения</a>
-        </div>
-    </section>
 
     <!-- Event Picker Section -->
     <section id="event-picker" class="event-picker-section px-6 py-16 md:px-12 md:py-20">
@@ -225,6 +222,51 @@
                     class="event-picker-chip filter-btn filter-btn--silver">Аренда цифр</a>
                 <a href="arenda-payetok-minsk/"
                     class="event-picker-chip filter-btn filter-btn--silver">Аренда пайеток</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special conditions -->
+    <section id="special-offer" class="promotion-section px-6 py-12 md:px-12 md:py-16" aria-labelledby="promotion-title"
+        tabindex="-1" data-special-offer-block data-offer-location="homepage_special_offer"
+        data-available-offer-types="early_booking_gift,bundle_discount,available_date_offer">
+        <div class="mx-auto max-w-7xl">
+            <header class="promotion-section__heading reveal">
+                <p class="promotion-section__eyebrow">Условия для вашего события</p>
+                <h2 id="promotion-title">Специальные условия для вашего события</h2>
+                <p>В зависимости от даты мероприятия и состава заказа мы подберём наиболее выгодный вариант.</p>
+                <p class="promotion-section__guidance">Вам не нужно выбирать предложение самостоятельно — оставьте дату
+                    и расскажите о мероприятии. Менеджер проверит условия и предложит подходящий вариант.</p>
+            </header>
+            <div class="promotion-offer-panel reveal">
+                <div class="promotion-offers-grid" aria-label="Возможные специальные условия">
+                    <article class="promotion-offer-option">
+                        <p class="promotion-offer-option__eyebrow">При раннем бронировании</p>
+                        <h3>Декор до 100 BYN в подарок</h3>
+                        <p>При бронировании минимум за 30 дней предложим персональную надпись или дополнительный декор
+                            из доступного ассортимента.</p>
+                    </article>
+                    <article class="promotion-offer-option">
+                        <p class="promotion-offer-option__eyebrow">При комплексном заказе</p>
+                        <h3>−10% на дополнительную зону</h3>
+                        <p>При заказе фотозоны вместе с welcome-зоной, входной группой или оформлением зала.</p>
+                    </article>
+                    <article class="promotion-offer-option">
+                        <p class="promotion-offer-option__eyebrow">Для отдельных свободных дат</p>
+                        <h3>Специальные условия на вашу дату</h3>
+                        <p>Проверим доступность команды и актуальное предложение на дату мероприятия.</p>
+                    </article>
+                </div>
+                <p class="promotion-offer-panel__signature">Подарок не обменивается на деньги, скидка 10% применяется
+                    только к дополнительной зоне, а условия на дату зависят от реальной доступности команды. Без
+                    таймеров и искусственного дефицита.</p>
+                <div class="promotion-offer-panel__action">
+                    <p>Какое предложение подходит именно вам, определим после уточнения даты, площадки и состава
+                        оформления.</p>
+                    <button type="button" class="hero-btn hero-btn--primary promotion-offer-panel__button"
+                        data-special-offer-open>Узнать доступное предложение</button>
+                    <span>Это бесплатно и ни к чему вас не обязывает.</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1486,55 +1528,6 @@
                 </div>
                 <h2>Реальные фотографии работ</h2>
             </article>
-        </div>
-    </section>
-
-    <!-- Benefits and special conditions -->
-    <section id="special-offer" class="promotion-section px-6 py-16 md:px-12 md:py-20" aria-labelledby="promotion-title"
-        tabindex="-1" data-special-offer-block data-offer-location="homepage_special_offer"
-        data-available-offer-types="early_booking_gift,bundle_discount,available_date_offer">
-        <div class="mx-auto max-w-7xl">
-            <header class="promotion-section__heading reveal">
-                <p class="promotion-section__eyebrow">Условия для вашего события</p>
-                <h2 id="promotion-title">Специальные условия для вашего события</h2>
-                <p>В зависимости от даты мероприятия и состава заказа мы подберём наиболее выгодный вариант.</p>
-                <p class="promotion-section__guidance">Вам не нужно выбирать предложение самостоятельно — оставьте дату
-                    и расскажите о мероприятии. Менеджер проверит условия и предложит подходящий вариант.</p>
-            </header>
-            <div class="promotion-offer-panel reveal">
-                <div class="promotion-offers-grid" aria-label="Возможные специальные условия">
-                    <article class="promotion-offer-option">
-                        <p class="promotion-offer-option__eyebrow">При раннем бронировании</p>
-                        <h3>Декор до 100 BYN в подарок</h3>
-                        <p>При бронировании минимум за 30 календарных дней — персональная надпись или дополнительный декоративный
-                            элемент к фотозоне.</p>
-                        <p class="promotion-offer-option__note">До 100 BYN — это стоимость декора, а не денежная
-                            скидка. Подарок согласуется с концепцией и доступным ассортиментом, является частью заказа
-                            и не обменивается на деньги.</p>
-                    </article>
-                    <article class="promotion-offer-option">
-                        <p class="promotion-offer-option__eyebrow">При комплексном заказе</p>
-                        <h3>−10% на дополнительную зону</h3>
-                        <p>При заказе фотозоны вместе с welcome-зоной, входной группой или оформлением зала.</p>
-                        <p class="promotion-offer-option__note">Скидка применяется только к дополнительной зоне и не
-                            распространяется автоматически на весь заказ; состав и стоимость фиксируются в расчёте.</p>
-                    </article>
-                    <article class="promotion-offer-option">
-                        <p class="promotion-offer-option__eyebrow">Для отдельных свободных дат</p>
-                        <h3>Специальные условия на свободную дату</h3>
-                        <p>Проверим доступность команды и актуальное предложение на дату вашего мероприятия.</p>
-                        <p class="promotion-offer-option__note">Условия зависят от реальной доступности команды — без
-                            таймеров и искусственного дефицита; фиксированную сумму или процент заранее не показываем.</p>
-                    </article>
-                </div>
-                <div class="promotion-offer-panel__action">
-                    <p>Какое предложение подходит именно вам, определим после уточнения даты, площадки и состава
-                        оформления.</p>
-                    <button type="button" class="hero-btn hero-btn--primary promotion-offer-panel__button"
-                        data-special-offer-open>Узнать доступное предложение</button>
-                    <span>Это бесплатно и ни к чему вас не обязывает.</span>
-                </div>
-            </div>
         </div>
     </section>
 

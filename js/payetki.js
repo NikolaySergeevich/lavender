@@ -392,6 +392,7 @@
             pushOfferEvent('offer_teaser_click', {
                 offerType: 'special_offer_consultation',
                 offerPage: pagePath,
+                offerLocation: link.getAttribute('data-offer-location') || 'payetki_hero',
                 target: targetSelector
             });
             if (!target) return;
