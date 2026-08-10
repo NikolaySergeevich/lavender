@@ -1238,54 +1238,57 @@ body.seo-project-modal-open {
     flex: 0 0 auto;
 }
 
-.seo-offer-teaser {
-    width: min(80rem, calc(100% - 3rem));
-    display: flex;
+.seo-hero-offer-marker {
+    max-width: 43rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.25rem;
-    margin: 1.15rem auto 0;
-    padding: 1rem 1.15rem;
+    gap: 0.8rem 1rem;
+    margin-top: 1.15rem;
+    padding: 0.85rem 1rem;
     border: 1px solid rgba(113, 97, 143, 0.2);
     border-radius: var(--seo-radius-sm);
     color: var(--seo-ink);
     background: rgba(255, 255, 255, 0.86);
-    box-shadow: var(--seo-shadow-sm);
 }
 
-.seo-offer-teaser__copy {
+.seo-hero-offer-marker__copy {
     display: grid;
     gap: 0.22rem;
 }
 
-.seo-offer-teaser__copy strong {
-    font-size: 0.94rem;
+.seo-hero-offer-marker__copy strong {
+    font-size: 0.86rem;
     line-height: 1.4;
 }
 
-.seo-offer-teaser__copy span {
+.seo-hero-offer-marker__copy span {
     color: var(--seo-muted);
-    font-size: 0.82rem;
+    font-size: 0.76rem;
     line-height: 1.45;
 }
 
-.seo-offer-teaser a {
+.seo-hero-offer-marker a {
     flex: 0 0 auto;
     color: var(--seo-lavender-dark);
-    font-size: 0.86rem;
+    font-size: 0.79rem;
     font-weight: 800;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.22em;
 }
 
-.seo-offer-teaser a:hover {
+.seo-hero-offer-marker a:hover {
     color: var(--seo-ink);
 }
 
-.seo-offer-teaser a:focus-visible {
+.seo-hero-offer-marker a:focus-visible {
     outline: 3px solid rgba(113, 97, 143, 0.32);
     outline-offset: 3px;
+}
+
+.seo-hero-offer-marker + .seo-hero__actions {
+    margin-top: 1rem;
 }
 
 .seo-special-offer-section {
@@ -1846,16 +1849,15 @@ body.seo-project-modal-open {
         border-radius: var(--seo-radius);
     }
 
-    .seo-offer-teaser {
-        width: calc(100% - 2rem);
+    .seo-hero-offer-marker {
+        grid-template-columns: 1fr;
         align-items: stretch;
-        flex-direction: column;
-        gap: 0.8rem;
+        gap: 0.65rem;
         margin-top: 0.8rem;
-        padding: 0.95rem 1rem;
+        padding: 0.85rem 0.9rem;
     }
 
-    .seo-offer-teaser a {
+    .seo-hero-offer-marker a {
         width: fit-content;
     }
 

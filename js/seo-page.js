@@ -60,7 +60,7 @@
         addBenefits(hero);
         addProjectDetailCta(page, projectModal);
         const specialOfferSection = addInlineCtas(gallery, page, projectModal);
-        addOfferTeaser(hero, page, specialOfferSection);
+        addHeroOfferMarker(hero, page, specialOfferSection);
         addRelated(page, siteRoot);
         addFinalCta(page, projectModal);
         addFooter(siteRoot);
@@ -431,9 +431,23 @@
             actions.prepend(calculate);
         }
         const pageProject = getPageProject(page);
+        const hasFullSpecialOffer = !pageProject
+            && !page.compactOffers
+            && Array.isArray(page.offers)
+            && page.offers.length > 0;
+        const heroOfferContext = hasFullSpecialOffer
+            ? getSpecialOfferContext(page, page.offers, {
+                source: 'Первый экран — специальные условия',
+                formLocation: 'seo_hero_special_offer',
+                offerLocation: 'seo_hero',
+                submitLabel: 'Получить расчёт с выгодой'
+            })
+            : null;
         calculate.textContent = pageProject
             ? 'Рассчитать эту фотозону'
-            : 'Рассчитать стоимость';
+            : heroOfferContext
+                ? 'Получить расчёт с выгодой'
+                : 'Рассчитать стоимость';
         calculate.className = 'seo-btn seo-btn--primary';
 
         let works = hashLink && hashLink !== calculate
@@ -475,7 +489,7 @@
                 formDescription: 'Расскажите о мероприятии — подготовим расчёт выбранной фотозоны под вашу площадку и задачу.',
                 submitLabel: 'Узнать стоимость'
             }
-            : {
+            : heroOfferContext || {
                 source: 'Первый экран',
                 formLocation: 'seo_hero'
             });
@@ -540,7 +554,9 @@
             offer_page: context.offerPage || window.location.pathname,
             page_path: window.location.pathname
         };
-        if (eventName !== 'offer_teaser_click') {
+        if (eventName === 'offer_teaser_click') {
+            eventData.offer_location = context.offerLocation || 'seo_hero';
+        } else {
             eventData.offer_name = context.offerName || SPECIAL_OFFER.name;
             eventData.offer_value = context.offerValue || SPECIAL_OFFER.value;
             eventData.available_offer_types = context.availableOfferTypes || '';
@@ -550,6 +566,12 @@
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push(eventData);
         console.info(`dataLayer ${eventName}:`, eventData);
+    }
+
+    function trackYandexGoal(goal, params = {}) {
+        if (typeof window.ym === 'function') {
+            window.ym(109623826, 'reachGoal', goal, params);
+        }
     }
 
     function observeSpecialOffer(section, context) {
@@ -1140,6 +1162,11 @@
             document.body.classList.add('seo-project-modal-open');
             requestAnimationFrame(() => modal.classList.add('is-open'));
             closeButton.focus();
+            trackYandexGoal('form_open', {
+                source: context.source || (hasProject ? 'Страница проекта' : 'Общая заявка'),
+                offer_type: context.offerType || '',
+                form_location: context.formLocation || 'seo_general_inquiry'
+            });
         }
 
         function close() {
@@ -1409,30 +1436,28 @@
         if (!main || isProjectDetailPage(page)) return null;
         const sections = Array.from(main.querySelectorAll(':scope > section.seo-section'));
         const faqSection = sections.find((section) => section.querySelector('.seo-faq'));
-        const targets = [];
-        if (sections[0] && sections[0] !== faqSection) targets.push(sections[0]);
-        if (gallerySection && gallerySection !== faqSection && !targets.includes(gallerySection)) targets.push(gallerySection);
-        if (!targets.length) {
-            const article = main.querySelector(':scope > .seo-article');
-            if (article) targets.push(article);
-        }
+        const placement = findSpecialOfferPlacement(
+            main,
+            sections,
+            gallerySection,
+            faqSection,
+            Boolean(page.compactOffers)
+        );
 
-        if (page.offers?.length && targets.length) {
-            const target = gallerySection && gallerySection !== faqSection
-                ? gallerySection
-                : targets[targets.length - 1];
-            return addSpecialOfferAfter(target, page, projectModal, page.offers, {
+        if (page.offers?.length && placement) {
+            return addSpecialOfferAfter(placement.target, page, projectModal, page.offers, {
                 formLocation: page.compactOffers ? 'seo_blog_offer' : 'seo_special_offer',
                 offerLocation: page.compactOffers ? 'seo_blog_offer' : 'seo_special_offer',
                 source: page.compactOffers ? 'Компактное предложение в материале' : 'Специальные условия оформления',
-                compact: Boolean(page.compactOffers)
+                compact: Boolean(page.compactOffers),
+                placement: placement.position
             });
-            return;
         }
 
         const target = gallerySection && gallerySection !== faqSection
             ? gallerySection
-            : targets[targets.length - 1];
+            : placement?.target;
+        if (!target) return null;
         const wrapper = document.createElement('section');
         wrapper.className = 'seo-section seo-section--compact';
         wrapper.innerHTML = `
@@ -1451,6 +1476,37 @@
             formLocation: project ? 'seo_project_page' : 'seo_inline_cta'
         });
         return wrapper;
+    }
+
+    function findSpecialOfferPlacement(main, sections, gallerySection, faqSection, compact = false) {
+        const article = main.querySelector(':scope > .seo-article');
+        if (compact && article) return { target: article, position: 'beforeend' };
+        const contentSections = sections.filter((section) => section !== faqSection);
+        const galleryIndex = gallerySection ? contentSections.indexOf(gallerySection) : -1;
+        const beforeGallery = galleryIndex > 0
+            ? contentSections.slice(0, galleryIndex)
+            : galleryIndex === 0
+                ? []
+                : contentSections;
+        if (galleryIndex === 0 && gallerySection && gallerySection !== faqSection) {
+            return { target: gallerySection, position: 'beforebegin' };
+        }
+        const firstContent = beforeGallery[0] || contentSections[0];
+        if (firstContent) {
+            const hasServiceCards = Boolean(firstContent.querySelector(
+                '[data-open-general-inquiry], .cost-service-card, .seo-card'
+            ));
+            const isConcise = hasServiceCards || firstContent.textContent.trim().length <= 750;
+            return {
+                target: firstContent,
+                position: isConcise ? 'afterend' : 'beforebegin'
+            };
+        }
+        if (gallerySection && gallerySection !== faqSection) {
+            return { target: gallerySection, position: 'beforebegin' };
+        }
+        if (article) return { target: article, position: 'afterend' };
+        return null;
     }
 
     function addSpecialOfferAfter(target, page, projectModal, offers, options = {}) {
@@ -1513,7 +1569,10 @@
                     </div>
                 </div>
             `;
-        target.insertAdjacentElement('afterend', section);
+        const placement = options.placement === 'beforebegin' || options.placement === 'beforeend'
+            ? options.placement
+            : 'afterend';
+        target.insertAdjacentElement(placement, section);
 
         bindInquiryTrigger(section.querySelector('[data-special-offer-action]'), projectModal, null, context);
         observeSpecialOffer(section, context);
@@ -1521,38 +1580,47 @@
         return section;
     }
 
-    function addOfferTeaser(hero, page, specialOfferSection) {
+    function addHeroOfferMarker(hero, page, specialOfferSection) {
         if (
             !hero
             || !specialOfferSection
             || specialOfferSection.id !== 'special-offer'
             || page.compactOffers
             || isProjectDetailPage(page)
-            || document.querySelector('.seo-offer-teaser')
+            || hero.querySelector('.seo-hero-offer-marker')
         ) {
             return;
         }
 
-        const teaser = document.createElement('aside');
-        teaser.className = 'seo-offer-teaser';
-        teaser.setAttribute('aria-label', 'Специальные условия для события');
-        teaser.innerHTML = `
-            <div class="seo-offer-teaser__copy">
-                <strong>Для вашего события могут быть доступны подарок или специальные условия</strong>
-                <span>Покажем варианты ниже и поможем определить подходящий после уточнения даты.</span>
-            </div>
-            <a href="#special-offer">Посмотреть специальные предложения</a>
-        `;
-        const insertionTarget = document.querySelector('.seo-benefit-strip') || hero;
-        insertionTarget.insertAdjacentElement('afterend', teaser);
+        const copy = hero.querySelector('.seo-hero__copy');
+        const actions = copy?.querySelector('.seo-hero__actions');
+        if (!copy) return;
 
-        teaser.querySelector('a')?.addEventListener('click', (event) => {
+        const marker = document.createElement('aside');
+        marker.className = 'seo-hero-offer-marker';
+        marker.setAttribute('aria-label', 'Специальные условия для события');
+        marker.innerHTML = `
+            <div class="seo-hero-offer-marker__copy">
+                <strong>Для вашего события могут быть доступны специальные условия</strong>
+                <span>Подарок, выгода на комплексное оформление или предложение на свободную дату.</span>
+            </div>
+            <a href="#special-offer">Посмотреть условия</a>
+        `;
+        if (actions) {
+            actions.before(marker);
+        } else {
+            const lead = copy.querySelector('.seo-hero__lead');
+            (lead || copy.lastElementChild)?.insertAdjacentElement('afterend', marker);
+        }
+
+        marker.querySelector('a')?.addEventListener('click', (event) => {
             const target = document.getElementById('special-offer');
             if (!target) return;
             event.preventDefault();
             pushOfferEvent('offer_teaser_click', {
                 offerType: SPECIAL_OFFER.type,
                 offerPage: window.location.pathname,
+                offerLocation: 'seo_hero',
                 target: '#special-offer'
             });
             if (window.history?.pushState) {

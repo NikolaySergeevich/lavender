@@ -309,18 +309,13 @@ body.payetki-page {
 }
 
 .payetki-offer-teaser {
-    padding: 0 1.5rem;
-    background: rgba(255, 255, 255, 0.7);
-}
-
-.payetki-offer-teaser__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1rem 0;
-    border-top: 1px solid var(--payetki-line);
-    border-bottom: 1px solid var(--payetki-line);
+    max-width: 42rem;
+    margin-top: 1.15rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(113, 97, 143, 0.22);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.56);
+    box-shadow: 0 12px 28px rgba(8, 9, 13, 0.05);
 }
 
 .payetki-offer-teaser p {
@@ -337,7 +332,8 @@ body.payetki-page {
 }
 
 .payetki-offer-teaser__link {
-    flex: 0 0 auto;
+    display: inline-block;
+    margin-top: 0.65rem;
     color: var(--payetki-lavender-dark);
     font-size: 0.9rem;
     font-weight: 800;
@@ -1301,15 +1297,8 @@ body.seo-lightbox-open .back-to-top {
     }
 
     .payetki-offer-teaser {
-        padding-right: 1rem;
-        padding-left: 1rem;
-    }
-
-    .payetki-offer-teaser__inner {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.65rem;
-        padding: 0.85rem 0;
+        margin-top: 1rem;
+        padding: 0.85rem 0.9rem;
     }
 
     .payetki-special-offer {
