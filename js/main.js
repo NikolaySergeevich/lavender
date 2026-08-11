@@ -668,7 +668,7 @@
                     modalOfferDateStatus.textContent = 'Дата подходит под условие раннего бронирования. Итоговый подарок согласуем после уточнения состава заказа.';
                     modalOfferDateStatus.dataset.state = 'success';
                 } else if (eligible === 'no') {
-                    modalOfferDateStatus.textContent = 'До мероприятия меньше 30 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
+                    modalOfferDateStatus.textContent = 'До мероприятия меньше 7 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
                     modalOfferDateStatus.dataset.state = 'notice';
                 }
             } else if (requiresEventDate && showMessage && !dateValue) {
