@@ -1042,7 +1042,7 @@
                     dateNote.textContent = 'Дата подходит под условие раннего бронирования. Итоговый подарок согласуем после уточнения состава заказа.';
                     dateNote.dataset.state = 'success';
                 } else {
-                    dateNote.textContent = 'До мероприятия меньше 30 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
+                    dateNote.textContent = 'До мероприятия меньше 7 дней. Мы всё равно проверим доступные варианты и возможные специальные условия.';
                     dateNote.dataset.state = 'notice';
                 }
             } else if (checksEarlyBooking && dateValue) {

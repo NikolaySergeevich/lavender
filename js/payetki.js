@@ -72,7 +72,7 @@
                 status.textContent = 'Дата позволяет проверить возможность подарочного декора. Менеджер уточнит состав оформления и доступность декора.';
                 status.dataset.state = 'success';
             } else {
-                status.textContent = 'До мероприятия меньше 30 дней. Менеджер проверит комплексное предложение и условия на свободную дату.';
+                status.textContent = 'До мероприятия меньше 7 дней. Менеджер проверит комплексное предложение и условия на свободную дату.';
                 status.dataset.state = 'notice';
             }
         } else if (isOfferDateRequired && showMessage && !dateValue) {
