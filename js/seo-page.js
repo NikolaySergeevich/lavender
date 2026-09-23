@@ -1505,7 +1505,7 @@
         section.setAttribute('aria-labelledby', 'special-offer-title');
         section.innerHTML = compact
             ? `
-                <div class="seo-special-offer seo-special-offer--compact">
+                <div id="offer" class="seo-special-offer seo-special-offer--compact">
                     <div class="seo-special-offer__compact-copy">
                         <p class="seo-eyebrow">Специальные условия</p>
                         <h2 id="special-offer-title" class="font-serif font-bold">Планируете мероприятие?</h2>
@@ -1515,7 +1515,7 @@
                 </div>
             `
             : `
-                <div class="seo-special-offer">
+                <div id="offer" class="seo-special-offer">
                     <header class="seo-special-offer__copy">
                         <p class="seo-eyebrow">Без самостоятельного выбора акции</p>
                         <h2 id="special-offer-title" class="font-serif font-bold">Специальные условия для вашего события</h2>
@@ -1601,7 +1601,7 @@
     }
 
     function scrollToSpecialOfferIfRequested(section) {
-        if (window.location.hash !== '#special-offer') return;
+        if (!['#special-offer', '#offer'].includes(window.location.hash)) return;
         requestAnimationFrame(() => scrollToSpecialOffer(section, false));
     }
 
