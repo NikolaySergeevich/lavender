@@ -9,6 +9,14 @@ body {
     border-bottom: 1px solid rgba(8, 9, 13, 0.08);
 }
 
+#included,
+#prices,
+#process,
+#works,
+#faq {
+    scroll-margin-top: 5rem;
+}
+
 .seo-hero {
     padding-top: 9rem;
     padding-bottom: 4rem;
