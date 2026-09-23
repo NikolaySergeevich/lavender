@@ -178,6 +178,8 @@
         const portfolioMobileControls = document.getElementById('portfolio-mobile-controls');
         const portfolioMobilePrevBtn = document.getElementById('portfolio-mobile-prev');
         const portfolioMobileNextBtn = document.getElementById('portfolio-mobile-next');
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        const portfolioFilters = portfolioGrid?.previousElementSibling;
         const homePortfolioLimit = 9;
         function isDesktopPortfolio() {
             return window.matchMedia('(min-width: 768px)').matches;
@@ -199,6 +201,7 @@
             'Праздничная фотозона с шарами и яркими цифрами для вашего лучшего дня рождения.',
             'Фотозона с плетёными корзинами и шарами: выпадающие шары с эффектом выливающегося волшебства.',
             'Круглая фотозона для взрослого дня рождения в тёплых нежных золотых оттенках.',
+            'Оливковая фотозона с воздушными шарами в бело-золотой гамме и светящимися цифрами: стильное оформление для юбилея и дня рождения.',
             'Сказочная детская фотозона с единорогом, гирляндами и мягкой палитрой для нежного праздника.',
             'Детская зона с воздушными шарами и декором, рассчитанная на динамичные фото и игры рядом с композицией.',
             'Свадебная композиция с декоративными формами и цветочными акцентами для зоны фото или президиума.',
@@ -229,10 +232,13 @@
             'Оформление входной зоны кафе органической аркой из чёрных, оранжевых, кремовых и золотых шаров для коммерческого открытия.',
             'Оформление входной зоны стоматологии органической аркой из белых и приглушённо-зелёных шаров для открытия.',
             'Бренд-зона OZ с оранжево-белой аркой из шаров, фирменной печатью и учебными акцентами для рекламной кампании.',
+            'Оформление крыльца гимназии №56 ко Дню знаний объёмными осенними гирляндами из воздушных шаров.',
+            'Праздничное оформление Средней школы №41 в Могилёве с бело-золотыми шарами и тематическим баннером к 1 сентября.',
             'Нежная gender party с бабочками, светлым декором и праздничным эффектом для reveal-момента.',
             'Фотозона gender party Oh Baby с wall of balls, мягкой палитрой и аккуратной зоной для reveal-момента.',
             'Фотозона gender party Baby Balls с воздушными шарами, мягкой композицией и светлым праздничным настроением.',
-            'Фотозона gender party Boy or Girl с воздушными шарами, тематической надписью и нежной reveal-подачей.'
+            'Фотозона gender party Boy or Girl с воздушными шарами, тематической надписью и нежной reveal-подачей.',
+            'Нежная фотозона с белым кольцом, розово-голубыми шарами, цветами и зеленью для gender party.'
         ];
         const portfolioCategoryDetails = {
             wedding: {
@@ -294,8 +300,15 @@
             item.classList.add('portfolio-card');
             item.dataset.projectId = item.dataset.projectId || `${categorySlug || 'project'}-${imageFileName}`;
             media.classList.add('portfolio-card__media');
-            if (media.classList.contains('aspect-[3/5]')) {
+            if (portfolioImage && media.classList.contains('aspect-[3/5]')) {
                 media.classList.add('portfolio-card__media--portrait');
+                portfolioImage.classList.add('portfolio-card__image-main');
+
+                const backgroundImage = portfolioImage.cloneNode(false);
+                backgroundImage.className = 'portfolio-card__image-bg';
+                backgroundImage.alt = '';
+                backgroundImage.setAttribute('aria-hidden', 'true');
+                media.insertBefore(backgroundImage, portfolioImage);
             }
 
             const details = document.createElement('div');
@@ -428,16 +441,36 @@
                 applyPortfolioFilter(btn.dataset.filter);
             });
         });
-        function scrollToFirstVisiblePortfolioItem() {
-            const firstVisibleIndex = visiblePortfolioIndexes[0];
-            const firstVisibleItem = Number.isInteger(firstVisibleIndex) ? portfolioItems[firstVisibleIndex] : null;
-            if (!firstVisibleItem) return;
-            firstVisibleItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        function scrollToPortfolioGridAfterPageChange() {
+            if (!portfolioGrid) return;
+
+            window.requestAnimationFrame(() => {
+                const gridRect = portfolioGrid.getBoundingClientRect();
+                const filterRect = portfolioFilters?.getBoundingClientRect();
+                const headerHeight = navbar?.getBoundingClientRect().height || 0;
+                const visualOffset = parseFloat(getComputedStyle(portfolioGrid).rowGap) || 0;
+                const filterContextHeight = filterRect
+                    ? Math.max(0, gridRect.top - filterRect.top)
+                    : 0;
+                const targetTop = Math.max(
+                    0,
+                    window.scrollY + gridRect.top - headerHeight - visualOffset - filterContextHeight
+                );
+
+                if (window.scrollY <= targetTop) return;
+
+                const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+                window.scrollTo({
+                    top: targetTop,
+                    behavior: reduceMotion ? 'auto' : 'smooth'
+                });
+            });
         }
         function changeMobilePortfolioPage(direction, trigger) {
             if (isDesktopPortfolio() || currentPortfolioFilter === 'all') return;
             const filterIndexes = getPortfolioIndexesForFilter(currentPortfolioFilter);
             const maxPage = Math.max(0, Math.ceil(filterIndexes.length / getPortfolioBatchSize()) - 1);
+            if (maxPage === 0) return;
             if (direction > 0) {
                 currentPortfolioPage = currentPortfolioPage >= maxPage ? 0 : currentPortfolioPage + 1;
             } else {
@@ -445,7 +478,7 @@
             }
             flashPortfolioNav(trigger);
             applyPortfolioFilter(currentPortfolioFilter, false);
-            window.setTimeout(scrollToFirstVisiblePortfolioItem, 0);
+            scrollToPortfolioGridAfterPageChange();
         }
         portfolioLoadMoreBtn?.addEventListener('click', () => {
             changeMobilePortfolioPage(1, portfolioLoadMoreBtn);
@@ -463,15 +496,20 @@
         }
         portfolioPrevPageBtn?.addEventListener('click', () => {
             if (!isDesktopPortfolio()) return;
+            if (currentPortfolioPage <= 0) return;
             flashPortfolioNav(portfolioPrevPageBtn);
-            currentPortfolioPage = Math.max(0, currentPortfolioPage - 1);
+            currentPortfolioPage -= 1;
             applyPortfolioFilter(currentPortfolioFilter, false);
+            scrollToPortfolioGridAfterPageChange();
         });
         portfolioNextPageBtn?.addEventListener('click', () => {
             if (!isDesktopPortfolio()) return;
+            const totalPages = Math.ceil(getPortfolioIndexesForFilter(currentPortfolioFilter).length / getPortfolioBatchSize());
+            if (currentPortfolioPage >= totalPages - 1) return;
             flashPortfolioNav(portfolioNextPageBtn);
             currentPortfolioPage += 1;
             applyPortfolioFilter(currentPortfolioFilter, false);
+            scrollToPortfolioGridAfterPageChange();
         });
         window.addEventListener('resize', () => {
             if (currentPortfolioFilter !== 'all') applyPortfolioFilter(currentPortfolioFilter, false);
@@ -518,47 +556,17 @@
         }
 
         const reviewsTrack = document.getElementById('reviews-track');
-        const initialReviewImages = [
-            { image: 'picture/wedding/svadebnaya-fotozona-minsk-kompoziciya.webp', imageAlt: 'Бежевая свадебная фотозона с круглыми панелями, розами, эвкалиптом и свечами' },
-            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-scena.webp', imageAlt: 'Бежевая фотозона с перламутровыми шарами, бусами и светящейся надписью It’s my birthday' },
-            { image: 'picture/wedding/svadebnaya-fotozona-minsk-svet.webp', imageAlt: 'Серая софа под круглой цветочной аркой с розами и тёплой гирляндой' }
-        ];
-        reviewsTrack?.querySelectorAll(':scope > div').forEach((slide, index) => {
-            const card = slide.firstElementChild;
-            const imageData = initialReviewImages[index];
-            if (!card || !imageData) return;
-            slide.classList.add('review-slide');
-            card.classList.add('review-card');
-            card.className = 'review-card';
-            card.insertAdjacentHTML('afterbegin', `<img src="${imageData.image}" alt="${imageData.imageAlt}" class="review-card__image" loading="lazy">`);
-            const existingContent = Array.from(card.children).slice(1);
-            const body = document.createElement('div');
-            body.className = 'review-card__body';
-            existingContent.forEach(element => body.appendChild(element));
-            card.appendChild(body);
-            body.querySelector('.flex.gap-1')?.classList.add('review-card__stars');
-            body.querySelector('.italic')?.classList.add('review-card__text');
-            const person = body.querySelector('.flex.items-center.gap-3');
-            person?.classList.add('review-card__person');
-            person?.querySelector('.rounded-full')?.remove();
-            const personContent = person?.querySelector(':scope > div');
-            if (person && personContent) {
-                while (personContent.firstChild) person.appendChild(personContent.firstChild);
-                personContent.remove();
-            }
-            const personTexts = person?.querySelectorAll('p');
-            personTexts?.[0]?.classList.add('review-card__name');
-            personTexts?.[1]?.classList.add('review-card__meta');
-        });
-        const additionalReviews = [
-            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-dekor.webp', imageAlt: 'Торжественная фотозона с чёрно-золотой гирляндой шаров, белыми цветами и поздравлением Сергею', name: 'Ольга М.', meta: 'Юбилей', text: 'Команда сама подсказала, как лучше поставить фотозону в зале. На фотографиях всё выглядит аккуратно и дорого.' },
-            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-happy-birthday.webp', imageAlt: 'Белая драпированная фотозона с цветочными композициями и английской надписью Happy Birthday', name: 'Ирина С.', meta: 'День рождения', text: 'Приехали вовремя, быстро всё смонтировали, а после праздника спокойно разобрали. Мы ни о чём не переживали.' },
-            { image: 'picture/children-parties/detskaya-fotozona-minsk-butterflies.webp', imageAlt: 'Нежно-розовая фотозона на крещение Анечки с шарами, бантом и светящимися бабочками', name: 'Наталья К.', meta: 'Детский праздник', text: 'Фотозона получилась нежной и безопасной. Дети постоянно возле неё фотографировались, а родители просили контакты.' },
-            { image: 'picture/wedding/svadebnaya-fotozona-minsk-sad.webp', imageAlt: 'Стол молодожёнов с белой драпировкой, жемчужными нитями и деревьями в кашпо', name: 'Алексей Р.', meta: 'Свадьба', text: 'Смета была понятной, без неожиданностей. В день свадьбы мы вообще не отвлекались на монтаж — всё уже было готово.' },
-            { image: 'picture/gender-party/gender-party-minsk-shary.webp', imageAlt: 'Арочная композиция Girl or Boy с розово-голубыми шарами, золотыми листьями и кубиками BABE', name: 'Виктория П.', meta: 'Gender party', text: 'Цвета подобрали идеально. Фото вышли светлые, праздничные и без лишней перегрузки.' }
+        const reviews = [
+            { image: 'picture/korporativ/fotozona-na-korporativ-shkola-gimnaziy.webp', imageAlt: 'Оформление гимназии воздушными шарами', name: 'Клиент Lavdragon', meta: 'Оформление гимназии', text: 'Спасибо за отличное оформление крыльца школы! Ни одного шарика не лопнуло, всё прекрасно выдержало мероприятие. На линейке присутствовал министр связи, и наше оформление всем очень понравилось. Спасибо вам за работу!' },
+            { image: 'picture/korporativ/fotozona-na-korporativ-minsk-zerkalo-tsvety.webp', imageAlt: 'Декоративное зеркало с цветами для корпоративного оформления', name: 'Клиент Lavdragon', meta: 'Корпоративное оформление', text: 'Вау, ваше зеркало просто превосходно! Мы даже не ожидали, что получится настолько круто. Наша школа красоты преобразилась, и теперь от этой красоты невозможно оторвать глаз. Огромное вам спасибо!' },
+            { image: 'picture/gender-party/fotozona-gender-pati-minsk-kolco.webp', imageAlt: 'Фотозона с кольцом для Gender Party', name: 'Клиент Lavdragon', meta: 'Gender Party', text: 'Спасибо за вашу оперативную работу! Мы написали вам всего за несколько дней до праздника, а вы взялись за заказ и сделали очень красивую фотозону. Наши друзья были в восторге от такого классного подарка. Спасибо!' },
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-minsk-prazdnik.webp', imageAlt: 'Фотозона для празднования дня рождения', name: 'Клиент Lavdragon', meta: 'День рождения', text: 'Благодарим вас за оформление такой стильной фотозоны! Она очень гармонично вписалась в интерьер ресторана. Мы остались очень довольны, а особенно именинник. Спасибо за красоту и атмосферу!' },
+            { image: 'picture/birthday/fotozona-den-rozhdeniya-oliva-30-let.webp', imageAlt: 'Фотозона на 30-летие', name: 'Клиент Lavdragon', meta: '30-летие', text: 'Это просто супер! Я очень благодарна вам за такую великолепную фотозону. Когда увидела её вживую, просто не могла найти слов, чтобы описать свою радость — настолько она получилась красивой. Спасибо вам ещё раз!' },
+            { image: 'picture/children-parties/detskaya-fotozona-minsk-odin-god.webp', imageAlt: 'Детская фотозона на первый день рождения', name: 'Клиент Lavdragon', meta: 'Первый день рождения', text: 'Благодарим вас от всей нашей семьи! Возле фотозоны фотографировались абсолютно все — и дети, и взрослые. Это получилось действительно незабываемо. Желаем вам удачи, успехов и много хороших клиентов!' },
+            { image: 'picture/children-parties/detskaya-fotozona-minsk-black.webp', imageAlt: 'Детская фотозона с чёрным фоном и воздушными шарами', name: 'Клиент Lavdragon', meta: 'Детский праздник', text: 'Замечательная фотозона! Я даже не ожидала, что будет настолько много шариков. Всё получилось практически точно как на референсе, который вы нам показывали. Очень-очень круто получилось, спасибо вам!' }
         ];
         if (reviewsTrack) {
-            reviewsTrack.insertAdjacentHTML('beforeend', additionalReviews.map(createReviewCard).join(''));
+            reviewsTrack.innerHTML = reviews.map(createReviewCard).join('');
         }
 
         function scrollReviews(direction, trigger) {
@@ -1061,7 +1069,7 @@
         }
         // Lightbox
         const portfolioProjects = portfolioItems.map((item) => {
-            const image = item.querySelector('img');
+            const image = item.querySelector('.portfolio-card__image-main') || item.querySelector('img');
             const title = item.querySelector('.font-serif')?.textContent.trim() || 'Проект LAVDRAGON';
             const meta = item.querySelector('.text-white\\/70')?.textContent.trim() || '';
             const category = item.querySelector('.absolute.top-4')?.textContent.trim() || '';
