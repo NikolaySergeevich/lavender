@@ -1,5 +1,27 @@
 ﻿// Navbar scroll
         const navbar = document.getElementById('navbar');
+
+        function scrollToAnchorFromHash() {
+            const encodedId = window.location.hash.slice(1);
+            if (!encodedId) return;
+
+            let target;
+            try {
+                target = document.getElementById(decodeURIComponent(encodedId));
+            } catch {
+                return;
+            }
+            if (!target) return;
+
+            window.requestAnimationFrame(() => {
+                target.scrollIntoView({ behavior: 'auto', block: 'start' });
+            });
+        }
+
+        window.addEventListener('load', scrollToAnchorFromHash);
+        window.addEventListener('hashchange', scrollToAnchorFromHash);
+        window.addEventListener('pageshow', scrollToAnchorFromHash);
+
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('glass', 'py-4', 'border-b', 'border-brand-black/5');

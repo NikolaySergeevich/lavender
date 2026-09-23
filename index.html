@@ -88,7 +88,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.1.1/index.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=20260923-anchors">
     <link rel="icon" href="lavdr.ico" sizes="any">
 </head>
 
@@ -159,7 +159,7 @@
     </div>
 
     <!-- Hero Section -->
-    <header class="hero-premium relative w-full overflow-hidden">
+    <header id="hero" class="hero-premium relative w-full overflow-hidden">
         <div class="hero-premium__image absolute inset-0 z-0"></div>
         <div class="hero-premium__veil absolute inset-0 z-0"></div>
 
@@ -196,7 +196,7 @@
 
     <!-- Event Picker Section -->
     <section id="event-picker" class="event-picker-section px-6 py-16 md:px-12 md:py-20">
-        <div class="mx-auto max-w-7xl">
+        <div id="events" class="mx-auto max-w-7xl">
             <div class="event-picker-heading reveal">
                 <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Быстрый выбор</p>
                 <h2 class="font-serif text-3xl md:text-5xl font-bold text-brand-black">Какое событие вы планируете?
@@ -226,7 +226,7 @@
     <section id="special-offer" class="promotion-section px-6 py-12 md:px-12 md:py-16" aria-labelledby="promotion-title"
         tabindex="-1" data-special-offer-block data-offer-location="homepage_special_offer"
         data-available-offer-types="early_booking_gift,bundle_discount,available_date_offer">
-        <div class="mx-auto max-w-7xl">
+        <div id="offer" class="mx-auto max-w-7xl">
             <header class="promotion-section__heading reveal">
                 <p class="promotion-section__eyebrow">Условия для вашего события</p>
                 <h2 id="promotion-title">Специальные условия для вашего события</h2>
@@ -268,7 +268,7 @@
     </section>
 
     <!-- Event Categories Section -->
-    <section class="event-categories-section px-6 py-20 md:px-12 md:py-24 bg-white/60">
+    <section id="categories" class="event-categories-section px-6 py-20 md:px-12 md:py-24 bg-white/60">
         <div class="mx-auto max-w-7xl">
             <div class="text-center mb-12 reveal">
                 <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Форматы</p>
@@ -1396,7 +1396,7 @@
     </section>
 
     <!-- Why Lavdragon Section -->
-    <section class="advantages-section px-6 py-24 md:px-12">
+    <section id="advantages" class="advantages-section px-6 py-24 md:px-12">
         <div class="mx-auto max-w-7xl">
             <div class="text-center mb-14 reveal">
                 <p class="process-section__eyebrow">Преимущества</p>
@@ -1461,7 +1461,7 @@
 
     <!-- Pricing Section -->
     <section id="pricing" class="pricing-section py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="text-center mb-12 md:mb-16 reveal">
+        <div id="prices" class="text-center mb-12 md:mb-16 reveal">
             <p class="text-brand-black tracking-widest uppercase text-sm mb-2">Пакеты</p>
             <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black">Стоимость услуг</h2>
             <p class="text-brand-muted mt-4 max-w-2xl mx-auto">Выберите уровень оформления — финальный состав
@@ -1702,7 +1702,7 @@
             </div>
 
             <!-- Partners -->
-            <div class="mt-20 reveal">
+            <div id="clients" class="mt-20 reveal">
                 <p class="text-center text-brand-muted text-sm uppercase tracking-widest mb-8">Нам доверяют</p>
                 <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50">
                     <span class="font-serif text-2xl font-bold">21VEK.by</span>
@@ -1851,7 +1851,7 @@
 
     <!-- Contact / CTA Section -->
     <section id="contact" class="py-24 px-6 md:px-12 bg-brand-ivory/50">
-        <div class="max-w-5xl mx-auto reveal">
+        <div id="contacts" class="max-w-5xl mx-auto reveal">
             <div class="text-center mb-12">
                 <h2 class="font-serif text-4xl md:text-5xl font-bold text-brand-black mb-4">Готовы обсудить вашу идею?
                 </h2>
@@ -2381,7 +2381,7 @@
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=20260923-anchors"></script>
     <script src="js/back-to-top.js"></script>
 </body>
 
