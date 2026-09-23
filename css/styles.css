@@ -1,5 +1,14 @@
 ﻿body { background-color: #F4F5F7; color: #2D2D2D; }
         html { overflow-x: clip; }
+        #events,
+        #categories,
+        #portfolio,
+        #offer,
+        #process,
+        #advantages,
+        #prices,
+        #clients,
+        #contacts { scroll-margin-top: 6rem; }
         body { overflow-x: hidden; }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
