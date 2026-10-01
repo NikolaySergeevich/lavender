@@ -207,7 +207,6 @@ function form_name_value() {
     $allowed = array(
         'main_contact_form',
         'consultation_form',
-        'pdf_download_form',
         'callback_form',
         'exit_popup_form',
         'payetki_booking_form',
@@ -424,8 +423,7 @@ $required_fields_missing = post_value('name') === '' || post_value('phone') === 
 $validation_message = 'Заполните обязательные поля формы.';
 
 if (
-    $form_name !== 'pdf_download_form'
-    && $form_name !== 'payetki_booking_form'
+    $form_name !== 'payetki_booking_form'
     && post_value('eventType') === ''
 ) {
     $required_fields_missing = true;
@@ -469,7 +467,7 @@ add_line($lines, 'Дата мероприятия', $offer_context['event_date']
 add_line($lines, 'Место проведения', post_value('place'));
 add_line($lines, 'Комментарий', post_value('comment'));
 add_line($lines, 'Предварительная стоимость', post_value('estimatedPrice'));
-add_line($lines, 'Фотозона', post_value('selected_project'));
+add_line($lines, 'Проект / услуга', post_value('selected_project'));
 add_line($lines, 'ID проекта', post_value('project_id'));
 add_line($lines, 'Изображение проекта', post_value('project_image'));
 add_line($lines, 'Категория', post_value('project_category'));
@@ -593,9 +591,7 @@ if (function_exists('curl_init')) {
     $success = $response !== false;
 }
 
-$is_pdf_catalog = post_value('source') === 'PDF Каталог трендов 2026';
 $redirect_url = $redirect_base . '?sent=' . ($success ? '1' : '0')
-    . ($is_pdf_catalog ? '&pdf_catalog=1' : '')
     . '&form_name=' . rawurlencode($form_name);
 
 if ($expects_json) {
@@ -603,7 +599,6 @@ if ($expects_json) {
         $success,
         array(
             'form_name' => $form_name,
-            'pdf_catalog' => $is_pdf_catalog,
             'offer_context' => $offer_context,
             'message' => $success
                 ? 'Заявка успешно отправлена.'

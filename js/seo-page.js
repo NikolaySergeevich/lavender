@@ -65,7 +65,7 @@
         addFinalCta(page, projectModal);
         addFooter(siteRoot);
         addMobileContact(page, projectModal);
-        bindGeneralInquiryCtas(projectModal);
+        bindGeneralInquiryCtas(projectModal, page);
         optimizeImages(hero);
     }
 
@@ -102,6 +102,26 @@
                 offerKeys: ['early_booking_gift', 'bundle_discount', 'available_date_offer'],
                 eventType: 'Свадьба',
                 projectCategory: 'Свадьба'
+            },
+            {
+                match: 'oformlenie-vhodnyh-zon-minsk',
+                label: 'Оформление входных зон',
+                image: 'picture/korporativ/vhodnay-zona-otkrytie-kofe-shary-arka.webp',
+                imageAlt: 'Оформление входа кафе органической аркой из шаров в Минске',
+                eventType: 'Оформление входной зоны',
+                projectCategory: 'Оформление входных зон',
+                serviceName: 'Оформление входной зоны',
+                heroCtaLabel: 'Рассчитать оформление',
+                formTitle: 'Рассчитать оформление входной зоны',
+                formDescription: 'Расскажите об объекте и пришлите фотографию входа — предложим состав декора и подготовим индивидуальный расчёт.',
+                submitLabel: 'Рассчитать оформление',
+                finalEyebrow: 'Входная зона под ключ',
+                finalTitle: 'Обсудим оформление вашей входной зоны?',
+                finalText: 'Пришлите дату, адрес и фотографию входа. Предложим решение под пространство, фирменные цвета и формат открытия.',
+                finalCtaLabel: 'Рассчитать оформление',
+                mobileCtaLabel: 'Рассчитать оформление',
+                skipInlineCta: true,
+                skipRelated: true
             },
             {
                 match: 'fotazona-na-korporativ-minsk',
@@ -282,7 +302,7 @@
             `;
         }
 
-        const action = Array.from(nav.querySelectorAll('a')).find((link) => {
+        const action = nav.querySelector('[data-open-general-inquiry]') || Array.from(nav.querySelectorAll('a')).find((link) => {
             const href = link.getAttribute('href') || '';
             return href.includes('t.me/');
         });
@@ -293,7 +313,13 @@
             const project = getPageProject(page);
             bindInquiryTrigger(action, projectModal, project, {
                 source: project ? 'Страница проекта' : 'Шапка сайта',
-                formLocation: project ? 'seo_project_page' : 'seo_header'
+                formLocation: project ? 'seo_project_page' : 'seo_header',
+                selectedProject: action.dataset.service || page.serviceName || '',
+                projectCategory: page.projectCategory || '',
+                eventType: page.eventType || '',
+                formTitle: page.formTitle,
+                formDescription: page.formDescription,
+                submitLabel: page.submitLabel
             });
         }
     }
@@ -405,7 +431,8 @@
 
     function ensureHeroActions(copy, page, siteRoot, projectModal) {
         let actions = Array.from(copy.querySelectorAll('div')).find((element) => {
-            return element.querySelector(':scope > a') && !element.classList.contains('seo-hero__facts');
+            return element.querySelector(':scope > a, :scope > button')
+                && !element.classList.contains('seo-hero__facts');
         });
 
         if (!actions) {
@@ -415,18 +442,19 @@
         }
 
         actions.classList.add('seo-hero__actions');
-        const links = Array.from(actions.querySelectorAll(':scope > a'));
+        const controls = Array.from(actions.querySelectorAll(':scope > a, :scope > button'));
+        const links = controls.filter((control) => control.matches('a'));
         const telegram = links.find((link) => (link.getAttribute('href') || '').includes('t.me/'));
         const hashLink = links.find((link) => (link.getAttribute('href') || '').startsWith('#'));
         const priceLink = links.find((link) => (link.getAttribute('href') || '').includes('ceny-na-fotazony-minsk'));
         const gallery = document.querySelector('.seo-gallery');
 
-        let calculate = telegram;
+        let calculate = controls.find((control) => control.matches('[data-open-general-inquiry], [data-inquiry-primary]'))
+            || telegram;
         if (!calculate) {
-            calculate = document.createElement('a');
-            calculate.href = 'https://t.me/kidseventa1';
-            calculate.target = '_blank';
-            calculate.rel = 'noopener noreferrer';
+            calculate = document.createElement('button');
+            calculate.type = 'button';
+            calculate.setAttribute('data-open-general-inquiry', '');
             calculate.setAttribute('data-analytics-location', 'hero');
             actions.prepend(calculate);
         }
@@ -443,12 +471,12 @@
                 submitLabel: 'Получить расчёт с выгодой'
             })
             : null;
-        calculate.textContent = pageProject
+        calculate.textContent = page.heroCtaLabel || (pageProject
             ? 'Рассчитать эту фотозону'
             : heroOfferContext
                 ? 'Получить расчёт с выгодой'
-                : 'Рассчитать стоимость';
-        calculate.className = 'seo-btn seo-btn--primary';
+                : 'Рассчитать стоимость');
+        calculate.className = 'seo-btn seo-btn--primary glass-button glass-button--primary';
 
         let works = hashLink && hashLink !== calculate
             ? hashLink
@@ -469,10 +497,10 @@
             works.href = new URL('index.html#portfolio', siteRoot).href;
         }
         works.textContent = 'Смотреть работы';
-        works.className = 'seo-btn seo-btn--secondary';
+        works.className = 'seo-btn seo-btn--secondary glass-button glass-button--secondary';
 
-        links.filter((link) => link !== calculate && link !== works).forEach((link) => {
-            link.className = 'seo-btn seo-btn--secondary';
+        controls.filter((control) => control !== calculate && control !== works).forEach((control) => {
+            control.className = 'seo-btn seo-btn--secondary glass-button glass-button--secondary';
         });
 
         bindInquiryTrigger(calculate, projectModal, pageProject, pageProject
@@ -491,7 +519,13 @@
             }
             : heroOfferContext || {
                 source: 'Первый экран',
-                formLocation: 'seo_hero'
+                formLocation: 'seo_hero',
+                selectedProject: calculate.dataset.service || page.serviceName || '',
+                projectCategory: page.projectCategory || '',
+                eventType: page.eventType || '',
+                formTitle: page.formTitle,
+                formDescription: page.formDescription,
+                submitLabel: page.submitLabel
             });
 
         return actions;
@@ -676,7 +710,7 @@
                     <h2 class="font-serif font-bold">Понравилась эта фотозона?</h2>
                     <p>Рассчитаем стоимость именно под ваше мероприятие, площадку и желаемое наполнение.</p>
                 </div>
-                <button type="button" class="seo-btn seo-btn--primary">Узнать стоимость</button>
+                <button type="button" class="seo-btn seo-btn--primary glass-button glass-button--primary">Узнать стоимость</button>
             </div>
         `;
         const insertAfter = document.querySelector('.seo-benefit-strip') || document.querySelector('.seo-hero');
@@ -754,7 +788,7 @@
 
             const button = document.createElement('button');
             button.type = 'button';
-            button.className = 'seo-gallery-card__cta seo-btn seo-btn--primary';
+            button.className = 'seo-gallery-card__cta seo-btn seo-btn--primary glass-button glass-button--primary';
             button.textContent = 'Узнать стоимость';
             button.setAttribute('aria-label', `Узнать стоимость проекта «${project.name}»`);
             button.addEventListener('click', (event) => {
@@ -798,7 +832,7 @@
 
             const button = document.createElement('button');
             button.type = 'button';
-            button.className = 'seo-project-example-card__cta seo-btn seo-btn--primary';
+            button.className = 'seo-project-example-card__cta seo-btn seo-btn--primary glass-button glass-button--primary';
             button.textContent = 'Узнать стоимость';
             button.setAttribute('aria-label', `Узнать стоимость проекта «${project.name}»`);
             button.addEventListener('click', () => {
@@ -944,6 +978,7 @@
                                     <option>Юбилей</option>
                                     <option>Детский праздник</option>
                                     <option>Корпоратив</option>
+                                    <option>Оформление входной зоны</option>
                                     <option>Gender party</option>
                                     <option>Другое</option>
                                 </select>
@@ -955,7 +990,7 @@
                                 placeholder="Пожелания по оформлению, цветам или размеру"></textarea>
                         </label>
                         <p class="seo-project-form__status" role="status" aria-live="polite"></p>
-                        <button type="submit" class="seo-project-form__submit seo-btn seo-btn--primary">
+                        <button type="submit" class="seo-project-form__submit seo-btn seo-btn--primary glass-button glass-button--primary">
                             Получить расчёт
                         </button>
                     </form>
@@ -964,7 +999,7 @@
                     <div class="seo-project-modal__success-mark" aria-hidden="true">✓</div>
                     <h2 class="font-serif font-bold">Заявка отправлена</h2>
                     <p>Спасибо! Мы получили запрос на расчёт и скоро свяжемся с вами.</p>
-                    <button type="button" class="seo-project-modal__success-close seo-btn seo-btn--secondary">
+                    <button type="button" class="seo-project-modal__success-close seo-btn seo-btn--secondary glass-button glass-button--secondary">
                         Закрыть
                     </button>
                 </div>
@@ -1096,10 +1131,11 @@
             lastFocusedElement = trigger || document.activeElement;
             dialog.scrollTop = 0;
             const hasProject = Boolean(project?.name);
-            setHiddenValue('selected_project', project?.name);
+            const selectedProject = project?.name || context.selectedProject || page.serviceName || '';
+            setHiddenValue('selected_project', selectedProject);
             setHiddenValue('project_id', project?.id);
             setHiddenValue('project_image', project?.image);
-            setHiddenValue('project_category', project?.category || context.projectCategory);
+            setHiddenValue('project_category', project?.category || context.projectCategory || page.projectCategory);
             setHiddenValue('project_url', project?.pageUrl || context.projectUrl || window.location.href);
             setHiddenValue('page_path', window.location.pathname);
             setHiddenValue('form_location', context.formLocation || 'seo_general_inquiry');
@@ -1113,14 +1149,15 @@
             setHiddenValue('early_booking_eligible', '');
             setHiddenValue('source', context.source || (hasProject ? 'Карточка проекта' : 'Общая заявка'));
             setHiddenValue('form_name', 'consultation_form');
-            if (eventTypeField) eventTypeField.value = context.eventType || '';
+            if (eventTypeField) eventTypeField.value = context.eventType || page.eventType || '';
             if (requestedServicesField) requestedServicesField.value = '';
-            if (title) title.textContent = context.formTitle || 'Получите расчёт вашей фотозоны';
+            if (title) title.textContent = context.formTitle || page.formTitle || 'Получите расчёт вашей фотозоны';
             if (description) {
                 description.textContent = context.formDescription
+                    || page.formDescription
                     || 'Расскажите о мероприятии — мы предложим подходящий вариант и рассчитаем стоимость.';
             }
-            submitButton.textContent = context.submitLabel || 'Получить расчёт';
+            submitButton.textContent = context.submitLabel || page.submitLabel || 'Получить расчёт';
 
             setDateRequirement(context);
             status.textContent = '';
@@ -1403,7 +1440,7 @@
 
     function addInlineCtas(gallerySection, page, projectModal) {
         const main = document.querySelector('main');
-        if (!main || isProjectDetailPage(page)) return null;
+        if (!main || page.skipInlineCta || isProjectDetailPage(page)) return null;
         const sections = Array.from(main.querySelectorAll(':scope > section.seo-section'));
         const faqSection = sections.find((section) => section.querySelector('.seo-faq'));
         const placement = findSpecialOfferPlacement(
@@ -1436,14 +1473,20 @@
                     <strong>Хотите обсудить идею?</strong>
                     <p>Подберём похожую фотозону под ваше мероприятие, площадку и бюджет.</p>
                 </div>
-                <button type="button" data-analytics-location="section_cta" class="seo-btn seo-btn--primary">Получить расчёт</button>
+                <button type="button" data-analytics-location="section_cta" class="seo-btn seo-btn--primary glass-button glass-button--primary">Получить расчёт</button>
             </div>
         `;
         target.insertAdjacentElement('afterend', wrapper);
         const project = getPageProject(page);
         bindInquiryTrigger(wrapper.querySelector('button'), projectModal, project, {
             source: project ? 'Страница проекта' : 'CTA в тексте',
-            formLocation: project ? 'seo_project_page' : 'seo_inline_cta'
+            formLocation: project ? 'seo_project_page' : 'seo_inline_cta',
+            selectedProject: page.serviceName || '',
+            projectCategory: page.projectCategory || '',
+            eventType: page.eventType || '',
+            formTitle: page.formTitle,
+            formDescription: page.formDescription,
+            submitLabel: page.submitLabel
         });
         return wrapper;
     }
@@ -1511,7 +1554,7 @@
                         <h2 id="special-offer-title" class="font-serif font-bold">Планируете мероприятие?</h2>
                         <p>Для некоторых дат и комплектаций доступны специальные условия.</p>
                     </div>
-                    <button type="button" data-special-offer-action class="seo-btn seo-btn--primary">${buttonLabel}</button>
+                    <button type="button" data-special-offer-action class="seo-btn seo-btn--primary glass-button glass-button--primary">${buttonLabel}</button>
                 </div>
             `
             : `
@@ -1534,7 +1577,7 @@
                     </div>
                     <p class="seo-special-offer__decision">Какое предложение подходит именно вам, определим после уточнения даты, площадки и состава оформления.</p>
                     <div class="seo-special-offer__action">
-                        <button type="button" data-special-offer-action class="seo-btn seo-btn--primary">${buttonLabel}</button>
+                        <button type="button" data-special-offer-action class="seo-btn seo-btn--primary glass-button glass-button--primary">${buttonLabel}</button>
                         <p>Это бесплатно и ни к чему вас не обязывает.</p>
                     </div>
                 </div>
@@ -1619,7 +1662,7 @@
 
     function addRelated(page, siteRoot) {
         const main = document.querySelector('main') || document.querySelector('.seo-article')?.parentElement;
-        if (!main || document.querySelector('.seo-related')) return;
+        if (!main || page.skipRelated || document.querySelector('.seo-related')) return;
         const currentPath = window.location.pathname.toLowerCase();
         const items = [
             ['Свадьбы', 'Фотозоны на свадьбу', 'fotazony-na-svadbu-minsk/', 'picture/wedding/svadebnaya-fotozona-minsk-cvety.webp'],
@@ -1662,19 +1705,19 @@
         const main = document.querySelector('main') || document.querySelector('.seo-article')?.parentElement;
         if (!main || document.querySelector('.seo-final-section')) return;
         const project = getPageProject(page);
-        const ctaLabel = project
+        const ctaLabel = page.finalCtaLabel || (project
             ? 'Рассчитать эту фотозону'
-            : 'Получить расчёт';
+            : 'Получить расчёт');
         const section = document.createElement('section');
         section.className = 'seo-final-section';
         section.innerHTML = `
             <div class="seo-final-cta">
-                <p class="seo-eyebrow">Идея начинается с диалога</p>
-                <h2 class="font-serif font-bold">Подберём оформление для вашего события</h2>
-                <p>Напишите дату, площадку и формат мероприятия. Предложим состав фотозоны и ориентир по бюджету без лишних деталей.</p>
+                <p class="seo-eyebrow">${page.finalEyebrow || 'Идея начинается с диалога'}</p>
+                <h2 class="font-serif font-bold">${page.finalTitle || 'Подберём оформление для вашего события'}</h2>
+                <p>${page.finalText || 'Напишите дату, площадку и формат мероприятия. Предложим состав фотозоны и ориентир по бюджету без лишних деталей.'}</p>
                 <div class="seo-final-cta__actions">
-                    <button type="button" data-analytics-location="final_cta" class="seo-btn seo-btn--primary">${ctaLabel}</button>
-                    <a href="#works" class="seo-btn seo-btn--secondary">Смотреть работы</a>
+                    <button type="button" data-analytics-location="final_cta" class="seo-btn seo-btn--primary glass-button glass-button--primary">${ctaLabel}</button>
+                    <a href="#works" class="seo-btn seo-btn--secondary glass-button glass-button--secondary">Смотреть работы</a>
                 </div>
             </div>
         `;
@@ -1695,7 +1738,13 @@
             }
             : {
                 source: 'Финальный CTA',
-                formLocation: 'seo_final_cta'
+                formLocation: 'seo_final_cta',
+                selectedProject: page.serviceName || '',
+                projectCategory: page.projectCategory || '',
+                eventType: page.eventType || '',
+                formTitle: page.formTitle,
+                formDescription: page.formDescription,
+                submitLabel: page.submitLabel
             });
     }
 
@@ -1722,9 +1771,9 @@
     function addMobileContact(page, projectModal) {
         if (document.querySelector('#sticky-cta, .mobile-contact-bar, .seo-mobile-contact')) return;
         const project = getPageProject(page);
-        const ctaLabel = project
+        const ctaLabel = page.mobileCtaLabel || (project
             ? 'Рассчитать эту фотозону'
-            : 'Получить расчёт';
+            : 'Получить расчёт');
         const bar = document.createElement('div');
         bar.className = 'seo-mobile-contact';
         bar.setAttribute('aria-label', 'Быстрые действия');
@@ -1751,15 +1800,30 @@
             }
             : {
                 source: 'Мобильная кнопка',
-                formLocation: 'seo_mobile_cta'
+                formLocation: 'seo_mobile_cta',
+                selectedProject: page.serviceName || '',
+                projectCategory: page.projectCategory || '',
+                eventType: page.eventType || '',
+                formTitle: page.formTitle,
+                formDescription: page.formDescription,
+                submitLabel: page.submitLabel
             });
     }
 
-    function bindGeneralInquiryCtas(projectModal) {
+    function bindGeneralInquiryCtas(projectModal, page) {
         document.querySelectorAll('[data-open-general-inquiry]').forEach((control) => {
+            const isSecondary = control.classList.contains('seo-btn--secondary')
+                || control.classList.contains('hero-btn--ghost');
+            control.classList.add('glass-button', isSecondary ? 'glass-button--secondary' : 'glass-button--primary');
             bindInquiryTrigger(control, projectModal, null, {
                 source: control.dataset.inquirySource || 'Пакет услуг',
-                formLocation: control.dataset.inquiryLocation || 'seo_service_package'
+                formLocation: control.dataset.inquiryLocation || 'seo_service_package',
+                selectedProject: control.dataset.service || page.serviceName || '',
+                projectCategory: page.projectCategory || '',
+                eventType: page.eventType || '',
+                formTitle: page.formTitle,
+                formDescription: page.formDescription,
+                submitLabel: page.submitLabel
             });
         });
     }

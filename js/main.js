@@ -55,85 +55,6 @@
         }
         mobileBtn.addEventListener('click', toggleMobileMenu);
 
-        // Mobile event picker carousel hint
-        const eventPickerList = document.querySelector('.event-picker-list');
-        const eventPickerChips = eventPickerList ? Array.from(eventPickerList.querySelectorAll('.event-picker-chip')) : [];
-        const eventPickerMedia = window.matchMedia('(max-width: 768px)');
-        let eventPickerFrame = null;
-        let eventPickerStartPositioned = false;
-
-        function resetEventPickerChips() {
-            eventPickerChips.forEach(chip => {
-                chip.style.removeProperty('--event-chip-scale');
-                chip.style.removeProperty('--event-chip-opacity');
-                chip.style.removeProperty('--event-chip-bg-alpha');
-                chip.style.removeProperty('--event-chip-border-alpha');
-                chip.style.removeProperty('--event-chip-shadow-alpha');
-            });
-        }
-
-        function updateEventPickerChips() {
-            eventPickerFrame = null;
-
-            if (!eventPickerList || !eventPickerMedia.matches) {
-                resetEventPickerChips();
-                return;
-            }
-
-            const listRect = eventPickerList.getBoundingClientRect();
-            const listCenter = listRect.left + listRect.width / 2;
-            const activeDistance = listRect.width * 0.42;
-
-            eventPickerChips.forEach(chip => {
-                const chipRect = chip.getBoundingClientRect();
-                const chipCenter = chipRect.left + chipRect.width / 2;
-                const distance = Math.abs(listCenter - chipCenter);
-                const progress = Math.max(0, 1 - distance / activeDistance);
-                const scale = 0.76 + progress * 0.24;
-                const opacity = 0.38 + progress * 0.62;
-                const bgAlpha = 0.42 + progress * 0.5;
-                const borderAlpha = 0.05 + progress * 0.06;
-                const shadowAlpha = 0.025 + progress * 0.06;
-
-                chip.style.setProperty('--event-chip-scale', scale.toFixed(3));
-                chip.style.setProperty('--event-chip-opacity', opacity.toFixed(3));
-                chip.style.setProperty('--event-chip-bg-alpha', bgAlpha.toFixed(3));
-                chip.style.setProperty('--event-chip-border-alpha', borderAlpha.toFixed(3));
-                chip.style.setProperty('--event-chip-shadow-alpha', shadowAlpha.toFixed(3));
-            });
-        }
-
-        function requestEventPickerUpdate() {
-            if (eventPickerFrame !== null) return;
-            eventPickerFrame = requestAnimationFrame(updateEventPickerChips);
-        }
-
-        function positionEventPickerStart() {
-            if (!eventPickerList || !eventPickerMedia.matches || eventPickerStartPositioned || eventPickerChips.length < 3) {
-                return;
-            }
-
-            eventPickerStartPositioned = true;
-            const target = eventPickerChips[1];
-            const listRect = eventPickerList.getBoundingClientRect();
-            const targetRect = target.getBoundingClientRect();
-            const offset = targetRect.left - listRect.left - (listRect.width - targetRect.width) / 2;
-            eventPickerList.scrollLeft += offset;
-            requestEventPickerUpdate();
-        }
-
-        if (eventPickerList && eventPickerChips.length) {
-            eventPickerList.addEventListener('scroll', requestEventPickerUpdate, { passive: true });
-            window.addEventListener('resize', requestEventPickerUpdate);
-            if (typeof eventPickerMedia.addEventListener === 'function') {
-                eventPickerMedia.addEventListener('change', requestEventPickerUpdate);
-            }
-            requestAnimationFrame(() => {
-                positionEventPickerStart();
-                requestEventPickerUpdate();
-            });
-        }
-
         // Reveal animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -981,60 +902,6 @@
             }
         });
 
-        // PDF catalog lead magnet
-        const pdfCatalogOverlay = document.getElementById('pdf-catalog-overlay');
-        const pdfCatalogFormView = document.getElementById('pdf-catalog-form-view');
-        const pdfCatalogSuccess = document.getElementById('pdf-catalog-success');
-        const pdfCatalogSessionKey = 'pdf_catalog_downloaded';
-        const pdfCatalogFile = 'LavDragon_Trendy_2026.pdf';
-        const pdfCatalogDownloadName = 'katalog-trendov-fotozon-2026-lavdragon.pdf';
-
-        function trackPdfDownload() {
-            if (typeof gtag === 'function') {
-                gtag('event', 'pdf_download');
-            }
-            trackGoal('pdf_download', { file: pdfCatalogDownloadName });
-        }
-
-        function downloadPdfCatalog() {
-            const downloadLink = document.createElement('a');
-            downloadLink.href = pdfCatalogFile;
-            downloadLink.download = pdfCatalogDownloadName;
-            downloadLink.hidden = true;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            downloadLink.remove();
-            trackPdfDownload();
-        }
-
-        function openPdfCatalog() {
-            if (sessionStorage.getItem(pdfCatalogSessionKey) === 'true') {
-                downloadPdfCatalog();
-                return;
-            }
-
-            pdfCatalogFormView.classList.remove('hidden');
-            pdfCatalogSuccess.classList.add('hidden');
-            pdfCatalogOverlay.classList.remove('hidden');
-            pdfCatalogOverlay.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-            trackGoal('form_open', { source: 'PDF Каталог трендов 2026' });
-        }
-
-        function closePdfCatalog() {
-            pdfCatalogOverlay.classList.add('hidden');
-            pdfCatalogOverlay.classList.remove('flex');
-            document.body.style.overflow = '';
-        }
-
-        function showPdfCatalogSuccess() {
-            pdfCatalogFormView.classList.add('hidden');
-            pdfCatalogSuccess.classList.remove('hidden');
-            pdfCatalogOverlay.classList.remove('hidden');
-            pdfCatalogOverlay.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
         // Contact form
         const contactSuccess = document.getElementById('contact-success');
         const contactForm = document.getElementById('contact-form');
@@ -1043,7 +910,7 @@
         let exitShown = false;
         document.addEventListener('mouseleave', (e) => {
             const hasOpenOverlay = document.querySelector(
-                '#modal-overlay:not(.hidden), #quiz-overlay:not(.hidden), #pdf-catalog-overlay:not(.hidden), #lightbox-overlay:not(.hidden)'
+                '#modal-overlay:not(.hidden), #quiz-overlay:not(.hidden), #lightbox-overlay:not(.hidden)'
             );
             if (e.clientY < 5 && !exitShown && !hasOpenOverlay) {
                 document.getElementById('exit-popup').classList.remove('hidden');
@@ -1397,7 +1264,6 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const sentStatus = urlParams.get('sent');
-        const pdfCatalogStatus = urlParams.get('pdf_catalog') === '1';
         if (sentStatus === '1') {
             if (typeof fbq === 'function') {
                 fbq('track', 'Lead');
@@ -1405,13 +1271,7 @@
             if (typeof ym === 'function') {
                 ym(109623826, 'reachGoal', 'lead_submit');
             }
-            if (pdfCatalogStatus) {
-                sessionStorage.setItem(pdfCatalogSessionKey, 'true');
-                showPdfCatalogSuccess();
-                downloadPdfCatalog();
-            } else {
-                alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
-            }
+            alert('Спасибо! Мы уже получили заявку и скоро свяжемся с вами.');
             history.replaceState(null, '', window.location.pathname);
         }
 
@@ -1475,13 +1335,6 @@
             trackGoal('lead_submit', {
                 source: form.querySelector('[name="source"]')?.value || 'Форма сайта'
             });
-
-            if (form.id === 'pdf-catalog-form') {
-                sessionStorage.setItem(pdfCatalogSessionKey, 'true');
-                showPdfCatalogSuccess();
-                downloadPdfCatalog();
-                return;
-            }
 
             if (form.id === 'modal-form') {
                 modalForm.classList.add('hidden');
@@ -1634,20 +1487,8 @@
         });
         if (sentStatus === '0') {
             alert('Не удалось отправить заявку. Проверьте настройки send.php или попробуйте позже.');
-            if (pdfCatalogStatus) openPdfCatalog();
             history.replaceState(null, '', window.location.pathname);
         }
-
-        // Add quiz button to portfolio section
-        document.addEventListener('DOMContentLoaded', () => {
-            const portfolioSection = document.getElementById('portfolio');
-            const quizBtn = document.createElement('button');
-            quizBtn.className = 'filter-btn filter-btn--silver filter-btn--lavender-cta inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 rounded-full font-bold mt-6 reveal';
-            quizBtn.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> Получить расчёт стоимости`;
-            quizBtn.onclick = openQuiz;
-            portfolioSection.querySelector('.text-center.mt-16').prepend(quizBtn);
-            observer.observe(quizBtn);
-        });
 
 
 

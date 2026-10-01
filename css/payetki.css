@@ -131,6 +131,8 @@ body.payetki-page {
 }
 
 .payetki-btn {
+    position: relative;
+    isolation: isolate;
     box-sizing: border-box;
     min-width: 0;
     max-width: 100%;
@@ -140,22 +142,49 @@ body.payetki-page {
     justify-content: center;
     gap: 0.55rem;
     padding: 0.8rem 1.35rem;
-    border: 1px solid transparent;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.66);
     border-radius: 999px;
+    background: #e4ddee;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.86),
+        0 12px 28px rgba(8, 9, 13, 0.12);
     font-weight: 800;
     line-height: 1.2;
     text-align: center;
     white-space: normal;
-    overflow-wrap: anywhere;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.payetki-btn::before,
+.payetki-card-button::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 1px 10% auto;
+    height: 42%;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+    opacity: 0.72;
+    pointer-events: none;
 }
 
 .payetki-btn:hover {
     transform: translateY(-2px);
+    border-color: rgba(185, 167, 216, 0.72);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.92),
+        0 18px 38px rgba(113, 97, 143, 0.25);
 }
 
 .payetki-btn:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.985);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.62),
+        0 7px 18px rgba(8, 9, 13, 0.13);
 }
 
 .payetki-btn:focus-visible {
@@ -165,24 +194,36 @@ body.payetki-page {
 
 .payetki-btn--primary {
     color: var(--payetki-ink);
-    background: var(--payetki-lavender);
-    box-shadow: 0 12px 28px rgba(113, 97, 143, 0.22);
+    background: #b9a7d8;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.86),
+        0 14px 32px rgba(113, 97, 143, 0.25);
 }
 
 .payetki-btn--primary:hover {
     background: #c9bbe0;
-    box-shadow: 0 16px 34px rgba(113, 97, 143, 0.28);
 }
 
 .payetki-btn--secondary {
     color: var(--payetki-ink);
-    border-color: rgba(8, 9, 13, 0.16);
-    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(8, 9, 13, 0.1);
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 10px 24px rgba(8, 9, 13, 0.09);
 }
 
 .payetki-btn--secondary:hover {
     border-color: rgba(113, 97, 143, 0.45);
     background: #fff;
+}
+
+.payetki-btn:disabled,
+.payetki-btn[aria-disabled="true"] {
+    opacity: 0.56;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .payetki-hero__facts {
@@ -475,27 +516,64 @@ body.payetki-page {
 }
 
 .payetki-card-button {
+    position: relative;
+    isolation: isolate;
     box-sizing: border-box;
     min-width: 0;
     max-width: 100%;
     width: 100%;
     min-height: 2.8rem;
     padding: 0.7rem 1rem;
-    border: 1px solid rgba(113, 97, 143, 0.35);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.66);
     border-radius: 999px;
     color: var(--payetki-ink);
-    background: rgba(217, 209, 232, 0.42);
+    background: #b9a7d8;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.86),
+        0 10px 24px rgba(113, 97, 143, 0.18);
     font-weight: 800;
     white-space: normal;
-    overflow-wrap: anywhere;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .payetki-card-button:hover,
 .payetki-card-button:focus-visible {
-    background: var(--payetki-lavender);
-    outline: none;
-    transform: translateY(-1px);
+    border-color: rgba(185, 167, 216, 0.72);
+    background: #c9bbe0;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.92),
+        0 16px 32px rgba(113, 97, 143, 0.22);
+    transform: translateY(-2px);
+}
+
+.payetki-card-button:focus-visible {
+    outline: 3px solid rgba(113, 97, 143, 0.35);
+    outline-offset: 3px;
+}
+
+.payetki-card-button:active {
+    transform: translateY(0) scale(0.985);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .payetki-btn,
+    .payetki-card-button {
+        -webkit-backdrop-filter: blur(9px) saturate(1.08);
+        backdrop-filter: blur(9px) saturate(1.08);
+    }
+
+    .payetki-btn--primary,
+    .payetki-card-button {
+        background: rgba(185, 167, 216, 0.86);
+    }
+
+    .payetki-btn--secondary {
+        background: rgba(255, 255, 255, 0.72);
+    }
 }
 
 .payetki-showcase {
@@ -1264,7 +1342,9 @@ body.seo-lightbox-open .back-to-top {
         padding-right: 0.4rem;
         padding-left: 0.4rem;
         white-space: normal;
-        overflow-wrap: anywhere;
+        word-break: normal;
+        overflow-wrap: normal;
+        hyphens: none;
     }
 
     .payetki-cta__actions {
