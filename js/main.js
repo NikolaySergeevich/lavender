@@ -166,6 +166,12 @@
             'Нежная фотозона с белым кольцом, розово-голубыми шарами, цветами и зеленью для gender party.'
         ];
         const portfolioCategoryDetails = {
+            'new-year': {
+                style: 'Новогодняя фотозона',
+                size: 'согласуем под площадку',
+                installation: 'по согласованию с площадкой',
+                elements: 'состав декора согласуем индивидуально'
+            },
             wedding: {
                 style: 'Свадебный декор',
                 size: 'адаптируется под площадку',
@@ -209,7 +215,8 @@
                 portfolioImage.loading = 'lazy';
                 portfolioImage.decoding = 'async';
             }
-            const description = portfolioDescriptions[index];
+            // New cards carry their own description; existing indexed descriptions stay in place.
+            const description = item.dataset.description || portfolioDescriptions[index];
             if (description) {
                 const descriptionNode = item.querySelector('.text-white\\/70');
                 if (descriptionNode) descriptionNode.textContent = description;
@@ -291,8 +298,11 @@
         function getPortfolioIndexesForFilter(filter) {
             if (filter === 'all') {
                 const landscapeItems = portfolioItems.filter(item => item.querySelector('.aspect-\\[4\\/3\\]'));
-                return shufflePortfolioItems(landscapeItems)
-                    .slice(0, homePortfolioLimit)
+                // Keep the nine-work overview, with a seasonal project always included.
+                const seasonal = landscapeItems.filter(item => item.dataset.category === 'new-year');
+                const featured = seasonal.length ? shufflePortfolioItems(seasonal).slice(0, 1) : [];
+                return [...featured, ...shufflePortfolioItems(landscapeItems.filter(item => !featured.includes(item)))
+                    .slice(0, homePortfolioLimit - featured.length)]
                     .map(item => Number(item.dataset.portfolioIndex));
             }
 
@@ -682,7 +692,8 @@
         function openProjectRequest(project, formLocation) {
             pushProjectPriceClick(project);
             trackGoal('portfolio_click', { project: project.title, action: 'calculate' });
-            openModal(project.title, `Портфолио — ${project.title}`, project, formLocation);
+            openModal(project.title, `Портфолио — ${project.title}`, project, formLocation,
+                project.categorySlug === 'new-year' ? { eventType: 'Новый год' } : {});
         }
 
         function openModal(packageName, sourceName, project, formLocation, context = {}) {

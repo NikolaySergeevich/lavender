@@ -72,6 +72,25 @@
     function getPageConfig(path) {
         const configs = [
             {
+                match: 'fotazony-na-novyy-god-minsk',
+                label: 'Новый год 2026–2027',
+                category: 'Новогодние фотозоны',
+                image: 'picture/new-year/Elegant New Year Sequin and Velvet Backdrop.webp',
+                imageAlt: 'Новогодняя фотозона с серебряными пайетками, красной драпировкой и хвойным декором',
+                eventType: 'Новый год',
+                projectCategory: 'Новогодние фотозоны',
+                serviceName: 'Новогодняя фотозона',
+                heroCtaLabel: 'Узнать стоимость',
+                heroWorksLabel: 'Смотреть фотозоны',
+                formTitle: 'Рассчитать новогоднюю фотозону',
+                formDescription: 'Расскажите о дате, площадке и формате праздника — подготовим индивидуальное предложение.',
+                submitLabel: 'Получить расчёт',
+                skipInlineCta: true,
+                skipRelated: true,
+                skipPricingFaq: true,
+                skipGalleryBenefits: true
+            },
+            {
                 match: 'arenda-cifr-na-prazdnik-minsk',
                 label: 'Аренда декора',
                 category: 'Аренда цифр',
@@ -496,7 +515,7 @@
         } else {
             works.href = new URL('index.html#portfolio', siteRoot).href;
         }
-        works.textContent = 'Смотреть работы';
+        works.textContent = page.heroWorksLabel || 'Смотреть работы';
         works.className = 'seo-btn seo-btn--secondary glass-button glass-button--secondary';
 
         controls.filter((control) => control !== calculate && control !== works).forEach((control) => {
@@ -801,7 +820,8 @@
                 });
             });
 
-            card.append(benefitsList, button);
+            if (!page.skipGalleryBenefits) card.appendChild(benefitsList);
+            card.appendChild(button);
         });
 
         enhanceStandaloneProjectCards(projectModal, page);
@@ -978,6 +998,7 @@
                                     <option>Юбилей</option>
                                     <option>Детский праздник</option>
                                     <option>Корпоратив</option>
+                                    <option>Новый год</option>
                                     <option>Оформление входной зоны</option>
                                     <option>Gender party</option>
                                     <option>Другое</option>
@@ -1316,7 +1337,7 @@
     }
 
     function enhanceFaq(page) {
-        let faqHeading = Array.from(document.querySelectorAll('h2')).find((heading) => {
+        let faqHeading = document.querySelector('[data-seo-faq]') || Array.from(document.querySelectorAll('h2')).find((heading) => {
             return heading.textContent.trim().toLowerCase().startsWith('faq');
         });
         if (!faqHeading) {
@@ -1345,7 +1366,7 @@
         }
         const container = faqHeading.parentElement;
         if (!container || container.querySelector('.seo-faq')) return;
-        appendPricingFaq(container, page);
+        if (!page.skipPricingFaq) appendPricingFaq(container, page);
 
         const nodes = Array.from(container.children);
         const start = nodes.indexOf(faqHeading) + 1;
@@ -1759,6 +1780,7 @@
                     <a href="${new URL('fotazony-na-svadbu-minsk/', siteRoot).href}">Свадьбы</a>
                     <a href="${new URL('fotazony-na-den-rozhdeniya-minsk/', siteRoot).href}">Дни рождения</a>
                     <a href="${new URL('fotazona-na-korporativ-minsk/', siteRoot).href}">Корпоративы</a>
+                    <a href="${new URL('fotazony-na-novyy-god-minsk/', siteRoot).href}">Новый год</a>
                     <a href="${new URL('ceny-na-fotazony-minsk/', siteRoot).href}">Цены</a>
                     <a href="${new URL('blog/', siteRoot).href}">Блог</a>
                     <a href="${new URL('politics.html', siteRoot).href}">Политика</a>
