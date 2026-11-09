@@ -297,7 +297,9 @@
 
         function getPortfolioIndexesForFilter(filter) {
             if (filter === 'all') {
-                const landscapeItems = portfolioItems.filter(item => item.querySelector('.aspect-\\[4\\/3\\]'));
+                // Category-specific copies share one entry in the overview.
+                const landscapeItems = portfolioItems.filter(item =>
+                    item.dataset.overviewExclude !== 'true' && item.querySelector('.aspect-\\[4\\/3\\]'));
                 // Keep the nine-work overview, with a seasonal project always included.
                 const seasonal = landscapeItems.filter(item => item.dataset.category === 'new-year');
                 const featured = seasonal.length ? shufflePortfolioItems(seasonal).slice(0, 1) : [];
