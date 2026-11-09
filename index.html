@@ -89,10 +89,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/tailwind-config.js"></script>
     <link rel="stylesheet" href="css/styles.css?v=20260930-entrance">
+    <link rel="stylesheet" href="css/new-year.css?v=20261107">
     <link rel="icon" href="lavdr.ico" sizes="any">
+    <link rel="stylesheet" href="css/christmas.css?v=20261107">
+    <script src="js/christmas.js?v=20261107" defer></script>
 </head>
 
-<body class="antialiased selection:bg-brand-gold selection:text-brand-black">
+<body class="new-year-home antialiased selection:bg-brand-gold selection:text-brand-black">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMKLD7DN" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
@@ -107,6 +110,7 @@
         </a>
         <div class="hidden xl:flex items-center gap-5 text-sm font-medium tracking-wide">
             <a href="#event-picker" class="hover:text-brand-black transition-colors">Форматы</a>
+            <a href="fotazony-na-novyy-god-minsk/" class="new-year-nav-link hidden 2xl:inline-flex">Новый год</a>
             <a href="#special-offer" class="nav-special-offer-link hover:text-brand-black transition-colors">Спецпредложение</a>
             <a href="ceny-na-fotazony-minsk/" class="hover:text-brand-black transition-colors">Цены</a>
             <a href="arenda-cifr-na-prazdnik-minsk/" class="hover:text-brand-black transition-colors">Цифры</a>
@@ -134,6 +138,7 @@
     <div id="mobile-menu"
         class="fixed inset-0 z-40 bg-brand-ivory/95 backdrop-blur-xl hidden flex-col justify-center items-center gap-5 text-xl font-serif">
         <a href="#event-picker" onclick="closeMobileMenu()" class="hover:text-brand-black transition-colors">Форматы</a>
+        <a href="fotazony-na-novyy-god-minsk/" onclick="closeMobileMenu()" class="new-year-nav-link">Новый год</a>
         <a href="#special-offer" onclick="closeMobileMenu()" class="nav-special-offer-link hover:text-brand-black transition-colors">Спецпредложение</a>
         <a href="ceny-na-fotazony-minsk/" onclick="closeMobileMenu()"
             class="hover:text-brand-black transition-colors">Цены</a>
@@ -170,6 +175,7 @@
                 <h1 class="hero-title animate-fade-up" style="animation-delay: 0.35s;">
                     Создаём фотозоны для особенных событий
                 </h1>
+                <a href="fotazony-na-novyy-god-minsk/" class="new-year-hero-link animate-fade-up"><span aria-hidden="true">✦</span> Новогодние фотозоны 2026–2027 <span aria-hidden="true">→</span></a>
                 <div class="hero-special-offer-marker animate-fade-up" style="animation-delay: 0.5s;" aria-label="Специальные условия">
                     <p>Специальные условия для вашего события</p>
                     <span>Декор до 100 BYN в подарок, выгода на комплексное оформление или выгодное предложение на свободную дату.</span>
@@ -207,6 +213,7 @@
                     стили и реальные работы LavDragon.</p>
             </div>
             <div class="event-picker-list reveal" aria-label="Направления оформления">
+                <a href="fotazony-na-novyy-god-minsk/" class="event-picker-chip event-picker-chip--medium event-picker-chip--new-year glass-button glass-button--light"><span>Новый год</span><small>Новогодние фотозоны</small></a>
                 <a href="fotazony-na-den-rozhdeniya-minsk/"
                     class="event-picker-chip event-picker-chip--major event-picker-chip--birthday glass-button glass-button--light"><span>День рождения</span><small>Фотозоны</small></a>
                 <a href="fotazony-na-svadbu-minsk/"
@@ -288,6 +295,10 @@
                     праздника и бюджет.</p>
             </div>
             <div class="event-categories-grid">
+                <a href="fotazony-na-novyy-god-minsk/" class="event-category-card event-category-card--new-year reveal">
+                    <span class="event-category-card__media"><img src="picture/new-year/Elegant%20New%20Year%20Sequin%20and%20Velvet%20Backdrop.webp" alt="Серебряные пайетки, глубокая красная драпировка и хвойные композиции со светящимся поздравлением." decoding="async" loading="lazy" width="1448" height="1086"><span class="new-year-season-badge">Сезон 2026–2027</span></span>
+                    <span class="event-category-card__body"><span class="event-category-card__title">Новогодние фотозоны</span><span class="event-category-card__text">Праздничные фотозоны для корпоративов, ресторанов, вечеринок и новогодних мероприятий.</span></span>
+                </a>
                 <a href="fotazony-na-den-rozhdeniya-minsk/" class="event-category-card reveal">
                     <span class="event-category-card__media">
                         <img src="picture/birthday/fotozona-den-rozhdeniya-minsk-kryg.webp"
@@ -390,11 +401,14 @@
                 детских праздников и gender party.</p>
         </div>
 
+        <p class="new-year-portfolio-link reveal"><a href="fotazony-na-novyy-god-minsk/">Все новогодние фотозоны <span aria-hidden="true">→</span></a></p>
+
         <!-- Filters -->
         <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
             <button
                 class="filter-btn filter-btn--silver active px-5 py-2 rounded-full text-sm font-medium border border-brand-black/10"
                 data-filter="all">Все работы</button>
+            <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium" data-filter="new-year">Новый год</button>
             <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
                 data-filter="wedding">Свадьбы</button>
             <button class="filter-btn filter-btn--silver px-5 py-2 rounded-full text-sm font-medium"
@@ -1352,6 +1366,62 @@
                     </div>
                 </div>
             </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-01" data-description="Серебряные пайетки, глубокая красная драпировка и хвойные композиции со светящимся поздравлением." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Серебро и красный бархат" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Elegant%20New%20Year%20Sequin%20and%20Velvet%20Backdrop.webp" alt="Серебряные пайетки, глубокая красная драпировка и хвойные композиции со светящимся поздравлением." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Серебро и красный бархат</p><p class="text-white/70 text-sm mt-1">Серебряные пайетки, глубокая красная драпировка и хвойные композиции со светящимся поздравлением.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-02" data-description="Мерцающий серебряный фон, синие и светлые ткани, хвойные стойки с зимними украшениями." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Серебро и синие драпировки" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Elegant%20New%20Year%20Backdrop%20with%20Silver%20and%20Blue%20Drapery.webp" alt="Мерцающий серебряный фон, синие и светлые ткани, хвойные стойки с зимними украшениями." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Серебро и синие драпировки</p><p class="text-white/70 text-sm mt-1">Мерцающий серебряный фон, синие и светлые ткани, хвойные стойки с зимними украшениями.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-03" data-description="Золотой мерцающий фон, красная ткань, хвойное обрамление и декоративные подарки." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Красно-золотая классика" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Elegant%20Christmas%20New%20Year%20Backdrop.webp" alt="Золотой мерцающий фон, красная ткань, хвойное обрамление и декоративные подарки." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Красно-золотая классика</p><p class="text-white/70 text-sm mt-1">Золотой мерцающий фон, красная ткань, хвойное обрамление и декоративные подарки.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-04" data-description="Светлый фон с золотым бантом, хвойной гирляндой и тёплой светящейся надписью." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Золотой бант и хвоя" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Elegant%20Gold%20and%20Green%20New%20Year%20Display.webp" alt="Светлый фон с золотым бантом, хвойной гирляндой и тёплой светящейся надписью." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Золотой бант и хвоя</p><p class="text-white/70 text-sm mt-1">Светлый фон с золотым бантом, хвойной гирляндой и тёплой светящейся надписью.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-05" data-description="Золотые пайетки и тёмно-зелёный фон с цифрами 2027 в обрамлении хвойных композиций." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Изумруд и золото — 2027" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Elegant%202027%20Holiday%20Celebration%20Interior.webp" alt="Золотые пайетки и тёмно-зелёный фон с цифрами 2027 в обрамлении хвойных композиций." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Изумруд и золото — 2027</p><p class="text-white/70 text-sm mt-1">Золотые пайетки и тёмно-зелёный фон с цифрами 2027 в обрамлении хвойных композиций.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-06" data-description="Зелёная и золотая драпировки, хвоя и воздушные шары вокруг надписи 2027." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Праздничная композиция — 2027" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Emerald%20and%20Gold%202027%20Celebration%20Backdrop%20(2).webp" alt="Зелёная и золотая драпировки, хвоя и воздушные шары вокруг надписи 2027." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Праздничная композиция — 2027</p><p class="text-white/70 text-sm mt-1">Зелёная и золотая драпировки, хвоя и воздушные шары вокруг надписи 2027.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-07" data-description="Красный фон с поздравлением, разноцветные шары, звёзды и декор в виде леденцов." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Новогодняя фотозона с леденцами" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Festive%20Red%20and%20Gold%20New%20Year%20Balloon%20Backdrop.webp" alt="Красный фон с поздравлением, разноцветные шары, звёзды и декор в виде леденцов." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Новогодняя фотозона с леденцами</p><p class="text-white/70 text-sm mt-1">Красный фон с поздравлением, разноцветные шары, звёзды и декор в виде леденцов.</p></div></div>
+                </div>
+            </div>
+            <div class="reveal portfolio-item" data-category="new-year" data-project-id="new-year-08" data-description="Светлая арочная панель, зелёные, белые и золотые шары, цветочные композиции и мишка." data-lightbox-fit="contain" onclick="openLightbox(this)">
+                <div class="img-zoom rounded-2xl overflow-hidden relative aspect-[4/3] cursor-pointer" role="button" tabindex="0" aria-label="Увеличить: Светлая фотозона с шарами" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openLightbox(this.parentElement); }">
+                    <img src="picture/new-year/Elegant%20New%20Year%20Balloon%20Backdrop.webp" alt="Светлая арочная панель, зелёные, белые и золотые шары, цветочные композиции и мишка." class="w-full h-full object-contain" width="1448" height="1086" loading="lazy" decoding="async">
+                    <div class="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-bold text-white">Новый год</div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6"><div><p class="text-white font-serif text-xl font-bold">Светлая фотозона с шарами</p><p class="text-white/70 text-sm mt-1">Светлая арочная панель, зелёные, белые и золотые шары, цветочные композиции и мишка.</p></div></div>
+                </div>
+            </div>
         </div>
 
         <div id="portfolio-desktop-controls" class="hidden justify-center gap-2 mt-10 reveal">
@@ -1686,6 +1756,10 @@
                 </h2>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <a href="fotazony-na-novyy-god-minsk/" class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
+                    <h3 class="font-serif text-xl font-bold text-brand-black">Новогодние фотозоны</h3>
+                    <p class="text-brand-muted mt-2 text-sm leading-relaxed">Фотозоны и праздничное оформление для новогодних корпоративов, ресторанов и частных мероприятий.</p>
+                </a>
                 <a href="fotazony-na-svadbu-minsk/"
                     class="p-6 bg-brand-ivory border border-brand-black/5 rounded-lg hover-lift">
                     <h3 class="font-serif text-xl font-bold text-brand-black">Фотозоны на свадьбу</h3>
@@ -2062,6 +2136,7 @@
                             <option>Юбилей</option>
                             <option>Детский праздник</option>
                             <option>Корпоратив</option>
+                            <option>Новый год</option>
                             <option>Оформление входной зоны</option>
                             <option>Другое</option>
                         </select>
@@ -2114,6 +2189,7 @@
                 <h4 class="font-bold text-lg mb-4 text-brand-black">Навигация</h4>
                 <ul class="space-y-3 text-brand-muted">
                     <li><a href="#portfolio" class="hover:text-brand-black transition-colors">Портфолио</a></li>
+                    <li><a href="fotazony-na-novyy-god-minsk/" class="hover:text-brand-black transition-colors">Новогодние фотозоны</a></li>
                     <li><a href="fotazony-na-svadbu-minsk/" class="hover:text-brand-black transition-colors">Фотозоны на
                             свадьбу</a></li>
                     <li><a href="fotazony-na-den-rozhdeniya-minsk/" class="hover:text-brand-black transition-colors">Дни
@@ -2282,6 +2358,7 @@
                     <option>Юбилей</option>
                     <option>Детский праздник</option>
                     <option>Корпоратив</option>
+                    <option>Новый год</option>
                     <option>Оформление входной зоны</option>
                     <option>Другое</option>
                 </select>
@@ -2343,6 +2420,7 @@
                     <option>Юбилей</option>
                     <option>Детский праздник</option>
                     <option>Корпоратив</option>
+                    <option>Новый год</option>
                     <option>Оформление входной зоны</option>
                     <option>Другое</option>
                 </select>
@@ -2396,6 +2474,7 @@
                     <option>Юбилей</option>
                     <option>Детский праздник</option>
                     <option>Корпоратив</option>
+                    <option>Новый год</option>
                     <option>Оформление входной зоны</option>
                     <option>Другое</option>
                 </select>
@@ -2413,7 +2492,7 @@
         </div>
     </div>
 
-    <script src="js/main.js?v=20260930-entrance"></script>
+    <script src="js/main.js?v=20261107-new-year"></script>
     <script src="js/back-to-top.js"></script>
 </body>
 
